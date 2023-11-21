@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 
 const reset = css`
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
   a {
     text-decoration: none;
     color: inherit;
@@ -37,7 +39,7 @@ const reset = css`
   }
   body {
     line-height: 1.5;
-    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
   }
   ol,
   ul {
