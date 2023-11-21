@@ -1,4 +1,3 @@
-import React from 'react';
 import { Global, ThemeProvider } from '@emotion/react';
 import { BrowserRouter } from 'react-router-dom';
 import reset from './styles/reset';
