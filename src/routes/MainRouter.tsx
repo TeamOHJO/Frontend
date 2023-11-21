@@ -1,11 +1,9 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
-import Footer from '../components/Layout/Footer';
 
 function Dashboard() {
   return (
     <>
       <Outlet />
-      <Footer />
     </>
   );
 }
