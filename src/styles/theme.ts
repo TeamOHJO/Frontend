@@ -74,5 +74,8 @@ export const theme = {
     shadow3: {
       shadow: '0px 12px 40px rgba(0, 0, 0, 0.12)',
     },
+    shadowTop: {
+      shadow: '0px -1px 8px rgba(0, 0, 0, 0.04)',
+    },
   },
 };
