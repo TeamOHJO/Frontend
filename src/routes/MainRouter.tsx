@@ -2,7 +2,7 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { theme } from '../styles/theme';
 import Navigation from '../components/Layout/Navigation';
-
+import Test from '../pages/test/Test';
 
 function Dashboard() {
   return (
@@ -20,6 +20,7 @@ function MainRouter() {
         <Routes>
           <Route path="/" element={<Dashboard />}>
             <Route index element={<>This is home!</>} />
+            <Route path="/test" element={<Test />} />
           </Route>
         </Routes>
       </StyledInnerContainer>
