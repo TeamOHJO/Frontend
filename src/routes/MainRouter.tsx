@@ -2,7 +2,7 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { theme } from '../styles/theme';
 import Navigation from '../components/Layout/Navigation';
-
+import Accommodation from '../pages/Accommodation';
 
 function Dashboard() {
   return (
@@ -21,6 +21,7 @@ function MainRouter() {
           <Route path="/" element={<Dashboard />}>
             <Route index element={<>This is home!</>} />
           </Route>
+          <Route path="/accommodation/:id" element={<Accommodation />} />
         </Routes>
       </StyledInnerContainer>
     </StyledContainer>
@@ -44,7 +45,6 @@ const StyledInnerContainer = styled.div`
   align-items: center;
   position: relative;
   overflow-y: auto;
-  padding: 1rem;
   width: 768px;
   height: 100vh;
   background-color: ${theme.colors.white};
