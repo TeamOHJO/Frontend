@@ -3,24 +3,27 @@ import styled from '@emotion/styled';
 import { theme } from '../styles/theme';
 import Navigation from '../components/Layout/Navigation';
 
+
 function Dashboard() {
   return (
-    <StyledContainer>
-      <StyledInnerContainer>
-        <Outlet />
-        <Navigation />
-      </StyledInnerContainer>
-    </StyledContainer>
+    <>
+      <Outlet />
+      <Navigation />
+    </>
   );
 }
 
 function MainRouter() {
   return (
-    <Routes>
-      <Route path="/" element={<Dashboard />}>
-        <Route index element={<>This is home!</>} />
-      </Route>
-    </Routes>
+    <StyledContainer>
+      <StyledInnerContainer>
+        <Routes>
+          <Route path="/" element={<Dashboard />}>
+            <Route index element={<>This is home!</>} />
+          </Route>
+        </Routes>
+      </StyledInnerContainer>
+    </StyledContainer>
   );
 }
 
