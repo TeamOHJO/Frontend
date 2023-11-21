@@ -1,15 +1,18 @@
 import React from 'react';
-import './App.css';
+import { Global, ThemeProvider } from '@emotion/react';
 import { BrowserRouter } from 'react-router-dom';
+import reset from './styles/reset';
+import { theme } from './styles/theme';
 import MainRouter from './routes/MainRouter';
 
 function App() {
   return (
-    <>
+    <ThemeProvider theme={theme}>
+      <Global styles={reset} />
       <BrowserRouter>
-        <MainRouter></MainRouter>
+        <MainRouter />
       </BrowserRouter>
-    </>
+    </ThemeProvider>
   );
 }
 

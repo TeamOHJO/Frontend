@@ -1,25 +1,24 @@
+import React from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import Footer from '../components/Layout/Footer';
+import Navigation from '../components/Layout/Navigation';
 
 function Dashboard() {
   return (
     <>
       <Outlet />
-      <Footer />
+      <Navigation />
     </>
   );
 }
 
-const MainRouter = () => {
+function MainRouter() {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Dashboard />}>
-          <Route index element={<></>} />
-        </Route>
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Dashboard />}>
+        <Route index element={<>This is home!</>} />
+      </Route>
+    </Routes>
   );
-};
+}
 
 export default MainRouter;
