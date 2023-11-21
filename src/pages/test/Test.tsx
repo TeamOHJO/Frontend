@@ -1,13 +1,9 @@
+import { useState } from 'react';
 import {
   Button,
   Heading,
   Text,
-  Alert,
-  AlertIcon,
-  CloseButton,
-  AlertDescription,
   useDisclosure,
-
   Modal,
   ModalOverlay,
   ModalContent,
@@ -16,9 +12,23 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react';
+import ToastPopup from '../../components/modal/ToastPopup';
 
 const Test = () => {
   const { onClose } = useDisclosure();
+
+  const [showAlert, setShowAlert] = useState({
+    active: false,
+    message: '',
+  });
+
+  const openFunction = () => {
+    const toastData = {
+      active: true,
+      message: '탈퇴되었습니다.',
+    };
+    setShowAlert(toastData);
+  };
 
   return (
     <>
@@ -126,16 +136,10 @@ const Test = () => {
       <Heading as="h3" size="lg">
         토스트팝업 사용 예시
       </Heading>
-      <Alert borderRadius={4} height="64px" bg="alert" width="320px">
-        <AlertIcon />
-        <AlertDescription>탈퇴되었습니다.</AlertDescription>
-        <CloseButton
-          alignSelf="flex-end"
-          position="absolute"
-          right={1}
-          top={1}
-        />
-      </Alert>
+      <Button variant="blue" size="sm" width="60px" onClick={openFunction}>
+        토스트 팝업
+      </Button>
+      <ToastPopup status={showAlert} setFunc={setShowAlert} />
 
       <br />
 
@@ -143,18 +147,9 @@ const Test = () => {
         모달 사용 예시
       </Heading>
 
-      <Modal
-        isOpen
-        onClose={onClose}
-        isCentered
-        motionPreset="slideInBottom"
-      >
+      <Modal isOpen onClose={onClose} isCentered motionPreset="slideInBottom">
         <ModalOverlay background="none" />
-        <ModalContent
-          width="280px"
-          border="1px solid"
-          borderColor="#B8B8B8"
-        >
+        <ModalContent width="280px" border="1px solid" borderColor="#B8B8B8">
           <ModalHeader fontSize="lg">회원 탈퇴</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -165,12 +160,7 @@ const Test = () => {
             <Button variant="grayFull" onClick={onClose} width="auto">
               아니오
             </Button>
-            <Button
-              colorScheme="blue"
-              size="md"
-              onClick={onClose}
-              width="auto"
-            >
+            <Button colorScheme="blue" size="md" onClick={onClose} width="auto">
               예
             </Button>
           </ModalFooter>
