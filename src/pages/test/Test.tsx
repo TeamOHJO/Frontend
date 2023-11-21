@@ -1,21 +1,19 @@
 import { useState } from 'react';
 import {
-  Button,
-  Heading,
-  Text,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
+  Button, Heading, Text, useDisclosure,
 } from '@chakra-ui/react';
 import ToastPopup from '../../components/modal/ToastPopup';
+import DefaultModal from '../../components/modal/DefaultModal';
 
 const Test = () => {
-  const { onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const modalData = {
+    heading: '회원 탈퇴',
+    text: '회원을 탈퇴하시겠습니까?',
+  };
+  const modalFunc = () => {
+    console.log('모달 승인 시 실행될 함수 입니다.');
+  };
 
   const [showAlert, setShowAlert] = useState({
     active: false,
@@ -146,26 +144,15 @@ const Test = () => {
       <Heading as="h3" size="lg">
         모달 사용 예시
       </Heading>
-
-      <Modal isOpen onClose={onClose} isCentered motionPreset="slideInBottom">
-        <ModalOverlay background="none" />
-        <ModalContent width="280px" border="1px solid" borderColor="#B8B8B8">
-          <ModalHeader fontSize="lg">회원 탈퇴</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Text size="md">회원을 탈퇴하시겠습니까?</Text>
-          </ModalBody>
-
-          <ModalFooter gap="10px">
-            <Button variant="grayFull" onClick={onClose} width="auto">
-              아니오
-            </Button>
-            <Button colorScheme="blue" size="md" onClick={onClose} width="auto">
-              예
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <Button variant="blue" size="sm" width="60px" onClick={onOpen}>
+        모달
+      </Button>
+      <DefaultModal
+        isOpen={isOpen}
+        onClose={onClose}
+        modalFunc={modalFunc}
+        modalData={modalData}
+      />
     </>
   );
 };
