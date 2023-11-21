@@ -9,3 +9,15 @@ export interface AlertData {
   active: boolean;
   message: string;
 }
+
+export interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  modalFunc: () => void;
+  modalData: ModalDataProps;
+}
+
+export interface ModalDataProps {
+  heading: string;
+  text: string;
+}
