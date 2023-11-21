@@ -36,7 +36,7 @@ const reset = css`
     box-sizing: border-box;
   }
   body {
-    line-height: 1;
+    line-height: 1.5;
     font-family: 'IBM Plex Sans KR', sans-serif;
   }
   ol,
