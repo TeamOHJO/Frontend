@@ -162,6 +162,34 @@ export const chakraTheme = extendTheme({
         margin: 0,
       },
     },
+    Badge: {
+      baseStyle: {
+        fontWeight: 'bold',
+        fontSize: 'xs',
+      },
+      variants: {
+        gray: {
+          backgroundColor: 'gray.100',
+          color: 'gray.800',
+        },
+        teal: {
+          backgroundColor: 'teal.100',
+          color: 'teal.800',
+        },
+        blue: {
+          backgroundColor: 'blue.100',
+          color: 'blue.800',
+        },
+        green: {
+          backgroundColor: 'green.100',
+          color: 'green.800',
+        },
+        red: {
+          backgroundColor: 'red.100',
+          color: 'red.800',
+        },
+      },
+    },
   },
   styles: {
     global: {
