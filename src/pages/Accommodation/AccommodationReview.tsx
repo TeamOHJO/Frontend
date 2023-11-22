@@ -1,34 +1,45 @@
 import styled from '@emotion/styled';
-import { theme } from '../../styles/theme';
+import { Heading, Button } from '@chakra-ui/react';
+import AccommodationReviewItem from './AccommodationReviewItem';
 
 function AccommodationReview() {
   const array: number[] = [1, 2, 3, 4, 5];
 
   return (
-    <AccommodationReviewWrapper>
-      타이틀
-      <AccommodationReviewItemsContainer>
-        <AccommodationReviewItemsWrapper>
+    <StyledAccommodationReviewWrapper>
+      <StyledAccommodationReviewTitle>
+        <Heading as="h4" size="lg">
+          후기
+        </Heading>
+      </StyledAccommodationReviewTitle>
+      <StyledAccommodationReviewItemsContainer>
+        <StyledAccommodationReviewItemsWrapper>
           {array.map((i: number) => (
-            <AccommodationReviewItem key={i}>{i}</AccommodationReviewItem>
+            <AccommodationReviewItem key={i} />
           ))}
-        </AccommodationReviewItemsWrapper>
-      </AccommodationReviewItemsContainer>
-      전체보기
-    </AccommodationReviewWrapper>
+        </StyledAccommodationReviewItemsWrapper>
+      </StyledAccommodationReviewItemsContainer>
+      <StyledAccommodationReviewMoreBtnWrapper>
+        <Button
+          variant="blue"
+          size="lg"
+          style={{ width: '260px', height: '40px' }}
+        >
+          후기 전체보기
+        </Button>
+      </StyledAccommodationReviewMoreBtnWrapper>
+    </StyledAccommodationReviewWrapper>
   );
 }
 
 export default AccommodationReview;
 
-const AccommodationReviewWrapper = styled.div`
+const StyledAccommodationReviewWrapper = styled.div`
   width: 100%;
-  height: 280px;
   overflow: hidden;
-  background-color: ${theme.colors.gray100};
 `;
 
-const AccommodationReviewItemsContainer = styled.div`
+const StyledAccommodationReviewItemsContainer = styled.div`
   width: 100%;
   height: 240px;
 
@@ -36,7 +47,7 @@ const AccommodationReviewItemsContainer = styled.div`
   overflow-x: scroll;
 `;
 
-const AccommodationReviewItemsWrapper = styled.div`
+const StyledAccommodationReviewItemsWrapper = styled.div`
   width: 300%;
   height: 220px;
 
@@ -44,15 +55,13 @@ const AccommodationReviewItemsWrapper = styled.div`
   flex-wrap: nowrap;
 `;
 
-const AccommodationReviewItem = styled.div`
-  width: 50%;
-  min-width: 350px;
-  height: 200px;
-
-  border-radius: 15px;
-
-  margin: 1rem;
+const StyledAccommodationReviewTitle = styled.div`
   padding: 1rem;
+`;
 
-  background-color: ${theme.colors.white};
+const StyledAccommodationReviewMoreBtnWrapper = styled.div`
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
