@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {
-  Button, Heading, Text, useDisclosure,
+  Button, Heading, Text, useDisclosure, Badge,
 } from '@chakra-ui/react';
 import ToastPopup from '../../components/modal/ToastPopup';
 import DefaultModal from '../../components/modal/DefaultModal';
@@ -129,6 +129,18 @@ const Test = () => {
       <Button variant="navy" size="xs">
         국외
       </Button>
+      <br />
+
+      <Heading as="h3" size="lg">
+        뱃지 사용 예시
+      </Heading>
+
+      <Badge variant="gray">호텔/리조트</Badge>
+      <Badge variant="teal">한옥</Badge>
+      <Badge variant="blue">펜션/풀빌라</Badge>
+      <Badge variant="green">모텔</Badge>
+      <Badge variant="red">게스트하우스</Badge>
+
       <br />
 
       <Heading as="h3" size="lg">
