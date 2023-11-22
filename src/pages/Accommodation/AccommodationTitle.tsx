@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { StarFilled } from '@ant-design/icons';
 import { Badge, Heading, Text } from '@chakra-ui/react';
-import { theme } from '../../../styles/theme';
+import { theme } from '../../styles/theme';
 
 function AccommodationTitle() {
   return (

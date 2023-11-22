@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
-import AccommodationNavi from './components/AccommodationNavi';
-import AccommodationMainImages from './components/AccommodationMainImg';
-import AccommodationTitle from './components/AccommodationTitle';
-import AccommodationSelect from './components/AccommodationSelect';
-import AccommodationRooms from './components/AccommodationRooms';
-import AccommodationReview from './components/AccommodationReview';
-import AccommodationInfo from './components/AccommodationInfo';
+import AccommodationNavi from './AccommodationNavi';
+import AccommodationMainImages from './AccommodationMainImg';
+import AccommodationTitle from './AccommodationTitle';
+import AccommodationSelect from './AccommodationSelect';
+import AccommodationRooms from './AccommodationRooms';
+import AccommodationReview from './AccommodationReview';
+import AccommodationInfo from './AccommodationInfo';
 
 function Accommodation() {
   return (

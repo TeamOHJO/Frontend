@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import RoomNavi from './components/RoomNavi';
-import RoomMainImg from './components/RoomMainImg';
-import RoomTitle from './components/RoomTitle';
-import RoomSelectedInfo from './components/RoomSelectedInfo';
-import RoomInfo from './components/RoomInfo';
-import RoomBottomNavi from './components/RoomBottomNavi';
+import RoomNavi from './RoomNavi';
+import RoomMainImg from './RoomMainImg';
+import RoomTitle from './RoomTitle';
+import RoomSelectedInfo from './RoomSelectedInfo';
+import RoomInfo from './RoomInfo';
+import RoomBottomNavi from './RoomBottomNavi';
 
 function Room() {
   return (

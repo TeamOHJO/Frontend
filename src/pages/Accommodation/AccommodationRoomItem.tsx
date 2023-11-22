@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import { StarFilled, ShoppingCartOutlined } from '@ant-design/icons';
 import { Heading, Text, Button } from '@chakra-ui/react';
-import { theme } from '../../../styles/theme';
+import { theme } from '../../styles/theme';
 
 function AccommodationRoomItem() {
   const [cartHover, setCartHover] = useState(false);
@@ -85,7 +85,7 @@ const StyledAccommodationRoomImg = styled.div`
 const StyledAccommodationRoomTitle = styled.div`
   width: 100%;
   height: 100px;
-  padding: 1rem;
+  padding: 0.8rem;
 `;
 
 const StyledAccommodationRoomTitleBox = styled.div`
@@ -97,6 +97,7 @@ const StyledAccommodationRoomTitleBox = styled.div`
 
 const StyledStarDigit = styled.span`
   margin-left: 0.5rem;
+  margin-right: 0.5rem;
   font-size: 0.8rem;
 `;
 

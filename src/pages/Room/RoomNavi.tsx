@@ -4,7 +4,7 @@ import {
   HomeOutlined,
   ShoppingCartOutlined,
 } from '@ant-design/icons';
-import { theme } from '../../../styles/theme';
+import { theme } from '../../styles/theme';
 
 function RoomNavi() {
   return (

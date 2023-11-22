@@ -4,7 +4,7 @@ import {
   HomeOutlined,
   ShoppingCartOutlined,
 } from '@ant-design/icons';
-import { theme } from '../../../styles/theme';
+import { theme } from '../../styles/theme';
 
 function AccommodationNavi() {
   return (
@@ -36,6 +36,7 @@ const AccommodationNaviWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 2;
 `;
 
 const AccommodationNaviLeft = styled.div`
