@@ -2,46 +2,49 @@ import React from 'react';
 import {
   Card,
   Image,
-  CardBody,
-  CardFooter,
-  Stack,
   Heading,
   Text,
-  Button,
+  Badge,
+  Box,
+  CardBody,
+  Stack,
 } from '@chakra-ui/react';
+import { EnvironmentOutlined, HeartFilled } from '@ant-design/icons';
 
 function WishListCard() {
   return (
-    <Card
-      direction={{ base: 'column', sm: 'row' }}
-      overflow="hidden"
-      variant="outline"
-      padding={8}
-    >
-      <Image
-        boxSize="110px"
-        objectFit="cover"
-        borderRadius={8}
-        src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-        alt="Caffe Latte"
-      />
-
-      <Stack>
-        <CardBody>
-          <Heading size="md">The perfect latte</Heading>
-
-          <Text py="2">
-            Caffè latte is a coffee beverage of Italian origin made with
-            espresso and steamed milk.
+    <Card size="sm">
+      <CardBody display="flex" flexDirection="row" gap={3}>
+        <Image
+          boxSize="110px"
+          objectFit="cover"
+          borderRadius={8}
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD3JBW-cAhYqwYXsEK9AosV69_t1SNqh5RYA&usqp=CAU"
+          alt="Accomodation Photo"
+        />
+        <Stack width="100%">
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Heading size="sm">일본 도쿄 Nakano City</Heading>
+            <HeartFilled style={{ fontSize: '20px', color: 'blue.600' }} />
+          </Box>
+          <Box textAlign="left">
+            <Badge variant="blue">펜션/풀빌라</Badge>
+          </Box>
+          <Box display="flex" alignItems="center" gap={1}>
+            <EnvironmentOutlined />
+            <Text as="span" size="xs" color="gray.84">
+              강원도 강릉시 옥계면 헌화로 455-34
+            </Text>
+          </Box>
+          <Text as="span" size="sm" color="gray.84" textAlign="right">
+            ·최소 금액 ￦99,000원
           </Text>
-        </CardBody>
-
-        <CardFooter>
-          <Button variant="solid" colorScheme="blue">
-            Buy Latte
-          </Button>
-        </CardFooter>
-      </Stack>
+        </Stack>
+      </CardBody>
     </Card>
   );
 }
