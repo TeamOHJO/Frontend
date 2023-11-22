@@ -1,13 +1,15 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { theme } from '../styles/theme';
-import Navigation from '../components/Layout/Navigation';
+import Navigation from '../components/layout/Navigation';
 import Test from '../pages/test/Test';
+import Footer from '../components/layout/Footer';
 
 function Dashboard() {
   return (
     <>
       <Outlet />
+      <Footer />
       <Navigation />
     </>
   );
@@ -47,7 +49,6 @@ const StyledInnerContainer = styled.div`
   overflow-y: auto;
   padding: 1rem;
   width: 768px;
-  height: 100vh;
   background-color: ${theme.colors.white};
   box-shadow: ${theme.shadows.shadow1.shadow};
 
