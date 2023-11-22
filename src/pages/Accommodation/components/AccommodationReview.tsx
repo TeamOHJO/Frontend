@@ -45,7 +45,8 @@ const AccommodationReviewItemsWrapper = styled.div`
 `;
 
 const AccommodationReviewItem = styled.div`
-  width: 40%;
+  width: 50%;
+  min-width: 350px;
   height: 200px;
 
   border-radius: 15px;
