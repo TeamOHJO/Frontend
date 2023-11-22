@@ -1,7 +1,13 @@
 import React from 'react';
+import WishListCard from './WishListCard';
 
 function WishList() {
-  return <div>WishList</div>;
+  return (
+    <>
+      <WishListCard />
+      <WishListCard />
+    </>
+  );
 }
 
 export default WishList;
