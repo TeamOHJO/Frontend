@@ -25,9 +25,11 @@ function AccommodationNavi() {
 export default AccommodationNavi;
 
 const AccommodationNaviWrapper = styled.div`
-  position: sticky;
+  position: fixed;
+  top: 0;
 
   width: 100%;
+  max-width: 768px;
   height: 60px;
   background-color: ${theme.colors.white};
 
