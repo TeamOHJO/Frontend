@@ -4,6 +4,7 @@ import { theme } from '../styles/theme';
 import Navigation from '../components/Layout/Navigation';
 import Footer from '../components/Layout/Footer';
 import Test from '../pages/test/Test';
+import Login from '../pages/Login';
 
 function Dashboard() {
   return (
@@ -23,6 +24,7 @@ function MainRouter() {
           <Route path="/" element={<Dashboard />}>
             <Route index element={<>This is home!</>} />
             <Route path="/test" element={<Test />} />
+            <Route path="/login" element={<Login />} />
           </Route>
         </Routes>
       </StyledInnerContainer>
