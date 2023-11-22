@@ -34,7 +34,6 @@ const Test = () => {
       <br />
       <Heading as="h3" size="lg">
         타이틀 사용 예시
-        {' '}
         {/* 원하는 옵션에 맞춰 쓸 것 */}
       </Heading>
 
