@@ -1,8 +1,8 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { theme } from '../styles/theme';
-import Navigation from '../components/layout/Navigation';
-import Footer from '../components/layout/Footer';
+import Navigation from '../components/Layout/Navigation';
+import Footer from '../components/Layout/Footer';
 import Test from '../pages/test/Test';
 
 function Dashboard() {
