@@ -49,6 +49,7 @@ const StyledInnerContainer = styled.div`
   overflow-y: auto;
   padding: 1rem;
   width: 768px;
+  min-height: 100vh;
   background-color: ${theme.colors.white};
   box-shadow: ${theme.shadows.shadow1.shadow};
 
