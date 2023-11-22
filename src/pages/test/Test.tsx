@@ -2,8 +2,8 @@ import { useState } from 'react';
 import {
   Button, Heading, Text, useDisclosure, Badge,
 } from '@chakra-ui/react';
-import ToastPopup from '../../components/modal/ToastPopup';
-import DefaultModal from '../../components/modal/DefaultModal';
+import ToastPopup from '../../components/Modal/ToastPopup';
+import DefaultModal from '../../components/Modal/DefaultModal';
 
 const Test = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
