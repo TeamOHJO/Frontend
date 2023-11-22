@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Heading } from '@chakra-ui/react';
-import { theme } from '../../../styles/theme';
+import { CalendarOutlined } from '@ant-design/icons';
 
 function AccommodationSelect() {
   return (
@@ -11,8 +11,15 @@ function AccommodationSelect() {
         </Heading>
       </StyledAccommodationSelectTitle>
       <StyledAccommodationSelectBox>
-        <StyledAccommodationSelectBoxLeft>1</StyledAccommodationSelectBoxLeft>
-        <StyledAccommodationSelectBoxRight>2</StyledAccommodationSelectBoxRight>
+        <StyledAccommodationSelectBoxLeft>
+          <StyledAccommodationSelectBoxLeftSpan>
+            11.22(수)~11월23일(목)·1박
+          </StyledAccommodationSelectBoxLeftSpan>
+          <CalendarOutlined style={{ fontSize: '20px' }} />
+        </StyledAccommodationSelectBoxLeft>
+        <StyledAccommodationSelectBoxRight>
+          2명
+        </StyledAccommodationSelectBoxRight>
       </StyledAccommodationSelectBox>
     </StyledAccommodationSelectWrapper>
   );
@@ -22,8 +29,6 @@ export default AccommodationSelect;
 
 const StyledAccommodationSelectWrapper = styled.div`
   width: 100%;
-
-  background-color: ${theme.colors.gray100};
 `;
 
 const StyledAccommodationSelectTitle = styled.div`
@@ -37,6 +42,11 @@ const StyledAccommodationSelectBox = styled.div`
   border-bottom: 1px solid #cecece;
   display: flex;
   justify-content: center;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
 `;
 
 const StyledAccommodationSelectBoxLeft = styled.div`
@@ -47,6 +57,9 @@ const StyledAccommodationSelectBoxLeft = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+const StyledAccommodationSelectBoxLeftSpan = styled.span`
+  margin-right: 1rem;
 `;
 
 const StyledAccommodationSelectBoxRight = styled.div`
