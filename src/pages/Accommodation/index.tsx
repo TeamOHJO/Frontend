@@ -25,5 +25,6 @@ export default Accommodation;
 
 const AccommodationWrapper = styled.div`
   width: 100%;
+  padding-top: 60px;
   position: relative;
 `;
