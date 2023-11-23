@@ -9,7 +9,7 @@ import AccommodationInfo from './AccommodationInfo';
 
 function Accommodation() {
   return (
-    <AccommodationWrapper>
+    <StyledAccommodationWrapper>
       <AccommodationNavi />
       <AccommodationMainImages />
       <AccommodationTitle />
@@ -17,13 +17,13 @@ function Accommodation() {
       <AccommodationRooms />
       <AccommodationReview />
       <AccommodationInfo />
-    </AccommodationWrapper>
+    </StyledAccommodationWrapper>
   );
 }
 
 export default Accommodation;
 
-const AccommodationWrapper = styled.div`
+const StyledAccommodationWrapper = styled.div`
   width: 100%;
   padding-top: 60px;
   position: relative;

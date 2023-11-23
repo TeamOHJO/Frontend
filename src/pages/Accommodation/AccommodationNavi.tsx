@@ -8,23 +8,23 @@ import { theme } from '../../styles/theme';
 
 function AccommodationNavi() {
   return (
-    <AccommodationNaviWrapper>
-      <AccommodationNaviLeft>
+    <StyledAccommodationNaviWrapper>
+      <StyledAccommodationNaviLeft>
         <ArrowLeftOutlined style={{ fontSize: '24px', cursor: 'pointer' }} />
-      </AccommodationNaviLeft>
-      <AccommodationNaviRight>
+      </StyledAccommodationNaviLeft>
+      <StyledAccommodationNaviRight>
         <HomeOutlined
           style={{ fontSize: '24px', marginRight: '1rem', cursor: 'pointer' }}
         />
         <ShoppingCartOutlined style={{ fontSize: '24px', cursor: 'pointer' }} />
-      </AccommodationNaviRight>
-    </AccommodationNaviWrapper>
+      </StyledAccommodationNaviRight>
+    </StyledAccommodationNaviWrapper>
   );
 }
 
 export default AccommodationNavi;
 
-const AccommodationNaviWrapper = styled.div`
+const StyledAccommodationNaviWrapper = styled.div`
   position: fixed;
   top: 0;
 
@@ -39,10 +39,10 @@ const AccommodationNaviWrapper = styled.div`
   z-index: 2;
 `;
 
-const AccommodationNaviLeft = styled.div`
+const StyledAccommodationNaviLeft = styled.div`
   margin-left: 1rem;
 `;
 
-const AccommodationNaviRight = styled.div`
+const StyledAccommodationNaviRight = styled.div`
   margin-right: 1rem;
 `;

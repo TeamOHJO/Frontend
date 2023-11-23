@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { StarFilled, ShoppingCartOutlined } from '@ant-design/icons';
+import { StarFilled } from '@ant-design/icons';
 import { Heading, Text, Button } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
+import SwiperComponent from '../../components/Swiper/SwiperComponent';
 
 function AccommodationRoomItem() {
   const [cartHover, setCartHover] = useState(false);
@@ -15,9 +16,17 @@ function AccommodationRoomItem() {
     setCartHover(false);
   };
 
+  const images: string[] = [
+    'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
+    'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
+    'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
+    'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
+  ];
   return (
     <StyledAccommodationRoomItemWrapper>
-      <StyledAccommodationRoomImg />
+      <StyledAccommodationRoomImg>
+        <SwiperComponent borderRadius="15px" images={images} />
+      </StyledAccommodationRoomImg>
       <StyledAccommodationRoomTitle>
         <StyledAccommodationRoomTitleBox style={{ marginBottom: '0.5rem' }}>
           <Heading as="h4" size="sm">
@@ -41,7 +50,8 @@ function AccommodationRoomItem() {
           </div>
           <StyledAccommodationRoomTitleBoxItem>
             {/* 툴팁 작업 필요 */}
-            <ShoppingCartOutlined
+            <span
+              className="material-symbols-outlined"
               style={{
                 fontSize: '30px',
                 color: cartHover
@@ -52,7 +62,9 @@ function AccommodationRoomItem() {
               }}
               onMouseEnter={handleCartMouseEnter}
               onMouseLeave={handleCartMouseLeave}
-            />
+            >
+              add_shopping_cart
+            </span>
             <Button
               variant="blue"
               size="lg"
@@ -77,9 +89,9 @@ const StyledAccommodationRoomItemWrapper = styled.div`
 
 const StyledAccommodationRoomImg = styled.div`
   width: 100%;
-  height: 300px;
+  height: 350px;
   border-radius: 15px;
-  background-color: ${theme.colors.gray100};
+  box-shadow: ${theme.shadows.shadow1.shadow};
 `;
 
 const StyledAccommodationRoomTitle = styled.div`

@@ -8,30 +8,30 @@ interface InfoProps {
 
 function RoomInfoText({ title, content }: InfoProps) {
   return (
-    <RoomInfoTextWrapper>
-      <RoomInfoTextTitle>{title}</RoomInfoTextTitle>
-      <RoomInfoTextContent>{content}</RoomInfoTextContent>
+    <StyledRoomInfoTextWrapper>
+      <StyledRoomInfoTextTitle>{title}</StyledRoomInfoTextTitle>
+      <StyledRoomInfoTextContent>{content}</StyledRoomInfoTextContent>
       전체보기
-    </RoomInfoTextWrapper>
+    </StyledRoomInfoTextWrapper>
   );
 }
 
 export default RoomInfoText;
 
-const RoomInfoTextWrapper = styled.div`
+const StyledRoomInfoTextWrapper = styled.div`
   width: 100%;
   padding: 2rem;
   margin: 1rem 0;
   background-color: ${theme.colors.blue100};
 `;
 
-const RoomInfoTextTitle = styled.h3`
+const StyledRoomInfoTextTitle = styled.h3`
   width: 100%;
   margin-bottom: 1rem;
   text-align: left;
 `;
 
-const RoomInfoTextContent = styled.p`
+const StyledRoomInfoTextContent = styled.p`
   width: 100%;
   margin-left: 0.5rem;
   text-align: left;

@@ -3,16 +3,16 @@ import { theme } from '../../styles/theme';
 
 function RoomBottomNavi() {
   return (
-    <RoomBottomNaviWrapper>
-      <RoomBottomNaviLeft />
-      <RoomBottomNaviRight />
-    </RoomBottomNaviWrapper>
+    <StyledRoomBottomNaviWrapper>
+      <StyledRoomBottomNaviLeft />
+      <StyledRoomBottomNaviRight />
+    </StyledRoomBottomNaviWrapper>
   );
 }
 
 export default RoomBottomNavi;
 
-const RoomBottomNaviWrapper = styled.div`
+const StyledRoomBottomNaviWrapper = styled.div`
   position: fixed;
   bottom: 0;
 
@@ -26,10 +26,10 @@ const RoomBottomNaviWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const RoomBottomNaviLeft = styled.div`
+const StyledRoomBottomNaviLeft = styled.div`
   margin-left: 1rem;
 `;
 
-const RoomBottomNaviRight = styled.div`
+const StyledRoomBottomNaviRight = styled.div`
   margin-right: 1rem;
 `;

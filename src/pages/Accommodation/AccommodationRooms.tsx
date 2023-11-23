@@ -5,17 +5,17 @@ import AccommodationRoomItem from './AccommodationRoomItem';
 function AccommodationRooms() {
   const array = [1, 2, 3, 4, 5];
   return (
-    <AccommodationRoomsWrapper>
+    <StyledAccommodationRoomsWrapper>
       {array.map((i: number) => (
         <AccommodationRoomItem key={i} />
       ))}
-    </AccommodationRoomsWrapper>
+    </StyledAccommodationRoomsWrapper>
   );
 }
 
 export default AccommodationRooms;
 
-const AccommodationRoomsWrapper = styled.div`
+const StyledAccommodationRoomsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

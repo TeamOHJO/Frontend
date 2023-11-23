@@ -8,20 +8,20 @@ import RoomBottomNavi from './RoomBottomNavi';
 
 function Room() {
   return (
-    <RoomContainer>
+    <StyledRoomContainer>
       <RoomNavi />
       <RoomMainImg />
       <RoomTitle />
       <RoomSelectedInfo />
       <RoomInfo />
       <RoomBottomNavi />
-    </RoomContainer>
+    </StyledRoomContainer>
   );
 }
 
 export default Room;
 
-const RoomContainer = styled.div`
+const StyledRoomContainer = styled.div`
   width: 100%;
   padding: 60px 0;
   position: relative;

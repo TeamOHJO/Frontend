@@ -8,23 +8,23 @@ import { theme } from '../../styles/theme';
 
 function RoomNavi() {
   return (
-    <RoomNaviWrapper>
-      <RoomNaviLeft>
+    <StyledRoomNaviWrapper>
+      <StyledRoomNaviLeft>
         <ArrowLeftOutlined style={{ fontSize: '24px', cursor: 'pointer' }} />
-      </RoomNaviLeft>
-      <RoomNaviRight>
+      </StyledRoomNaviLeft>
+      <StyledRoomNaviRight>
         <HomeOutlined
           style={{ fontSize: '24px', marginRight: '1rem', cursor: 'pointer' }}
         />
         <ShoppingCartOutlined style={{ fontSize: '24px', cursor: 'pointer' }} />
-      </RoomNaviRight>
-    </RoomNaviWrapper>
+      </StyledRoomNaviRight>
+    </StyledRoomNaviWrapper>
   );
 }
 
 export default RoomNavi;
 
-const RoomNaviWrapper = styled.div`
+const StyledRoomNaviWrapper = styled.div`
   position: fixed;
   top: 0;
 
@@ -38,10 +38,10 @@ const RoomNaviWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const RoomNaviLeft = styled.div`
+const StyledRoomNaviLeft = styled.div`
   margin-left: 1rem;
 `;
 
-const RoomNaviRight = styled.div`
+const StyledRoomNaviRight = styled.div`
   margin-right: 1rem;
 `;
