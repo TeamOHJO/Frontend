@@ -3,10 +3,13 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { theme } from '../styles/theme';
 import Navigation from '../components/Layout/Navigation';
+import Accommodation from '../pages/Accommodation';
 import Footer from '../components/Layout/Footer';
+import Home from '../pages/Home';
 import Test from '../pages/test/Test';
 import Basket from '../pages/Basket';
 import WishList from '../pages/WishList';
+import Room from '../pages/Room';
 
 function Dashboard() {
   return (
@@ -24,12 +27,15 @@ function MainRouter() {
       <StyledInnerContainer>
         <Routes>
           <Route path="/" element={<Dashboard />}>
-            <Route index element={<>This is home!</>} />
+            <Route index element={<Home />} />
+            <Route path="/:id" element={<Home />} />
             <Route path="/test" element={<Test />} />
             <Route path="/wishlist" element={<WishList />} />
             {/* 장바구니는 라우터 작업 완료 후 푸터 없이 갈 예정 */}
             <Route path="/basket" element={<Basket />} />
           </Route>
+          <Route path="/accommodation/:id" element={<Accommodation />} />
+          <Route path="/accommodation/:id/:id" element={<Room />} />
         </Routes>
       </StyledInnerContainer>
     </StyledContainer>
@@ -53,14 +59,12 @@ const StyledInnerContainer = styled.div`
   align-items: center;
   position: relative;
   overflow-y: auto;
-  padding: 1rem;
-  width: 768px;
-  min-height: 100vh;
+  width: ${theme.device.tablet};
 
   background-color: ${theme.colors.white};
   box-shadow: ${theme.shadows.shadow1.shadow};
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: ${theme.device.tablet}) {
     width: 100%;
   }
 `;
