@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { theme } from '../../styles/theme';
+
 import RoomInfoText from './RoomInfoText';
 
 interface InfoObject {
@@ -17,7 +17,6 @@ function RoomInfo() {
     <StyledRoomInfoWrapper>
       <RoomInfoText title={infoObject.title} content={infoObject.content} />
       <RoomInfoText title={infoObject.title} content={infoObject.content} />
-      <RoomInfoText title={infoObject.title} content={infoObject.content} />
     </StyledRoomInfoWrapper>
   );
 }
@@ -26,6 +25,5 @@ export default RoomInfo;
 
 const StyledRoomInfoWrapper = styled.div`
   width: 100%;
-
-  background-color: ${theme.colors.blue100};
+  padding: 1rem;
 `;
