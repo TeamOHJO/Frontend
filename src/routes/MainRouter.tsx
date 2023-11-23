@@ -9,6 +9,7 @@ import Test from '../pages/test/Test';
 import Basket from '../pages/Basket';
 import WishList from '../pages/WishList';
 import Room from '../pages/Room';
+import CustomerReview from '../pages/customerReview';
 
 function Dashboard() {
   return (
@@ -34,6 +35,7 @@ function MainRouter() {
           </Route>
           <Route path="/accommodation/:id" element={<Accommodation />} />
           <Route path="/accommodation/:id/:id" element={<Room />} />
+          <Route path="/review/:id" element={<CustomerReview />} />
         </Routes>
       </StyledInnerContainer>
     </StyledContainer>
