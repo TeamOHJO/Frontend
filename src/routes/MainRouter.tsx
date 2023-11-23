@@ -6,6 +6,8 @@ import Accommodation from '../pages/Accommodation';
 import Footer from '../components/Layout/Footer';
 import Home from '../pages/Home';
 import Test from '../pages/test/Test';
+import Basket from '../pages/Basket';
+import WishList from '../pages/WishList';
 import Room from '../pages/Room';
 
 function Dashboard() {
@@ -27,6 +29,8 @@ function MainRouter() {
             <Route index element={<Home />} />
             <Route path="/:id" element={<Home />} />
             <Route path="/test" element={<Test />} />
+            <Route path="/wishlist" element={<WishList />} />
+            <Route path="/basket" element={<Basket />} />
           </Route>
           <Route path="/accommodation/:id" element={<Accommodation />} />
           <Route path="/accommodation/:id/:id" element={<Room />} />
