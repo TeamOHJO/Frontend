@@ -47,7 +47,7 @@ const StyledRoomSelectedInfoWrapper = styled.div`
 
 const StyledRoomSelectedInfoBox = styled.div`
   width: 100%;
-  padding: 1.2rem;
+  padding: 1rem;
   border-radius: 15px;
   box-shadow: ${theme.shadows.shadow1.shadow};
   position: relative;
