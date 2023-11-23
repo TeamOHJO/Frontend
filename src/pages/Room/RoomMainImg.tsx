@@ -20,6 +20,6 @@ export default RoomMainImg;
 
 const StyledRoomMainImgWrapper = styled.div`
   width: 100%;
-  height: 320px;
+  height: 50%;
   background-color: ${theme.colors.gray100};
 `;
