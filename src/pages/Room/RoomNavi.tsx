@@ -36,6 +36,7 @@ const StyledRoomNaviWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 2;
 `;
 
 const StyledRoomNaviLeft = styled.div`
