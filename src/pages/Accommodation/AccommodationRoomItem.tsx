@@ -69,6 +69,7 @@ function AccommodationRoomItem() {
               variant="blue"
               size="lg"
               style={{ width: '100px', height: '40px' }}
+              isDisabled={false}
             >
               예약하기
             </Button>
