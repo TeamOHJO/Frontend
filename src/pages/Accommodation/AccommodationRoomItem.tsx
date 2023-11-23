@@ -1,10 +1,22 @@
 import styled from '@emotion/styled';
 import { StarFilled } from '@ant-design/icons';
+import { useState } from 'react';
+
 import { Heading, Text, Button } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import SwiperComponent from '../../components/Swiper/SwiperComponent';
 
 function AccommodationRoomItem() {
+  const [cartHover, setCartHover] = useState(false);
+
+  const handleCartMouseEnter = () => {
+    setCartHover(true);
+  };
+
+  const handleCartMouseLeave = () => {
+    setCartHover(false);
+  };
+
   const images: string[] = [
     'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
     'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
@@ -39,8 +51,19 @@ function AccommodationRoomItem() {
           </div>
           <StyledAccommodationRoomTitleBoxItem>
             {/* 툴팁 작업 필요 */}
-            <StyledAccommodationRoomItemCart className="material-symbols-outlined">
+            <StyledAccommodationRoomItemCart
+              className="material-symbols-outlined"
+              onMouseEnter={handleCartMouseEnter}
+              onMouseLeave={handleCartMouseLeave}
+            >
               add_shopping_cart
+              {cartHover ? (
+                <StyledTooltip style={{ fontFamily: 'Noto Sans KR' }}>
+                  장바구니 담기
+                </StyledTooltip>
+              ) : (
+                ''
+              )}
             </StyledAccommodationRoomItemCart>
             <Button
               variant="blue"
@@ -97,11 +120,43 @@ const StyledAccommodationRoomTitleBoxItem = styled.div`
 `;
 
 const StyledAccommodationRoomItemCart = styled.span`
+  position: relative;
   font-size: 30px;
   color: ${theme.colors.gray300};
   margin-right: 1rem;
   cursor: pointer;
   &:hover {
     color: ${theme.colors.basic};
+  }
+`;
+
+const StyledTooltip = styled.span`
+  position: absolute;
+  top: 40px;
+  left: -42px;
+
+  padding: 0.5rem 1rem;
+
+  font-size: 14px;
+  color: #fff;
+  background-color: #000;
+
+  text-align: center;
+
+  border-radius: 5px;
+  &:after {
+    content: ' ';
+
+    position: absolute;
+    top: -20px;
+    left: 50%;
+
+    margin-left: -10px;
+
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #000 transparent;
+
+    font-family: 'Noto Sans KR', sans-serif;
   }
 `;
