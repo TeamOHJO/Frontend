@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import {
   Tabs,
@@ -14,7 +13,7 @@ import BasketDisabledFooter from './BasketDisabledFooter';
 import BasketCard from './BasketCard';
 import BasketDisabledCard from './BasketDisabledCard';
 
-const BasketTabs = () => {
+function BasketTabs() {
   return (
     <Tabs variant="solid-rounded" colorScheme="blue" size="md">
       <TabList>
@@ -52,7 +51,7 @@ const BasketTabs = () => {
       </TabPanels>
     </Tabs>
   );
-};
+}
 
 export default BasketTabs;
 

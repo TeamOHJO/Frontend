@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { Text } from '@chakra-ui/react';
 import { ArrowLeftOutlined } from '@ant-design/icons';

@@ -1,9 +1,8 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { Text, Button } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 
-const BasketDisabledFooter = () => {
+function BasketDisabledFooter() {
   return (
     <StyledBasketFooterWrapper>
       <StyledTextWrapper>
@@ -29,7 +28,7 @@ const BasketDisabledFooter = () => {
       </Button>
     </StyledBasketFooterWrapper>
   );
-};
+}
 
 export default BasketDisabledFooter;
 

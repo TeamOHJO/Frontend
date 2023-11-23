@@ -1,9 +1,8 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { Text, Button } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 
-const BasketFooter = () => {
+function BasketFooter() {
   return (
     <StyledBasketFooterWrapper>
       <StyledTextWrapper>
@@ -19,7 +18,7 @@ const BasketFooter = () => {
       </Button>
     </StyledBasketFooterWrapper>
   );
-};
+}
 
 export default BasketFooter;
 

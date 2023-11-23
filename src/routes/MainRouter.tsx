@@ -1,4 +1,3 @@
-import React from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { theme } from '../styles/theme';

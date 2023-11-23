@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { Box, Center, Heading, Grid } from '@chakra-ui/react';
 import WishListCard from './WishListCard';
