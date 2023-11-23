@@ -21,3 +21,10 @@ export interface ModalDataProps {
   heading: string;
   text: string;
 }
+
+export interface HomeCardProps {
+  name: any;
+  category: any;
+  score: any;
+  price: any;
+}

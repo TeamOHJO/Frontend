@@ -4,6 +4,7 @@ import { theme } from '../styles/theme';
 import Navigation from '../components/Layout/Navigation';
 import Accommodation from '../pages/Accommodation';
 import Footer from '../components/Layout/Footer';
+import Home from '../pages/Home';
 import Test from '../pages/test/Test';
 import Room from '../pages/Room';
 
@@ -23,7 +24,8 @@ function MainRouter() {
       <StyledInnerContainer>
         <Routes>
           <Route path="/" element={<Dashboard />}>
-            <Route index element={<>This is home!</>} />
+            <Route index element={<Home />} />
+            <Route path="/:id" element={<Home />} />
             <Route path="/test" element={<Test />} />
           </Route>
           <Route path="/accommodation/:id" element={<Accommodation />} />
@@ -51,12 +53,12 @@ const StyledInnerContainer = styled.div`
   align-items: center;
   position: relative;
   overflow-y: auto;
-  width: 768px;
+  width: ${theme.device.tablet};
 
   background-color: ${theme.colors.white};
   box-shadow: ${theme.shadows.shadow1.shadow};
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: ${theme.device.tablet}) {
     width: 100%;
   }
 `;

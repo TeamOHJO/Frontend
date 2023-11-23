@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import {
-  Button, Heading, Text, useDisclosure, Badge,
-} from '@chakra-ui/react';
+import { Button, Heading, Text, useDisclosure, Badge } from '@chakra-ui/react';
 import ToastPopup from '../../components/Modal/ToastPopup';
 import DefaultModal from '../../components/Modal/DefaultModal';
 
