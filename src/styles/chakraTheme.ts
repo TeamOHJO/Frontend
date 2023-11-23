@@ -189,8 +189,8 @@ export const chakraTheme = extendTheme({
           color: 'red.800',
         },
         disabled: {
-          backgroundColor: 'gray.200',
-          color: 'gray.500',
+          backgroundColor: 'blackAlpha.200',
+          color: 'blackAlpha.600',
         },
       },
     },
