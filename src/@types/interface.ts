@@ -31,3 +31,9 @@ export interface ValidationLogin {
   key: keyof LoginData;
   value: string;
 }
+export interface HomeCardProps {
+  name: any;
+  category: any;
+  score: any;
+  price: any;
+}

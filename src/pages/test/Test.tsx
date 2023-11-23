@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import {
-  Button, Heading, Text, useDisclosure, Badge,
-} from '@chakra-ui/react';
+import { Button, Heading, Text, useDisclosure, Badge } from '@chakra-ui/react';
 import ToastPopup from '../../components/Modal/ToastPopup';
 import DefaultModal from '../../components/Modal/DefaultModal';
 
@@ -61,7 +59,6 @@ const Test = () => {
 
       <Heading as="h3" size="lg">
         텍스트 사용 예시
-        {' '}
         {/* 원하는 옵션에 맞춰 쓸 것 */}
       </Heading>
 

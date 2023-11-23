@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { theme } from '../../styles/theme';
+import TopBtn from '../TopBtn';
 
 function Navigation() {
   return (
@@ -7,6 +8,7 @@ function Navigation() {
       <StyledItem>홈</StyledItem>
       <StyledItem>홈</StyledItem>
       <StyledItem>홈</StyledItem>
+      <TopBtn />
     </StyledContainer>
   );
 }
@@ -14,6 +16,7 @@ function Navigation() {
 export default Navigation;
 
 const StyledContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -25,6 +28,7 @@ const StyledContainer = styled.div`
   min-width: 375px;
   height: 58px;
   background-color: ${theme.colors.white};
+  z-index: 20;
 
   @media screen and (max-width: 768px) {
     width: 100%;

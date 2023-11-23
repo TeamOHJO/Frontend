@@ -95,4 +95,8 @@ export const theme = {
       shadow: '0px -1px 8px rgba(0, 0, 0, 0.04)',
     },
   },
+  device: {
+    tablet: '768px',
+    mobile: '380px',
+  },
 };
