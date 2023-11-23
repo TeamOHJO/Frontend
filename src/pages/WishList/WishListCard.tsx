@@ -10,6 +10,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { EnvironmentOutlined, HeartFilled } from '@ant-design/icons';
+import { theme } from '../../styles/theme';
 
 function WishListCard() {
   return (
@@ -29,7 +30,13 @@ function WishListCard() {
             alignItems="center"
           >
             <Heading size="sm">일본 도쿄 Nakano City</Heading>
-            <HeartFilled style={{ fontSize: '20px', color: 'blue.600' }} />
+            <HeartFilled
+              style={{
+                fontSize: '20px',
+                color: theme.colors.blue600,
+                cursor: 'pointer',
+              }}
+            />
           </Box>
           <Box textAlign="left">
             <Badge variant="blue">펜션/풀빌라</Badge>
