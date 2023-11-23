@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, ChangeEvent } from 'react';
 
 export interface ToastPopupProps {
   status: AlertData;
@@ -25,6 +25,17 @@ export interface ModalDataProps {
 export interface LoginData {
   email: string;
   password: string;
+}
+
+export interface LoginSetProps {
+  e: ChangeEvent<HTMLInputElement>;
+  key: keyof LoginData;
+}
+
+export interface LoginTabButtonProps {
+  errors: LoginData;
+  formData: LoginData;
+  errorSetFunc: ({ e, key }: LoginSetProps) => void;
 }
 
 export interface ValidationLogin {

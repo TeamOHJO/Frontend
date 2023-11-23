@@ -195,14 +195,16 @@ export const chakraTheme = extendTheme({
       },
     },
     Tabs: {
-      baseStyle: {
-        tab: {
-          height: '70px',
-          fontWeight: 'medium',
-          fontSize: 'xd',
-          _selected: {
-            color: 'blue.500',
-            borderColor: 'blue.500',
+      variants: {
+        enclosed: {
+          tab: {
+            height: '70px',
+            fontWeight: 'medium',
+            fontSize: 'md',
+            _selected: {
+              color: 'blue.500',
+              borderColor: 'blue.500',
+            },
           },
         },
       },

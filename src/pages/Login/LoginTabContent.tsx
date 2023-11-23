@@ -1,14 +1,11 @@
+import { useState, FormEvent } from 'react';
+import { Flex, Input, FormErrorMessage, FormControl } from '@chakra-ui/react';
 import {
-  useState, FormEvent, ChangeEvent, useMemo,
-} from 'react';
-import {
-  Flex,
-  Input,
-  Button,
-  FormErrorMessage,
-  FormControl,
-} from '@chakra-ui/react';
-import { LoginData, ValidationLogin } from '../../@types/interface';
+  LoginData,
+  LoginSetProps,
+  ValidationLogin,
+} from '../../@types/interface';
+import LoginTabButton from './LoginTabButton';
 
 const LoginTabContent = () => {
   const [formData, setFormData] = useState({
@@ -43,10 +40,7 @@ const LoginTabContent = () => {
     return error;
   };
 
-  const errorSetFunc = (
-    e: ChangeEvent<HTMLInputElement>,
-    key: keyof LoginData,
-  ) => {
+  const errorSetFunc = ({ e, key }: LoginSetProps) => {
     const { value } = e.target;
     setFormData({ ...formData, [key]: value });
     const newErrors: { [key in keyof LoginData]?: string } = {};
@@ -61,15 +55,6 @@ const LoginTabContent = () => {
     setIsError((prevIsError) => ({ ...prevIsError, ...newIsError }));
   };
 
-  let isFormValid = true;
-
-  isFormValid = useMemo(() => {
-    const errorData = Object.values(errors).every((error) => error === '');
-    const isForm = Object.values(formData).every((data) => data !== '');
-    if (isForm && errorData) return false;
-    return true;
-  }, [errorSetFunc]);
-
   return (
     <Flex flexDirection="column" alignItems="center">
       <form onSubmit={handleLoginSubmit}>
@@ -77,12 +62,10 @@ const LoginTabContent = () => {
           <Input
             type="text"
             placeholder="이메일 입력"
-            onChange={(e) => errorSetFunc(e, 'email')}
+            onChange={(e) => errorSetFunc({ e, key: 'email' })}
           />
           {isError.email && (
-            <FormErrorMessage textAlign="left">
-              {errors.email}
-            </FormErrorMessage>
+            <FormErrorMessage textAlign="left">{errors.email}</FormErrorMessage>
           )}
         </FormControl>
 
@@ -90,7 +73,7 @@ const LoginTabContent = () => {
           <Input
             type="password"
             placeholder="비밀번호 입력"
-            onChange={(e) => errorSetFunc(e, 'password')}
+            onChange={(e) => errorSetFunc({ e, key: 'password' })}
           />
           {isError.password && (
             <FormErrorMessage textAlign="left">
@@ -98,16 +81,11 @@ const LoginTabContent = () => {
             </FormErrorMessage>
           )}
         </FormControl>
-        <Button
-          variant="blue"
-          type="submit"
-          isDisabled={isFormValid}
-          _disabled={{
-            bg: '#CBD5E0',
-          }}
-        >
-          로그인
-        </Button>
+        <LoginTabButton
+          errors={errors}
+          formData={formData}
+          errorSetFunc={errorSetFunc}
+        />
       </form>
     </Flex>
   );
