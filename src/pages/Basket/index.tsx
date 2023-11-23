@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import BasketNav from './BasketNav';
 import BasketTabs from './BasketTabs';
+import BasketHeader from './BasketHeader';
 
 function Basket() {
   return (
     <StyledBasketWrapper>
-      <BasketNav />
+      <BasketHeader />
       <StyledBasketContent>
         <BasketTabs />
       </StyledBasketContent>
@@ -23,4 +23,6 @@ const StyledBasketWrapper = styled.div`
   margin-bottom: 80px;
 `;
 
-const StyledBasketContent = styled.div``;
+const StyledBasketContent = styled.div`
+  padding: 1rem;
+`;
