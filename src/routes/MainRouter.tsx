@@ -26,9 +26,9 @@ function MainRouter() {
           <Route path="/" element={<Dashboard />}>
             <Route index element={<>This is home!</>} />
             <Route path="/test" element={<Test />} />
-            <Route path="/basket" element={<Basket />} />
             <Route path="/wishlist" element={<WishList />} />
           </Route>
+          <Route path="/basket" element={<Basket />} />
         </Routes>
       </StyledInnerContainer>
     </StyledContainer>
@@ -54,6 +54,7 @@ const StyledInnerContainer = styled.div`
   overflow-y: auto;
   padding: 1rem;
   width: 768px;
+  min-height: 100vh;
 
   background-color: ${theme.colors.white};
   box-shadow: ${theme.shadows.shadow1.shadow};

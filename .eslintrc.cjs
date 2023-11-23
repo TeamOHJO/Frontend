@@ -32,5 +32,6 @@ module.exports = {
     'react/function-component-definition': 'off',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
+    'arrow-body-style': ['error', 'always'],
   },
 };

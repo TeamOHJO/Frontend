@@ -25,6 +25,7 @@ const StyledContainer = styled.div`
   min-width: 375px;
   height: 58px;
   background-color: ${theme.colors.white};
+  z-index: 20;
 
   @media screen and (max-width: 768px) {
     width: 100%;

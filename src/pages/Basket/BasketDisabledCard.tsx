@@ -7,14 +7,13 @@ import {
   Box,
   CardBody,
   Stack,
-  Checkbox,
   Flex,
   Badge,
 } from '@chakra-ui/react';
-import { StarFilled } from '@ant-design/icons';
+import { StarFilled, CloseOutlined } from '@ant-design/icons';
 import { theme } from '../../styles/theme';
 
-function BasketCard() {
+function BasketDisabledCard() {
   return (
     <Card size="sm">
       <CardBody display="flex" flexDirection="row" gap={3}>
@@ -32,9 +31,9 @@ function BasketCard() {
             alignItems="center"
           >
             <Box textAlign="left">
-              <Badge variant="blue">펜션/풀빌라</Badge>
+              <Badge variant="disabled">펜션/풀빌라</Badge>
             </Box>
-            <Checkbox size="md" colorScheme="blue" borderColor="gray.300" />
+            <CloseOutlined style={{ fontSize: '20px' }} />
           </Box>
           <Heading size="md">일본 도쿄 Nakano City</Heading>
           <Text size="sm">디럭스 패밀리룸</Text>
@@ -69,4 +68,4 @@ function BasketCard() {
   );
 }
 
-export default BasketCard;
+export default BasketDisabledCard;
