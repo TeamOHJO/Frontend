@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { theme } from '../../styles/theme';
+import { Heading, Button } from '@chakra-ui/react';
 
 interface InfoProps {
   title: string;
@@ -8,32 +8,57 @@ interface InfoProps {
 
 function AccommodationInfoText({ title, content }: InfoProps) {
   return (
-    <AccommodationInfoTextWrapper>
-      <AccommodationInfoTextTitle>{title}</AccommodationInfoTextTitle>
-      <AccommodationInfoTextContent>{content}</AccommodationInfoTextContent>
-      전체보기
-    </AccommodationInfoTextWrapper>
+    <StyledAccommodationInfoTextWrapper>
+      <StyledAccommodationInfoTextTitle>
+        <Heading as="h4" size="lg">
+          {title}
+        </Heading>
+      </StyledAccommodationInfoTextTitle>
+      <StyledAccommodationInfoTextContent>
+        {content}
+      </StyledAccommodationInfoTextContent>
+      <StyledAccommodationInfoTextBtn>
+        <Button
+          variant="blue"
+          size="lg"
+          style={{ width: '150px', height: '30px' }}
+        >
+          전체보기
+        </Button>
+      </StyledAccommodationInfoTextBtn>
+    </StyledAccommodationInfoTextWrapper>
   );
 }
 
 export default AccommodationInfoText;
 
-const AccommodationInfoTextWrapper = styled.div`
+const StyledAccommodationInfoTextWrapper = styled.div`
   width: 100%;
-  padding: 2rem;
-  margin: 1rem 0;
-  background-color: ${theme.colors.blue100};
+  padding: 1rem;
 `;
 
-const AccommodationInfoTextTitle = styled.h3`
+const StyledAccommodationInfoTextTitle = styled.div`
   width: 100%;
-  margin-bottom: 1rem;
-  text-align: left;
 `;
 
-const AccommodationInfoTextContent = styled.p`
+const StyledAccommodationInfoTextContent = styled.div`
   width: 100%;
-  margin-left: 0.5rem;
+  padding: 1rem;
   text-align: left;
   line-height: 1.2rem;
+
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const StyledAccommodationInfoTextBtn = styled.div`
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
