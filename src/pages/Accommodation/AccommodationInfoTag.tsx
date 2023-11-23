@@ -21,7 +21,6 @@ function AccommodationInfoTag() {
 
   return (
     <StyledAccommodationInfoTagWrapper>
-      {' '}
       <StyledAccommodationInfoTagTitle>
         <Heading as="h4" size="lg">
           시설 및 서비스
@@ -52,7 +51,7 @@ const StyledAccommodationInfoTagWrapper = styled.div`
 
 const StyledAccommodationInfoTagTitle = styled.div`
   width: 100%;
-  padding: 1rem;
+  padding: 1rem 0;
 `;
 
 const StlyedAccommodationInfoTagBox = styled.div`
