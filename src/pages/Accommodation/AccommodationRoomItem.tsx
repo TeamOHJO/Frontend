@@ -1,21 +1,10 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
 import { StarFilled } from '@ant-design/icons';
 import { Heading, Text, Button } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import SwiperComponent from '../../components/Swiper/SwiperComponent';
 
 function AccommodationRoomItem() {
-  const [cartHover, setCartHover] = useState(false);
-
-  const handleCartMouseEnter = () => {
-    setCartHover(true);
-  };
-
-  const handleCartMouseLeave = () => {
-    setCartHover(false);
-  };
-
   const images: string[] = [
     'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
     'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
@@ -50,21 +39,9 @@ function AccommodationRoomItem() {
           </div>
           <StyledAccommodationRoomTitleBoxItem>
             {/* 툴팁 작업 필요 */}
-            <span
-              className="material-symbols-outlined"
-              style={{
-                fontSize: '30px',
-                color: cartHover
-                  ? `${theme.colors.basic}`
-                  : `${theme.colors.gray300}`,
-                marginRight: '1rem',
-                cursor: 'pointer',
-              }}
-              onMouseEnter={handleCartMouseEnter}
-              onMouseLeave={handleCartMouseLeave}
-            >
+            <StyledAccommodationRoomItemCart className="material-symbols-outlined">
               add_shopping_cart
-            </span>
+            </StyledAccommodationRoomItemCart>
             <Button
               variant="blue"
               size="lg"
@@ -117,4 +94,14 @@ const StyledAccommodationRoomTitleBoxItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const StyledAccommodationRoomItemCart = styled.span`
+  font-size: 30px;
+  color: ${theme.colors.gray300};
+  margin-right: 1rem;
+  cursor: pointer;
+  &:hover {
+    color: ${theme.colors.basic};
+  }
 `;
