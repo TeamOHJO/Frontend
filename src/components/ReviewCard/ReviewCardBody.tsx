@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Box, Button, Text } from '@chakra-ui/react';
 
 // TODO 숙소명, 카테고리 종류, 리뷰 내역 GET!!

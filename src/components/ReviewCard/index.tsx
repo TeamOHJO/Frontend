@@ -1,6 +1,5 @@
 import { Card, SimpleGrid } from '@chakra-ui/react';
 import styled from '@emotion/styled';
-import React from 'react';
 import ReviewCardHeader from './ReviewCardHeader';
 import ReviewCardBody from './ReviewCardBody';
 import ReviewCardImage from './ReviewCardImage';

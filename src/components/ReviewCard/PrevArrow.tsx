@@ -1,6 +1,5 @@
 import { LeftCircleFilled } from '@ant-design/icons';
 import styled from '@emotion/styled';
-import React from 'react';
 import { theme } from '../../styles/theme';
 
 interface PrevArrowProps {
