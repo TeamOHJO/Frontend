@@ -38,7 +38,7 @@ function BasketCard() {
           </Box>
           <Heading size="md">일본 도쿄 Nakano City</Heading>
           <Text size="sm">디럭스 패밀리룸</Text>
-          <Text as="p" size="xs" color="gray.84">
+          <Text as="p" size="xs" color="blackAlpha.600">
             12월 26일 - 12월 29일 (3박)
           </Text>
           <Box
@@ -48,7 +48,7 @@ function BasketCard() {
           >
             <Box display="flex" alignItems="center" gap={1}>
               <StarFilled
-                style={{ fontSize: '20px', color: `${theme.colors.blue600}` }}
+                style={{ color: theme.colors.blue400, fontSize: '1rem' }}
               />
               <Text as="span" size="xs">
                 4.90
@@ -59,7 +59,7 @@ function BasketCard() {
             <Text as="p" size="md" fontWeight="bold">
               ￦435,400
             </Text>
-            <Text as="p" size="xs" color="gray.84">
+            <Text as="p" size="xs" color="blackAlpha.600">
               3박 요금 (세금 포함)
             </Text>
           </Flex>

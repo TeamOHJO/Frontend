@@ -27,8 +27,9 @@ function MainRouter() {
             <Route index element={<>This is home!</>} />
             <Route path="/test" element={<Test />} />
             <Route path="/wishlist" element={<WishList />} />
+            {/* 장바구니는 라우터 작업 완료 후 푸터 없이 갈 예정 */}
+            <Route path="/basket" element={<Basket />} />
           </Route>
-          <Route path="/basket" element={<Basket />} />
         </Routes>
       </StyledInnerContainer>
     </StyledContainer>

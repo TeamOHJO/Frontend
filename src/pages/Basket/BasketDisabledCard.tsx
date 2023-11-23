@@ -51,7 +51,7 @@ function BasketDisabledCard() {
             <Box display="flex" alignItems="center" gap={1}>
               <StarFilled
                 style={{
-                  fontSize: '20px',
+                  fontSize: '1rem',
                   color: 'RGBA(0, 0, 0, 0.48)',
                 }}
               />

@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import {
-  Tabs, TabList, TabPanels, Tab, TabPanel,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Box,
+  Button,
 } from '@chakra-ui/react';
 import BasketFooter from './BasketFooter';
 import BasketDisabledFooter from './BasketDisabledFooter';
@@ -16,8 +22,13 @@ const BasketTabs = () => {
         <Tab>예약 불가능 숙소</Tab>
       </TabList>
 
-      <TabPanels paddingTop={5}>
+      <TabPanels paddingTop={3}>
         <TabPanel p={0}>
+          <Box textAlign="right" pb={5}>
+            <Button variant="blue" size="mini">
+              선택 삭제
+            </Button>
+          </Box>
           <StyledBasketCardWrapper>
             <BasketCard />
             <BasketCard />
@@ -26,6 +37,11 @@ const BasketTabs = () => {
           <BasketFooter />
         </TabPanel>
         <TabPanel p={0}>
+          <Box textAlign="right" pb={5}>
+            <Button variant="blue" size="mini">
+              모두 삭제
+            </Button>
+          </Box>
           <StyledBasketCardWrapper>
             <BasketDisabledCard />
             <BasketDisabledCard />
@@ -45,6 +61,6 @@ const StyledBasketCardWrapper = styled.div`
   position: relative;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 15px;
 `;
