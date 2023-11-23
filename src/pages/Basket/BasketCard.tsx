@@ -22,6 +22,7 @@ function BasketCard() {
           boxSize="110px"
           objectFit="cover"
           borderRadius={8}
+          dropShadow={theme.shadows.shadowTop}
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD3JBW-cAhYqwYXsEK9AosV69_t1SNqh5RYA&usqp=CAU"
           alt="Accommodation Photo"
         />

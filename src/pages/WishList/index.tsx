@@ -13,7 +13,7 @@ function WishList() {
           </Heading>
         </Center>
         <Grid
-          gridTemplateColumns="repeat(auto-fill, minmax(250px, 1fr))"
+          gridTemplateColumns="repeat(auto-fill, minmax(360px, 1fr))"
           gap={4}
           px="1rem"
         >
