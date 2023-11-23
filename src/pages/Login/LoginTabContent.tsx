@@ -1,11 +1,9 @@
 import { useState, FormEvent } from 'react';
-import { Flex, Input, FormErrorMessage, FormControl } from '@chakra-ui/react';
-import {
-  LoginData,
-  LoginSetProps,
-  ValidationLogin,
-} from '../../@types/interface';
+import { Flex } from '@chakra-ui/react';
+import { FormData, LoginSetProps } from '../../@types/interface';
 import LoginTabButton from './LoginTabButton';
+import LoginInput from './LoginInput';
+import { validateField } from '../../utils/utils';
 
 const LoginTabContent = () => {
   const [formData, setFormData] = useState({
@@ -25,26 +23,11 @@ const LoginTabContent = () => {
     e.preventDefault();
   };
 
-  const validateField = ({ key, value }: ValidationLogin): string => {
-    let error = '';
-    switch (key) {
-      case 'email':
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) error = '이메일 형식이 아닙니다.';
-        break;
-      case 'password':
-        if (value.length < 5) error = '비밀번호는 최소 5자 이상이어야 합니다';
-        break;
-      default:
-        break;
-    }
-    return error;
-  };
-
   const errorSetFunc = ({ e, key }: LoginSetProps) => {
     const { value } = e.target;
     setFormData({ ...formData, [key]: value });
-    const newErrors: { [key in keyof LoginData]?: string } = {};
-    const newIsError: { [key in keyof LoginData]?: boolean } = {};
+    const newErrors: { [key in keyof FormData]?: string } = {};
+    const newIsError: { [key in keyof FormData]?: boolean } = {};
 
     const error = validateField({ key, value });
 
@@ -58,29 +41,11 @@ const LoginTabContent = () => {
   return (
     <Flex flexDirection="column" alignItems="center">
       <form onSubmit={handleLoginSubmit}>
-        <FormControl isRequired isInvalid={isError.email}>
-          <Input
-            type="text"
-            placeholder="이메일 입력"
-            onChange={(e) => errorSetFunc({ e, key: 'email' })}
-          />
-          {isError.email && (
-            <FormErrorMessage textAlign="left">{errors.email}</FormErrorMessage>
-          )}
-        </FormControl>
-
-        <FormControl isRequired isInvalid={isError.password}>
-          <Input
-            type="password"
-            placeholder="비밀번호 입력"
-            onChange={(e) => errorSetFunc({ e, key: 'password' })}
-          />
-          {isError.password && (
-            <FormErrorMessage textAlign="left">
-              {errors.password}
-            </FormErrorMessage>
-          )}
-        </FormControl>
+        <LoginInput
+          isError={isError}
+          errors={errors}
+          errorSetFunc={errorSetFunc}
+        />
         <LoginTabButton
           errors={errors}
           formData={formData}

@@ -22,24 +22,39 @@ export interface ModalDataProps {
   text: string;
 }
 
-export interface LoginData {
+export interface FormData {
   email: string;
   password: string;
+  passwordConfirm?: string;
+  name?: string;
+  number?: string;
 }
 
 export interface LoginSetProps {
   e: ChangeEvent<HTMLInputElement>;
-  key: keyof LoginData;
+  key: keyof FormData;
 }
 
 export interface LoginTabButtonProps {
-  errors: LoginData;
-  formData: LoginData;
+  errors: FormData;
+  formData: FormData;
+  errorSetFunc: ({ e, key }: LoginSetProps) => void;
+}
+export interface IsErrorProps {
+  email: boolean | undefined;
+  password: boolean | undefined;
+  passwordConfirm?: boolean | undefined;
+  name?: boolean | undefined;
+  number?: boolean | undefined;
+}
+export interface LoginTabInputProps {
+  isError: IsErrorProps;
+  errors: FormData;
   errorSetFunc: ({ e, key }: LoginSetProps) => void;
 }
 
 export interface ValidationLogin {
-  key: keyof LoginData;
+  key: keyof FormData;
   value: string;
 }
 export interface HomeCardProps {
