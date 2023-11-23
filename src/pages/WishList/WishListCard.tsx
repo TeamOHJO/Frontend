@@ -32,7 +32,7 @@ function WishListCard() {
             <HeartFilled
               style={{
                 fontSize: '20px',
-                color: theme.colors.blue600,
+                color: theme.colors.red500,
                 cursor: 'pointer',
               }}
             />
