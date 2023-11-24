@@ -5,12 +5,14 @@ import MyPageTabs from './MyPageTabs';
 function MyPage() {
   return (
     <StyledContainer>
-      <Center height="90px">
-        <Text as="p" size="sm" textAlign="center">
-          000님, 같이 여행을 즐겨요
-        </Text>
-      </Center>
-      <MyPageTabs />
+      <StyledInnerContainer>
+        <Center height="90px">
+          <Text as="p" size="sm" textAlign="center">
+            000님, 같이 여행을 즐겨요
+          </Text>
+        </Center>
+        <MyPageTabs />
+      </StyledInnerContainer>
     </StyledContainer>
   );
 }
@@ -18,6 +20,13 @@ function MyPage() {
 export default MyPage;
 
 const StyledContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+`;
+
+const StyledInnerContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
