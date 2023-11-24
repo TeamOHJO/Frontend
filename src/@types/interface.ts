@@ -28,3 +28,19 @@ export interface HomeCardProps {
   score: any;
   price: any;
 }
+
+export interface ReservationData {
+  reservationId: number;
+  startTime: string;
+  endTime: string;
+  numberOfPerson: number;
+  createdAt: string;
+  deletedAt: string | null;
+  category: string;
+  accommodationName: string;
+  image: string;
+  name: string;
+  price: number;
+  nights: number;
+  stars: number;
+}

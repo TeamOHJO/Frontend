@@ -10,25 +10,10 @@ import {
 } from '@chakra-ui/react';
 import { StarFilled } from '@ant-design/icons';
 import { theme } from '../../../styles/theme';
+import { ReservationData } from '../../../@types/interface';
 
 interface MyPageReservationCardProps {
   item: ReservationData;
-}
-
-interface ReservationData {
-  reservationId: number;
-  startTime: string;
-  endTime: string;
-  numberOfPerson: number;
-  createdAt: string;
-  deletedAt: string | null;
-  category: string;
-  accommodationName: string;
-  image: string;
-  name: string;
-  price: number;
-  nights: number;
-  stars: number;
 }
 
 function MyPageReservationCard({ item }: MyPageReservationCardProps) {
