@@ -1,0 +1,62 @@
+[
+  {
+    "reservationId": 123,
+    "startTime": "2023/12/22",
+    "endTime": "2023/12/25",
+    "numberOfPerson": 2,
+    "createdAt": "2023/11/20",
+    "deletedAt": "2023/11/28",
+    "category": "호텔",
+    "accommodationName": "일본 도쿄 Nakano City",
+    "image": "https://www.lottehotel.com/content/dam/lotte-hotel/city/mapo/overview/introduction/190725-1-768-ove-LTMA.png.thumb.768.768.jpg",
+    "name": "디럭스 패밀리룸",
+    "price": 120000,
+    "nights": 3,
+    "stars": 4.5
+  },
+  {
+    "reservationId": 456,
+    "startTime": "2024/11/12",
+    "endTime": "2024/11/16",
+    "numberOfPerson": 2,
+    "createdAt": "2023/11/25",
+    "deletedAt": "2023/12/10",
+    "category": "펜션/풀빌라",
+    "accommodationName": "하늘펜션",
+    "image": "https://a.cdn-hotels.com/gdcs/production20/d1674/580b8765-0cb7-4dc5-a955-194d06ee3205.jpg",
+    "name": "개나리방",
+    "price": 220000,
+    "nights": 4,
+    "stars": 3.5
+  },
+  {
+    "reservationId": 123,
+    "startTime": "2023/12/22",
+    "endTime": "2023/12/25",
+    "numberOfPerson": 2,
+    "createdAt": "2023/11/20",
+    "deletedAt": null,
+    "category": "호텔",
+    "accommodationName": "호텔 스퀘어 제주",
+    "image": "https://www.take-hotel.com/TakeHotel_common/images/homepage/index/slider_01.jpg",
+    "name": "프리미엄 트윈룸",
+    "price": 120000,
+    "nights": 3,
+    "stars": 4.5
+  },
+  {
+    "reservationId": 456,
+    "startTime": "2022/11/12",
+    "endTime": "2022/11/16",
+    "numberOfPerson": 10,
+    "createdAt": "2022/10/25",
+    "deletedAt": null,
+    "category": "펜션/풀빌라",
+    "accommodationName": "포항바다펜션",
+    "image": "https://image.pensionlife.co.kr/penimg/pen_1/pen_13/1381/8a832c1fd5ec1fd1c8e2582d4b1e430d.jpg",
+    "name": "이슬방",
+    "price": 400000,
+    "nights": 2,
+    "stars": 1.5
+  }
+]

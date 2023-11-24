@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import MyPageSubtitle from '../MyPageSubtitle';
 import MyPageReservationCard from './MyPageReservationCard';
-import { reservationData } from './reservationData';
+import { reservationData } from '../../../../public/data/reservationData';
 
 function MyPageReservation() {
   const reservationList = reservationData.filter(
