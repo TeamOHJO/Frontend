@@ -16,6 +16,7 @@ function MyPageReservationCardRight() {
           4.90
         </Text>
       </Box>
+
       <Button variant="gray" size="sm">
         예약 취소
       </Button>

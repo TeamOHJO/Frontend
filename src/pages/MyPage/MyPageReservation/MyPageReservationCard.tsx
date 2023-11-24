@@ -1,6 +1,15 @@
-import { Card, CardBody, Image, Box } from '@chakra-ui/react';
-import MyPageReservationCardLeft from './MyPageReservationCardLeft';
-import MyPageReservationCardRight from './MyPageReservationCardRight';
+import {
+  Card,
+  CardBody,
+  Image,
+  Box,
+  Badge,
+  Heading,
+  Text,
+  Button,
+} from '@chakra-ui/react';
+import { StarFilled } from '@ant-design/icons';
+import { theme } from '../../../styles/theme';
 
 function MyPageReservationCard() {
   return (
@@ -20,8 +29,40 @@ function MyPageReservationCard() {
           justifyContent="space-between"
           mt="6"
         >
-          <MyPageReservationCardLeft />
-          <MyPageReservationCardRight />
+          <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="space-between"
+            alignItems="flex-start"
+            gap={1}
+          >
+            <Box textAlign="left">
+              <Badge variant="blue">펜션/풀빌라</Badge>
+            </Box>
+            <Heading size="md">일본 도쿄 Nakano City</Heading>
+            <Text size="sm">디럭스 패밀리룸</Text>
+            <Text as="p" size="xs" color="blackAlpha.600">
+              12월 26일 - 12월 29일 (3박)
+            </Text>
+          </Box>
+          <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="space-between"
+            alignItems="flex-end"
+          >
+            <Box display="flex" alignItems="center" gap={1}>
+              <StarFilled
+                style={{ color: theme.colors.blue400, fontSize: '1rem' }}
+              />
+              <Text as="span" size="xs">
+                4.90
+              </Text>
+            </Box>
+            <Button variant="gray" size="sm">
+              예약 취소
+            </Button>
+          </Box>
         </Box>
       </CardBody>
     </Card>
