@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import {
   ShoppingCartOutlined,
@@ -11,10 +11,11 @@ import { theme } from '../../styles/theme';
 import TopBtn from '../TopBtn';
 
 function Navigation() {
-  const isUser = useState(true);
-  const { id } = useParams();
+  const [isUser] = useState(true);
+  const location = useLocation();
   const navigate = useNavigate();
-  const pagesArr = ['basket', 'wishlist', 'mypage'];
+  const { pathname } = location;
+  const pagesArr = ['/basket', '/wishlist', '/mypage'];
 
   return (
     <StyledContainer>
@@ -24,7 +25,9 @@ function Navigation() {
             <ShoppingCartOutlined
               style={{
                 fontSize: '20px',
-                color: `${id === 'basket' ? 'black' : theme.colors.gray400}`,
+                color: `${
+                  pathname === '/basket' ? 'black' : theme.colors.gray400
+                }`,
               }}
               onClick={() => {
                 navigate('/basket');
@@ -37,7 +40,7 @@ function Navigation() {
               style={{
                 fontSize: '20px',
                 color: `${
-                  pagesArr.find((item: string) => item === id)
+                  pagesArr.find((item: string) => item === pathname)
                     ? theme.colors.gray400
                     : 'black'
                 }`,
@@ -52,7 +55,9 @@ function Navigation() {
             <HeartOutlined
               style={{
                 fontSize: '20px',
-                color: `${id === 'wishlist' ? 'black' : theme.colors.gray400}`,
+                color: `${
+                  pathname === '/wishlist' ? 'black' : theme.colors.gray400
+                }`,
               }}
               onClick={() => {
                 navigate('/wishlist');
@@ -64,7 +69,9 @@ function Navigation() {
             <UserOutlined
               style={{
                 fontSize: '20px',
-                color: `${id === 'mypage' ? 'black' : theme.colors.gray400}`,
+                color: `${
+                  pathname === '/mypage' ? 'black' : theme.colors.gray400
+                }`,
               }}
               onClick={() => {
                 navigate('/mypage');
@@ -81,7 +88,7 @@ function Navigation() {
               style={{
                 fontSize: '20px',
                 color: `${
-                  pagesArr.find((item: string) => item === id)
+                  pagesArr.find((item: string) => item === pathname)
                     ? theme.colors.gray400
                     : 'black'
                 }`,
