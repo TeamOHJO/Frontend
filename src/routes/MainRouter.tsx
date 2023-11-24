@@ -11,6 +11,7 @@ import WishList from '../pages/WishList';
 import Room from '../pages/Room';
 import CustomerReview from '../pages/customerReview';
 import MyPage from '../pages/MyPage';
+import Reservation from '../pages/Reservation';
 
 function Dashboard() {
   return (
@@ -38,6 +39,7 @@ function MainRouter() {
           <Route path="/accommodation/:id" element={<Accommodation />} />
           <Route path="/accommodation/:id/:id" element={<Room />} />
           <Route path="/review/:id" element={<CustomerReview />} />
+          <Route path="/reservation" element={<Reservation />} />
         </Routes>
       </StyledInnerContainer>
     </StyledContainer>
