@@ -21,16 +21,17 @@ function Navigation() {
     <StyledContainer>
       {isUser ? (
         <StyledUserState>
-          <StyledItem>
+          <StyledItem
+            onClick={() => {
+              navigate('/basket');
+            }}
+          >
             <ShoppingCartOutlined
               style={{
                 fontSize: '20px',
                 color: `${
                   pathname === '/basket' ? 'black' : theme.colors.gray400
                 }`,
-              }}
-              onClick={() => {
-                navigate('/basket');
               }}
             />
             장바구니
@@ -51,7 +52,11 @@ function Navigation() {
             />
             홈
           </StyledItem>
-          <StyledItem>
+          <StyledItem
+            onClick={() => {
+              navigate('/wishlist');
+            }}
+          >
             <HeartOutlined
               style={{
                 fontSize: '20px',
@@ -59,22 +64,20 @@ function Navigation() {
                   pathname === '/wishlist' ? 'black' : theme.colors.gray400
                 }`,
               }}
-              onClick={() => {
-                navigate('/wishlist');
-              }}
             />
             위시 리스트
           </StyledItem>
-          <StyledItem>
+          <StyledItem
+            onClick={() => {
+              navigate('/mypage');
+            }}
+          >
             <UserOutlined
               style={{
                 fontSize: '20px',
                 color: `${
                   pathname === '/mypage' ? 'black' : theme.colors.gray400
                 }`,
-              }}
-              onClick={() => {
-                navigate('/mypage');
               }}
             />
             마이페이지
@@ -83,7 +86,11 @@ function Navigation() {
       ) : (
         <StyledNonUserState>
           <StyledItem />
-          <StyledItem>
+          <StyledItem
+            onClick={() => {
+              navigate('/');
+            }}
+          >
             <HomeOutlined
               style={{
                 fontSize: '20px',
@@ -93,21 +100,15 @@ function Navigation() {
                     : 'black'
                 }`,
               }}
-              onClick={() => {
-                navigate('/');
-              }}
             />
             홈
           </StyledItem>
-          <StyledItem>
-            <span
-              className="material-symbols-outlined"
-              onClick={() => {
-                navigate('/login');
-              }}
-            >
-              login
-            </span>
+          <StyledItem
+            onClick={() => {
+              navigate('/login');
+            }}
+          >
+            <span className="material-symbols-outlined">login</span>
             로그인
           </StyledItem>
         </StyledNonUserState>
