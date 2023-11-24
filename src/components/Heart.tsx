@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { HeartOutlined, HeartFilled } from '@ant-design/icons';
+import { HeartTwoTone, HeartFilled } from '@ant-design/icons';
 import { theme } from '../styles/theme';
 
 function Heart() {
@@ -18,9 +18,10 @@ function Heart() {
           style={{ fontSize: '30px', color: theme.colors.red500 }}
         />
       ) : (
-        <HeartOutlined
+        <HeartTwoTone
           onClick={() => handleIsHeart()}
-          style={{ fontSize: '30px', color: theme.colors.red500 }}
+          twoToneColor={theme.colors.red500}
+          style={{ fontSize: '30px' }}
         />
       )}
     </StyledHeart>
