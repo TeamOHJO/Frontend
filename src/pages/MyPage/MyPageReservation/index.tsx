@@ -1,8 +1,11 @@
 import styled from '@emotion/styled';
 import MyPageSubtitle from '../MyPageSubtitle';
 import MyPageReservationCard from './MyPageReservationCard';
+// import { reservationData } from './reservationData';
 
 function MyPageReservation() {
+  // const reservationList = reservationData.map(item => item.deletedAt !== null);
+
   return (
     <>
       <MyPageSubtitle subtitle="예약 내역" />

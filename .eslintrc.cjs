@@ -34,5 +34,6 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 'off',
     'arrow-body-style': 'off',
     'object-curly-newline': 0,
+    'arrow-parens': ['warn', 'as-needed'],
   },
 };
