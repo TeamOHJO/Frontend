@@ -10,6 +10,7 @@ import Basket from '../pages/Basket';
 import WishList from '../pages/WishList';
 import Room from '../pages/Room';
 import CustomerReview from '../pages/customerReview';
+import MyPage from '../pages/MyPage';
 
 function Dashboard() {
   return (
@@ -32,6 +33,7 @@ function MainRouter() {
             <Route path="/test" element={<Test />} />
             <Route path="/wishlist" element={<WishList />} />
             <Route path="/basket" element={<Basket />} />
+            <Route path="/mypage" element={<MyPage />} />
           </Route>
           <Route path="/accommodation/:id" element={<Accommodation />} />
           <Route path="/accommodation/:id/:id" element={<Room />} />
