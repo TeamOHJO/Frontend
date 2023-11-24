@@ -5,9 +5,9 @@ import MyPageInfo from './MyPageInfo';
 
 function MyPageTabs() {
   return (
-    <Tabs isFitted size="sm" colorScheme="blue" variant="enclosed">
+    <Tabs isFitted size="md" variant="enclosed">
       <TabList mb="1em">
-        <Tab>예약/취소 내역</Tab>
+        <Tab>예약 내역</Tab>
         <Tab>내 리뷰</Tab>
         <Tab>내 정보 관리</Tab>
       </TabList>
