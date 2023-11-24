@@ -6,7 +6,7 @@ interface MyPageSubtitleProps {
 
 const MyPageSubtitle = ({ subtitle }: MyPageSubtitleProps) => {
   return (
-    <Text fontSize="1rem" mt="2rem" ml="2rem" fontWeight="bold">
+    <Text fontSize="1rem" mt="1rem" fontWeight="bold">
       {subtitle}
     </Text>
   );

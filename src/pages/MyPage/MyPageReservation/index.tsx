@@ -1,4 +1,4 @@
-import MyPageSubtitle from './MyPageSubtitle';
+import MyPageSubtitle from '../MyPageSubtitle';
 
 function MyPageReservation() {
   return (
