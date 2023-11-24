@@ -1,13 +1,41 @@
 import styled from '@emotion/styled';
 import { StarFilled } from '@ant-design/icons';
 import { useState } from 'react';
-
-import { Heading, Text, Button } from '@chakra-ui/react';
+import { Heading, Text, Button, useDisclosure } from '@chakra-ui/react';
+import AccommodationToastPopup from './AccommodationToastPopup';
 import { theme } from '../../styles/theme';
 import SwiperComponent from '../../components/Swiper/SwiperComponent';
+import DefaultModal from '../../components/Modal/DefaultModal';
 
 function AccommodationRoomItem() {
   const [cartHover, setCartHover] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // 예약하기 버튼 모달
+  const modalData = {
+    heading: '예약하기',
+    text: '선택된 숙소를 예약하시겠습니까?',
+  };
+
+  const modalFunc = () => {
+    // 결제 페이지로 이동
+    console.log('모달 승인 시 실행될 함수 입니다.');
+  };
+
+  // 장바구니 팝업
+  const [showAlert, setShowAlert] = useState({
+    active: false,
+    message: '',
+  });
+
+  const openFunction = () => {
+    // 조건문 삽입(성공, 이미 장바구니)
+    const toastData = {
+      active: true,
+      message: '성공적으로 장바구니에 담겼습니다.',
+    };
+    setShowAlert(toastData);
+  };
 
   const handleCartMouseEnter = () => {
     setCartHover(true);
@@ -23,6 +51,7 @@ function AccommodationRoomItem() {
     'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
     'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
   ];
+
   return (
     <StyledAccommodationRoomItemWrapper>
       <StyledAccommodationRoomImg>
@@ -55,6 +84,7 @@ function AccommodationRoomItem() {
               className="material-symbols-outlined"
               onMouseEnter={handleCartMouseEnter}
               onMouseLeave={handleCartMouseLeave}
+              onClick={openFunction}
             >
               add_shopping_cart
               {cartHover ? (
@@ -65,17 +95,25 @@ function AccommodationRoomItem() {
                 ''
               )}
             </StyledAccommodationRoomItemCart>
+            <DefaultModal
+              isOpen={isOpen}
+              onClose={onClose}
+              modalFunc={modalFunc}
+              modalData={modalData}
+            />
             <Button
               variant="blue"
               size="lg"
               style={{ width: '100px', height: '40px' }}
               isDisabled={false}
+              onClick={onOpen}
             >
               예약하기
             </Button>
           </StyledAccommodationRoomTitleBoxItem>
         </StyledAccommodationRoomTitleBox>
       </StyledAccommodationRoomTitle>
+      <AccommodationToastPopup status={showAlert} setFunc={setShowAlert} />
     </StyledAccommodationRoomItemWrapper>
   );
 }
