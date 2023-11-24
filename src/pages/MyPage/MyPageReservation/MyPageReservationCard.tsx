@@ -11,12 +11,15 @@ import {
 import { StarFilled } from '@ant-design/icons';
 import { theme } from '../../../styles/theme';
 import { ReservationData } from '../../../@types/interface';
+import { handleBadgeColor } from '../../../utils/handleBadgeColor';
 
 interface MyPageReservationCardProps {
   item: ReservationData;
 }
 
 function MyPageReservationCard({ item }: MyPageReservationCardProps) {
+  const badgeColor = handleBadgeColor(item.category);
+
   return (
     <Card size="sm">
       <CardBody>
@@ -42,7 +45,7 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
             gap={1}
           >
             <Box textAlign="left">
-              <Badge variant="blue">{item.category}</Badge>
+              <Badge variant={badgeColor}>{item.category}</Badge>
             </Box>
             <Heading size="md">{item.accommodationName}</Heading>
             <Text size="sm">{item.name}</Text>
