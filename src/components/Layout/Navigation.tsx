@@ -122,6 +122,7 @@ const StyledContainer = styled.div`
   min-width: 375px;
   height: 58px;
   background-color: ${theme.colors.white};
+  z-index: 20;
   box-shadow: ${theme.shadows.shadowTop.shadow};
 
   @media screen and (max-width: 768px) {
