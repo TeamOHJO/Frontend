@@ -1,9 +1,9 @@
 export function handleBadgeColor(value: string) {
   switch (value) {
     case '호텔/리조트':
-      return 'gray';
+      return 'purple';
     case '한옥':
-      return 'teal';
+      return 'orange';
     case '펜션/풀빌라':
       return 'blue';
     case '모텔':
