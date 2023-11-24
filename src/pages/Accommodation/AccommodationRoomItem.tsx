@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { StarFilled } from '@ant-design/icons';
 import { useState } from 'react';
 import { Heading, Text, Button, useDisclosure } from '@chakra-ui/react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import AccommodationToastPopup from './AccommodationToastPopup';
 import { theme } from '../../styles/theme';
 import SwiperComponent from '../../components/Swiper/SwiperComponent';
@@ -10,6 +11,10 @@ import DefaultModal from '../../components/Modal/DefaultModal';
 function AccommodationRoomItem() {
   const [cartHover, setCartHover] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  console.log(location.pathname);
 
   // 예약하기 버튼 모달
   const modalData = {
@@ -57,7 +62,11 @@ function AccommodationRoomItem() {
       <StyledAccommodationRoomImg>
         <SwiperComponent borderRadius="15px" images={images} />
       </StyledAccommodationRoomImg>
-      <StyledAccommodationRoomTitle>
+      <StyledAccommodationRoomTitle
+        onClick={() => {
+          navigate(`${location.pathname}/id`);
+        }}
+      >
         <StyledAccommodationRoomTitleBox style={{ marginBottom: '0.5rem' }}>
           <Heading as="h4" size="sm">
             101호
@@ -84,7 +93,10 @@ function AccommodationRoomItem() {
               className="material-symbols-outlined"
               onMouseEnter={handleCartMouseEnter}
               onMouseLeave={handleCartMouseLeave}
-              onClick={openFunction}
+              onClick={(event) => {
+                event.stopPropagation();
+                openFunction();
+              }}
             >
               add_shopping_cart
               {cartHover ? (
@@ -106,7 +118,10 @@ function AccommodationRoomItem() {
               size="lg"
               style={{ width: '100px', height: '40px' }}
               isDisabled={false}
-              onClick={onOpen}
+              onClick={(event) => {
+                event.stopPropagation();
+                onOpen();
+              }}
             >
               예약하기
             </Button>
@@ -137,6 +152,7 @@ const StyledAccommodationRoomTitle = styled.div`
   width: 100%;
   height: 100px;
   padding: 0.8rem;
+  cursor: pointer;
 `;
 
 const StyledAccommodationRoomTitleBox = styled.div`

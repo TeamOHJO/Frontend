@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import { Heading, Button } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import AccommodationReviewItem from './AccommodationReviewItem';
 
 function AccommodationReview() {
   const array: number[] = [1, 2, 3, 4, 5];
+  const navigate = useNavigate();
 
   return (
     <StyledAccommodationReviewWrapper>
@@ -24,6 +26,7 @@ function AccommodationReview() {
           variant="blue"
           size="lg"
           style={{ width: '260px', height: '40px' }}
+          onClick={() => navigate('/review/id')}
         >
           후기 전체보기
         </Button>

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Button } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import AccommodationInfoText from './AccommodationInfoText';
 import AccommodationInfoMap from './AccommodationInfoMap';
 import AccommodationInfoTag from './AccommodationInfoTag';
@@ -15,6 +16,9 @@ function AccommodationInfo() {
     content:
       '안녕 이라는 말을해 짧은 시간을 뒤로 한채로 여전히 아프겠지만 하룻밤 자고 나면 사라지는 꿈처럼 너를, oh, 잊게될까 두려워져 무 꿈처럼 너를, oh, 잊게될까 두려워져 무꿈처럼 너를, oh, 잊게될까 두려워져 무 안녕 이라는 말을해 짧은 시간을 뒤로 한채로 여전히 아프겠지만 하룻밤 자고 나면 사라지는 꿈처럼 너를, oh, 잊게될까 두려워져 무 꿈처럼 너를, oh, 잊게될까 두려워져 무꿈처럼 너를, oh, 잊게될까 두려워져 무',
   };
+
+  const navigate = useNavigate();
+
   return (
     <StyledAccommodationInfoWrapper>
       <AccommodationInfoText
@@ -34,8 +38,9 @@ function AccommodationInfo() {
           variant="blue"
           size="lg"
           style={{ width: '260px', height: '40px' }}
+          onClick={() => navigate('/explanation/id')}
         >
-          후기 전체보기
+          설명 한 눈에 보기
         </Button>
       </StyledAccommodationInfoMoreBtnWrapper>
       <AccommodationInfoMap />

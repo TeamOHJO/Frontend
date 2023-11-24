@@ -63,6 +63,7 @@ function AccommodationInfoText({ title, content }: InfoProps) {
           maxHeight: isExpandedText ? 'none' : '85px',
           overflow: 'hidden',
           marginBottom: '1rem',
+          padding: '0 1rem',
         }}
       >
         {content}

@@ -5,22 +5,38 @@ import {
   ShoppingCartOutlined,
   UpOutlined,
 } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import { theme } from '../../styles/theme';
 
 function AccommodationNavi() {
+  const navigate = useNavigate();
+
   const ScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   return (
     <StyledAccommodationNaviWrapper>
       <StyledAccommodationNaviLeft>
-        <ArrowLeftOutlined style={{ fontSize: '24px', cursor: 'pointer' }} />
+        <ArrowLeftOutlined
+          style={{ fontSize: '24px', cursor: 'pointer' }}
+          onClick={() => {
+            navigate(-1);
+          }}
+        />
       </StyledAccommodationNaviLeft>
       <StyledAccommodationNaviRight>
         <HomeOutlined
           style={{ fontSize: '24px', marginRight: '1rem', cursor: 'pointer' }}
+          onClick={() => {
+            navigate('/');
+          }}
         />
-        <ShoppingCartOutlined style={{ fontSize: '24px', cursor: 'pointer' }} />
+        <ShoppingCartOutlined
+          style={{ fontSize: '24px', cursor: 'pointer' }}
+          onClick={() => {
+            navigate('/basket');
+          }}
+        />
       </StyledAccommodationNaviRight>
       <StyledTopBtn onClick={ScrollToTop}>
         <UpOutlined />
