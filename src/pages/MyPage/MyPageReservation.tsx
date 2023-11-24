@@ -1,5 +1,11 @@
+import MyPageSubtitle from './MyPageSubtitle';
+
 function MyPageReservation() {
-  return <div>예약/취소 내역</div>;
+  return (
+    <div>
+      <MyPageSubtitle subtitle="예약 내역" />
+    </div>
+  );
 }
 
 export default MyPageReservation;
