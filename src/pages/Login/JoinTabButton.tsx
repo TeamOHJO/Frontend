@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Button } from '@chakra-ui/react';
 import { LoginTabButtonProps } from '../../@types/interface';
 
-const LoginTabButton = ({
+const JoinTabButton = ({
   errors,
   formData,
   errorSetFunc,
@@ -29,8 +29,8 @@ const LoginTabButton = ({
         },
       }}
     >
-      로그인
+      회원가입
     </Button>
   );
 };
-export default LoginTabButton;
+export default JoinTabButton;

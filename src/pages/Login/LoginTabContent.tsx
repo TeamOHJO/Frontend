@@ -1,5 +1,5 @@
 import { useState, FormEvent } from 'react';
-import { Flex } from '@chakra-ui/react';
+import styled from '@emotion/styled';
 import { FormData, LoginSetProps } from '../../@types/interface';
 import LoginTabButton from './LoginTabButton';
 import LoginInput from './LoginInput';
@@ -29,31 +29,36 @@ const LoginTabContent = () => {
     const newErrors: { [key in keyof FormData]?: string } = {};
     const newIsError: { [key in keyof FormData]?: boolean } = {};
 
-    const error = validateField({ key, value });
+    const error = validateField({ key, value, formData });
 
     newErrors[key] = error;
-    newIsError[key] = Boolean(error);
+    newIsError[key] = !!error;
 
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
     setIsError((prevIsError) => ({ ...prevIsError, ...newIsError }));
   };
 
   return (
-    <Flex flexDirection="column" alignItems="center">
-      <form onSubmit={handleLoginSubmit}>
-        <LoginInput
-          isError={isError}
-          errors={errors}
-          errorSetFunc={errorSetFunc}
-        />
-        <LoginTabButton
-          errors={errors}
-          formData={formData}
-          errorSetFunc={errorSetFunc}
-        />
-      </form>
-    </Flex>
+    <StyledForm onSubmit={handleLoginSubmit}>
+      <LoginInput
+        isError={isError}
+        errors={errors}
+        errorSetFunc={errorSetFunc}
+      />
+      <LoginTabButton
+        errors={errors}
+        formData={formData}
+        errorSetFunc={errorSetFunc}
+      />
+    </StyledForm>
   );
 };
+
+const StyledForm = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export default LoginTabContent;

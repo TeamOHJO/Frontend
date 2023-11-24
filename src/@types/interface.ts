@@ -56,6 +56,7 @@ export interface LoginTabInputProps {
 export interface ValidationLogin {
   key: keyof FormData;
   value: string;
+  formData: FormData;
 }
 export interface HomeCardProps {
   name: any;
