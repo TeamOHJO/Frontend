@@ -9,6 +9,7 @@ import Test from '../pages/test/Test';
 import Basket from '../pages/Basket';
 import WishList from '../pages/WishList';
 import Room from '../pages/Room';
+import CustomerReview from '../pages/customerReview';
 import MyPage from '../pages/MyPage';
 
 function Dashboard() {
@@ -36,6 +37,7 @@ function MainRouter() {
           </Route>
           <Route path="/accommodation/:id" element={<Accommodation />} />
           <Route path="/accommodation/:id/:id" element={<Room />} />
+          <Route path="/review/:id" element={<CustomerReview />} />
         </Routes>
       </StyledInnerContainer>
     </StyledContainer>
@@ -58,7 +60,9 @@ const StyledInnerContainer = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+  overflow-x: hidden;
   overflow-y: auto;
+
   width: ${theme.device.tablet};
 
   background-color: ${theme.colors.white};
