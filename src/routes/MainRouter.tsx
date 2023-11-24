@@ -58,7 +58,9 @@ const StyledInnerContainer = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+  overflow-x: hidden;
   overflow-y: auto;
+
   width: ${theme.device.tablet};
 
   background-color: ${theme.colors.white};

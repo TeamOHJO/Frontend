@@ -34,7 +34,7 @@ const ReviewCardImage = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 5,
     slidesToScroll: 1,
     centerMode: true,
     centerPadding: '18px',
@@ -134,6 +134,7 @@ const StyledImgContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
+  padding: 4px;
   border: none;
 `;
 
@@ -141,8 +142,8 @@ const StyledThumImages = styled.img`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 340px;
-  height: 300px;
+  width: 20rem;
+  height: 20rem;
   margin: 0 auto;
   margin-top: 2rem;
   object-fit: cover;
@@ -163,10 +164,8 @@ const StyledThumImages = styled.img`
 
 const StyledListImage = styled.img<{ isCenter: boolean }>`
   display: flex;
-  /* width: 100px; */
-  /* height: 75px; */
   width: ${({ isCenter }) => (isCenter ? '110px' : '100px')};
-  height: ${({ isCenter }) => (isCenter ? '80px' : '75px')};
+  height: ${({ isCenter }) => (isCenter ? '75px' : '75px')};
   object-fit: cover;
   border-radius: 4px;
   margin: 0 auto;

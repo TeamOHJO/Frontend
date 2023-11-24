@@ -20,6 +20,5 @@ const StyledLayout = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
-  /* min-height: 100vh; */
-  min-height: calc(var(--var, 1vh) * 100);
+  min-height: 100vh;
 `;

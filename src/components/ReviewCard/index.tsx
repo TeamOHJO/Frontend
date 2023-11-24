@@ -10,7 +10,7 @@ const ReviewCard = () => {
       mt="1rem"
       p="4"
       spacing={4}
-      templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}
+      templateColumns={['repeat(1, 1fr)']}
       justifyContent="center"
       alignItems="center"
     >
@@ -31,18 +31,11 @@ const ReviewCard = () => {
 export default ReviewCard;
 
 const StyledSimpleGrid = styled(SimpleGrid)`
-  @media (max-width: 678px) {
+  @media (max-width: 768px) {
     grid-template-columns: repeat(1, 1fr);
   }
 
-  @media (min-width: 679px) and (max-width: 1023px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  /* @media (max-width: 768px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  @media (min-width: 769px) and (max-width: 1023px) {
+  /* @media (min-width: 769px) and (max-width: 1023px) {
     grid-template-columns: repeat(2, 1fr);
   } */
 `;
