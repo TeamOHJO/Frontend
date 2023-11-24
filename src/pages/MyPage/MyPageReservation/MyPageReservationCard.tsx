@@ -11,7 +11,27 @@ import {
 import { StarFilled } from '@ant-design/icons';
 import { theme } from '../../../styles/theme';
 
-function MyPageReservationCard() {
+interface MyPageReservationCardProps {
+  item: ReservationData;
+}
+
+interface ReservationData {
+  reservationId: number;
+  startTime: string;
+  endTime: string;
+  numberOfPerson: number;
+  createdAt: string;
+  deletedAt: string | null;
+  category: string;
+  accommodationName: string;
+  image: string;
+  name: string;
+  price: number;
+  nights: number;
+  stars: number;
+}
+
+function MyPageReservationCard({ item }: MyPageReservationCardProps) {
   return (
     <Card size="sm">
       <CardBody>
@@ -19,7 +39,7 @@ function MyPageReservationCard() {
           width="100%"
           height="290px"
           objectFit="cover"
-          src="https://www.lottehotel.com/content/dam/lotte-hotel/city/mapo/overview/introduction/190725-1-768-ove-LTMA.png.thumb.768.768.jpg"
+          src={item.image}
           alt="Accommodation Photo"
           borderRadius="lg"
         />
@@ -37,12 +57,12 @@ function MyPageReservationCard() {
             gap={1}
           >
             <Box textAlign="left">
-              <Badge variant="blue">펜션/풀빌라</Badge>
+              <Badge variant="blue">{item.category}</Badge>
             </Box>
-            <Heading size="md">일본 도쿄 Nakano City</Heading>
-            <Text size="sm">디럭스 패밀리룸</Text>
+            <Heading size="md">{item.accommodationName}</Heading>
+            <Text size="sm">{item.name}</Text>
             <Text as="p" size="xs" color="blackAlpha.600">
-              12월 26일 - 12월 29일 (3박)
+              {item.startTime} - {item.endTime} ({item.nights}박)
             </Text>
           </Box>
           <Box
@@ -56,12 +76,18 @@ function MyPageReservationCard() {
                 style={{ color: theme.colors.blue400, fontSize: '1rem' }}
               />
               <Text as="span" size="xs">
-                4.90
+                {item.stars.toFixed(2)}
               </Text>
             </Box>
-            <Button variant="gray" size="sm">
-              예약 취소
-            </Button>
+            {item.deletedAt ? (
+              <Button variant="gray" size="sm">
+                예약 취소
+              </Button>
+            ) : (
+              <Text size="sm" fontWeight="bold" color="red.500">
+                취소됨
+              </Text>
+            )}
           </Box>
         </Box>
       </CardBody>
