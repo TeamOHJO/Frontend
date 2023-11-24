@@ -24,12 +24,12 @@ function AccommodationMainImg() {
         {isHeart ? (
           <HeartFilled
             onClick={() => handleIsHeart()}
-            style={{ fontSize: '36px', color: theme.colors.red500 }}
+            style={{ fontSize: '30px', color: theme.colors.red500 }}
           />
         ) : (
           <HeartOutlined
             onClick={() => handleIsHeart()}
-            style={{ fontSize: '36px', color: theme.colors.red500 }}
+            style={{ fontSize: '30px', color: theme.colors.red500 }}
           />
         )}
       </StyledAccommodationHeart>
