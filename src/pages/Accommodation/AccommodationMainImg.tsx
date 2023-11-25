@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import SwiperComponent from '../../components/Swiper/SwiperComponent';
-import Heart from '../../components/heart';
+import Heart from '../../components/Heart';
 
 function AccommodationMainImg() {
   const images: string[] = [
