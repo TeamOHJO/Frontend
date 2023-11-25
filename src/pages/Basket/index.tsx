@@ -4,16 +4,25 @@ import BasketHeader from './BasketHeader';
 
 function Basket() {
   return (
-    <StyledBasketWrapper>
-      <BasketHeader />
-      <StyledBasketContent>
-        <BasketTabs />
-      </StyledBasketContent>
-    </StyledBasketWrapper>
+    <StyledContainer>
+      <StyledBasketWrapper>
+        <BasketHeader />
+        <StyledBasketContent>
+          <BasketTabs />
+        </StyledBasketContent>
+      </StyledBasketWrapper>
+    </StyledContainer>
   );
 }
 
 export default Basket;
+
+const StyledContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+`;
 
 const StyledBasketWrapper = styled.div`
   width: 100%;

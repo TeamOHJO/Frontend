@@ -3,7 +3,7 @@ import { UpOutlined } from '@ant-design/icons';
 import { theme } from '../../styles/theme';
 
 const ScrollToTop = () => {
-  window.scrollTo(0, 0);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 function TopBtn() {

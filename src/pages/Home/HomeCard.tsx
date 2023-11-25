@@ -47,7 +47,7 @@ const StyledImgWrapper = styled.div`
   width: 100%;
   height: 300px;
   border-radius: 8px;
-  box-shadow: ${theme.shadows.shadow3.shadow};
+  box-shadow: ${theme.shadows.shadow2.shadow};
 `; // 추후 슬라이드 컴포넌트로 대체
 
 const StyledInfoContainer = styled.div`
