@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Heading, Text } from '@chakra-ui/react';
 import { EnvironmentOutlined } from '@ant-design/icons';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Coordinate {
   lat: number;
@@ -16,16 +16,18 @@ function AccommodationInfoMap() {
   });
   const address = '강원도 강릉시 옥계면 헌화로 455-34';
 
-  const geocoder = new kakao.maps.services.Geocoder();
+  useEffect(() => {
+    const geocoder = new kakao.maps.services.Geocoder();
 
-  const callback = function (result: any, status: any) {
-    if (status === kakao.maps.services.Status.OK) {
-      const newSearch = result[0];
-      setCoordinate({ lat: newSearch.y, lng: newSearch.x });
-    }
-  };
+    const callback = function (result: any, status: any) {
+      if (status === kakao.maps.services.Status.OK) {
+        const newSearch = result[0];
+        setCoordinate({ lat: newSearch.y, lng: newSearch.x });
+      }
+    };
 
-  geocoder.addressSearch(address, callback);
+    geocoder.addressSearch(address, callback);
+  }, []);
 
   return (
     <StyledAccommodationInfoMapWrapper>
