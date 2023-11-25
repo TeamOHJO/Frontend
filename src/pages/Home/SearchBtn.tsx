@@ -1,12 +1,17 @@
 import styled from '@emotion/styled';
 import { SearchOutlined } from '@ant-design/icons';
+import { useDisclosure } from '@chakra-ui/react';
+import SearchModal from './SearchModal';
 import { theme } from '../../styles/theme';
 
 function SearchBtn() {
+  const { onOpen, isOpen, onClose } = useDisclosure();
+
   return (
-    <StyledContainer>
+    <StyledContainer onClick={onOpen}>
       <StyledTextContainer>국내/국외, 날짜, 인원 수 추가</StyledTextContainer>
       <SearchOutlined style={{ color: theme.colors.gray400 }} />
+      <SearchModal isOpen={isOpen} onClose={onClose} />
     </StyledContainer>
   );
 }
