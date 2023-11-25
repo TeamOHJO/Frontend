@@ -12,19 +12,6 @@ function MyPageReservation() {
   const reservationRef = useRef<HTMLDivElement>(null);
   const cancellationRef = useRef<HTMLDivElement>(null);
 
-  const onMoveToReservationRef = () => {
-    reservationRef?.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-  };
-  const onMoveToCancellationRef = () => {
-    cancellationRef?.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-  };
-
   const reservationList = reservationData.filter(
     (item: ReservationData) => item.deletedAt !== null,
   );
@@ -53,8 +40,8 @@ function MyPageReservation() {
           <MyPageSubtitle subtitle="예약 내역" />
           <MyPageReservationButtons
             isReserved={isReserved}
-            onMoveToReservationRef={onMoveToReservationRef}
-            onMoveToCancellationRef={onMoveToCancellationRef}
+            reservationRef={reservationRef}
+            cancellationRef={cancellationRef}
           />
         </StyledHeader>
         <StyledCardWrapper>
@@ -68,8 +55,8 @@ function MyPageReservation() {
           <MyPageSubtitle subtitle="취소 내역" />
           <MyPageReservationButtons
             isReserved={!isReserved}
-            onMoveToReservationRef={onMoveToReservationRef}
-            onMoveToCancellationRef={onMoveToCancellationRef}
+            reservationRef={reservationRef}
+            cancellationRef={cancellationRef}
           />
         </StyledHeader>
         <StyledCardWrapper>
