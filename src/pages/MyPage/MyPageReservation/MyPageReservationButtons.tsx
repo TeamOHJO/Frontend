@@ -1,38 +1,29 @@
 import { ButtonGroup, Button, Text } from '@chakra-ui/react';
 
 interface MyPageReservationTabsProps {
-  leftColor: string;
-  rightColor: string;
-  reservationRef: React.RefObject<HTMLDivElement>;
-  cancellationRef: React.RefObject<HTMLDivElement>;
+  isReserved: boolean;
+  onMoveToReservationRef: () => void;
+  onMoveToCancellationRef: () => void;
 }
 
 function MyPageReservationButtons({
-  leftColor,
-  rightColor,
-  reservationRef,
-  cancellationRef,
+  isReserved,
+  onMoveToReservationRef,
+  onMoveToCancellationRef,
 }: MyPageReservationTabsProps) {
-  const onMoveToReservationRef = () => {
-    reservationRef?.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-  };
-  const onMoveToCancellationRef = () => {
-    cancellationRef?.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-  };
-
   return (
     <ButtonGroup variant="link" spacing="3" mt="1rem">
-      <Button colorScheme={leftColor} onClick={onMoveToReservationRef}>
+      <Button
+        colorScheme={isReserved ? 'blue' : 'gray'}
+        onClick={onMoveToReservationRef}
+      >
         예약 내역
       </Button>
       <Text>/</Text>
-      <Button colorScheme={rightColor} onClick={onMoveToCancellationRef}>
+      <Button
+        colorScheme={!isReserved ? 'blue' : 'gray'}
+        onClick={onMoveToCancellationRef}
+      >
         취소 내역
       </Button>
     </ButtonGroup>

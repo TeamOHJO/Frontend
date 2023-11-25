@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import {
   Card,
   CardBody,
@@ -31,19 +32,8 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
           alt="Accommodation Photo"
           borderRadius="lg"
         />
-        <Box
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-          mt="6"
-        >
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="space-between"
-            alignItems="flex-start"
-            gap={1}
-          >
+        <StyledCardContent>
+          <StyledCardBodyLeft>
             <Box textAlign="left">
               <Badge variant={badgeColor}>{item.category}</Badge>
             </Box>
@@ -52,21 +42,16 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
             <Text as="p" size="xs" color="blackAlpha.600">
               {item.startTime} - {item.endTime} ({item.nights}박)
             </Text>
-          </Box>
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="space-between"
-            alignItems="flex-end"
-          >
-            <Box display="flex" alignItems="center" gap={1}>
+          </StyledCardBodyLeft>
+          <StyledCardBodyRight>
+            <StyledStar>
               <StarFilled
                 style={{ color: theme.colors.blue400, fontSize: '1rem' }}
               />
               <Text as="span" size="xs">
                 {item.stars.toFixed(2)}
               </Text>
-            </Box>
+            </StyledStar>
             {item.deletedAt ? (
               <Button variant="gray" size="sm">
                 예약 취소
@@ -76,11 +61,38 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
                 취소됨
               </Text>
             )}
-          </Box>
-        </Box>
+          </StyledCardBodyRight>
+        </StyledCardContent>
       </CardBody>
     </Card>
   );
 }
 
 export default MyPageReservationCard;
+
+const StyledCardBodyLeft = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 3px;
+`;
+const StyledCardBodyRight = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+`;
+
+const StyledStar = styled(Box)`
+  display: flex;
+  align-items: center;
+  gap: 3px;
+`;
+
+const StyledCardContent = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1rem;
+`;

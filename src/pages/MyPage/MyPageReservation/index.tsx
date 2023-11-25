@@ -3,13 +3,27 @@ import styled from '@emotion/styled';
 import { Box } from '@chakra-ui/react';
 import MyPageSubtitle from '../MyPageSubtitle';
 import MyPageReservationCard from './MyPageReservationCard';
-import { ReservationData } from '../../../@types/interface';
 import MyPageReservationButtons from './MyPageReservationButtons';
+import { ReservationData } from '../../../@types/interface';
 
 function MyPageReservation() {
+  const isReserved = true;
   const [reservationData, setReservationData] = useState([]);
   const reservationRef = useRef<HTMLDivElement>(null);
   const cancellationRef = useRef<HTMLDivElement>(null);
+
+  const onMoveToReservationRef = () => {
+    reservationRef?.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  };
+  const onMoveToCancellationRef = () => {
+    cancellationRef?.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  };
 
   const reservationList = reservationData.filter(
     (item: ReservationData) => item.deletedAt !== null,
@@ -34,38 +48,36 @@ function MyPageReservation() {
 
   return (
     <>
-      <div ref={reservationRef}>
-        <StyledHeaderWrapper>
+      <StyledContent ref={reservationRef}>
+        <StyledHeader>
           <MyPageSubtitle subtitle="예약 내역" />
           <MyPageReservationButtons
-            leftColor="blue"
-            rightColor="gray"
-            reservationRef={reservationRef}
-            cancellationRef={cancellationRef}
+            isReserved={isReserved}
+            onMoveToReservationRef={onMoveToReservationRef}
+            onMoveToCancellationRef={onMoveToCancellationRef}
           />
-        </StyledHeaderWrapper>
+        </StyledHeader>
         <StyledCardWrapper>
           {reservationList.map((item: ReservationData) => {
             return <MyPageReservationCard item={item} />;
           })}
         </StyledCardWrapper>
-      </div>
-      <Box ref={cancellationRef} mt={20}>
-        <StyledHeaderWrapper>
+      </StyledContent>
+      <StyledContent ref={cancellationRef} mt={20}>
+        <StyledHeader>
           <MyPageSubtitle subtitle="취소 내역" />
           <MyPageReservationButtons
-            leftColor="gray"
-            rightColor="blue"
-            reservationRef={reservationRef}
-            cancellationRef={cancellationRef}
+            isReserved={!isReserved}
+            onMoveToReservationRef={onMoveToReservationRef}
+            onMoveToCancellationRef={onMoveToCancellationRef}
           />
-        </StyledHeaderWrapper>
+        </StyledHeader>
         <StyledCardWrapper>
           {cancellationList.map((item: ReservationData) => {
             return <MyPageReservationCard item={item} />;
           })}
         </StyledCardWrapper>
-      </Box>
+      </StyledContent>
     </>
   );
 }
@@ -80,9 +92,11 @@ const StyledCardWrapper = styled.div`
   margin-top: 1rem;
 `;
 
-const StyledHeaderWrapper = styled.div`
+const StyledHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `;
+
+const StyledContent = styled(Box)``;
