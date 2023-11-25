@@ -3,6 +3,7 @@ import UnFooterNav from '../../components/Layout/UnFooterNav';
 import ReservationPageTitle from './ReservationPageTitle';
 import ReservationSubtitle from './ReservationSubtitle';
 import ReservationInfoCard from './ReservationInfoCard';
+import ReservationAgreeCard from './ReservationAgreeCard';
 
 const Reservation = () => {
   return (
@@ -11,6 +12,7 @@ const Reservation = () => {
       <ReservationPageTitle />
       <ReservationSubtitle />
       <ReservationInfoCard />
+      <ReservationAgreeCard />
     </StyledLayout>
   );
 };
