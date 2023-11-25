@@ -2,7 +2,6 @@ import DatePicker from 'react-datepicker';
 import { Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import 'react-datepicker/dist/react-datepicker.css';
-import './datePicker.css';
 import { theme } from '../../../styles/theme';
 import CalendarCustomInput from './CalendarCustomInput';
 

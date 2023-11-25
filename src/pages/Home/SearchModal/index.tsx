@@ -11,7 +11,6 @@ import {
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import 'react-datepicker/dist/react-datepicker.css';
-import './datePicker.css';
 import Calendar from './Calendar';
 import VisitorSetter from './VisitorSetter';
 import RegionSetter from './RegionSetter';
