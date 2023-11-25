@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
+import { Box } from '@chakra-ui/react';
 import MyPageSubtitle from '../MyPageSubtitle';
 import MyPageReservationCard from './MyPageReservationCard';
 import { ReservationData } from '../../../@types/interface';
@@ -33,7 +34,7 @@ function MyPageReservation() {
 
   return (
     <>
-      <div ref={reservationRef} id="reservationDiv">
+      <div ref={reservationRef}>
         <StyledHeaderWrapper>
           <MyPageSubtitle subtitle="예약 내역" />
           <MyPageReservationButtons
@@ -49,7 +50,7 @@ function MyPageReservation() {
           })}
         </StyledCardWrapper>
       </div>
-      <div ref={cancellationRef} id="cancellationDiv">
+      <Box ref={cancellationRef} mt={20}>
         <StyledHeaderWrapper>
           <MyPageSubtitle subtitle="취소 내역" />
           <MyPageReservationButtons
@@ -64,7 +65,7 @@ function MyPageReservation() {
             return <MyPageReservationCard item={item} />;
           })}
         </StyledCardWrapper>
-      </div>
+      </Box>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { ButtonGroup, Button } from '@chakra-ui/react';
+import { ButtonGroup, Button, Text } from '@chakra-ui/react';
 
 interface MyPageReservationTabsProps {
   leftColor: string;
@@ -31,6 +31,7 @@ function MyPageReservationButtons({
       <Button colorScheme={leftColor} onClick={onMoveToReservationRef}>
         예약 내역
       </Button>
+      <Text>/</Text>
       <Button colorScheme={rightColor} onClick={onMoveToCancellationRef}>
         취소 내역
       </Button>
