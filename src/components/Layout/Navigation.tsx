@@ -149,14 +149,7 @@ const StyledNonUserState = styled.div`
   height: 100%;
 `;
 
-const StyledUserState = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
-`;
+const StyledUserState = styled(StyledNonUserState)``;
 
 const StyledItem = styled.div`
   display: flex;
