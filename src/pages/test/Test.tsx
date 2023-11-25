@@ -131,8 +131,8 @@ const Test = () => {
         뱃지 사용 예시
       </Heading>
 
-      <Badge variant="gray">호텔/리조트</Badge>
-      <Badge variant="teal">한옥</Badge>
+      <Badge variant="purple">호텔/리조트</Badge>
+      <Badge variant="orange">한옥</Badge>
       <Badge variant="blue">펜션/풀빌라</Badge>
       <Badge variant="green">모텔</Badge>
       <Badge variant="red">게스트하우스</Badge>

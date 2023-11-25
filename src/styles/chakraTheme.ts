@@ -188,6 +188,14 @@ export const chakraTheme = extendTheme({
           backgroundColor: 'red.100',
           color: 'red.800',
         },
+        purple: {
+          backgroundColor: 'purple.100',
+          color: 'purple.800',
+        },
+        orange: {
+          backgroundColor: 'orange.100',
+          color: 'orange.800',
+        },
         disabled: {
           backgroundColor: 'blackAlpha.200',
           color: 'blackAlpha.600',
