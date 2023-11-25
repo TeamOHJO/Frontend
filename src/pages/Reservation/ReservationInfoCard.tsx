@@ -1,5 +1,7 @@
 import { Card, SimpleGrid } from '@chakra-ui/react';
 import ReservationDate from './ReservationDate';
+import ReservationBreakDown from './ReservationBreakDown';
+import ReservationSubBreakDown from './ReservationSubBreakDown';
 
 const ReservationInfoCard = () => {
   return (
@@ -13,6 +15,8 @@ const ReservationInfoCard = () => {
     >
       <Card variant="elevated" pb="2rem">
         <ReservationDate />
+        <ReservationBreakDown />
+        <ReservationSubBreakDown />
       </Card>
     </SimpleGrid>
   );
