@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { FormData, LoginSetProps } from '../../@types/interface';
 import LoginTabButton from './LoginTabButton';
 import LoginInput from './LoginInput';
-import { validateField } from '../../utils/utils';
+import { setCookies, validateField } from '../../utils/utils';
 import { postLogin } from '../../api';
 import { ErrorData } from '../../api/type';
 import { toastPopupState } from '../../states/atom';
@@ -32,7 +32,7 @@ const LoginTabContent = () => {
     try {
       const res = await postLogin(formData);
       const { data } = res;
-      console.log(data);
+      await setCookies(data.email, data.name);
       navigate('/');
     } catch (error) {
       if (isAxiosError(error)) {

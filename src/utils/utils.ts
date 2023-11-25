@@ -27,3 +27,32 @@ export const validateField = ({
   }
   return error;
 };
+
+export const setCookies = async (userEmail: string, userName: string) => {
+  try {
+    document.cookie = `userEmail=${userEmail};max-age=1200;path=/;secure`;
+    document.cookie = `userName=${userName};max-age=1200;path=/;secure`;
+  } catch (error) {
+    console.error(error);
+    alert('쿠키설정에 실패했습니다.');
+  }
+};
+
+export function getCookie(name: string): string | undefined {
+  const cookieValue = document.cookie
+    .split('; ')
+    .find((row) => row.startsWith(`${name}=`))
+    ?.split('=')[1];
+
+  return cookieValue || undefined;
+}
+
+export const removeCookies = async () => {
+  try {
+    document.cookie = 'userEmail=; Max-Age=0; path=/';
+    document.cookie = 'userName=; Max-Age=0; path=/';
+  } catch (e) {
+    console.error(e);
+    alert('쿠키삭제에 실패했습니다.');
+  }
+};
