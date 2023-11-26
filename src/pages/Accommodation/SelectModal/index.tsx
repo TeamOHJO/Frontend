@@ -47,8 +47,11 @@ function SelectModal({ isOpen, onClose }: ModalProps) {
 
   // 날짜 하루만 선택 시 예외처리
   const checkNull = () => {
-    if (accommodationSelectEndDate == null) {
-      console.log(accommodationSelectStartDate, accommodationSelectEndDate);
+    if (
+      accommodationSelectEndDate == null ||
+      accommodationSelectStartDate?.getTime() ===
+        accommodationSelectEndDate?.getTime()
+    ) {
       if (accommodationSelectStartDate) {
         const tomorrow = new Date(accommodationSelectStartDate);
         tomorrow.setDate(tomorrow.getDate() + 1);
@@ -89,11 +92,6 @@ function SelectModal({ isOpen, onClose }: ModalProps) {
           <StyledButton
             colorScheme="blue"
             onClick={() => {
-              console.log(
-                accommodationSelectStartDate,
-                accommodationSelectEndDate,
-                accommodationSelectVisitors,
-              );
               checkNull();
               onClose();
             }}

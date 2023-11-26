@@ -5,7 +5,6 @@ import { Heading, Text, Button, useDisclosure } from '@chakra-ui/react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import AccommodationToastPopup from './AccommodationToastPopup';
 import { theme } from '../../styles/theme';
-import SwiperComponent from '../../components/Swiper/SwiperComponent';
 import DefaultModal from '../../components/Modal/DefaultModal';
 import AccommodationRoomImages from './AccommodationRoomImages';
 

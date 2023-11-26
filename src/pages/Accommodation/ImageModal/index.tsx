@@ -41,12 +41,13 @@ export default ImageModal;
 
 const StyledModalBody = styled(ModalBody)`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 1rem;
   flex-wrap: wrap;
 `;
 
 const StyledImage = styled.img`
   width: 49%;
+  min-width: 240px;
   height: 50%;
-  margin-bottom: 1rem;
 `;
