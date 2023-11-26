@@ -40,7 +40,6 @@ function AccommodationInfoMap() {
           {address}
         </Text>
       </StyledAccommodationInfoMapTitle>
-
       <StyledMap center={coordinate}>
         <MapMarker position={coordinate} />
       </StyledMap>
