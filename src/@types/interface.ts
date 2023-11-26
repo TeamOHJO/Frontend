@@ -24,6 +24,7 @@ export interface ModalDataProps {
 
 export interface HomeCardProps {
   name: any;
+  images: any;
   category: any;
   score: any;
   price: any;

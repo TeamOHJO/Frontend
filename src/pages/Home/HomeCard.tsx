@@ -1,13 +1,32 @@
 import styled from '@emotion/styled';
-import { StarFilled } from '@ant-design/icons';
+import { useState } from 'react';
+import { StarFilled, HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { Text } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import { HomeCardProps } from '../../@types/interface';
+import SwiperComponent from '../../components/Swiper/SwiperComponent';
 
-const HomeCard = ({ name, category, score, price }: HomeCardProps) => {
+const HomeCard = ({ name, images, category, score, price }: HomeCardProps) => {
+  const [isLiked, setIsLiked] = useState(false);
+
+  const addWishList = () => {
+    setIsLiked(true);
+  };
+
+  const cancelAddWishList = () => {
+    setIsLiked(false);
+  };
+
   return (
     <StyledCard>
-      <StyledImgWrapper />
+      <StyledImgWrapper>
+        {isLiked ? (
+          <StyledHeartFilled onClick={cancelAddWishList} />
+        ) : (
+          <StyledHeartOutlined onClick={addWishList} />
+        )}
+        <SwiperComponent images={images} borderRadius="8px" />
+      </StyledImgWrapper>
       <StyledInfoContainer>
         <StyledCardHeader>
           <Text as="p" size="lg">
@@ -44,6 +63,7 @@ const StyledCard = styled.div`
 `;
 
 const StyledImgWrapper = styled.div`
+  position: relative;
   width: 100%;
   height: 300px;
   border-radius: 8px;
@@ -77,4 +97,22 @@ const StyledCategoryWrapper = styled.div`
 
 const StyledPriceWrapper = styled.div`
   padding-top: 1rem;
+`;
+
+const StyledHeartFilled = styled(HeartFilled)`
+  position: absolute;
+  font-size: 20px;
+  top: 10px;
+  right: 10px;
+  z-index: 50;
+  color: red;
+`;
+
+const StyledHeartOutlined = styled(HeartOutlined)`
+  position: absolute;
+  font-size: 20px;
+  top: 10px;
+  right: 10px;
+  z-index: 50;
+  color: red;
 `;
