@@ -1,6 +1,7 @@
 import { Global, ThemeProvider } from '@emotion/react';
 import { BrowserRouter } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
+import { RecoilRoot } from 'recoil';
 import reset from './styles/reset';
 import { theme } from './styles/theme';
 import MainRouter from './routes/MainRouter';
@@ -11,9 +12,11 @@ function App() {
     <ThemeProvider theme={theme}>
       <ChakraProvider theme={chakraTheme}>
         <Global styles={reset} />
-        <BrowserRouter>
-          <MainRouter />
-        </BrowserRouter>
+        <RecoilRoot>
+          <BrowserRouter>
+            <MainRouter />
+          </BrowserRouter>
+        </RecoilRoot>
       </ChakraProvider>
     </ThemeProvider>
   );
