@@ -26,7 +26,7 @@ const ContentsContainer = () => {
       {list.map((e: HomeCardProps) => {
         return (
           <HomeCard
-            key={e.price * e.score}
+            key={String(e.price * e.score) + e.name}
             name={e.name}
             images={e.images}
             category={e.category}
