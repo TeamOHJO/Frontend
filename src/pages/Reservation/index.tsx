@@ -1,18 +1,18 @@
 import styled from '@emotion/styled';
 import UnFooterNav from '../../components/Layout/UnFooterNav';
-import ReservationPageTitle from './ReservationPageTitle';
-import ReservationSubtitle from './ReservationSubtitle';
-import ReservationInfoCard from './ReservationInfoCard';
 import ReservationAgreeCard from './ReservationAgreeCard';
+import ReservationPaymentCard from './ReservationPaymentCard';
+import ReservationInfo from '../../components/ReservationInfo';
+import ReservationBottomNav from '../../components/Layout/ReservationBottomNav';
 
 const Reservation = () => {
   return (
     <StyledLayout>
       <UnFooterNav />
-      <ReservationPageTitle />
-      <ReservationSubtitle />
-      <ReservationInfoCard />
+      <ReservationInfo />
       <ReservationAgreeCard />
+      <ReservationPaymentCard />
+      <ReservationBottomNav />
     </StyledLayout>
   );
 };
@@ -25,4 +25,6 @@ const StyledLayout = styled.div`
   justify-content: flex-start;
   width: 100%;
   min-height: 100vh;
+  min-height: 1100px;
+  overflow-y: auto;
 `;
