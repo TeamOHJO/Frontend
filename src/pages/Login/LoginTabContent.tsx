@@ -2,12 +2,12 @@ import { useState, FormEvent } from 'react';
 import styled from '@emotion/styled';
 import { AxiosError } from 'axios';
 import { useSetRecoilState } from 'recoil';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FormData, LoginSetProps } from '../../@types/interface';
 import LoginTabButton from './LoginTabButton';
 import LoginInput from './LoginInput';
 import { setCookies, validateField } from '../../utils/utils';
-import { postLogin, testToken } from '../../api';
+import { postLogin } from '../../api';
 import { ErrorData } from '../../api/type';
 import { toastPopupState } from '../../states/atom';
 
@@ -24,7 +24,7 @@ const LoginTabContent = () => {
     email: '',
     password: '',
   });
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const setShowAlert = useSetRecoilState(toastPopupState);
 
   const handleLoginSubmit = async (e: FormEvent) => {
@@ -32,9 +32,8 @@ const LoginTabContent = () => {
     try {
       const res = await postLogin(formData);
       const { data } = res;
-      await setCookies(data.email, data.name);
-      testToken();
-      // navigate('/');
+      await setCookies(data.email, data.name, data.token);
+      navigate('/');
     } catch (error) {
       if (isAxiosError(error)) {
         const axiosError = error as AxiosError;
@@ -56,8 +55,7 @@ const LoginTabContent = () => {
     return error.isAxiosError !== undefined;
   };
 
-  const errorSetFunc = ({ e, key }: LoginSetProps) => {
-    const { value } = e.target;
+  const errorSetFunc = ({ value, key }: LoginSetProps) => {
     setFormData({ ...formData, [key]: value });
     const newErrors: { [key in keyof FormData]?: string } = {};
     const newIsError: { [key in keyof FormData]?: boolean } = {};

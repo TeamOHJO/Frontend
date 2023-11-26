@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, ChangeEvent } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 export interface ToastPopupProps {
   status: AlertData;
@@ -27,35 +27,45 @@ export interface FormData {
   password: string;
   passwordConfirm?: string;
   name?: string;
-  number?: string;
+  phone?: string;
+  verify?: boolean;
+}
+
+export interface FormError {
+  email: string;
+  password: string;
+  passwordConfirm?: string;
+  name?: string;
+  phone?: string;
 }
 
 export interface LoginSetProps {
-  e: ChangeEvent<HTMLInputElement>;
+  value: string | boolean;
   key: keyof FormData;
 }
 
 export interface LoginTabButtonProps {
-  errors: FormData;
+  errors: FormError;
   formData: FormData;
-  errorSetFunc: ({ e, key }: LoginSetProps) => void;
+  errorSetFunc: ({ value, key }: LoginSetProps) => void;
 }
 export interface IsErrorProps {
   email: boolean | undefined;
   password: boolean | undefined;
   passwordConfirm?: boolean | undefined;
   name?: boolean | undefined;
-  number?: boolean | undefined;
+  phone?: boolean | undefined;
+  verify?: boolean | undefined;
 }
 export interface LoginTabInputProps {
   isError: IsErrorProps;
-  errors: FormData;
-  errorSetFunc: ({ e, key }: LoginSetProps) => void;
+  errors: FormError;
+  errorSetFunc: ({ value, key }: LoginSetProps) => void;
 }
 
 export interface ValidationLogin {
   key: keyof FormData;
-  value: string;
+  value: string | boolean;
   formData: FormData;
 }
 export interface HomeCardProps {

@@ -6,6 +6,11 @@ export const toastPopupState = atom<AlertData>({
   default: { active: false, message: '' },
 });
 
+export const loginTabState = atom<number>({
+  key: 'loginTabState',
+  default: 0,
+});
+
 export const basketDataState = atom<BasketData[]>({
   key: 'basketDataState',
   default: [],
