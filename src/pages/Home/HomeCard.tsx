@@ -6,21 +6,28 @@ import { theme } from '../../styles/theme';
 import { HomeCardProps } from '../../@types/interface';
 import SwiperComponent from '../../components/Swiper/SwiperComponent';
 
-const HomeCard = ({ name, images, category, score, price }: HomeCardProps) => {
-  const [isLiked, setIsLiked] = useState(false);
+const HomeCard = ({
+  name,
+  images,
+  category,
+  score,
+  price,
+  isLiked,
+}: HomeCardProps) => {
+  const [onClickisLiked, setOnclickIsLiked] = useState(isLiked);
 
   const addWishList = () => {
-    setIsLiked(true);
+    setOnclickIsLiked(true);
   };
 
   const cancelAddWishList = () => {
-    setIsLiked(false);
+    setOnclickIsLiked(false);
   };
 
   return (
     <StyledCard>
       <StyledImgWrapper>
-        {isLiked ? (
+        {onClickisLiked ? (
           <StyledHeartFilled onClick={cancelAddWishList} />
         ) : (
           <StyledHeartOutlined onClick={addWishList} />
@@ -68,7 +75,7 @@ const StyledImgWrapper = styled.div`
   height: 300px;
   border-radius: 8px;
   box-shadow: ${theme.shadows.shadow2.shadow};
-`; // 추후 슬라이드 컴포넌트로 대체
+`;
 
 const StyledInfoContainer = styled.div`
   display: flex;

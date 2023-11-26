@@ -74,6 +74,7 @@ export interface HomeCardProps {
   category: any;
   score: any;
   price: any;
+  isLiked: boolean;
 }
 
 export interface ReservationData {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import { Button } from '@chakra-ui/react';
 import HomeCard from './HomeCard';
 import { HomeCardProps } from '../../@types/interface';
 
@@ -31,9 +32,13 @@ const ContentsContainer = () => {
             category={e.category}
             score={e.score}
             price={e.price}
+            isLiked={e.isLiked}
           />
         );
       })}
+      <StyledButtonWrapper>
+        <Button colorScheme="blue">더보기</Button>
+      </StyledButtonWrapper>
     </StyledContainer>
   );
 };
@@ -46,5 +51,12 @@ const StyledContainer = styled.div`
   flex-wrap: wrap;
   align-items: center;
   margin-top: 8rem;
+  width: 100%;
+`;
+
+const StyledButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   width: 100%;
 `;

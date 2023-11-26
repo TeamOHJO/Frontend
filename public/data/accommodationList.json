@@ -12,7 +12,7 @@
     "isLiked": true
   },
   {
-    "name": "신라호텔",
+    "name": "오사카호텔",
     "images": [
       "https://a.cdn-hotels.com/gdcs/production131/d620/b7386d4c-5975-4faf-989f-c8b86e7dbfd3.jpg?impolicy=fcrop&w=800&h=533&q=medium",
       "https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg",
@@ -24,7 +24,7 @@
     "isLiked": false
   },
   {
-    "name": "신라호텔",
+    "name": "신주쿠호텔",
     "images": [
       "https://ppss.kr/wp-content/uploads/2022/12/1-24.jpg",
       "https://www.agoda.com/wp-content/uploads/2018/11/City-guides_Osaka_best-10-hotels_Onyado-Nono-Namba-Natural-Hot-Spring1.jpg",
@@ -37,7 +37,7 @@
     "isLiked": false
   },
   {
-    "name": "신라호텔",
+    "name": "오키나와호텔",
     "images": [
       "https://mblogthumb-phinf.pstatic.net/MjAxNzAyMDJfNDUg/MDAxNDg2MDEyNDIyODMy.TNb1IwDhBKyJTqCmOuVx6RQRzIBIJVn9OuYGCow5vPAg.VFfehzsDsiVNB1ZW2OVUQxycvlgDpv26KCqWVCXyYiog.JPEG.annatomo/%EC%98%A4%EC%82%AC%EC%B9%B4%EC%88%99%EC%86%8C%EC%B6%94%EC%B2%9C2.JPG?type=w800",
       "https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg",
@@ -49,7 +49,7 @@
     "isLiked": true
   },
   {
-    "name": "신라호텔",
+    "name": "오사카호텔",
     "images": [
       "https://www.agoda.com/wp-content/uploads/2018/11/City-guides_Osaka_best-10-hotels_Onyado-Nono-Namba-Natural-Hot-Spring1.jpg",
       "https://ppss.kr/wp-content/uploads/2022/12/1-24.jpg",
@@ -61,7 +61,7 @@
     "isLiked": false
   },
   {
-    "name": "신라호텔",
+    "name": "도쿄호텔",
     "images": [
       "https://img.japankuru.com/prg_img/img/img2020012414163040829900.jpg",
       "https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg",
@@ -85,7 +85,7 @@
     "isLiked": true
   },
   {
-    "name": "신라호텔",
+    "name": "삿포로호텔",
     "images": [
       "https://www.agoda.com/wp-content/uploads/2018/11/City-guides_Osaka_best-10-hotels_Onyado-Nono-Namba-Natural-Hot-Spring1.jpg",
       "https://ppss.kr/wp-content/uploads/2022/12/1-24.jpg",
@@ -97,7 +97,7 @@
     "isLiked": false
   },
   {
-    "name": "신라호텔",
+    "name": "가나다호텔",
     "images": [
       "https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/wlQ/image/2B8eBKbhU0NgFTCkmDM-PO1gsLw.jpg",
       "https://ppss.kr/wp-content/uploads/2022/12/1-24.jpg",
@@ -106,6 +106,19 @@
     "category": "호텔/리조트",
     "score": 4.9,
     "price": 123400,
+    "isLiked": true
+  },
+  {
+    "name": "아키하바라호텔",
+    "images": [
+      "https://ppss.kr/wp-content/uploads/2022/12/1-24.jpg",
+      "https://www.agoda.com/wp-content/uploads/2018/11/City-guides_Osaka_best-10-hotels_Onyado-Nono-Namba-Natural-Hot-Spring1.jpg",
+      "https://ppss.kr/wp-content/uploads/2022/12/1-24.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBha8BmhIey_6XEOOgDLwUdBjwv_S8qEpjnyZKUl_naQDS_BomLQDhnq95CNpfQVzvuRE&usqp=CAU"
+    ],
+    "category": "호텔/리조트",
+    "score": 4.9,
+    "price": 222400,
     "isLiked": true
   }
 ]
