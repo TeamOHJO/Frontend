@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import {
   Tabs,
@@ -12,8 +13,32 @@ import BasketFooter from './BasketFooter';
 import BasketDisabledFooter from './BasketDisabledFooter';
 import BasketCard from './BasketCard';
 import BasketDisabledCard from './BasketDisabledCard';
+import { BasketData } from '../../@types/interface';
 
 function BasketTabs() {
+  const [basketData, setBasketData] = useState<BasketData[]>([]);
+
+  const [availableList, setAvailableList] = useState<BasketData[]>([]);
+  const [unavailableList, setUnavailableList] = useState<BasketData[]>([]);
+
+  // const newAvailableList = basketData.filter(
+  //   (item: BasketData) => item.canReserve === true,
+  // );
+  // const newUnavailableList = basketData.filter(
+  //   (item: BasketData) => item.canReserve === false,
+  // );
+
+  const fetchData = async () => {
+    const response = await fetch('http://localhost:5173/data/BasketData.json', {
+      method: 'GET',
+    });
+    setBasketData(await response.json());
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <Tabs variant="solid-rounded" colorScheme="blue" size="md">
       <TabList>
@@ -29,9 +54,15 @@ function BasketTabs() {
             </Button>
           </Box>
           <StyledBasketCardWrapper>
-            <BasketCard />
-            <BasketCard />
-            <BasketCard />
+            {availableList.map((item: BasketData) => {
+              return (
+                <BasketCard
+                  key={item.basketId}
+                  item={item}
+                  setAvailableList={setAvailableList}
+                />
+              );
+            })}
           </StyledBasketCardWrapper>
           <BasketFooter />
         </TabPanel>
@@ -42,9 +73,15 @@ function BasketTabs() {
             </Button>
           </Box>
           <StyledBasketCardWrapper>
-            <BasketDisabledCard />
-            <BasketDisabledCard />
-            <BasketDisabledCard />
+            {unavailableList.map((item: BasketData) => {
+              return (
+                <BasketDisabledCard
+                  key={item.basketId}
+                  item={item}
+                  setUnavailableList={setUnavailableList}
+                />
+              );
+            })}
           </StyledBasketCardWrapper>
           <BasketDisabledFooter />
         </TabPanel>

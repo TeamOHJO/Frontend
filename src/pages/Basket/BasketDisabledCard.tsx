@@ -10,8 +10,15 @@ import {
   Badge,
 } from '@chakra-ui/react';
 import { StarFilled, CloseOutlined } from '@ant-design/icons';
+import { BasketData } from '../../@types/interface';
 
-function BasketDisabledCard() {
+function BasketDisabledCard({
+  item,
+  setUnavailableList,
+}: {
+  item: BasketData;
+  setUnavailableList: (list: BasketData[]) => void;
+}) {
   return (
     <Card size="sm">
       <CardBody display="flex" flexDirection="row" gap={3}>
@@ -19,7 +26,7 @@ function BasketDisabledCard() {
           boxSize="110px"
           objectFit="cover"
           borderRadius={8}
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD3JBW-cAhYqwYXsEK9AosV69_t1SNqh5RYA&usqp=CAU"
+          src={item.image}
           alt="Accommodation Photo"
         />
         <Stack textAlign="left" width="100%" direction="column" gap={0.5}>

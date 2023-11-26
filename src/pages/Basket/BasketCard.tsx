@@ -12,8 +12,15 @@ import {
 } from '@chakra-ui/react';
 import { StarFilled } from '@ant-design/icons';
 import { theme } from '../../styles/theme';
+import { BasketData } from '../../@types/interface';
 
-function BasketCard() {
+function BasketCard({
+  item,
+  setAvailableList,
+}: {
+  item: BasketData;
+  setAvailableList: (list: BasketData[]) => void;
+}) {
   return (
     <Card size="sm">
       <CardBody display="flex" flexDirection="row" gap={3}>
@@ -22,7 +29,7 @@ function BasketCard() {
           objectFit="cover"
           borderRadius={8}
           dropShadow={theme.shadows.shadowTop}
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD3JBW-cAhYqwYXsEK9AosV69_t1SNqh5RYA&usqp=CAU"
+          src={item.image}
           alt="Accommodation Photo"
         />
         <Stack textAlign="left" width="100%" direction="column" gap={0.5}>

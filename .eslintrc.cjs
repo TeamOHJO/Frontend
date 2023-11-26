@@ -34,6 +34,7 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 'off',
     'arrow-body-style': 'off',
     'object-curly-newline': 0,
-    'react/jsx-one-expression-per-line': 'off', //JSX 안에서 한 줄에 하나만 표현한다
+    '@typescript-eslint/no-unused-vars': 'off',
+    'operator-linebreak': 0,
   },
 };

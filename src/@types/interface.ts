@@ -44,3 +44,17 @@ export interface ReservationData {
   nights: number;
   stars: number;
 }
+
+export interface BasketData {
+  basketId: number;
+  startDate: string;
+  endDate: string;
+  category: string;
+  accommodationName: string;
+  image: string;
+  name: string;
+  price: number;
+  nights: number;
+  stars: number;
+  canReserve: boolean;
+}
