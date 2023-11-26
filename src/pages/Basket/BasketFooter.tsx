@@ -6,13 +6,14 @@ import { theme } from '../../styles/theme';
 import {
   basketAvailableListState,
   basketCheckedItemsState,
+  getTotalPriceOfCheckedItems,
 } from '../../states/atom';
 import DefaultModal from '../../components/Modal/DefaultModal';
 
 function BasketFooter() {
   const navigate = useNavigate();
   const checkedItems = useRecoilValue(basketCheckedItemsState);
-  const availableList = useRecoilValue(basketAvailableListState);
+  const totalPrice = useRecoilValue(getTotalPriceOfCheckedItems);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const modalData = {
@@ -25,11 +26,6 @@ function BasketFooter() {
     // navigate(`/reservation?items=${checkedItems.join('&')}`);
     // navigate(`/reservation?items=${encodeURIComponent(checkedItems.join('&'))}`);
   };
-
-  const totalPrice = availableList.reduce(
-    (acc, cur) => acc + cur.price * cur.nights,
-    0,
-  );
 
   return (
     <StyledBasketFooterWrapper>

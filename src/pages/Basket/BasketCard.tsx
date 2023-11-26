@@ -24,14 +24,16 @@ function BasketCard({ item }: { item: BasketData }) {
   const totalPrice = item.price * item.nights;
   const badgeColor = handleBadgeColor(item.category);
 
-  const handleChange = (basketId: number) => {
-    const isChecked = checkedItems.includes(basketId);
+  const handleChange = (value: BasketData) => {
+    const isChecked = checkedItems.includes(value);
     if (isChecked) {
       setCheckedItems(
-        checkedItems.filter((checkedItem: number) => checkedItem !== basketId),
+        checkedItems.filter(
+          (checkedItem: BasketData) => checkedItem.basketId !== value.basketId,
+        ),
       );
     } else {
-      setCheckedItems([...checkedItems, basketId]);
+      setCheckedItems([...checkedItems, value]);
     }
   };
 
@@ -56,8 +58,8 @@ function BasketCard({ item }: { item: BasketData }) {
               <Badge variant={badgeColor}>{item.category}</Badge>
             </Box>
             <Checkbox
-              checked={checkedItems.includes(item.basketId)}
-              onChange={() => handleChange(item.basketId)}
+              checked={checkedItems.includes(item)}
+              onChange={() => handleChange(item)}
               size="md"
               colorScheme="blue"
               borderColor="gray.300"

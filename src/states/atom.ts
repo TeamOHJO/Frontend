@@ -26,7 +26,15 @@ export const basketUnavailableListState = atom<BasketData[]>({
   default: [],
 });
 
-export const basketCheckedItemsState = atom<number[]>({
+export const basketCheckedItemsState = atom<BasketData[]>({
   key: 'basketCheckedItemsState',
   default: [],
+});
+
+export const getTotalPriceOfCheckedItems = selector({
+  key: 'getTotalPriceOfCheckedItems',
+  get: ({ get }) => {
+    const checkedItems = get(basketCheckedItemsState);
+    return checkedItems.reduce((acc, cur) => acc + cur.price * cur.nights, 0);
+  },
 });
