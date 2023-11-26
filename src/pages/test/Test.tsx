@@ -33,7 +33,7 @@ const Test = () => {
   const logoutFunc = async () => {
     await postLogout();
     removeCookies();
-    navigate('/');
+    navigate('/login');
   };
 
   return (
