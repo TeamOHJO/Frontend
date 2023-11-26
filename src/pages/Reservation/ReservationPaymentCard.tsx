@@ -1,7 +1,8 @@
 import { Card, SimpleGrid } from '@chakra-ui/react';
-import ReservationAgreeTitle from './ReservationAgreeTitle';
+import ReservationPaymentTitle from './ReservationPaymentTitle';
+import ReservationProdPrice from './ReservationProdPrice';
 
-const ReservationAgreeCard = () => {
+const ReservationPaymentCard = () => {
   return (
     <SimpleGrid
       mt="1rem"
@@ -12,10 +13,11 @@ const ReservationAgreeCard = () => {
       alignItems="center"
     >
       <Card variant="elevated" pb="2rem">
-        <ReservationAgreeTitle />
+        <ReservationPaymentTitle />
+        <ReservationProdPrice />
       </Card>
     </SimpleGrid>
   );
 };
 
-export default ReservationAgreeCard;
+export default ReservationPaymentCard;
