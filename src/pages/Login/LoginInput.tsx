@@ -31,7 +31,10 @@ const LoginInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
             color: 'gray.400',
           }}
           color="basic"
-          onChange={(e) => errorSetFunc({ e, key: 'email' })}
+          onChange={(e) => {
+            const { value } = e.target;
+            errorSetFunc({ value, key: 'email' });
+          }}
           fontSize="sm"
         />
         {isError.email && (
@@ -56,7 +59,10 @@ const LoginInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
               color: 'gray.400',
             }}
             color="basic"
-            onChange={(e) => errorSetFunc({ e, key: 'password' })}
+            onChange={(e) => {
+              const { value } = e.target;
+              errorSetFunc({ value, key: 'password' });
+            }}
             fontSize="sm"
           />
           <InputRightElement width="3.5rem">

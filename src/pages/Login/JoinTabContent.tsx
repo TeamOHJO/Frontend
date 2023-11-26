@@ -1,9 +1,14 @@
 import { useState, FormEvent } from 'react';
 import styled from '@emotion/styled';
+import { isAxiosError, AxiosError } from 'axios';
+import { useSetRecoilState } from 'recoil';
 import { validateField } from '../../utils/utils';
 import { FormData, LoginSetProps } from '../../@types/interface';
 import JoinInput from './JoinInput';
 import JoinTabButton from './JoinTabButton';
+import { postJoin } from '../../api';
+import { ErrorData } from '../../api/type';
+import { toastPopupState } from '../../states/atom';
 
 const JoinTabContent = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +17,7 @@ const JoinTabContent = () => {
     passwordConfirm: '',
     name: '',
     phone: '',
+    verify: false,
   });
   const [isError, setIsError] = useState({
     email: false,
@@ -19,6 +25,7 @@ const JoinTabContent = () => {
     passwordConfirm: false,
     name: false,
     phone: false,
+    verify: false,
   });
   const [errors, setErrors] = useState({
     email: '',
@@ -26,14 +33,51 @@ const JoinTabContent = () => {
     passwordConfirm: '',
     name: '',
     phone: '',
+    verify: '',
   });
+  const setShowAlert = useSetRecoilState(toastPopupState);
 
   const handleJoinSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    const joinData = {
+      email: formData.email,
+      username: formData.name,
+      password: formData.password,
+      phonenumber: formData.phone,
+    };
+    try {
+      const res = await postJoin(joinData);
+      const { data } = res;
+      if (data) {
+        window.location.reload();
+      }
+    } catch (error) {
+      if (isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        const data = axiosError.response?.data as ErrorData;
+        if (data.code === 412) {
+          setShowAlert({
+            active: true,
+            message: '유효하지 않은 이메일 형식입니다.',
+          });
+        } else if (data.code === 400) {
+          setShowAlert({
+            active: true,
+            message: '이미 가입된 회원입니다.',
+          });
+        } else if (data.code === 411) {
+          setShowAlert({
+            active: true,
+            message: '유효하지 않은 휴대폰 번호 형식입니다.',
+          });
+        }
+      } else {
+        console.log('Axios 에러가 아닌 다른 에러가 발생했습니다:', error);
+      }
+    }
   };
 
-  const errorSetFunc = ({ e, key }: LoginSetProps) => {
-    const { value } = e.target;
+  const errorSetFunc = ({ value, key }: LoginSetProps) => {
     setFormData({ ...formData, [key]: value });
     const newErrors: { [key in keyof FormData]?: string } = {};
     const newIsError: { [key in keyof FormData]?: boolean } = {};
