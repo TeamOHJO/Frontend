@@ -34,3 +34,8 @@ export interface ImagesModalProps {
   onClose: () => void;
   images: string[];
 }
+
+export interface ExplanationModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}

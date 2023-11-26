@@ -9,38 +9,22 @@ import AccommodationInfo from './AccommodationInfo';
 
 function Accommodation() {
   return (
-    <>
-      <StyledAccommodationWrapperTop>
-        <AccommodationNavi />
-        <AccommodationMainImages />
-        <AccommodationTitle />
-      </StyledAccommodationWrapperTop>
-      <StyledAccommodationWrapperMiddle>
-        <AccommodationSelect />
-      </StyledAccommodationWrapperMiddle>
-      <StyledAccommodationWrapperBottom>
-        <AccommodationRooms />
-        <AccommodationReview />
-        <AccommodationInfo />
-      </StyledAccommodationWrapperBottom>
-    </>
+    <StyledAccommodationWrapper>
+      <AccommodationNavi />
+      <AccommodationMainImages />
+      <AccommodationTitle />
+      <AccommodationSelect />
+      <AccommodationRooms />
+      <AccommodationReview />
+      <AccommodationInfo />
+    </StyledAccommodationWrapper>
   );
 }
 
 export default Accommodation;
 
-const StyledAccommodationWrapperTop = styled.div`
+const StyledAccommodationWrapper = styled.div`
   width: 100%;
   padding-top: 60px;
-  position: relative;
-`;
-const StyledAccommodationWrapperMiddle = styled.div`
-  width: 100%;
-  position: sticky;
-  top: 60px;
-`;
-
-const StyledAccommodationWrapperBottom = styled.div`
-  width: 100%;
   position: relative;
 `;

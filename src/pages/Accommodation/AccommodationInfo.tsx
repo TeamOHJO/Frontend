@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import { Button } from '@chakra-ui/react';
+import { Button, useDisclosure } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import AccommodationInfoText from './AccommodationInfoText';
 import AccommodationInfoMap from './AccommodationInfoMap';
 import AccommodationInfoTag from './AccommodationInfoTag';
+import ExplanationModal from './ExplanationModal';
 
 interface InfoObject {
   title: string;
@@ -11,6 +12,8 @@ interface InfoObject {
 }
 
 function AccommodationInfo() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const infoObject: InfoObject = {
     title: '숙소 설명',
     content:
@@ -38,13 +41,14 @@ function AccommodationInfo() {
           variant="blue"
           size="lg"
           style={{ width: '260px', height: '40px' }}
-          onClick={() => navigate('/explanation/id')}
+          onClick={onOpen}
         >
           설명 한 눈에 보기
         </Button>
       </StyledAccommodationInfoMoreBtnWrapper>
       <AccommodationInfoMap />
       <AccommodationInfoTag />
+      <ExplanationModal isOpen={isOpen} onClose={onClose} />
     </StyledAccommodationInfoWrapper>
   );
 }
