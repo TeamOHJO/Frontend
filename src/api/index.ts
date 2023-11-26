@@ -3,7 +3,7 @@ import { JoinData, LoginData, Email } from './type';
 import { getCookie } from '../utils/utils';
 
 axios.defaults.withCredentials = true;
-const token = await getCookie('token');
+const token = getCookie('token');
 
 const client = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
