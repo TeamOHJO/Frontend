@@ -70,9 +70,11 @@ export interface ValidationLogin {
 }
 export interface HomeCardProps {
   name: any;
+  images: any;
   category: any;
   score: any;
   price: any;
+  isLiked: boolean;
 }
 
 export interface ReservationData {
