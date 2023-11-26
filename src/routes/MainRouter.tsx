@@ -12,6 +12,7 @@ import Room from '../pages/Room';
 import CustomerReview from '../pages/customerReview';
 import MyPage from '../pages/MyPage';
 import Reservation from '../pages/Reservation';
+import ReservationComplete from '../pages/ReservationComplete';
 
 function Dashboard() {
   return (
@@ -40,6 +41,10 @@ function MainRouter() {
           <Route path="/accommodation/:id/:id" element={<Room />} />
           <Route path="/review/:id" element={<CustomerReview />} />
           <Route path="/reservation" element={<Reservation />} />
+          <Route
+            path="/reservation-complete"
+            element={<ReservationComplete />}
+          />
         </Routes>
       </StyledInnerContainer>
     </StyledContainer>
