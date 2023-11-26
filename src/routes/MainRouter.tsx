@@ -13,6 +13,8 @@ import WishList from '../pages/WishList';
 import Room from '../pages/Room';
 import CustomerReview from '../pages/customerReview';
 import MyPage from '../pages/MyPage';
+import Reservation from '../pages/Reservation';
+import ReservationComplete from '../pages/ReservationComplete';
 // import { getCookie, removeCookies } from '../utils/utils';
 
 function Dashboard() {
@@ -57,6 +59,11 @@ function MainRouter() {
           <Route path="/accommodation/:id" element={<Accommodation />} />
           <Route path="/accommodation/:id/:id" element={<Room />} />
           <Route path="/review/:id" element={<CustomerReview />} />
+          <Route path="/reservation" element={<Reservation />} />
+          <Route
+            path="/reservation-complete"
+            element={<ReservationComplete />}
+          />
         </Routes>
       </StyledInnerContainer>
     </StyledContainer>
