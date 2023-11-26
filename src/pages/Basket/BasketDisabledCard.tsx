@@ -1,3 +1,4 @@
+import { useRecoilState } from 'recoil';
 import {
   Card,
   Image,
@@ -11,9 +12,19 @@ import {
 } from '@chakra-ui/react';
 import { StarFilled, CloseOutlined } from '@ant-design/icons';
 import { BasketData } from '../../@types/interface';
+import { basketDataState } from '../../states/atom';
 
 function BasketDisabledCard({ item }: { item: BasketData }) {
+  const [basketData, setBasketData] = useRecoilState(basketDataState);
+
   const totalPrice = item.price * item.nights;
+
+  const deleteSingleItem = async (id: number) => {
+    // await DeleteBasketItem(id);
+    setBasketData(
+      basketData.filter((product: BasketData) => product.basketId !== id),
+    );
+  };
 
   return (
     <Card size="sm">
@@ -34,7 +45,10 @@ function BasketDisabledCard({ item }: { item: BasketData }) {
             <Box textAlign="left">
               <Badge variant="disabled">{item.category}</Badge>
             </Box>
-            <CloseOutlined style={{ fontSize: '20px', cursor: 'pointer' }} />
+            <CloseOutlined
+              onClick={() => deleteSingleItem(item.basketId)}
+              style={{ fontSize: '20px', cursor: 'pointer' }}
+            />
           </Box>
           <Heading size="md" color="blackAlpha.600">
             {item.accommodationName}

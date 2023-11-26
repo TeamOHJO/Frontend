@@ -38,3 +38,25 @@ export const getTotalPriceOfCheckedItems = selector({
     return checkedItems.reduce((acc, cur) => acc + cur.price * cur.nights, 0);
   },
 });
+
+export const getCheckedIds = selector({
+  key: 'getCheckedIds',
+  get: ({ get }) => {
+    const checkedItems = get(basketCheckedItemsState);
+    const checkedIds = checkedItems.map(
+      (checkedItem: BasketData) => checkedItem.basketId,
+    );
+    return checkedIds;
+  },
+});
+
+export const getUnavailableIds = selector({
+  key: 'getCheckedIds',
+  get: ({ get }) => {
+    const unavailableList = get(basketUnavailableListState);
+    const unavailableIds = unavailableList.map(
+      (checkedItem: BasketData) => checkedItem.basketId,
+    );
+    return unavailableIds;
+  },
+});

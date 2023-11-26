@@ -5,13 +5,16 @@ import BasketTabs from './BasketTabs';
 import BasketHeader from './BasketHeader';
 import {
   basketAvailableListState,
+  basketCheckedItemsState,
   basketDataState,
   basketUnavailableListState,
 } from '../../states/atom';
 import { BasketData } from '../../@types/interface';
+import { getBasket } from '../../api';
 
 function Basket() {
   const [basketData, setBasketData] = useRecoilState(basketDataState);
+  const setBasketCheckedItems = useSetRecoilState(basketCheckedItemsState);
   const setAvailableList = useSetRecoilState(basketAvailableListState);
   const setUnavailableList = useSetRecoilState(basketUnavailableListState);
 
@@ -32,6 +35,7 @@ function Basket() {
 
   useEffect(() => {
     fetchData();
+    setBasketCheckedItems([]);
   }, []);
 
   useEffect(() => {

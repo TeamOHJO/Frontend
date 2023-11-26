@@ -37,5 +37,6 @@ module.exports = {
     'react/jsx-one-expression-per-line': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     'operator-linebreak': 0,
+    'implicit-arrow-linebreak': 'off',
   },
 };

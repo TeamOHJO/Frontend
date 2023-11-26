@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 import { Text, Button, useDisclosure } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
@@ -12,7 +12,9 @@ import DefaultModal from '../../components/Modal/DefaultModal';
 
 function BasketFooter() {
   const navigate = useNavigate();
-  const checkedItems = useRecoilValue(basketCheckedItemsState);
+  const [checkedItems, setCheckedItems] = useRecoilState(
+    basketCheckedItemsState,
+  );
   const totalPrice = useRecoilValue(getTotalPriceOfCheckedItems);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -25,6 +27,7 @@ function BasketFooter() {
     // roomId를 url에 포함해서 예약하기 페이지로 이동
     // navigate(`/reservation?items=${checkedItems.join('&')}`);
     // navigate(`/reservation?items=${encodeURIComponent(checkedItems.join('&'))}`);
+    setCheckedItems([]);
   };
 
   return (
