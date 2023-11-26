@@ -28,3 +28,9 @@ export interface HomeCardProps {
   score: any;
   price: any;
 }
+
+export interface ImagesModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  images: string[];
+}

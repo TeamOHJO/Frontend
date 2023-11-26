@@ -24,7 +24,7 @@ interface ModalProps {
   onClose: () => void;
 }
 
-function SearchModal({ isOpen, onClose }: ModalProps) {
+function SelectModal({ isOpen, onClose }: ModalProps) {
   const [accommodationSelectStartDate, setAccommodationSelectStartDate] =
     useRecoilState<Date | null>(accommodationSelectStartDateState);
 
@@ -106,7 +106,7 @@ function SearchModal({ isOpen, onClose }: ModalProps) {
   );
 }
 
-export default SearchModal;
+export default SelectModal;
 
 const StyledFooter = styled(ModalFooter)`
   display: flex;

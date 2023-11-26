@@ -8,13 +8,13 @@ import { Pagination, Navigation } from 'swiper/modules';
 interface SwiperProps {
   images: string[];
   borderRadius: string;
-  isOpen: () => void;
+  onOpen: () => void;
 }
 
-export default function SwiperComponent({
+export default function OnOpenSwiper({
   images,
   borderRadius,
-  isOpen,
+  onOpen,
 }: SwiperProps) {
   // const SwiperSlideStyle = {
   //   width: '100%',
@@ -76,7 +76,7 @@ export default function SwiperComponent({
     >
       {images.map((image: string) => (
         <SwiperSlide key={index + 1}>
-          <StyledImg src={image} alt="#" onClick={isOpen} />
+          <StyledImg src={image} alt="#" onClick={onOpen} />
         </SwiperSlide>
       ))}
     </StyledSwiperWrapper>

@@ -7,14 +7,13 @@ import AccommodationToastPopup from './AccommodationToastPopup';
 import { theme } from '../../styles/theme';
 import SwiperComponent from '../../components/Swiper/SwiperComponent';
 import DefaultModal from '../../components/Modal/DefaultModal';
+import AccommodationRoomImages from './AccommodationRoomImages';
 
 function AccommodationRoomItem() {
   const [cartHover, setCartHover] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
   const navigate = useNavigate();
-
-  console.log(location.pathname);
 
   // 예약하기 버튼 모달
   const modalData = {
@@ -51,17 +50,15 @@ function AccommodationRoomItem() {
   };
 
   const images: string[] = [
-    'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
-    'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
-    'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
-    'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
+    'https://yaimg.yanolja.com/v5/2023/06/12/16/640/64874266bae249.83963842.jpg',
+    'https://yaimg.yanolja.com/v5/2023/06/12/16/640/64874266afc479.99994417.jpg',
+    'https://yaimg.yanolja.com/v5/2023/06/12/16/640/64874266c76c99.67912408.jpg',
+    'https://yaimg.yanolja.com/v5/2023/06/12/16/640/64874266d4d2d5.17701526.jpg',
   ];
 
   return (
     <StyledAccommodationRoomItemWrapper>
-      <StyledAccommodationRoomImg>
-        <SwiperComponent borderRadius="15px" images={images} />
-      </StyledAccommodationRoomImg>
+      <AccommodationRoomImages images={images} />
       <StyledAccommodationRoomTitle
         onClick={() => {
           navigate(`${location.pathname}/id`);
@@ -88,12 +85,13 @@ function AccommodationRoomItem() {
             </Text>
           </div>
           <StyledAccommodationRoomTitleBoxItem>
-            {/* 툴팁 작업 필요 */}
             <StyledAccommodationRoomItemCart
               className="material-symbols-outlined"
               onMouseEnter={handleCartMouseEnter}
               onMouseLeave={handleCartMouseLeave}
-              onClick={(event) => {
+              onClick={(
+                event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+              ) => {
                 event.stopPropagation();
                 openFunction();
               }}
@@ -118,7 +116,9 @@ function AccommodationRoomItem() {
               size="lg"
               style={{ width: '100px', height: '40px' }}
               isDisabled={false}
-              onClick={(event) => {
+              onClick={(
+                event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+              ) => {
                 event.stopPropagation();
                 onOpen();
               }}

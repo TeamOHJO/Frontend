@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Heading, useDisclosure } from '@chakra-ui/react';
 import { CalendarOutlined } from '@ant-design/icons';
 import { useRecoilState } from 'recoil';
-import SearchModal from './SearchModal';
+import SelectModal from './SelectModal';
 import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
@@ -56,7 +56,7 @@ function AccommodationSelect() {
           {accommodationSelectVisitors}명
         </StyledAccommodationSelectBoxRight>
       </StyledAccommodationSelectBox>
-      <SearchModal isOpen={isOpen} onClose={onClose} />
+      <SelectModal isOpen={isOpen} onClose={onClose} />
     </StyledAccommodationSelectWrapper>
   );
 }
