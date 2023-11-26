@@ -33,9 +33,9 @@ export const setCookies = async (
   token: string,
 ) => {
   try {
-    document.cookie = `userEmail=${userEmail};max-age=1200;path=/;secure`;
-    document.cookie = `userName=${userName};max-age=1200;path=/;secure`;
-    document.cookie = `token=${token};max-age=1200;path=/;secure`;
+    document.cookie = `userEmail=${userEmail};max-age=3600;path=/;secure`;
+    document.cookie = `userName=${userName};max-age=3600;path=/;secure`;
+    document.cookie = `token=${token};max-age=3600;path=/;secure`;
   } catch (error) {
     alert('쿠키설정에 실패했습니다.');
   }
@@ -53,6 +53,7 @@ export const removeCookies = async () => {
   try {
     document.cookie = 'userEmail=; Max-Age=0; path=/';
     document.cookie = 'userName=; Max-Age=0; path=/';
+    document.cookie = 'token=; Max-Age=0; path=/';
   } catch (e) {
     alert('쿠키삭제에 실패했습니다.');
   }

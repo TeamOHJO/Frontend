@@ -40,6 +40,12 @@ export const getVerify = async (verify: string) => {
   return res.data;
 };
 
+// 토큰 쓰는 API 형식
+export const postLogout = async () => {
+  const res = await clientToken.post('/logout');
+  return res.data;
+};
+
 export const testToken = async () => {
   const res = await clientToken.get('/user/test');
   return res;

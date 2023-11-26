@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { Button, Heading, Text, useDisclosure, Badge } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import ToastPopup from '../../components/Modal/ToastPopup';
 import DefaultModal from '../../components/Modal/DefaultModal';
+import { postLogout } from '../../api';
+import { removeCookies } from '../../utils/utils';
 
 const Test = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
   const modalData = {
     heading: '회원 탈퇴',
     text: '회원을 탈퇴하시겠습니까?',
@@ -24,6 +28,12 @@ const Test = () => {
       message: '탈퇴되었습니다.',
     };
     setShowAlert(toastData);
+  };
+
+  const logoutFunc = async () => {
+    await postLogout();
+    removeCookies();
+    navigate('/');
   };
 
   return (
@@ -161,6 +171,9 @@ const Test = () => {
         modalFunc={modalFunc}
         modalData={modalData}
       />
+      <Button variant="blue" size="sm" width="60px" onClick={logoutFunc}>
+        로그아웃
+      </Button>
     </>
   );
 };
