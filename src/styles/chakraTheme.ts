@@ -85,6 +85,7 @@ export const chakraTheme = extendTheme({
         md: {
           fontSize: 'sm',
           w: '50%',
+          minWidth: '190px',
         },
         sm: {
           fontSize: 'xs',
@@ -199,6 +200,22 @@ export const chakraTheme = extendTheme({
         disabled: {
           backgroundColor: 'blackAlpha.200',
           color: 'blackAlpha.600',
+        },
+      },
+    },
+    Tabs: {
+      variants: {
+        enclosed: {
+          tab: {
+            height: '70px',
+            fontWeight: 'medium',
+            fontSize: 'md',
+            _selected: {
+              color: 'blue.500',
+              borderColor: 'gray.200',
+              backgroundColor: 'white',
+            },
+          },
         },
       },
     },
