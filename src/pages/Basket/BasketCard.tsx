@@ -14,13 +14,7 @@ import { StarFilled } from '@ant-design/icons';
 import { theme } from '../../styles/theme';
 import { BasketData } from '../../@types/interface';
 
-function BasketCard({
-  item,
-  setAvailableList,
-}: {
-  item: BasketData;
-  setAvailableList: (list: BasketData[]) => void;
-}) {
+function BasketCard({ item }: { item: BasketData }) {
   return (
     <Card size="sm">
       <CardBody display="flex" flexDirection="row" gap={3}>

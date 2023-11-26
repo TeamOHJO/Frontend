@@ -1,7 +1,22 @@
-import { atom } from 'recoil';
-import { AlertData } from '../@types/interface';
+import { atom, selector } from 'recoil';
+import { AlertData, BasketData } from '../@types/interface';
 
 export const toastPopupState = atom<AlertData>({
   key: 'toastPopupState',
   default: { active: false, message: '' },
+});
+
+export const basketDataState = atom<BasketData[]>({
+  key: 'basketDataState',
+  default: [],
+});
+
+export const basketAvailableListState = atom<BasketData[]>({
+  key: 'basketAvailableListState',
+  default: [],
+});
+
+export const basketUnavailableListState = atom<BasketData[]>({
+  key: 'basketUnavailableListState',
+  default: [],
 });

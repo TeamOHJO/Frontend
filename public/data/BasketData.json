@@ -10,7 +10,7 @@
     "price": 120000,
     "nights": 3,
     "stars": 4.5,
-    "canReserve:": false
+    "canReserve": false
   },
   {
     "basketId": 456,
@@ -23,7 +23,7 @@
     "price": 220000,
     "nights": 4,
     "stars": 3.5,
-    "canReserve:": false
+    "canReserve": false
   },
   {
     "basketId": 3333,
@@ -36,7 +36,7 @@
     "price": 120000,
     "nights": 3,
     "stars": 4.5,
-    "canReserve:": true
+    "canReserve": true
   },
   {
     "basketId": 66456,
@@ -49,6 +49,6 @@
     "price": 400000,
     "nights": 2,
     "stars": 1.5,
-    "canReserve:": true
+    "canReserve": true
   }
 ]

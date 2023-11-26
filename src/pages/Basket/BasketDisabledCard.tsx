@@ -12,13 +12,7 @@ import {
 import { StarFilled, CloseOutlined } from '@ant-design/icons';
 import { BasketData } from '../../@types/interface';
 
-function BasketDisabledCard({
-  item,
-  setUnavailableList,
-}: {
-  item: BasketData;
-  setUnavailableList: (list: BasketData[]) => void;
-}) {
+function BasketDisabledCard({ item }: { item: BasketData }) {
   return (
     <Card size="sm">
       <CardBody display="flex" flexDirection="row" gap={3}>
