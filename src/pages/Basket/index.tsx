@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
+import { Heading } from '@chakra-ui/react';
 import BasketTabs from './BasketTabs';
 import BasketHeader from './BasketHeader';
 import {
@@ -18,42 +19,46 @@ function Basket() {
   const setAvailableList = useSetRecoilState(basketAvailableListState);
   const setUnavailableList = useSetRecoilState(basketUnavailableListState);
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        'http://localhost:5173/data/BasketData.json',
-        {
-          method: 'GET',
-        },
-      );
-      const data = await response.json();
-      setBasketData(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       'http://localhost:5173/data/BasketData.json',
+  //       {
+  //         method: 'GET',
+  //       },
+  //     );
+  //     const data = await response.json();
+  //     setBasketData(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchData();
-    setBasketCheckedItems([]);
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  //   setBasketCheckedItems([]);
+  // }, []);
 
-  useEffect(() => {
-    setAvailableList(
-      basketData.filter((item: BasketData) => item.canReserve === true),
-    );
-    setUnavailableList(
-      basketData.filter((item: BasketData) => item.canReserve === false),
-    );
-  }, [basketData, setBasketData]);
+  // useEffect(() => {
+  //   setAvailableList(
+  //     basketData.filter((item: BasketData) => item.canReserve === true),
+  //   );
+  //   setUnavailableList(
+  //     basketData.filter((item: BasketData) => item.canReserve === false),
+  //   );
+  // }, [basketData, setBasketData]);
 
   return (
     <StyledContainer>
       <StyledBasketWrapper>
         <BasketHeader />
-        <StyledBasketContent>
-          <BasketTabs />
-        </StyledBasketContent>
+        {basketData.length > 0 ? (
+          <StyledBasketContent>
+            <BasketTabs />
+          </StyledBasketContent>
+        ) : (
+          <Heading as="h1">장바구니에 담긴 상품이 없습니다.</Heading>
+        )}
       </StyledBasketWrapper>
     </StyledContainer>
   );
