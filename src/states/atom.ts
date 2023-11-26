@@ -1,0 +1,12 @@
+import { atom } from 'recoil';
+import { AlertData } from '../@types/interface';
+
+export const toastPopupState = atom<AlertData>({
+  key: 'toastPopupState',
+  default: { active: false, message: '' },
+});
+
+export const loginTabState = atom<number>({
+  key: 'loginTabState',
+  default: 0,
+});

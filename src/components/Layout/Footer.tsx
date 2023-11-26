@@ -3,15 +3,15 @@ import { Text } from '@chakra-ui/react';
 
 function Footer() {
   return (
-    <FooterCont>
+    <StyledFooter>
       <Text as="p" size="xs" color="gray.84">
         © 2023 Mini Project Team OH!, all rights reserved.
       </Text>
-    </FooterCont>
+    </StyledFooter>
   );
 }
 
-const FooterCont = styled.div`
+const StyledFooter = styled.div`
   padding-bottom: 56px;
 `;
 

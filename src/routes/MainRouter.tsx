@@ -1,11 +1,13 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
 import styled from '@emotion/styled';
+// import { useEffect } from 'react';
 import { theme } from '../styles/theme';
 import Navigation from '../components/Layout/Navigation';
 import Accommodation from '../pages/Accommodation';
 import Footer from '../components/Layout/Footer';
 import Home from '../pages/Home';
 import Test from '../pages/test/Test';
+import Login from '../pages/Login';
 import Basket from '../pages/Basket';
 import WishList from '../pages/WishList';
 import Room from '../pages/Room';
@@ -13,8 +15,24 @@ import CustomerReview from '../pages/customerReview';
 import MyPage from '../pages/MyPage';
 import Reservation from '../pages/Reservation';
 import ReservationComplete from '../pages/ReservationComplete';
+// import { getCookie, removeCookies } from '../utils/utils';
 
 function Dashboard() {
+  // const location = useLocation();
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (location.pathname !== '/login') {
+  //     const token = getCookie('token');
+  //     const name = getCookie('userName');
+  //     const email = getCookie('userEmail');
+
+  //     if (!token || !name || !email) {
+  //       removeCookies();
+  //       navigate('/login');
+  //     }
+  //   }
+  // }, [navigate]);
   return (
     <>
       <Outlet />
@@ -33,6 +51,7 @@ function MainRouter() {
             <Route index element={<Home />} />
             <Route path="/:id" element={<Home />} />
             <Route path="/test" element={<Test />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/wishlist" element={<WishList />} />
             <Route path="/basket" element={<Basket />} />
             <Route path="/mypage" element={<MyPage />} />
@@ -69,9 +88,10 @@ const StyledInnerContainer = styled.div`
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-
+  padding: 1rem;
+  width: 768px;
+  min-height: 100vh;
   width: ${theme.device.tablet};
-
   background-color: ${theme.colors.white};
   box-shadow: ${theme.shadows.shadow1.shadow};
 

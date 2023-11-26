@@ -85,6 +85,7 @@ export const chakraTheme = extendTheme({
         md: {
           fontSize: 'sm',
           w: '50%',
+          minWidth: '190px',
         },
         sm: {
           fontSize: 'xs',
@@ -188,9 +189,33 @@ export const chakraTheme = extendTheme({
           backgroundColor: 'red.100',
           color: 'red.800',
         },
+        purple: {
+          backgroundColor: 'purple.100',
+          color: 'purple.800',
+        },
+        orange: {
+          backgroundColor: 'orange.100',
+          color: 'orange.800',
+        },
         disabled: {
           backgroundColor: 'blackAlpha.200',
           color: 'blackAlpha.600',
+        },
+      },
+    },
+    Tabs: {
+      variants: {
+        enclosed: {
+          tab: {
+            height: '70px',
+            fontWeight: 'medium',
+            fontSize: 'md',
+            _selected: {
+              color: 'blue.500',
+              borderColor: 'gray.200',
+              backgroundColor: 'white',
+            },
+          },
         },
       },
     },

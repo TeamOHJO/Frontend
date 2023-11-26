@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 
-const Category = ['호텔·리조트', '한옥', '펜션·풀빌라', '모텔', '게스트하우스'];
+const Category = ['한옥', '펜션·풀빌라', '모텔', '게스트하우스'];
 
 function MenuBar() {
   const { id } = useParams();
@@ -11,6 +11,20 @@ function MenuBar() {
 
   return (
     <StyledContainer>
+      <Button
+        className="호텔·리조트"
+        onClick={() => {
+          navigate('/호텔·리조트');
+        }}
+        padding={3}
+        margin={2}
+        width="100px"
+        size="s"
+        shadow={theme.shadows.shadow1.shadow}
+        variant={id === undefined || id === '호텔·리조트' ? 'blue' : 'gray'}
+      >
+        호텔·리조트
+      </Button>
       {Category.map((item: string | any) => (
         <Button
           className={item}
