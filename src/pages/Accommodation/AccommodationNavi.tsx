@@ -37,6 +37,7 @@ function AccommodationNavi() {
             navigate('/basket');
           }}
         />
+        <StyledCartCount>1</StyledCartCount>
       </StyledAccommodationNaviRight>
       <StyledTopBtn onClick={ScrollToTop}>
         <UpOutlined />
@@ -80,4 +81,22 @@ const StyledTopBtn = styled.button`
   background-color: ${theme.colors.white};
   box-shadow: ${theme.shadows.shadow3.shadow};
   z-index: 10;
+`;
+
+const StyledCartCount = styled.div`
+  width: 20px;
+  height: 20px;
+
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 5px;
+  right: 5px;
+
+  background-color: red;
+  color: white;
 `;
