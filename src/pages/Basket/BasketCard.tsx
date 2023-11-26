@@ -13,8 +13,12 @@ import {
 import { StarFilled } from '@ant-design/icons';
 import { theme } from '../../styles/theme';
 import { BasketData } from '../../@types/interface';
+import { handleBadgeColor } from '../../utils/handleBadgeColor';
 
 function BasketCard({ item }: { item: BasketData }) {
+  const totalPrice = item.price * item.nights;
+  const badgeColor = handleBadgeColor(item.category);
+
   return (
     <Card size="sm">
       <CardBody display="flex" flexDirection="row" gap={3}>
@@ -33,14 +37,14 @@ function BasketCard({ item }: { item: BasketData }) {
             alignItems="center"
           >
             <Box textAlign="left">
-              <Badge variant="blue">펜션/풀빌라</Badge>
+              <Badge variant={badgeColor}>{item.category}</Badge>
             </Box>
             <Checkbox size="md" colorScheme="blue" borderColor="gray.300" />
           </Box>
-          <Heading size="md">일본 도쿄 Nakano City</Heading>
-          <Text size="sm">디럭스 패밀리룸</Text>
+          <Heading size="md">{item.accommodationName}</Heading>
+          <Text size="sm">{item.name}</Text>
           <Text as="p" size="xs" color="blackAlpha.600">
-            12월 26일 - 12월 29일 (3박)
+            {item.startDate} - {item.endDate} ({item.nights}박)
           </Text>
           <Box
             display="flex"
@@ -52,16 +56,16 @@ function BasketCard({ item }: { item: BasketData }) {
                 style={{ color: theme.colors.blue400, fontSize: '1rem' }}
               />
               <Text as="span" size="xs">
-                4.90
+                {item.stars.toFixed(2)}
               </Text>
             </Box>
           </Box>
           <Flex direction="column" alignItems="flex-end">
             <Text as="p" size="md" fontWeight="bold">
-              ￦435,400
+              ￦{totalPrice.toLocaleString()}
             </Text>
             <Text as="p" size="xs" color="blackAlpha.600">
-              3박 요금 (세금 포함)
+              {item.nights}박 요금 (세금 포함)
             </Text>
           </Flex>
         </Stack>

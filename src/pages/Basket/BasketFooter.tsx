@@ -1,8 +1,16 @@
+import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 import { Text, Button } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
+import { basketAvailableListState } from '../../states/atom';
 
 function BasketFooter() {
+  const availableList = useRecoilValue(basketAvailableListState);
+  const totalPrice = availableList.reduce(
+    (acc, cur) => acc + cur.price * cur.nights,
+    0,
+  );
+
   return (
     <StyledBasketFooterWrapper>
       <StyledTextWrapper>
@@ -10,7 +18,7 @@ function BasketFooter() {
           결제 예상 금액
         </Text>
         <Text as="p" size="md" fontWeight="bold" color="red.500">
-          ₩ 435,400
+          ₩ {totalPrice.toLocaleString()}
         </Text>
       </StyledTextWrapper>
       <Button variant="blue" size="lg" width="100%">

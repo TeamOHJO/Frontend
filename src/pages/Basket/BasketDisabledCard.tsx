@@ -13,6 +13,8 @@ import { StarFilled, CloseOutlined } from '@ant-design/icons';
 import { BasketData } from '../../@types/interface';
 
 function BasketDisabledCard({ item }: { item: BasketData }) {
+  const totalPrice = item.price * item.nights;
+
   return (
     <Card size="sm">
       <CardBody display="flex" flexDirection="row" gap={3}>
@@ -30,18 +32,18 @@ function BasketDisabledCard({ item }: { item: BasketData }) {
             alignItems="center"
           >
             <Box textAlign="left">
-              <Badge variant="disabled">펜션/풀빌라</Badge>
+              <Badge variant="disabled">{item.category}</Badge>
             </Box>
             <CloseOutlined style={{ fontSize: '20px', cursor: 'pointer' }} />
           </Box>
           <Heading size="md" color="blackAlpha.600">
-            일본 도쿄 Nakano City
+            {item.accommodationName}
           </Heading>
           <Text size="sm" color="blackAlpha.600">
-            디럭스 패밀리룸
+            {item.name}
           </Text>
           <Text as="p" size="xs" color="blackAlpha.600">
-            12월 26일 - 12월 29일 (3박)
+            {item.startDate} - {item.endDate} ({item.nights}박)
           </Text>
           <Box
             display="flex"
@@ -56,15 +58,15 @@ function BasketDisabledCard({ item }: { item: BasketData }) {
                 }}
               />
               <Text as="span" size="xs" color="blackAlpha.600">
-                4.90
+                {item.stars.toFixed(2)}
               </Text>
             </Box>
           </Box>
           <Flex direction="column" alignItems="flex-end">
             <Text as="s" size="md" fontWeight="bold" color="blackAlpha.600">
-              ￦435,400
+              ￦{totalPrice.toLocaleString()}
             </Text>
-            <Text as="p" fontWeight="bold" size="xs">
+            <Text as="p" fontWeight="bold" size="xs" color="red.500">
               예약 마감
             </Text>
           </Flex>

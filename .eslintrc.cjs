@@ -34,6 +34,7 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 'off',
     'arrow-body-style': 'off',
     'object-curly-newline': 0,
+    'react/jsx-one-expression-per-line': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     'operator-linebreak': 0,
   },

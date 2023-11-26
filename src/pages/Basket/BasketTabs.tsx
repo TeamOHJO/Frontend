@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 import {
   Tabs,
@@ -13,50 +12,16 @@ import {
 import BasketFooter from './BasketFooter';
 import BasketDisabledFooter from './BasketDisabledFooter';
 import BasketCard from './BasketCard';
-import BasketDisabledCard from './BasketDisabledCard';
 import { BasketData } from '../../@types/interface';
+import BasketDisabledCard from './BasketDisabledCard';
 import {
   basketAvailableListState,
-  basketDataState,
   basketUnavailableListState,
 } from '../../states/atom';
 
 function BasketTabs() {
-  const [basketData, setBasketData] = useRecoilState(basketDataState);
-  const [availableList, setAvailableList] = useRecoilState(
-    basketAvailableListState,
-  );
-  const [unavailableList, setUnavailableList] = useRecoilState(
-    basketUnavailableListState,
-  );
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        'http://localhost:5173/data/BasketData.json',
-        {
-          method: 'GET',
-        },
-      );
-      const data = await response.json();
-      setBasketData(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    setAvailableList(
-      basketData.filter((item: BasketData) => item.canReserve === true),
-    );
-    setUnavailableList(
-      basketData.filter((item: BasketData) => item.canReserve === false),
-    );
-  }, [basketData, setBasketData]);
+  const availableList = useRecoilValue(basketAvailableListState);
+  const unavailableList = useRecoilValue(basketUnavailableListState);
 
   return (
     <Tabs variant="solid-rounded" colorScheme="blue" size="md">
