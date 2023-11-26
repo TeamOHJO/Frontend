@@ -1,5 +1,6 @@
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { useEffect } from 'react';
 import { theme } from '../styles/theme';
 import Navigation from '../components/Layout/Navigation';
 import Accommodation from '../pages/Accommodation';
@@ -12,8 +13,24 @@ import WishList from '../pages/WishList';
 import Room from '../pages/Room';
 import CustomerReview from '../pages/customerReview';
 import MyPage from '../pages/MyPage';
+import { getCookie, removeCookies } from '../utils/utils';
 
 function Dashboard() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.pathname !== '/login') {
+      const token = getCookie('token');
+      const name = getCookie('userName');
+      const email = getCookie('userEmail');
+
+      if (!token || !name || !email) {
+        removeCookies();
+        navigate('/login');
+      }
+    }
+  }, [navigate]);
   return (
     <>
       <Outlet />

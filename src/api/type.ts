@@ -5,13 +5,17 @@ export interface LoginData {
 
 export interface JoinData {
   email: string;
+  username: string;
   password: string;
-  name: string;
-  number: string;
+  phonenumber: string;
 }
 
 export interface ErrorData {
   code: number;
   data: null;
   message: string;
+}
+
+export interface Email {
+  email: string;
 }

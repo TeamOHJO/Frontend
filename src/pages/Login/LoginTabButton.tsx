@@ -24,6 +24,7 @@ const LoginTabButton = ({
         bg: 'gray.300',
         borderColor: 'gray.300',
         color: 'gray.500',
+        cursor: 'default',
         _hover: {
           bg: 'gray.300',
         },

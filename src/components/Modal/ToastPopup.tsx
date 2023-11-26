@@ -43,7 +43,7 @@ const ToastPopup: FunctionComponent<ToastPopupProps> = ({
         marginLeft="-160px"
       >
         <AlertIcon />
-        <AlertDescription>{status.message}</AlertDescription>
+        <AlertDescription maxWidth="200px">{status.message}</AlertDescription>
         <CloseButton
           alignSelf="flex-end"
           position="absolute"
