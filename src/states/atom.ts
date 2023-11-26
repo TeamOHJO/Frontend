@@ -25,3 +25,8 @@ export const basketUnavailableListState = atom<BasketData[]>({
   key: 'basketUnavailableListState',
   default: [],
 });
+
+export const basketCheckedItemsState = atom<number[]>({
+  key: 'basketCheckedItemsState',
+  default: [],
+});

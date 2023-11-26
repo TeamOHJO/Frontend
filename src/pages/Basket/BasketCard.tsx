@@ -1,3 +1,4 @@
+import { useRecoilState } from 'recoil';
 import {
   Card,
   Image,
@@ -14,10 +15,25 @@ import { StarFilled } from '@ant-design/icons';
 import { theme } from '../../styles/theme';
 import { BasketData } from '../../@types/interface';
 import { handleBadgeColor } from '../../utils/handleBadgeColor';
+import { basketCheckedItemsState } from '../../states/atom';
 
 function BasketCard({ item }: { item: BasketData }) {
+  const [checkedItems, setCheckedItems] = useRecoilState(
+    basketCheckedItemsState,
+  );
   const totalPrice = item.price * item.nights;
   const badgeColor = handleBadgeColor(item.category);
+
+  const handleChange = (basketId: number) => {
+    const isChecked = checkedItems.includes(basketId);
+    if (isChecked) {
+      setCheckedItems(
+        checkedItems.filter((checkedItem: number) => checkedItem !== basketId),
+      );
+    } else {
+      setCheckedItems([...checkedItems, basketId]);
+    }
+  };
 
   return (
     <Card size="sm">
@@ -39,7 +55,13 @@ function BasketCard({ item }: { item: BasketData }) {
             <Box textAlign="left">
               <Badge variant={badgeColor}>{item.category}</Badge>
             </Box>
-            <Checkbox size="md" colorScheme="blue" borderColor="gray.300" />
+            <Checkbox
+              checked={checkedItems.includes(item.basketId)}
+              onChange={() => handleChange(item.basketId)}
+              size="md"
+              colorScheme="blue"
+              borderColor="gray.300"
+            />
           </Box>
           <Heading size="md">{item.accommodationName}</Heading>
           <Text size="sm">{item.name}</Text>

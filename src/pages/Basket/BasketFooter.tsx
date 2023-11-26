@@ -1,11 +1,31 @@
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
-import { Text, Button } from '@chakra-ui/react';
+import { Text, Button, useDisclosure } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
-import { basketAvailableListState } from '../../states/atom';
+import {
+  basketAvailableListState,
+  basketCheckedItemsState,
+} from '../../states/atom';
+import DefaultModal from '../../components/Modal/DefaultModal';
 
 function BasketFooter() {
+  const navigate = useNavigate();
+  const checkedItems = useRecoilValue(basketCheckedItemsState);
   const availableList = useRecoilValue(basketAvailableListState);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const modalData = {
+    heading: '예약하기',
+    text: '선택한 숙소를 예약하시겠습니까?',
+  };
+  const modalFunc = () => {
+    alert('예약하기 페이지로 이동');
+    // roomId를 url에 포함해서 예약하기 페이지로 이동
+    // navigate(`/reservation?items=${checkedItems.join('&')}`);
+    // navigate(`/reservation?items=${encodeURIComponent(checkedItems.join('&'))}`);
+  };
+
   const totalPrice = availableList.reduce(
     (acc, cur) => acc + cur.price * cur.nights,
     0,
@@ -21,9 +41,15 @@ function BasketFooter() {
           ₩ {totalPrice.toLocaleString()}
         </Text>
       </StyledTextWrapper>
-      <Button variant="blue" size="lg" width="100%">
-        결제하기
+      <Button variant="blue" size="lg" width="100%" onClick={onOpen}>
+        예약하기
       </Button>
+      <DefaultModal
+        isOpen={isOpen}
+        onClose={onClose}
+        modalFunc={modalFunc}
+        modalData={modalData}
+      />
     </StyledBasketFooterWrapper>
   );
 }
