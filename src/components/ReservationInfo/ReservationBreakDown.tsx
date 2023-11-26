@@ -4,7 +4,7 @@ import { theme } from '../../styles/theme';
 
 const ReservationBreakDown = () => {
   return (
-    <Box display="flex" flexDir="row" p="8" height="100%">
+    <Box display="flex" flexDir="row" pl="8" pr="8" pb="8" height="100%">
       <Box width="50%">
         <Image
           width="20rem"
