@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
-import { Heading } from '@chakra-ui/react';
 import BasketTabs from './BasketTabs';
 import BasketHeader from './BasketHeader';
 import {
@@ -11,7 +10,6 @@ import {
   basketUnavailableListState,
 } from '../../states/atom';
 import { BasketData } from '../../@types/interface';
-import { getBasket } from '../../api';
 import BasketNoProducts from './BasketNoProducts';
 
 function Basket() {

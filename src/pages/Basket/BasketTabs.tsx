@@ -9,7 +9,6 @@ import {
   Box,
   Button,
   useDisclosure,
-  Text,
 } from '@chakra-ui/react';
 import BasketFooter from './BasketFooter';
 import BasketDisabledFooter from './BasketDisabledFooter';
@@ -24,7 +23,6 @@ import {
   getCheckedIds,
   getUnavailableIds,
 } from '../../states/atom';
-import { DeleteBasketItem } from '../../api';
 import DefaultModal from '../../components/Modal/DefaultModal';
 import BasketNoProducts from './BasketNoProducts';
 

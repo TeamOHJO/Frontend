@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import { Text, Button, useDisclosure } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import {
-  basketAvailableListState,
   basketCheckedItemsState,
   getTotalPriceOfCheckedItems,
 } from '../../states/atom';
