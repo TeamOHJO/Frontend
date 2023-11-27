@@ -23,3 +23,8 @@ export const accommodationSelectVisitorsState = atom<number>({
   key: 'accommodationSelectVisitorsState',
   default: 2,
 });
+
+export const loginTabState = atom<number>({
+  key: 'loginTabState',
+  default: 0,
+});

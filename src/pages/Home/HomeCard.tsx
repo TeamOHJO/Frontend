@@ -1,13 +1,39 @@
 import styled from '@emotion/styled';
-import { StarFilled } from '@ant-design/icons';
+import { useState } from 'react';
+import { StarFilled, HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { Text } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import { HomeCardProps } from '../../@types/interface';
+import SwiperComponent from '../../components/Swiper/SwiperComponent';
 
-const HomeCard = ({ name, category, score, price }: HomeCardProps) => {
+const HomeCard = ({
+  name,
+  images,
+  category,
+  score,
+  price,
+  isLiked,
+}: HomeCardProps) => {
+  const [onClickisLiked, setOnclickIsLiked] = useState(isLiked);
+
+  const addWishList = () => {
+    setOnclickIsLiked(true);
+  };
+
+  const cancelAddWishList = () => {
+    setOnclickIsLiked(false);
+  };
+
   return (
     <StyledCard>
-      <StyledImgWrapper />
+      <StyledImgWrapper>
+        {onClickisLiked ? (
+          <StyledHeartFilled onClick={cancelAddWishList} />
+        ) : (
+          <StyledHeartOutlined onClick={addWishList} />
+        )}
+        <SwiperComponent images={images} borderRadius="8px" />
+      </StyledImgWrapper>
       <StyledInfoContainer>
         <StyledCardHeader>
           <Text as="p" size="lg">
@@ -44,11 +70,12 @@ const StyledCard = styled.div`
 `;
 
 const StyledImgWrapper = styled.div`
+  position: relative;
   width: 100%;
   height: 300px;
   border-radius: 8px;
-  box-shadow: ${theme.shadows.shadow3.shadow};
-`; // 추후 슬라이드 컴포넌트로 대체
+  box-shadow: ${theme.shadows.shadow2.shadow};
+`;
 
 const StyledInfoContainer = styled.div`
   display: flex;
@@ -77,4 +104,22 @@ const StyledCategoryWrapper = styled.div`
 
 const StyledPriceWrapper = styled.div`
   padding-top: 1rem;
+`;
+
+const StyledHeartFilled = styled(HeartFilled)`
+  position: absolute;
+  font-size: 20px;
+  top: 10px;
+  right: 10px;
+  z-index: 50;
+  color: red;
+`;
+
+const StyledHeartOutlined = styled(HeartOutlined)`
+  position: absolute;
+  font-size: 20px;
+  top: 10px;
+  right: 10px;
+  z-index: 50;
+  color: red;
 `;

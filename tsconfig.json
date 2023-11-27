@@ -22,6 +22,6 @@
 
     "types": ["kakao.maps.d.ts", "node"]
   },
-  "include": ["src"],
+  "include": ["src", "public/data"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
