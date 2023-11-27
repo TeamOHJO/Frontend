@@ -8,6 +8,8 @@ import {
   TabPanel,
   Box,
   Button,
+  useDisclosure,
+  Heading,
 } from '@chakra-ui/react';
 import BasketFooter from './BasketFooter';
 import BasketDisabledFooter from './BasketDisabledFooter';
@@ -23,6 +25,7 @@ import {
   getUnavailableIds,
 } from '../../states/atom';
 import { DeleteBasketItem } from '../../api';
+import DefaultModal from '../../components/Modal/DefaultModal';
 
 function BasketTabs() {
   const [basketData, setBasketData] = useRecoilState(basketDataState);
@@ -33,6 +36,7 @@ function BasketTabs() {
   const unavailableIds = useRecoilValue(getUnavailableIds);
 
   const deleteAllUnavailable = () => {
+    // api 수정 후 주석 제거 예정
     // unavailableIds.forEach((id: number) => DeleteBasketItem(id));
     setBasketData(
       basketData.filter(
@@ -42,6 +46,7 @@ function BasketTabs() {
   };
 
   const deleteCheckedItems = () => {
+    // api 수정 후 주석 제거 예정
     // checkedIds.forEach((checkedId: number) => DeleteBasketItem(checkedId));
     setBasketData(
       basketData.filter(
@@ -51,46 +56,78 @@ function BasketTabs() {
     setCheckedItems([]);
   };
 
-  // console.log(basketData);
-  // console.log(unavailableList);
-  // console.log(availableList);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const handleOpenModal = () => {
+    if (checkedIds.length > 0) {
+      onOpen();
+    } else {
+      alert('선택한 숙소가 없습니다.');
+    }
+  };
+  const modalData = {
+    heading: '삭제하기',
+    text: '선택한 숙소를 삭제하시겠습니까?',
+  };
+  const modalFunc = () => {
+    deleteCheckedItems();
+  };
 
   return (
-    <Tabs variant="solid-rounded" colorScheme="blue" size="md">
-      <TabList>
-        <Tab>예약 가능 숙소</Tab>
-        <Tab>예약 불가능 숙소</Tab>
-      </TabList>
+    <>
+      <Tabs variant="solid-rounded" colorScheme="blue" size="md">
+        <TabList>
+          <Tab>예약 가능 숙소</Tab>
+          <Tab>예약 불가능 숙소</Tab>
+        </TabList>
 
-      <TabPanels paddingTop={3}>
-        <TabPanel p={0}>
-          <Box textAlign="right" pb={5}>
-            <Button variant="blue" size="mini" onClick={deleteCheckedItems}>
-              선택 삭제
-            </Button>
-          </Box>
-          <StyledBasketCardWrapper>
-            {availableList.map((item: BasketData) => {
-              return <BasketCard key={item.basketId} item={item} />;
-            })}
-          </StyledBasketCardWrapper>
-          <BasketFooter />
-        </TabPanel>
-        <TabPanel p={0}>
-          <Box textAlign="right" pb={5}>
-            <Button variant="blue" size="mini" onClick={deleteAllUnavailable}>
-              모두 삭제
-            </Button>
-          </Box>
-          <StyledBasketCardWrapper>
-            {unavailableList.map((item: BasketData) => {
-              return <BasketDisabledCard key={item.basketId} item={item} />;
-            })}
-          </StyledBasketCardWrapper>
-          <BasketDisabledFooter />
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
+        <TabPanels paddingTop={3}>
+          <TabPanel p={0}>
+            <Box textAlign="right" pb={5}>
+              <Button variant="blue" size="mini" onClick={handleOpenModal}>
+                선택 삭제
+              </Button>
+            </Box>
+            <StyledBasketCardWrapper>
+              {availableList.map((item: BasketData) => {
+                return <BasketCard key={item.basketId} item={item} />;
+              })}
+            </StyledBasketCardWrapper>
+            <BasketFooter />
+          </TabPanel>
+          <TabPanel p={0}>
+            {unavailableList.length > 0 ? (
+              <>
+                <Box textAlign="right" pb={5}>
+                  <Button
+                    variant="blue"
+                    size="mini"
+                    onClick={deleteAllUnavailable}
+                  >
+                    모두 삭제
+                  </Button>
+                </Box>
+                <StyledBasketCardWrapper>
+                  {unavailableList.map((item: BasketData) => {
+                    return (
+                      <BasketDisabledCard key={item.basketId} item={item} />
+                    );
+                  })}
+                </StyledBasketCardWrapper>
+                <BasketDisabledFooter />
+              </>
+            ) : (
+              <Heading as="h1">예약 불가능한 숙소가 없습니다.</Heading>
+            )}
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+      <DefaultModal
+        isOpen={isOpen}
+        onClose={onClose}
+        modalFunc={modalFunc}
+        modalData={modalData}
+      />
+    </>
   );
 }
 

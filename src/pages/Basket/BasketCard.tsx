@@ -22,6 +22,9 @@ function BasketCard({ item }: { item: BasketData }) {
     basketCheckedItemsState,
   );
   const totalPrice = item.price * item.nights;
+  const nights =
+    new Date(item.endDate).getDate() - new Date(item.startDate).getDate();
+
   const badgeColor = handleBadgeColor(item.category);
 
   const handleChange = (value: BasketData) => {
@@ -68,7 +71,7 @@ function BasketCard({ item }: { item: BasketData }) {
           <Heading size="md">{item.accommodationName}</Heading>
           <Text size="sm">{item.name}</Text>
           <Text as="p" size="xs" color="blackAlpha.600">
-            {item.startDate} - {item.endDate} ({item.nights}박)
+            {item.startDate} ~ {item.endDate} ({nights}박)
           </Text>
           <Box
             display="flex"
@@ -89,7 +92,7 @@ function BasketCard({ item }: { item: BasketData }) {
               ￦{totalPrice.toLocaleString()}
             </Text>
             <Text as="p" size="xs" color="blackAlpha.600">
-              {item.nights}박 요금 (세금 포함)
+              {nights}박 요금 (세금 포함)
             </Text>
           </Flex>
         </Stack>

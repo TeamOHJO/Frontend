@@ -18,6 +18,8 @@ function BasketDisabledCard({ item }: { item: BasketData }) {
   const [basketData, setBasketData] = useRecoilState(basketDataState);
 
   const totalPrice = item.price * item.nights;
+  const nights =
+    new Date(item.endDate).getDate() - new Date(item.startDate).getDate();
 
   const deleteSingleItem = async (id: number) => {
     // await DeleteBasketItem(id);
@@ -57,7 +59,7 @@ function BasketDisabledCard({ item }: { item: BasketData }) {
             {item.name}
           </Text>
           <Text as="p" size="xs" color="blackAlpha.600">
-            {item.startDate} - {item.endDate} ({item.nights}박)
+            {item.startDate} ~ {item.endDate} ({nights}박)
           </Text>
           <Box
             display="flex"

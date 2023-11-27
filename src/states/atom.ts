@@ -51,7 +51,7 @@ export const getCheckedIds = selector({
 });
 
 export const getUnavailableIds = selector({
-  key: 'getCheckedIds',
+  key: 'getUnavailableIds',
   get: ({ get }) => {
     const unavailableList = get(basketUnavailableListState);
     const unavailableIds = unavailableList.map(

@@ -87,14 +87,7 @@ const StyledInnerContainer = styled.div`
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-<<<<<<< HEAD
-  padding: 1rem;
-  width: 768px;
-  min-height: 100vh;
-=======
   width: ${theme.device.tablet};
-
->>>>>>> 6a4ae5ba7fc011125663d8f70149b92291562f45
   background-color: ${theme.colors.white};
   box-shadow: ${theme.shadows.shadow1.shadow};
 
