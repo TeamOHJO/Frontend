@@ -44,7 +44,7 @@ export const setCookies = async (
 export function getCookie(name: string): string | undefined {
   const cookieValue = document.cookie
     .split('; ')
-    .find((row) => row.startsWith(`${name}=`))
+    .find((row: any) => row.startsWith(`${name}=`))
     ?.split('=')[1];
   return cookieValue || undefined;
 }
@@ -76,4 +76,15 @@ export const changeDateFormat = (date: Date) => {
   const day = setTwoDigit(date.getDate());
 
   return `${year}-${month}-${day}`;
+};
+
+export const changeCategoryFormat = (category: string) => {
+  if (category === '호텔·리조트') return 'HOTEL';
+  if (category === '한옥') return 'HANOK';
+  if (category === '펜션·풀빌라') return 'PENSION';
+  if (category === '모텔') return 'MOTEL';
+  if (category === '게스트하우스') return 'GUESTHOUSE';
+
+  // 아무것도 없을때
+  return category;
 };

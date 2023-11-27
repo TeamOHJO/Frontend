@@ -1,38 +1,54 @@
 import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import { useRecoilValue } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@chakra-ui/react';
+import { searchFilteredState, searchAttempt } from '../../states/atom';
+import { getAccommodationList } from '../../api';
 import HomeCard from './HomeCard';
-import { HomeCardProps } from '../../@types/interface';
 
 const ContentsContainer = () => {
   const [list, setList] = useState([]);
+  const navigate = useNavigate();
+  const searchFilter = useRecoilValue(searchFilteredState);
+  const searchingAttempt = useRecoilValue(searchAttempt);
+  const { category, isDomestic, startDate, endDate, numberOfPeople } = searchFilter;
 
   const fetchData = async () => {
-    const response = await fetch(
-      'http://localhost:5173/data/accommodationList.json',
-      {
-        method: 'GET',
-      },
-    );
-    setList(await response.json());
+    try {
+      const res = await getAccommodationList({
+        category,
+        isDomestic,
+        startDate,
+        endDate,
+        numberOfPeople,
+      });
+
+      const { data } = res;
+      setList(data);
+    } catch (error) {
+      /* eslint-disable */
+      console.error(error);
+      /* eslint-enable */
+    }
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [navigate, searchingAttempt]);
 
   return (
     <StyledContainer>
-      {list.map((e: HomeCardProps) => {
+      {list.map((e: any) => {
         return (
           <HomeCard
-            key={e.price * e.score}
-            name={e.name}
-            images={e.images}
+            key={e.accommodationId}
+            name={e.accommodationName}
+            images={e.accommodationImageList}
             category={e.category}
-            score={e.score}
-            price={e.price}
-            isLiked={e.isLiked}
+            score={e.averageReviewScore}
+            price={122200}
+            isLiked={e.liked}
           />
         );
       })}

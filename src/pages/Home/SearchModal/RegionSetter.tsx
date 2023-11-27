@@ -1,5 +1,7 @@
 import { Button } from '@chakra-ui/react';
 import styled from '@emotion/styled';
+import { useRecoilState } from 'recoil';
+import { searchFilteredState } from '../../../states/atom';
 
 interface RegionSetterProps {
   isDomestic: boolean;
@@ -7,12 +9,20 @@ interface RegionSetterProps {
 }
 
 function RegionSetter({ isDomestic, setIsDomestic }: RegionSetterProps) {
+  const [searchFilter, setSearchFilter] = useRecoilState(searchFilteredState);
+
+  const setDomestic = (value: boolean) => {
+    const newFilter = { ...searchFilter, isDomestic: value };
+    setIsDomestic(value);
+    setSearchFilter(newFilter);
+  };
+
   return (
     <StyledDomesticSection>
       <StyledButton
         variant={isDomestic ? 'navyClicked' : 'navy'}
         onClick={() => {
-          setIsDomestic(true);
+          setDomestic(true);
         }}
       >
         국내
@@ -20,7 +30,7 @@ function RegionSetter({ isDomestic, setIsDomestic }: RegionSetterProps) {
       <StyledButton
         variant={isDomestic ? 'navy' : 'navyClicked'}
         onClick={() => {
-          setIsDomestic(false);
+          setDomestic(false);
         }}
       >
         국외
