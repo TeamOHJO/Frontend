@@ -50,3 +50,14 @@ export const testToken = async () => {
   const res = await clientToken.get('/user/test');
   return res;
 };
+
+// 장바구니 API
+export const getBasket = async () => {
+  const res = await clientToken.get('/basket');
+  return res;
+};
+
+export const DeleteBasketItem = async (basketId: number) => {
+  const res = await client.delete(`/basket/${basketId}`);
+  return res;
+};

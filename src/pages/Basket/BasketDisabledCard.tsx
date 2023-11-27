@@ -1,3 +1,4 @@
+import { useRecoilState } from 'recoil';
 import {
   Card,
   Image,
@@ -10,8 +11,23 @@ import {
   Badge,
 } from '@chakra-ui/react';
 import { StarFilled, CloseOutlined } from '@ant-design/icons';
+import { BasketData } from '../../@types/interface';
+import { basketDataState } from '../../states/atom';
 
-function BasketDisabledCard() {
+function BasketDisabledCard({ item }: { item: BasketData }) {
+  const [basketData, setBasketData] = useRecoilState(basketDataState);
+
+  const totalPrice = item.price * item.nights;
+  const nights =
+    new Date(item.endDate).getDate() - new Date(item.startDate).getDate();
+
+  const deleteSingleItem = async (id: number) => {
+    // await DeleteBasketItem(id);
+    setBasketData(
+      basketData.filter((product: BasketData) => product.basketId !== id),
+    );
+  };
+
   return (
     <Card size="sm">
       <CardBody display="flex" flexDirection="row" gap={3}>
@@ -19,7 +35,7 @@ function BasketDisabledCard() {
           boxSize="110px"
           objectFit="cover"
           borderRadius={8}
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD3JBW-cAhYqwYXsEK9AosV69_t1SNqh5RYA&usqp=CAU"
+          src={item.image}
           alt="Accommodation Photo"
         />
         <Stack textAlign="left" width="100%" direction="column" gap={0.5}>
@@ -29,18 +45,21 @@ function BasketDisabledCard() {
             alignItems="center"
           >
             <Box textAlign="left">
-              <Badge variant="disabled">펜션/풀빌라</Badge>
+              <Badge variant="disabled">{item.category}</Badge>
             </Box>
-            <CloseOutlined style={{ fontSize: '20px', cursor: 'pointer' }} />
+            <CloseOutlined
+              onClick={() => deleteSingleItem(item.basketId)}
+              style={{ fontSize: '20px', cursor: 'pointer' }}
+            />
           </Box>
           <Heading size="md" color="blackAlpha.600">
-            일본 도쿄 Nakano City
+            {item.accommodationName}
           </Heading>
           <Text size="sm" color="blackAlpha.600">
-            디럭스 패밀리룸
+            {item.name}
           </Text>
           <Text as="p" size="xs" color="blackAlpha.600">
-            12월 26일 - 12월 29일 (3박)
+            {item.startDate} ~ {item.endDate} ({nights}박)
           </Text>
           <Box
             display="flex"
@@ -55,15 +74,15 @@ function BasketDisabledCard() {
                 }}
               />
               <Text as="span" size="xs" color="blackAlpha.600">
-                4.90
+                {item.stars.toFixed(2)}
               </Text>
             </Box>
           </Box>
           <Flex direction="column" alignItems="flex-end">
             <Text as="s" size="md" fontWeight="bold" color="blackAlpha.600">
-              ￦435,400
+              ￦{totalPrice.toLocaleString()}
             </Text>
-            <Text as="p" fontWeight="bold" size="xs">
+            <Text as="p" fontWeight="bold" size="xs" color="red.500">
               예약 마감
             </Text>
           </Flex>

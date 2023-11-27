@@ -7,7 +7,12 @@ function BasketHeader() {
   return (
     <StyledBasketHeaderWrapper>
       <IconWrapper>
-        <ArrowLeftOutlined style={{ fontSize: '24px', cursor: 'pointer' }} />
+        <ArrowLeftOutlined
+          onClick={() => {
+            window.history.back();
+          }}
+          style={{ fontSize: '24px', cursor: 'pointer' }}
+        />
       </IconWrapper>
       <Text as="p" size="sm" textAlign="center">
         나의 장바구니
@@ -21,8 +26,6 @@ export default BasketHeader;
 const StyledBasketHeaderWrapper = styled.div`
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
   z-index: 10;
 
   width: 100%;
