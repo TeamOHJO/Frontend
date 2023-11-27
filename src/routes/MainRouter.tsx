@@ -88,7 +88,6 @@ const StyledInnerContainer = styled.div`
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 1rem;
   width: 768px;
   min-height: 100vh;
   width: ${theme.device.tablet};

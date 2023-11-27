@@ -24,8 +24,7 @@ const ReservationSubBreakDown = () => {
       </Box>
       <Box display="flex" flexDir="column">
         <Text fontWeight="bold" fontSize="lg">
-          ￦435,400원
-          {' '}
+          ￦435,400원{' '}
         </Text>
         <Text fontWeight="re" fontSize="md" color={theme.colors.gray400}>
           3박 요금(세금 포함)

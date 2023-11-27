@@ -4,13 +4,25 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
+import { v4 as uuid } from 'uuid';
 
 interface SwiperProps {
   images: string[];
   borderRadius: string;
+  onOpen: () => void;
 }
 
-export default function SwiperComponent({ images, borderRadius }: SwiperProps) {
+export default function OnOpenSwiper({
+  images,
+  borderRadius,
+  onOpen,
+}: SwiperProps) {
+  // const SwiperSlideStyle = {
+  //   width: '100%',
+  //   height: '100%',
+  //   borderRadius: `${borderRadius}`,
+  // };
+
   const StyledSwiperWrapper = styled(Swiper)`
     width: 100%;
     height: 100%;
@@ -53,9 +65,6 @@ export default function SwiperComponent({ images, borderRadius }: SwiperProps) {
       display: none;
     }
   `;
-
-  const index = 1;
-
   return (
     <StyledSwiperWrapper
       pagination
@@ -63,11 +72,13 @@ export default function SwiperComponent({ images, borderRadius }: SwiperProps) {
       modules={[Pagination, Navigation]}
       className="mySwiper"
     >
-      {images.map((image: string) => (
-        <SwiperSlide key={index + 1}>
-          <StyledImg src={image} alt="#" />
-        </SwiperSlide>
-      ))}
+      {images &&
+        images.map((image: string) => (
+          // 키값 해결
+          <SwiperSlide key={uuid()}>
+            <StyledImg src={image} alt="#" onClick={onOpen} />
+          </SwiperSlide>
+        ))}
     </StyledSwiperWrapper>
   );
 }
