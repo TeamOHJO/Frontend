@@ -14,6 +14,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Calendar from './Calendar';
 import VisitorSetter from './VisitorSetter';
 import RegionSetter from './RegionSetter';
+import { getTomorrow } from '../../../utils/utils';
 
 interface ModalProps {
   isOpen: boolean;
@@ -23,9 +24,7 @@ interface ModalProps {
 function SearchModal({ isOpen, onClose }: ModalProps) {
   const [isDomestic, setIsDomestic] = useState(true);
   const [startDate, setStartDate] = useState(new Date());
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const [endDate, setEndDate] = useState(tomorrow);
+  const [endDate, setEndDate] = useState(getTomorrow());
   const [visitors, setVisitors] = useState(2);
 
   const onChangeDate = (dates: any) => {
