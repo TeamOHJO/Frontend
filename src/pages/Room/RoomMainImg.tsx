@@ -1,17 +1,19 @@
 import styled from '@emotion/styled';
-import { theme } from '../../styles/theme';
-import SwiperComponent from '../../components/Swiper/SwiperComponent';
+import { useDisclosure } from '@chakra-ui/react';
+import OnOpenSwiper from '../Accommodation/Swiper/OnOpenSwiper';
+import ImageModal from '../Accommodation/ImageModal';
 
-function RoomMainImg() {
-  const images: string[] = [
-    'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
-    'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
-    'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
-    'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
-  ];
+interface RoomMainImgProps {
+  images: string[];
+}
+
+function RoomMainImg({ images }: RoomMainImgProps) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <StyledRoomMainImgWrapper>
-      <SwiperComponent borderRadius="0" images={images} />
+      <OnOpenSwiper borderRadius="0" images={images} onOpen={onOpen} />
+      <ImageModal isOpen={isOpen} onClose={onClose} images={images} />
     </StyledRoomMainImgWrapper>
   );
 }
@@ -21,5 +23,5 @@ export default RoomMainImg;
 const StyledRoomMainImgWrapper = styled.div`
   width: 100%;
   height: 50%;
-  background-color: ${theme.colors.gray100};
+  position: relative;
 `;

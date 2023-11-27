@@ -3,10 +3,15 @@ import {
   ArrowLeftOutlined,
   HomeOutlined,
   ShoppingCartOutlined,
+  UpOutlined,
 } from '@ant-design/icons';
 import { theme } from '../../styles/theme';
 
 function RoomNavi() {
+  const ScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <StyledRoomNaviWrapper>
       <StyledRoomNaviLeft>
@@ -17,7 +22,11 @@ function RoomNavi() {
           style={{ fontSize: '24px', marginRight: '1rem', cursor: 'pointer' }}
         />
         <ShoppingCartOutlined style={{ fontSize: '24px', cursor: 'pointer' }} />
-      </StyledRoomNaviRight>
+      </StyledRoomNaviRight>{' '}
+      <StyledTopBtn onClick={ScrollToTop}>
+        <UpOutlined />
+      </StyledTopBtn>
+      <StyledCartCount>1</StyledCartCount>
     </StyledRoomNaviWrapper>
   );
 }
@@ -45,4 +54,34 @@ const StyledRoomNaviLeft = styled.div`
 
 const StyledRoomNaviRight = styled.div`
   margin-right: 1rem;
+`;
+
+const StyledTopBtn = styled.button`
+  position: absolute;
+  right: 10px;
+  top: 85vh;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: ${theme.colors.white};
+  box-shadow: ${theme.shadows.shadow3.shadow};
+  z-index: 10;
+`;
+
+const StyledCartCount = styled.div`
+  width: 20px;
+  height: 20px;
+
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 5px;
+  right: 5px;
+
+  background-color: red;
+  color: white;
 `;

@@ -3,18 +3,24 @@ import { StarFilled } from '@ant-design/icons';
 import { Heading, Text } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 
-function RoomTitle() {
+interface RoomTitleProps {
+  name: string;
+  minCapacity: number;
+  maxCapacity: number;
+  stars: number;
+}
+
+function RoomTitle({ name, minCapacity, maxCapacity, stars }: RoomTitleProps) {
   return (
     <StyledRoomTitleWrapper>
       <StyledRoomBadgeStarWrapper>
         <StyledRoomTitleName>
           <Heading as="h2" size="lg">
-            객실 이름 101호
+            {name}
           </Heading>
           <Text as="p" size="sm" color="gray.84">
-            객실 정보 1
+            최소 인원 : {minCapacity}명 / 최대 인원 : {maxCapacity}명
           </Text>
-
           <Text as="p" size="sm" color="gray.84">
             객실 정보 2
           </Text>
@@ -23,7 +29,7 @@ function RoomTitle() {
           <StarFilled
             style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
           />
-          <StyledStarDigit>4.90</StyledStarDigit>
+          <StyledStarDigit>{stars}</StyledStarDigit>
         </StyledRoomStar>
       </StyledRoomBadgeStarWrapper>
     </StyledRoomTitleWrapper>
