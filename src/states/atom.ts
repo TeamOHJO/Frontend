@@ -1,5 +1,5 @@
 import { atom, selector } from 'recoil';
-import { AlertData, BasketData } from '../@types/interface';
+import { AlertData, BasketData, WishlistData } from '../@types/interface';
 
 export const toastPopupState = atom<AlertData>({
   key: 'toastPopupState',
@@ -77,4 +77,9 @@ export const getUnavailableIds = selector({
     );
     return unavailableIds;
   },
+});
+
+export const wishlistDataState = atom<WishlistData[]>({
+  key: 'wishlistDataState',
+  default: [],
 });

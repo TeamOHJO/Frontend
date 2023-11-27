@@ -8,10 +8,13 @@ import {
   CardBody,
   Stack,
 } from '@chakra-ui/react';
-import { EnvironmentOutlined, HeartFilled } from '@ant-design/icons';
-import { theme } from '../../styles/theme';
+import { EnvironmentOutlined } from '@ant-design/icons';
+import { WishlistData } from '../../@types/interface';
+import Heart from '../../components/Heart';
+import { handleBadgeColor } from '../../utils/handleBadgeColor';
 
-function WishListCard() {
+function WishListCard({ item }: { item: WishlistData }) {
+  const badgeColor = handleBadgeColor(item.category);
   return (
     <Card size="sm">
       <CardBody display="flex" flexDirection="row" gap={3}>
@@ -19,7 +22,7 @@ function WishListCard() {
           boxSize="110px"
           objectFit="cover"
           borderRadius={8}
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD3JBW-cAhYqwYXsEK9AosV69_t1SNqh5RYA&usqp=CAU"
+          src={item.image}
           alt="Accomodation Photo"
         />
         <Stack width="100%">
@@ -28,26 +31,24 @@ function WishListCard() {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Heading size="sm">일본 도쿄 Nakano City</Heading>
-            <HeartFilled
-              style={{
-                fontSize: '20px',
-                color: theme.colors.red500,
-                cursor: 'pointer',
-              }}
-            />
+            <Heading size="sm">{item.accommodationName}</Heading>
+            <Heart isLiked={item.isLiked} />
           </Box>
           <Box textAlign="left">
-            <Badge variant="blue">펜션/풀빌라</Badge>
+            <Badge variant={badgeColor}>{item.category}</Badge>
           </Box>
           <Box display="flex" alignItems="center" gap={1}>
-            <EnvironmentOutlined />
+            <EnvironmentOutlined
+              style={{
+                color: '#848484',
+              }}
+            />
             <Text as="span" size="xs" color="gray.84">
-              강원도 강릉시 옥계면 헌화로 455-34
+              {item.location}
             </Text>
           </Box>
           <Text as="span" size="sm" color="gray.84" textAlign="right">
-            ·최소 금액 ￦99,000원
+            ·최소 금액 ￦{item.lowestPrice.toLocaleString()}
           </Text>
         </Stack>
       </CardBody>

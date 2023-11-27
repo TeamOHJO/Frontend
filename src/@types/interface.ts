@@ -154,3 +154,13 @@ export interface BasketData {
   stars: number;
   canReserve: boolean;
 }
+
+export interface WishlistData {
+  accommodationId: number;
+  accommodationName: string;
+  category: string;
+  location: string;
+  image: string;
+  lowestPrice: number;
+  isLiked: boolean;
+}

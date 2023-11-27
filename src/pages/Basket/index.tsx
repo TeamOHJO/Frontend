@@ -27,7 +27,6 @@ function Basket() {
         },
       );
       const data = await response.json();
-      console.log(data);
 
       // Sort the data by startDate
       data.sort(

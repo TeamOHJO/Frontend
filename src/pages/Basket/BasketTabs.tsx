@@ -25,6 +25,7 @@ import {
 } from '../../states/atom';
 import DefaultModal from '../../components/Modal/DefaultModal';
 import BasketNoProducts from './BasketNoProducts';
+import { DeleteBasketItem } from '../../api';
 
 function BasketTabs() {
   const [basketData, setBasketData] = useRecoilState(basketDataState);
@@ -36,7 +37,7 @@ function BasketTabs() {
 
   const deleteAllUnavailable = () => {
     // api 수정 후 주석 제거 예정
-    // unavailableIds.forEach((id: number) => DeleteBasketItem(id));
+    unavailableIds.forEach((id: number) => DeleteBasketItem(id));
     setBasketData(
       basketData.filter(
         (product: BasketData) => !unavailableIds.includes(product.basketId),
@@ -46,7 +47,7 @@ function BasketTabs() {
 
   const deleteCheckedItems = () => {
     // api 수정 후 주석 제거 예정
-    // checkedIds.forEach((checkedId: number) => DeleteBasketItem(checkedId));
+    checkedIds.forEach((checkedId: number) => DeleteBasketItem(checkedId));
     setBasketData(
       basketData.filter(
         (product: BasketData) => !checkedIds.includes(product.basketId),
