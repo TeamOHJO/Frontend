@@ -50,3 +50,24 @@ export const testToken = async () => {
   const res = await clientToken.get('/user/test');
   return res;
 };
+
+interface SearchFilterProps {
+  category: string;
+  isDomestic: boolean;
+  startDate: string;
+  endDate: string;
+  numberOfPeople: number;
+}
+
+export const getAccommodationList = async ({
+  category,
+  isDomestic,
+  startDate,
+  endDate,
+  numberOfPeople,
+}: SearchFilterProps) => {
+  const res = await client.get(
+    `/accommodation?category=${category}&isDomestic=${isDomestic}&page=0&startDate=${startDate}&endDate=${endDate}&numberOfPeople=${numberOfPeople}`,
+  );
+  return res.data;
+};
