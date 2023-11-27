@@ -25,11 +25,20 @@ function Room() {
     roomDetailData && (
       <StyledRoomContainer>
         <RoomNavi />
-        <RoomMainImg />
-        <RoomTitle />
-        <RoomSelectedInfo />
-        <RoomInfo />
-        <RoomBottomNavi />
+        <RoomMainImg images={roomDetailData?.images} />
+        <RoomTitle
+          name={roomDetailData?.name}
+          minCapacity={roomDetailData?.minCapacity}
+          maxCapacity={roomDetailData?.maxCapacity}
+          stars={roomDetailData?.stars}
+        />
+        <RoomSelectedInfo price={roomDetailData?.price} />
+        <RoomInfo
+          explanation={roomDetailData?.explanation}
+          checkinExplanation={roomDetailData?.checkinExplanation}
+          serviceInfo={roomDetailData?.serviceInfo}
+        />
+        <RoomBottomNavi price={roomDetailData?.price} />
       </StyledRoomContainer>
     )
   );
