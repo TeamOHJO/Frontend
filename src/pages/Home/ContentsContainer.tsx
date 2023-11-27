@@ -12,8 +12,10 @@ const ContentsContainer = () => {
   const navigate = useNavigate();
   const searchFilter = useRecoilValue(searchFilteredState);
   const searchingAttempt = useRecoilValue(searchAttempt);
-  const { category, isDomestic, startDate, endDate, numberOfPeople } = searchFilter;
-
+  /* eslint-disable */
+  const { category, isDomestic, startDate, endDate, numberOfPeople } =
+    searchFilter;
+  /* eslint-enable */
   const fetchData = async () => {
     try {
       const res = await getAccommodationList({
@@ -27,9 +29,7 @@ const ContentsContainer = () => {
       const { data } = res;
       setList(data);
     } catch (error) {
-      /* eslint-disable */
       console.error(error);
-      /* eslint-enable */
     }
   };
 
