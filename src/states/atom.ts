@@ -1,5 +1,5 @@
-import { atom } from 'recoil';
-import { AlertData } from '../@types/interface';
+import { atom, selector } from 'recoil';
+import { AlertData, BasketData } from '../@types/interface';
 import { getTomorrow } from '../utils/utils';
 
 export const toastPopupState = atom<AlertData>({
@@ -44,4 +44,54 @@ export const searchFilteredState = atom({
 export const searchPages = atom({
   key: 'searchPage',
   default: 0,
+});
+
+export const basketDataState = atom<BasketData[]>({
+  key: 'basketDataState',
+  default: [],
+});
+
+export const basketAvailableListState = atom<BasketData[]>({
+  key: 'basketAvailableListState',
+  default: [],
+});
+
+export const basketUnavailableListState = atom<BasketData[]>({
+  key: 'basketUnavailableListState',
+  default: [],
+});
+
+export const basketCheckedItemsState = atom<BasketData[]>({
+  key: 'basketCheckedItemsState',
+  default: [],
+});
+
+export const getTotalPriceOfCheckedItems = selector({
+  key: 'getTotalPriceOfCheckedItems',
+  get: ({ get }) => {
+    const checkedItems = get(basketCheckedItemsState);
+    return checkedItems.reduce((acc, cur) => acc + cur.price * cur.nights, 0);
+  },
+});
+
+export const getCheckedIds = selector({
+  key: 'getCheckedIds',
+  get: ({ get }) => {
+    const checkedItems = get(basketCheckedItemsState);
+    const checkedIds = checkedItems.map(
+      (checkedItem: BasketData) => checkedItem.basketId,
+    );
+    return checkedIds;
+  },
+});
+
+export const getUnavailableIds = selector({
+  key: 'getUnavailableIds',
+  get: ({ get }) => {
+    const unavailableList = get(basketUnavailableListState);
+    const unavailableIds = unavailableList.map(
+      (checkedItem: BasketData) => checkedItem.basketId,
+    );
+    return unavailableIds;
+  },
 });
