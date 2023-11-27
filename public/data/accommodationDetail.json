@@ -78,7 +78,7 @@
         "createdAt": "2023.10.29"
       }
     ],
-    "rooms": [
+    "roomDetails": [
       {
         "roomId": 1,
         "name": "스탠다드 트윈 101호",
@@ -92,7 +92,7 @@
           "https://yaimg.yanolja.com/v5/2022/10/12/15/640/6346d75962b2a6.36222755.jpg",
           "https://yaimg.yanolja.com/v5/2022/10/12/15/640/6346d75a30ce97.26690928.jpg"
         ],
-        "isReservation": true,
+        "soldOut": true,
         "averageRating": 4.3,
         "serviceInfo": ["무료와이파이", "케이블채널"]
       },
@@ -109,7 +109,7 @@
           "https://yaimg.yanolja.com/v5/2022/10/12/15/640/6346d75962b2a6.36222755.jpg",
           "https://yaimg.yanolja.com/v5/2022/10/12/15/640/6346d75a30ce97.26690928.jpg"
         ],
-        "isReservation": false,
+        "soldOut": false,
         "averageRating": 4.3,
         "serviceInfo": ["무료와이파이", "케이블채널"]
       },
@@ -126,7 +126,7 @@
           "https://yaimg.yanolja.com/v5/2022/10/12/15/640/6346d75962b2a6.36222755.jpg",
           "https://yaimg.yanolja.com/v5/2022/10/12/15/640/6346d75a30ce97.26690928.jpg"
         ],
-        "isReservation": true,
+        "soldOut": true,
         "averageRating": 4.3,
         "serviceInfo": ["무료와이파이", "케이블채널"]
       },
@@ -143,7 +143,7 @@
           "https://yaimg.yanolja.com/v5/2022/10/12/15/640/6346d75962b2a6.36222755.jpg",
           "https://yaimg.yanolja.com/v5/2022/10/12/15/640/6346d75a30ce97.26690928.jpg"
         ],
-        "isReservation": false,
+        "soldOut": false,
         "averageRating": 4.5,
         "serviceInfo": ["무료와이파이", "케이블채널"]
       },
@@ -160,7 +160,7 @@
           "https://yaimg.yanolja.com/v5/2022/10/12/15/640/6346d75962b2a6.36222755.jpg",
           "https://yaimg.yanolja.com/v5/2022/10/12/15/640/6346d75a30ce97.26690928.jpg"
         ],
-        "isReservation": true,
+        "soldOut": true,
         "averageRating": 4.5,
         "serviceInfo": ["무료와이파이", "케이블채널"]
       },
@@ -177,7 +177,7 @@
           "https://yaimg.yanolja.com/v5/2022/10/12/15/640/6346d75962b2a6.36222755.jpg",
           "https://yaimg.yanolja.com/v5/2022/10/12/15/640/6346d75a30ce97.26690928.jpg"
         ],
-        "isReservation": true,
+        "soldOut": true,
         "averageRating": 4.5,
         "serviceInfo": ["무료와이파이", "케이블채널"]
       },
@@ -195,7 +195,7 @@
           "https://yaimg.yanolja.com/v5/2022/11/08/17/640/636a8d5477e763.51867922.JPG",
           "https://yaimg.yanolja.com/v5/2022/11/08/17/640/636a8d5478d265.70311893.JPG"
         ],
-        "isReservation": false,
+        "soldOut": false,
         "averageRating": 4.4,
         "serviceInfo": ["무료와이파이", "케이블채널"]
       },
@@ -213,7 +213,7 @@
           "https://yaimg.yanolja.com/v5/2022/11/08/17/640/636a8d5477e763.51867922.JPG",
           "https://yaimg.yanolja.com/v5/2022/11/08/17/640/636a8d5478d265.70311893.JPG"
         ],
-        "isReservation": true,
+        "soldOut": true,
         "averageRating": 4.4,
         "serviceInfo": ["무료와이파이", "케이블채널"]
       },
@@ -231,7 +231,7 @@
           "https://yaimg.yanolja.com/v5/2022/11/08/17/640/636a8d5477e763.51867922.JPG",
           "https://yaimg.yanolja.com/v5/2022/11/08/17/640/636a8d5478d265.70311893.JPG"
         ],
-        "isReservation": true,
+        "soldOut": true,
         "averageRating": 4.4,
         "serviceInfo": ["무료와이파이", "케이블채널"]
       }

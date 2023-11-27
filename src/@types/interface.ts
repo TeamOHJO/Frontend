@@ -134,7 +134,7 @@ export interface AccommodationDetail {
       star: number;
       createdAt: string;
     }[];
-    rooms: {
+    roomDetails: {
       roomId: number;
       name: string;
       price: number;
@@ -142,7 +142,7 @@ export interface AccommodationDetail {
       minCapacity: number;
       maxCapacity: number;
       roomImages: string[];
-      isReservation: boolean;
+      soldOut: boolean;
       averageRating: number;
       serviceInfo: string[];
     }[];
@@ -159,7 +159,7 @@ export interface RoomDetail {
   minCapacity: number;
   maxCapacity: number;
   images: string[];
-  isReservation: boolean;
+  soldOut: boolean;
   stars: number;
 }
 

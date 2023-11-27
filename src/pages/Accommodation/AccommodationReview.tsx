@@ -25,36 +25,38 @@ function AccommodationReview({
   const navigate = useNavigate();
 
   return (
-    <StyledAccommodationReviewWrapper>
-      <StyledAccommodationReviewTitle>
-        <Heading as="h4" size="lg">
-          후기
-        </Heading>
-      </StyledAccommodationReviewTitle>
-      <StyledAccommodationReviewItemsContainer>
-        <StyledAccommodationReviewItemsWrapper>
-          {reviews &&
-            reviews.map((review: AccommodationReviewObject) => (
-              <AccommodationReviewItem
-                review={review}
-                name={name}
-                category={category}
-                key={uuid()}
-              />
-            ))}
-        </StyledAccommodationReviewItemsWrapper>
-      </StyledAccommodationReviewItemsContainer>
-      <StyledAccommodationReviewMoreBtnWrapper>
-        <Button
-          variant="blue"
-          size="lg"
-          style={{ width: '260px', height: '40px' }}
-          onClick={() => navigate('/review/id')}
-        >
-          후기 전체보기
-        </Button>
-      </StyledAccommodationReviewMoreBtnWrapper>
-    </StyledAccommodationReviewWrapper>
+    reviews && (
+      <StyledAccommodationReviewWrapper>
+        <StyledAccommodationReviewTitle>
+          <Heading as="h4" size="lg">
+            후기
+          </Heading>
+        </StyledAccommodationReviewTitle>
+        <StyledAccommodationReviewItemsContainer>
+          <StyledAccommodationReviewItemsWrapper>
+            {reviews &&
+              reviews.map((review: AccommodationReviewObject) => (
+                <AccommodationReviewItem
+                  review={review}
+                  name={name}
+                  category={category}
+                  key={uuid()}
+                />
+              ))}
+          </StyledAccommodationReviewItemsWrapper>
+        </StyledAccommodationReviewItemsContainer>
+        <StyledAccommodationReviewMoreBtnWrapper>
+          <Button
+            variant="blue"
+            size="lg"
+            style={{ width: '260px', height: '40px' }}
+            onClick={() => navigate('/review/id')}
+          >
+            후기 전체보기
+          </Button>
+        </StyledAccommodationReviewMoreBtnWrapper>
+      </StyledAccommodationReviewWrapper>
+    )
   );
 }
 

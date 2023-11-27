@@ -10,7 +10,7 @@ interface AccommodationRoom {
   minCapacity: number;
   maxCapacity: number;
   roomImages: string[];
-  isReservation: boolean;
+  soldOut: boolean;
   averageRating: number;
   serviceInfo: string[];
 }
@@ -30,7 +30,7 @@ function AccommodationRooms({ rooms }: AccommodationRoomsProps) {
           minCapacity={room.minCapacity}
           maxCapacity={room.maxCapacity}
           images={room.roomImages}
-          isReservation={room.isReservation}
+          soldOut={room.soldOut}
           averageRating={room.averageRating}
           key={uuid()}
         />

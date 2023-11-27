@@ -13,9 +13,19 @@ function Accommodation() {
   const [accommodationDetailData, setAccommodationDetailData] =
     useState<AccommodationDetail>();
 
-  const fetchData = async () => {
+  const fetchDataMok = async () => {
     const response = await fetch(
       'http://localhost:5173/data/accommodationDetail.json',
+      {
+        method: 'GET',
+      },
+    );
+    setAccommodationDetailData(await response.json());
+  };
+
+  const fetchData = async () => {
+    const response = await fetch(
+      'https://yanoljaschool.site:8080/accommodation/detail/1?maxCapacity=2&startDate=2023-11-02&endDate=2023-11-07',
       {
         method: 'GET',
       },
@@ -43,7 +53,7 @@ function Accommodation() {
           averageRating={accommodationDetailData?.data.averageRating}
         />
         <AccommodationSelect />
-        <AccommodationRooms rooms={accommodationDetailData?.data.rooms} />
+        <AccommodationRooms rooms={accommodationDetailData?.data.roomDetails} />
         <AccommodationReview
           reviews={accommodationDetailData?.data.reviews}
           name={accommodationDetailData?.data.name}
