@@ -122,7 +122,7 @@
     {
       "name": "스탠다드 더블 201호",
       "price": 130000,
-      "discountPercentage": 30,
+      "discountPercentage": 0,
       "minCapacity": 2,
       "maxCapacity": 4,
       "images": [
@@ -137,7 +137,7 @@
     {
       "name": "스탠다드 더블 202호",
       "price": 130000,
-      "discountPercentage": 30,
+      "discountPercentage": 0,
       "minCapacity": 2,
       "maxCapacity": 4,
       "images": [
@@ -152,7 +152,7 @@
     {
       "name": "스탠다드 더블 203호",
       "price": 130000,
-      "discountPercentage": 30,
+      "discountPercentage": 0,
       "minCapacity": 2,
       "maxCapacity": 4,
       "images": [

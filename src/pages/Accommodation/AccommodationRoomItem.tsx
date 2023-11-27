@@ -1,11 +1,16 @@
 import styled from '@emotion/styled';
 import { StarFilled } from '@ant-design/icons';
-import { Heading, Text, Button, useDisclosure } from '@chakra-ui/react';
+import { Heading, Text, Badge } from '@chakra-ui/react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { theme } from '../../styles/theme';
 import AccommodationRoomImages from './AccommodationRoomImages';
 import AccommodationRoomItemCart from './AccommodationRoomItemCart';
 import ReservationBtn from './ReservationBtn';
+import {
+  accommodationSelectStartDateState,
+  accommodationSelectEndDateState,
+} from '../../states/atom';
 
 interface AccommodationRoom {
   name: string;
@@ -30,6 +35,23 @@ function AccommodationRoomItem({
 }: AccommodationRoom) {
   const location = useLocation();
   const navigate = useNavigate();
+  const [accommodationSelectStartDate] = useRecoilState<Date | null>(
+    accommodationSelectStartDateState,
+  );
+
+  const [accommodationSelectEndDate] = useRecoilState<Date | null>(
+    accommodationSelectEndDateState,
+  );
+
+  const handleCountDay = () => {
+    if (accommodationSelectStartDate && accommodationSelectEndDate) {
+      const diffDate =
+        accommodationSelectEndDate.getTime() -
+        accommodationSelectStartDate.getTime();
+      return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
+    }
+    return 1;
+  };
 
   return (
     <StyledAccommodationRoomItemWrapper>
@@ -55,9 +77,41 @@ function AccommodationRoomItem({
             <Text as="p" size="sm" color="gray.84">
               최소 {minCapacity}명 / 최대 {maxCapacity}명
             </Text>
-            <Text as="p" size="sm">
-              ￦{price}원/박 {discountPercentage}%
-            </Text>
+            {discountPercentage > 0 ? (
+              <>
+                <Text as="s" size="sm" color="blackAlpha.600">
+                  ￦
+                  {(
+                    Math.floor((price * handleCountDay()) / 1000) * 1000
+                  ).toLocaleString()}
+                  원/{handleCountDay()}박
+                </Text>
+                <Text as="p" size="sm">
+                  ￦
+                  {(
+                    Math.floor(
+                      (price * handleCountDay() * (100 - discountPercentage)) /
+                        100000,
+                    ) * 1000
+                  ).toLocaleString()}
+                  원/{handleCountDay()}박
+                  <Badge fontSize="0.8rem" style={{ marginLeft: '0.5rem' }}>
+                    {discountPercentage}% 할인
+                  </Badge>
+                </Text>
+              </>
+            ) : (
+              <Text as="p" size="sm">
+                ￦
+                {(
+                  Math.floor(
+                    (price * handleCountDay() * (100 - discountPercentage)) /
+                      100000,
+                  ) * 1000
+                ).toLocaleString()}
+                원/{handleCountDay()}박
+              </Text>
+            )}
           </div>
           <StyledAccommodationRoomTitleBoxItem>
             <AccommodationRoomItemCart />
@@ -74,20 +128,20 @@ export default AccommodationRoomItem;
 const StyledAccommodationRoomItemWrapper = styled.div`
   width: 100%;
 
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 `;
 
 const StyledAccommodationRoomTitle = styled.div`
   width: 100%;
   height: 100px;
-  padding: 0.8rem;
+  padding: 0.5rem;
   cursor: pointer;
 `;
 
 const StyledAccommodationRoomTitleBox = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
 `;
 
@@ -101,46 +155,4 @@ const StyledAccommodationRoomTitleBoxItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const StyledAccommodationRoomItemCart = styled.span`
-  position: relative;
-  font-size: 30px;
-  color: ${theme.colors.gray300};
-  margin-right: 1rem;
-  cursor: pointer;
-  &:hover {
-    color: ${theme.colors.basic};
-  }
-`;
-
-const StyledTooltip = styled.span`
-  position: absolute;
-  top: 40px;
-  left: -42px;
-
-  padding: 0.5rem 1rem;
-
-  font-size: 14px;
-  color: #fff;
-  background-color: #000;
-
-  text-align: center;
-
-  border-radius: 5px;
-  &:after {
-    content: ' ';
-
-    position: absolute;
-    top: -20px;
-    left: 50%;
-
-    margin-left: -10px;
-
-    border-width: 10px;
-    border-style: solid;
-    border-color: transparent transparent #000 transparent;
-
-    font-family: 'Noto Sans KR', sans-serif;
-  }
 `;

@@ -28,7 +28,7 @@ function ReservationBtn({ isReservation }: ReservationBtnProps) {
         modalData={modalData}
       />
       <Button
-        variant="blue"
+        variant={isReservation ? 'gray' : 'blue'}
         size="lg"
         style={{ width: '100px', height: '40px' }}
         isDisabled={isReservation}
@@ -37,7 +37,7 @@ function ReservationBtn({ isReservation }: ReservationBtnProps) {
           onOpen();
         }}
       >
-        예약하기
+        {isReservation ? '예약마감' : '예약하기'}
       </Button>
     </>
   );

@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { StarFilled } from '@ant-design/icons';
 import { Badge, Heading, Text } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
+import { handleBadgeColor } from '../../utils/handleBadgeColor';
 
 interface AccommodationTitleProps {
   accommodationName: string;
@@ -20,7 +21,7 @@ function AccommodationTitle({
     <StyledAccommodationTitleWrapper>
       <StyledAccommodationBadgeStarWrapper>
         <StyledAccommodationBadge>
-          <Badge variant="blue" fontSize="0.8rem">
+          <Badge variant={handleBadgeColor(category)} fontSize="0.8rem">
             {category}
           </Badge>
         </StyledAccommodationBadge>
