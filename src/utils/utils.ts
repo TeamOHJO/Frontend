@@ -58,3 +58,22 @@ export const removeCookies = async () => {
     alert('쿠키삭제에 실패했습니다.');
   }
 };
+
+export const getTomorrow = () => {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return tomorrow;
+};
+
+const setTwoDigit = (num: number) => {
+  return num < 10 ? `0${num}` : `${num}`;
+};
+
+export const changeDateFormat = (date: Date) => {
+  // mysql DATETIME 형식으로 변환, api에 사용
+  const year = date.getFullYear();
+  const month = setTwoDigit(date.getMonth() + 1);
+  const day = setTwoDigit(date.getDate());
+
+  return `${year}-${month}-${day}`;
+};
