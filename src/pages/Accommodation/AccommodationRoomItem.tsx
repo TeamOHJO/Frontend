@@ -93,7 +93,7 @@ function AccommodationRoomItem({
               최소 {minCapacity}명 / 최대 {maxCapacity}명
             </Text>
             <Text as="p" size="sm">
-              ￦{price}원/박
+              ￦{price}원/박 {discountPercentage}%
             </Text>
           </div>
           <StyledAccommodationRoomTitleBoxItem>
@@ -127,7 +127,7 @@ function AccommodationRoomItem({
               variant="blue"
               size="lg"
               style={{ width: '100px', height: '40px' }}
-              isDisabled={false}
+              isDisabled={isReservation}
               onClick={(
                 event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
               ) => {
@@ -151,13 +151,6 @@ const StyledAccommodationRoomItemWrapper = styled.div`
   width: 100%;
 
   margin-bottom: 2rem;
-`;
-
-const StyledAccommodationRoomImg = styled.div`
-  width: 100%;
-  height: 350px;
-  border-radius: 15px;
-  box-shadow: ${theme.shadows.shadow1.shadow};
 `;
 
 const StyledAccommodationRoomTitle = styled.div`

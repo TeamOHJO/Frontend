@@ -10,14 +10,17 @@ import {
 } from '../../states/atom';
 
 function AccommodationSelect() {
-  const [accommodationSelectStartDate, setAccommodationSelectStartDate] =
-    useRecoilState<Date | null>(accommodationSelectStartDateState);
+  const [accommodationSelectStartDate] = useRecoilState<Date | null>(
+    accommodationSelectStartDateState,
+  );
 
-  const [accommodationSelectEndDate, setAccommodationSelectEndDate] =
-    useRecoilState<Date | null>(accommodationSelectEndDateState);
+  const [accommodationSelectEndDate] = useRecoilState<Date | null>(
+    accommodationSelectEndDateState,
+  );
 
-  const [accommodationSelectVisitors, setAccommodationSelectVisitors] =
-    useRecoilState<number>(accommodationSelectVisitorsState);
+  const [accommodationSelectVisitors] = useRecoilState<number>(
+    accommodationSelectVisitorsState,
+  );
   const { onOpen, isOpen, onClose } = useDisclosure();
 
   const Day = ['일', '월', '화', '수', '목', '금', '토'];

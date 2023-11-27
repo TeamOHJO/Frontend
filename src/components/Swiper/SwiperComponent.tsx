@@ -8,20 +8,9 @@ import { Pagination, Navigation } from 'swiper/modules';
 interface SwiperProps {
   images: string[];
   borderRadius: string;
-  isOpen: () => void;
 }
 
-export default function SwiperComponent({
-  images,
-  borderRadius,
-  isOpen,
-}: SwiperProps) {
-  // const SwiperSlideStyle = {
-  //   width: '100%',
-  //   height: '100%',
-  //   borderRadius: `${borderRadius}`,
-  // };
-
+export default function SwiperComponent({ images, borderRadius }: SwiperProps) {
   const StyledSwiperWrapper = styled(Swiper)`
     width: 100%;
     height: 100%;
@@ -76,7 +65,7 @@ export default function SwiperComponent({
     >
       {images.map((image: string) => (
         <SwiperSlide key={index + 1}>
-          <StyledImg src={image} alt="#" onClick={isOpen} />
+          <StyledImg src={image} alt="#" />
         </SwiperSlide>
       ))}
     </StyledSwiperWrapper>

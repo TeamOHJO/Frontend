@@ -25,7 +25,7 @@ const DefaultModal: FunctionComponent<ModalProps> = ({
     motionPreset="slideInBottom"
   >
     <ModalOverlay background="none" />
-    <ModalContent width="280px" border="1px solid" borderColor="#B8B8B8">
+    <ModalContent width="auto" border="1px solid" borderColor="#B8B8B8">
       <ModalHeader fontSize="lg">{modalData.heading}</ModalHeader>
       <ModalCloseButton />
       <ModalBody>

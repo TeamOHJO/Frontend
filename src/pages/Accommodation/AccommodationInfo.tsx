@@ -5,11 +5,6 @@ import AccommodationInfoMap from './AccommodationInfoMap';
 import AccommodationInfoTag from './AccommodationInfoTag';
 import ExplanationModal from './ExplanationModal';
 
-interface InfoObject {
-  title: string;
-  content: string;
-}
-
 interface AccommodationInfoProps {
   explanation: string;
   cancelInfo: string;
