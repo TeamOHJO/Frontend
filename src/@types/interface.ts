@@ -140,3 +140,17 @@ export interface AccommodationDetail {
     stars: number;
   }[];
 }
+
+export interface RoomDetail {
+  name: string;
+  price: number;
+  discountPercentage: number;
+  checkinExplanation: string;
+  explanation: string;
+  serviceInfo: string[];
+  minCapacity: number;
+  maxCapacity: number;
+  images: string[];
+  isReservation: boolean;
+  stars: number;
+}
