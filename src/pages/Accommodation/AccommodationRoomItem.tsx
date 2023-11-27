@@ -1,12 +1,11 @@
 import styled from '@emotion/styled';
 import { StarFilled } from '@ant-design/icons';
-import { useState } from 'react';
 import { Heading, Text, Button, useDisclosure } from '@chakra-ui/react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import AccommodationToastPopup from './AccommodationToastPopup';
 import { theme } from '../../styles/theme';
 import DefaultModal from '../../components/Modal/DefaultModal';
 import AccommodationRoomImages from './AccommodationRoomImages';
+import AccommodationRoomItemCart from './AccommodationRoomItemCart';
 
 interface AccommodationRoom {
   name: string;
@@ -29,7 +28,6 @@ function AccommodationRoomItem({
   isReservation,
   stars,
 }: AccommodationRoom) {
-  const [cartHover, setCartHover] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
   const navigate = useNavigate();
@@ -43,29 +41,6 @@ function AccommodationRoomItem({
   const modalFunc = () => {
     // 결제 페이지로 이동
     console.log('모달 승인 시 실행될 함수 입니다.');
-  };
-
-  // 장바구니 팝업
-  const [showAlert, setShowAlert] = useState({
-    active: false,
-    message: '',
-  });
-
-  const openFunction = () => {
-    // 조건문 삽입(성공, 이미 장바구니)
-    const toastData = {
-      active: true,
-      message: '성공적으로 장바구니에 담겼습니다.',
-    };
-    setShowAlert(toastData);
-  };
-
-  const handleCartMouseEnter = () => {
-    setCartHover(true);
-  };
-
-  const handleCartMouseLeave = () => {
-    setCartHover(false);
   };
 
   return (
@@ -97,26 +72,7 @@ function AccommodationRoomItem({
             </Text>
           </div>
           <StyledAccommodationRoomTitleBoxItem>
-            <StyledAccommodationRoomItemCart
-              className="material-symbols-outlined"
-              onMouseEnter={handleCartMouseEnter}
-              onMouseLeave={handleCartMouseLeave}
-              onClick={(
-                event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-              ) => {
-                event.stopPropagation();
-                openFunction();
-              }}
-            >
-              add_shopping_cart
-              {cartHover ? (
-                <StyledTooltip style={{ fontFamily: 'Noto Sans KR' }}>
-                  장바구니 담기
-                </StyledTooltip>
-              ) : (
-                ''
-              )}
-            </StyledAccommodationRoomItemCart>
+            <AccommodationRoomItemCart />
             <DefaultModal
               isOpen={isOpen}
               onClose={onClose}
@@ -140,7 +96,6 @@ function AccommodationRoomItem({
           </StyledAccommodationRoomTitleBoxItem>
         </StyledAccommodationRoomTitleBox>
       </StyledAccommodationRoomTitle>
-      <AccommodationToastPopup status={showAlert} setFunc={setShowAlert} />
     </StyledAccommodationRoomItemWrapper>
   );
 }

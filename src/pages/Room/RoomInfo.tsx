@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-
 import RoomInfoText from './RoomInfoText';
 
 interface RoomInfoProps {
