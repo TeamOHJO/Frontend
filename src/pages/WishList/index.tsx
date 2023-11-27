@@ -23,7 +23,6 @@ function WishList() {
   useEffect(() => {
     fetchData();
   }, []);
-  console.log(wishlistData);
 
   return (
     <StyledContainer>

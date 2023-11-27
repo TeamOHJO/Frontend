@@ -36,7 +36,6 @@ function BasketTabs() {
   const unavailableIds = useRecoilValue(getUnavailableIds);
 
   const deleteAllUnavailable = () => {
-    // api 수정 후 주석 제거 예정
     unavailableIds.forEach((id: number) => DeleteBasketItem(id));
     setBasketData(
       basketData.filter(
@@ -46,7 +45,6 @@ function BasketTabs() {
   };
 
   const deleteCheckedItems = () => {
-    // api 수정 후 주석 제거 예정
     checkedIds.forEach((checkedId: number) => DeleteBasketItem(checkedId));
     setBasketData(
       basketData.filter(
