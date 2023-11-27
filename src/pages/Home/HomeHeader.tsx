@@ -25,6 +25,7 @@ const StyledContainer = styled.div`
   width: ${theme.device.tablet};
   box-shadow: ${theme.shadows.shadow1.shadow};
   background-color: ${theme.colors.white};
+  z-index: 100;
 
   @media screen and (max-width: ${theme.device.tablet}) {
     width: 100%;

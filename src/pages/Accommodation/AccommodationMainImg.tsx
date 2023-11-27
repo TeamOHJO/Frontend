@@ -1,17 +1,22 @@
 import styled from '@emotion/styled';
-import { theme } from '../../styles/theme';
-import SwiperComponent from '../../components/Swiper/SwiperComponent';
+import { useDisclosure } from '@chakra-ui/react';
+import OnOpenSwiper from './Swiper/OnOpenSwiper';
+import Heart from '../../components/Heart';
+import ImageModal from './ImageModal';
 
-function AccommodationMainImg() {
-  const images: string[] = [
-    'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
-    'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
-    'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
-    'https://i.ytimg.com/vi/Q7pR7uazGgU/maxresdefault.jpg',
-  ];
+interface AccommodationMainImgProps {
+  images: string[];
+  isLiked: boolean;
+}
+
+function AccommodationMainImg({ images, isLiked }: AccommodationMainImgProps) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <StyledAccommodationMainImgWrapper>
-      <SwiperComponent borderRadius="0" images={images} />
+      <OnOpenSwiper borderRadius="0" images={images} onOpen={onOpen} />
+      <Heart isLiked={isLiked} />
+      <ImageModal isOpen={isOpen} onClose={onClose} images={images} />
     </StyledAccommodationMainImgWrapper>
   );
 }
@@ -21,5 +26,5 @@ export default AccommodationMainImg;
 const StyledAccommodationMainImgWrapper = styled.div`
   width: 100%;
   height: 50%;
-  background-color: ${theme.colors.gray100};
+  position: relative;
 `;

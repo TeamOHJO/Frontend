@@ -3,7 +3,22 @@ import { StarFilled } from '@ant-design/icons';
 import { Heading, Text } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 
-function AccommodationReviewItem() {
+interface AccommodationReviewProps {
+  review: {
+    userName: string;
+    reviewContents: string;
+    star: number;
+    createdAt: string;
+  };
+  accommodationName: string;
+  category: string;
+}
+
+function AccommodationReviewItem({
+  review,
+  accommodationName,
+  category,
+}: AccommodationReviewProps) {
   return (
     <StyledAccommodationReviewItemWrapper>
       <StyledAccommodationReviewItemTop>
@@ -12,29 +27,27 @@ function AccommodationReviewItem() {
             <StarFilled
               style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
             />
-            <StyledStarDigit>4.90</StyledStarDigit>
+            <StyledStarDigit>{review.star}</StyledStarDigit>
           </div>
           <Heading as="h4" size="sm">
-            000님
+            {review.userName}
           </Heading>
         </StyledAccommodationReviewItemTopLeft>
         <Text as="p" size="sm" color="gray.84">
-          2023년 11월 22일 ~ 11월 23일
+          {review.createdAt}
         </Text>
       </StyledAccommodationReviewItemTop>
       <StyledAccommodationReviewItemTitle>
         <Heading as="h4" size="sm">
-          000님
+          {accommodationName}
         </Heading>
         <Text as="p" size="sm" color="gray.84">
-          2023년 11월 22일 ~ 11월 23일
+          {category}
         </Text>
       </StyledAccommodationReviewItemTitle>
       <StyledAccommodationReviewItemContent>
         <Text as="p" size="sm" color="basic">
-          위치도 나카노역이라 신주쿠가 강남이라면 숙소는 서초교대 정도 느낌이라
-          접근성도 좋은데 주변이 진짜 완전 조용하고 아따맘마재질이라 좋음.
-          숙소는 2인이상은 좀 힘들거같고 깨끗함...
+          {review.reviewContents}
         </Text>
       </StyledAccommodationReviewItemContent>
     </StyledAccommodationReviewItemWrapper>

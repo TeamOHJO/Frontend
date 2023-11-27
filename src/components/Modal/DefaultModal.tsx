@@ -31,7 +31,6 @@ const DefaultModal: FunctionComponent<ModalProps> = ({
       <ModalBody>
         <Text size="md">{modalData.text}</Text>
       </ModalBody>
-
       <ModalFooter gap="10px" width="100%">
         <Button
           variant="grayFull"

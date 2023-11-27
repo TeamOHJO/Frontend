@@ -1,9 +1,28 @@
 import styled from '@emotion/styled';
 import { Heading, Button } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
 import AccommodationReviewItem from './AccommodationReviewItem';
 
-function AccommodationReview() {
-  const array: number[] = [1, 2, 3, 4, 5];
+interface AccommodationReviewObject {
+  userName: string;
+  reviewContents: string;
+  star: number;
+  createdAt: string;
+}
+
+interface AccommodationReviewProps {
+  reviews: AccommodationReviewObject[];
+  accommodationName: string;
+  category: string;
+}
+
+function AccommodationReview({
+  reviews,
+  accommodationName,
+  category,
+}: AccommodationReviewProps) {
+  const navigate = useNavigate();
 
   return (
     <StyledAccommodationReviewWrapper>
@@ -14,9 +33,15 @@ function AccommodationReview() {
       </StyledAccommodationReviewTitle>
       <StyledAccommodationReviewItemsContainer>
         <StyledAccommodationReviewItemsWrapper>
-          {array.map((i: number) => (
-            <AccommodationReviewItem key={i} />
-          ))}
+          {reviews &&
+            reviews.map((review: AccommodationReviewObject) => (
+              <AccommodationReviewItem
+                review={review}
+                accommodationName={accommodationName}
+                category={category}
+                key={uuid()}
+              />
+            ))}
         </StyledAccommodationReviewItemsWrapper>
       </StyledAccommodationReviewItemsContainer>
       <StyledAccommodationReviewMoreBtnWrapper>
@@ -24,6 +49,7 @@ function AccommodationReview() {
           variant="blue"
           size="lg"
           style={{ width: '260px', height: '40px' }}
+          onClick={() => navigate('/review/id')}
         >
           후기 전체보기
         </Button>
