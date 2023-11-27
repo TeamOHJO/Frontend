@@ -15,6 +15,11 @@ import ExplanationModalInfo from './ExplanationModalInfo';
 const ExplanationModal: FunctionComponent<ExplanationModalProps> = ({
   isOpen,
   onClose,
+  explanation,
+  cancelInfo,
+  useGuide,
+  reservationNotice,
+  serviceInfo,
 }) => (
   <Modal
     isOpen={isOpen}
@@ -28,7 +33,13 @@ const ExplanationModal: FunctionComponent<ExplanationModalProps> = ({
       <ModalHeader fontSize="lg">설명 한 눈에 보기</ModalHeader>
       <ModalCloseButton />
       <StyledModalBody>
-        <ExplanationModalInfo />
+        <ExplanationModalInfo
+          explanation={explanation}
+          cancelInfo={cancelInfo}
+          useGuide={useGuide}
+          reservationNotice={reservationNotice}
+          serviceInfo={serviceInfo}
+        />
       </StyledModalBody>
       <ModalFooter gap="10px" />
     </ModalContent>

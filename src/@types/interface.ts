@@ -38,4 +38,41 @@ export interface ImagesModalProps {
 export interface ExplanationModalProps {
   isOpen: boolean;
   onClose: () => void;
+  explanation: string;
+  cancelInfo: string;
+  useGuide: string;
+  reservationNotice: string;
+  serviceInfo: string[];
+}
+
+export interface AccommodationDetail {
+  category: string;
+  accommodationName: string;
+  location: string;
+  tag: string;
+  isDomestic: boolean;
+  explanation: string;
+  cancelInfo: string;
+  useGuide: string;
+  reservationNotice: string;
+  isLiked: boolean;
+  serviceInfo: string[];
+  images: string[];
+  stars: number;
+  reviews: {
+    userName: string;
+    reviewContents: string;
+    star: number;
+    createdAt: string;
+  }[];
+  rooms: {
+    name: string;
+    price: number;
+    discountPercentage: number;
+    minCapacity: number;
+    maxCapacity: number;
+    images: string[];
+    isReservation: boolean;
+    stars: number;
+  }[];
 }

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Heading, Button, Text } from '@chakra-ui/react';
+import { Heading, Text } from '@chakra-ui/react';
 
 interface InfoProps {
   title: string;
@@ -8,12 +8,12 @@ interface InfoProps {
 
 function ExplanationModalInfoText({ title, content }: InfoProps) {
   return (
-    <StyledAccommodationInfoTextWrapper>
-      <StyledAccommodationInfoTextTitle>
+    <StyledExplanationModalInfoTextWrapper>
+      <StyledExplanationModalInfoTextTitle>
         <Heading as="h4" size="lg">
           {title}
         </Heading>
-      </StyledAccommodationInfoTextTitle>
+      </StyledExplanationModalInfoTextTitle>
 
       <Text
         mt=".5rem"
@@ -27,17 +27,17 @@ function ExplanationModalInfoText({ title, content }: InfoProps) {
       >
         {content}
       </Text>
-    </StyledAccommodationInfoTextWrapper>
+    </StyledExplanationModalInfoTextWrapper>
   );
 }
 
 export default ExplanationModalInfoText;
 
-const StyledAccommodationInfoTextWrapper = styled.div`
+const StyledExplanationModalInfoTextWrapper = styled.div`
   width: 100%;
   padding: 1rem;
 `;
 
-const StyledAccommodationInfoTextTitle = styled.div`
+const StyledExplanationModalInfoTextTitle = styled.div`
   width: 100%;
 `;

@@ -9,6 +9,7 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
+import { v4 as uuid } from 'uuid';
 import { ImagesModalProps } from '../../../@types/interface';
 
 const ImageModal: FunctionComponent<ImagesModalProps> = ({
@@ -28,9 +29,10 @@ const ImageModal: FunctionComponent<ImagesModalProps> = ({
       <ModalHeader fontSize="lg">이미지</ModalHeader>
       <ModalCloseButton />
       <StyledModalBody>
-        {images.map((image: string) => (
-          <StyledImage src={image} />
-        ))}
+        {images &&
+          images.map((image: string) => (
+            <StyledImage src={image} key={uuid()} />
+          ))}
       </StyledModalBody>
       <ModalFooter gap="10px" />
     </ModalContent>

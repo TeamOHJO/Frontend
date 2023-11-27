@@ -3,8 +3,12 @@ import { useState } from 'react';
 import { HeartTwoTone, HeartFilled } from '@ant-design/icons';
 import { theme } from '../styles/theme';
 
-function Heart() {
-  const [isHeart, setIsHeart] = useState<boolean>(false);
+interface HeartProps {
+  isLiked: boolean;
+}
+
+function Heart({ isLiked }: HeartProps) {
+  const [isHeart, setIsHeart] = useState<boolean>(isLiked);
 
   function handleIsHeart() {
     setIsHeart(!isHeart);

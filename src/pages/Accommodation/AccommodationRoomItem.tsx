@@ -8,7 +8,27 @@ import { theme } from '../../styles/theme';
 import DefaultModal from '../../components/Modal/DefaultModal';
 import AccommodationRoomImages from './AccommodationRoomImages';
 
-function AccommodationRoomItem() {
+interface AccommodationRoom {
+  name: string;
+  price: number;
+  discountPercentage: number;
+  minCapacity: number;
+  maxCapacity: number;
+  images: string[];
+  isReservation: boolean;
+  stars: number;
+}
+
+function AccommodationRoomItem({
+  name,
+  price,
+  discountPercentage,
+  minCapacity,
+  maxCapacity,
+  images,
+  isReservation,
+  stars,
+}: AccommodationRoom) {
   const [cartHover, setCartHover] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
@@ -48,13 +68,6 @@ function AccommodationRoomItem() {
     setCartHover(false);
   };
 
-  const images: string[] = [
-    'https://yaimg.yanolja.com/v5/2023/06/12/16/640/64874266bae249.83963842.jpg',
-    'https://yaimg.yanolja.com/v5/2023/06/12/16/640/64874266afc479.99994417.jpg',
-    'https://yaimg.yanolja.com/v5/2023/06/12/16/640/64874266c76c99.67912408.jpg',
-    'https://yaimg.yanolja.com/v5/2023/06/12/16/640/64874266d4d2d5.17701526.jpg',
-  ];
-
   return (
     <StyledAccommodationRoomItemWrapper>
       <AccommodationRoomImages images={images} />
@@ -65,22 +78,22 @@ function AccommodationRoomItem() {
       >
         <StyledAccommodationRoomTitleBox style={{ marginBottom: '0.5rem' }}>
           <Heading as="h4" size="sm">
-            101호
+            {name}
           </Heading>
           <div>
             <StarFilled
               style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
             />
-            <StyledStarDigit>4.90</StyledStarDigit>
+            <StyledStarDigit>{stars}</StyledStarDigit>
           </div>
         </StyledAccommodationRoomTitleBox>
         <StyledAccommodationRoomTitleBox>
           <div>
             <Text as="p" size="sm" color="gray.84">
-              최소 2명 / 최대 4명
+              최소 {minCapacity}명 / 최대 {maxCapacity}명
             </Text>
             <Text as="p" size="sm">
-              ￦83,400원/박
+              ￦{price}원/박
             </Text>
           </div>
           <StyledAccommodationRoomTitleBoxItem>

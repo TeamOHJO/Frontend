@@ -1,13 +1,38 @@
 import styled from '@emotion/styled';
+import { v4 as uuid } from 'uuid';
 import { theme } from '../../styles/theme';
 import AccommodationRoomItem from './AccommodationRoomItem';
 
-function AccommodationRooms() {
-  const array = [1, 2, 3, 4, 5];
+interface AccommodationRoom {
+  name: string;
+  price: number;
+  discountPercentage: number;
+  minCapacity: number;
+  maxCapacity: number;
+  images: string[];
+  isReservation: boolean;
+  stars: number;
+}
+
+interface AccommodationRoomsProps {
+  rooms: AccommodationRoom[];
+}
+
+function AccommodationRooms({ rooms }: AccommodationRoomsProps) {
   return (
     <StyledAccommodationRoomsWrapper>
-      {array.map((i: number) => (
-        <AccommodationRoomItem key={i} />
+      {rooms.map((room: AccommodationRoom) => (
+        <AccommodationRoomItem
+          name={room.name}
+          price={room.price}
+          discountPercentage={room.discountPercentage}
+          minCapacity={room.minCapacity}
+          maxCapacity={room.maxCapacity}
+          images={room.images}
+          isReservation={room.isReservation}
+          stars={room.stars}
+          key={uuid()}
+        />
       ))}
     </StyledAccommodationRoomsWrapper>
   );

@@ -9,7 +9,21 @@ interface InfoObject {
   content: string;
 }
 
-function ExplanationModalInfo() {
+interface ExplanationModalInfoProps {
+  explanation: string;
+  cancelInfo: string;
+  useGuide: string;
+  reservationNotice: string;
+  serviceInfo: string[];
+}
+
+function ExplanationModalInfo({
+  explanation,
+  cancelInfo,
+  useGuide,
+  reservationNotice,
+  serviceInfo,
+}: ExplanationModalInfoProps) {
   const infoObject: InfoObject = {
     title: '숙소 설명',
     content:
@@ -20,20 +34,12 @@ function ExplanationModalInfo() {
 
   return (
     <StyledExplanationModalInfoWrapper>
-      <ExplanationModalInfoText
-        title={infoObject.title}
-        content={infoObject.content}
-      />
-      <ExplanationModalInfoText
-        title={infoObject.title}
-        content={infoObject.content}
-      />
-      <ExplanationModalInfoText
-        title={infoObject.title}
-        content={infoObject.content}
-      />
+      <ExplanationModalInfoText title="숙소 설명" content={explanation} />
+      <ExplanationModalInfoText title="취소 안내" content={cancelInfo} />
+      <ExplanationModalInfoText title="사용 안내" content={useGuide} />
+      <ExplanationModalInfoText title="예약 안내" content={reservationNotice} />
 
-      <ExplanationModalInfoTag />
+      <ExplanationModalInfoTag serviceInfo={serviceInfo} />
     </StyledExplanationModalInfoWrapper>
   );
 }

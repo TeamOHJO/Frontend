@@ -9,12 +9,15 @@ interface Coordinate {
   lng: number;
 }
 
-function AccommodationInfoMap() {
+interface AccommodationInfoMapProps {
+  location: string;
+}
+
+function AccommodationInfoMap({ location }: AccommodationInfoMapProps) {
   const [coordinate, setCoordinate] = useState<Coordinate>({
     lat: 33.5563,
     lng: 126.79581,
   });
-  const address = '강원도 강릉시 옥계면 헌화로 455-34';
 
   useEffect(() => {
     const geocoder = new kakao.maps.services.Geocoder();
@@ -26,7 +29,7 @@ function AccommodationInfoMap() {
       }
     };
 
-    geocoder.addressSearch(address, callback);
+    geocoder.addressSearch(location, callback);
   }, []);
 
   return (
@@ -37,7 +40,7 @@ function AccommodationInfoMap() {
         </Heading>
         <EnvironmentOutlined style={{ color: '#848484' }} />
         <Text as="p" size="sm" color="gray.84">
-          {address}
+          {location}
         </Text>
       </StyledAccommodationInfoMapTitle>
       <StyledMap center={coordinate}>

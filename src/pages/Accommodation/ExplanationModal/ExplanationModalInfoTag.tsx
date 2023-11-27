@@ -2,23 +2,13 @@ import styled from '@emotion/styled';
 import { Heading, Text } from '@chakra-ui/react';
 import { CheckOutlined } from '@ant-design/icons';
 
-function ExplanationModalInfoTag() {
-  const array = [
-    '보일러',
-    '주차시설하',
-    '여섯글자까지',
-    '일곱글자까지돼',
-    '보일러',
-    '보일러',
-    '보일러',
-    '보일러',
-    '보일러',
-    '보일러',
-    '보일러',
-    '보일러',
-    '보일러',
-  ];
+interface ExplanationModalInfoTagProps {
+  serviceInfo: string[];
+}
 
+function ExplanationModalInfoTag({
+  serviceInfo,
+}: ExplanationModalInfoTagProps) {
   return (
     <StyledExplanationModalInfoTagWrapper>
       <StyledExplanationModalInfoTagTitle>
@@ -27,16 +17,17 @@ function ExplanationModalInfoTag() {
         </Heading>
       </StyledExplanationModalInfoTagTitle>
       <StlyedExplanationModalInfoTagBox>
-        {array.map((data: string) => (
-          <StyledExplanationModalInfoTagItem>
-            <CheckOutlined
-              style={{ fontSize: '12px', marginRight: '0.5rem' }}
-            />
-            <Text as="p" size="xs" color="basic">
-              {data}
-            </Text>
-          </StyledExplanationModalInfoTagItem>
-        ))}
+        {serviceInfo &&
+          serviceInfo.map((data: string) => (
+            <StyledExplanationModalInfoTagItem>
+              <CheckOutlined
+                style={{ fontSize: '12px', marginRight: '0.5rem' }}
+              />
+              <Text as="p" size="xs" color="basic">
+                {data}
+              </Text>
+            </StyledExplanationModalInfoTagItem>
+          ))}
       </StlyedExplanationModalInfoTagBox>
     </StyledExplanationModalInfoTagWrapper>
   );
