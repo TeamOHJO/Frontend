@@ -12,6 +12,8 @@ import WishList from '../pages/WishList';
 import Room from '../pages/Room';
 import CustomerReview from '../pages/customerReview';
 import MyPage from '../pages/MyPage';
+import Reservation from '../pages/Reservation';
+import ReservationComplete from '../pages/ReservationComplete';
 
 function Dashboard() {
   return (
@@ -40,6 +42,11 @@ function MainRouter() {
           <Route path="/accommodation/:id" element={<Accommodation />} />
           <Route path="/accommodation/:id/:id" element={<Room />} />
           <Route path="/review/:id" element={<CustomerReview />} />
+          <Route path="/reservation" element={<Reservation />} />
+          <Route
+            path="/reservation-complete"
+            element={<ReservationComplete />}
+          />
         </Routes>
       </StyledInnerContainer>
     </StyledContainer>
@@ -64,7 +71,6 @@ const StyledInnerContainer = styled.div`
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 1rem;
   width: 768px;
   min-height: 100vh;
   width: ${theme.device.tablet};

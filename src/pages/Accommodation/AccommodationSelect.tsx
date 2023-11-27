@@ -1,10 +1,32 @@
 import styled from '@emotion/styled';
-import { Heading } from '@chakra-ui/react';
+import { Heading, useDisclosure } from '@chakra-ui/react';
 import { CalendarOutlined } from '@ant-design/icons';
+import { useRecoilState } from 'recoil';
+import SelectModal from './SelectModal';
+import {
+  accommodationSelectStartDateState,
+  accommodationSelectEndDateState,
+  accommodationSelectVisitorsState,
+} from '../../states/atom';
 
 function AccommodationSelect() {
+  const [accommodationSelectStartDate] = useRecoilState<Date | null>(
+    accommodationSelectStartDateState,
+  );
+
+  const [accommodationSelectEndDate] = useRecoilState<Date | null>(
+    accommodationSelectEndDateState,
+  );
+
+  const [accommodationSelectVisitors] = useRecoilState<number>(
+    accommodationSelectVisitorsState,
+  );
+  const { onOpen, isOpen, onClose } = useDisclosure();
+
+  const Day = ['일', '월', '화', '수', '목', '금', '토'];
+
   return (
-    <StyledAccommodationSelectWrapper>
+    <StyledAccommodationSelectWrapper onClick={onOpen}>
       <StyledAccommodationSelectTitle>
         <Heading as="h4" size="lg">
           객실 선택
@@ -13,14 +35,31 @@ function AccommodationSelect() {
       <StyledAccommodationSelectBox>
         <StyledAccommodationSelectBoxLeft>
           <StyledAccommodationSelectBoxLeftSpan>
-            11.22(수)~11월23일(목)·1박
+            {accommodationSelectStartDate &&
+              accommodationSelectStartDate.getMonth() + 1}
+            .
+            {accommodationSelectStartDate &&
+              accommodationSelectStartDate.getDate()}
+            (
+            {accommodationSelectStartDate &&
+              Day[accommodationSelectStartDate.getDay()]}
+            )~
+            {accommodationSelectEndDate &&
+              accommodationSelectEndDate.getMonth() + 1}
+            .
+            {accommodationSelectEndDate && accommodationSelectEndDate.getDate()}
+            (
+            {accommodationSelectEndDate &&
+              Day[accommodationSelectEndDate.getDay()]}
+            ) 날짜
           </StyledAccommodationSelectBoxLeftSpan>
           <CalendarOutlined style={{ fontSize: '20px' }} />
         </StyledAccommodationSelectBoxLeft>
         <StyledAccommodationSelectBoxRight>
-          2명
+          {accommodationSelectVisitors}명
         </StyledAccommodationSelectBoxRight>
       </StyledAccommodationSelectBox>
+      <SelectModal isOpen={isOpen} onClose={onClose} />
     </StyledAccommodationSelectWrapper>
   );
 }
@@ -40,6 +79,7 @@ const StyledAccommodationSelectBox = styled.div`
   height: 60px;
   border-top: 1px solid #cecece;
   border-bottom: 1px solid #cecece;
+  background-color: #fff;
   display: flex;
   justify-content: center;
 
@@ -59,7 +99,7 @@ const StyledAccommodationSelectBoxLeft = styled.div`
   justify-content: center;
 `;
 const StyledAccommodationSelectBoxLeftSpan = styled.span`
-  margin-right: 1rem;
+  margin-right: 0.5rem;
 `;
 
 const StyledAccommodationSelectBoxRight = styled.div`
