@@ -6,13 +6,13 @@ import ImageModal from './ImageModal';
 
 interface AccommodationMainImgProps {
   images: string[];
-  isLiked: boolean;
+  liked: boolean;
   tag: string;
 }
 
 function AccommodationMainImg({
   images,
-  isLiked,
+  liked,
   tag,
 }: AccommodationMainImgProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -20,7 +20,7 @@ function AccommodationMainImg({
   return (
     <StyledAccommodationMainImgWrapper>
       <OnOpenSwiper borderRadius="0" images={images} onOpen={onOpen} />
-      <Heart isLiked={isLiked} size="30px" />
+      <Heart liked={liked} size="30px" />
       <ImageModal isOpen={isOpen} onClose={onClose} images={images} />
       {tag && <StyledBadge variant="red">{tag}</StyledBadge>}
     </StyledAccommodationMainImgWrapper>

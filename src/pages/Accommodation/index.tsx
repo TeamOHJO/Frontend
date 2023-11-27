@@ -32,30 +32,30 @@ function Accommodation() {
       <StyledAccommodationWrapper>
         <AccommodationNavi />
         <AccommodationMainImages
-          images={accommodationDetailData?.images}
-          isLiked={accommodationDetailData?.isLiked}
-          tag={accommodationDetailData?.tag}
+          images={accommodationDetailData?.data.accommodationImages}
+          liked={accommodationDetailData?.data.liked}
+          tag={accommodationDetailData?.data.tag}
         />
         <AccommodationTitle
-          accommodationName={accommodationDetailData?.accommodationName}
-          category={accommodationDetailData?.category}
-          location={accommodationDetailData?.location}
-          stars={accommodationDetailData?.stars}
+          name={accommodationDetailData?.data.name}
+          category={accommodationDetailData?.data.category}
+          location={accommodationDetailData?.data.location}
+          averageRating={accommodationDetailData?.data.averageRating}
         />
         <AccommodationSelect />
-        <AccommodationRooms rooms={accommodationDetailData?.rooms} />
+        <AccommodationRooms rooms={accommodationDetailData?.data.rooms} />
         <AccommodationReview
-          reviews={accommodationDetailData?.reviews}
-          accommodationName={accommodationDetailData?.accommodationName}
-          category={accommodationDetailData?.category}
+          reviews={accommodationDetailData?.data.reviews}
+          name={accommodationDetailData?.data.name}
+          category={accommodationDetailData?.data.category}
         />
         <AccommodationInfo
-          explanation={accommodationDetailData?.explanation}
-          cancelInfo={accommodationDetailData?.cancelInfo}
-          useGuide={accommodationDetailData?.useGuide}
-          reservationNotice={accommodationDetailData?.reservationNotice}
-          serviceInfo={accommodationDetailData?.serviceInfo}
-          location={accommodationDetailData?.location}
+          explanation={accommodationDetailData?.data.explanation}
+          cancelInfo={accommodationDetailData?.data.cancelInfo}
+          useGuide={accommodationDetailData?.data.useGuide}
+          reservationNotice={accommodationDetailData?.data.reservationNotice}
+          serviceInfo={accommodationDetailData?.data.serviceInfo}
+          location={accommodationDetailData?.data.location}
         />
       </StyledAccommodationWrapper>
     )

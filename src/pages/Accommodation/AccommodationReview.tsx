@@ -13,13 +13,13 @@ interface AccommodationReviewObject {
 
 interface AccommodationReviewProps {
   reviews: AccommodationReviewObject[];
-  accommodationName: string;
+  name: string;
   category: string;
 }
 
 function AccommodationReview({
   reviews,
-  accommodationName,
+  name,
   category,
 }: AccommodationReviewProps) {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ function AccommodationReview({
             reviews.map((review: AccommodationReviewObject) => (
               <AccommodationReviewItem
                 review={review}
-                accommodationName={accommodationName}
+                name={name}
                 category={category}
                 key={uuid()}
               />

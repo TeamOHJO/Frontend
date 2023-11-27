@@ -5,17 +5,17 @@ import { theme } from '../../styles/theme';
 import { handleBadgeColor } from '../../utils/handleBadgeColor';
 
 interface AccommodationTitleProps {
-  accommodationName: string;
+  name: string;
   category: string;
   location: string;
-  stars: number;
+  averageRating: number;
 }
 
 function AccommodationTitle({
-  accommodationName,
+  name,
   category,
   location,
-  stars,
+  averageRating,
 }: AccommodationTitleProps) {
   return (
     <StyledAccommodationTitleWrapper>
@@ -29,12 +29,12 @@ function AccommodationTitle({
           <StarFilled
             style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
           />
-          <StyledStarDigit>{stars}</StyledStarDigit>
+          <StyledStarDigit>{averageRating}</StyledStarDigit>
         </StyledAccommodationStar>
       </StyledAccommodationBadgeStarWrapper>
       <StyledAccommodationTitleName>
         <Heading as="h2" size="lg">
-          {accommodationName}
+          {name}
         </Heading>
         <Text as="p" size="sm" color="gray.84">
           {location}

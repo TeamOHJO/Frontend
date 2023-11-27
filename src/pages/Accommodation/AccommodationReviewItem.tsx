@@ -10,13 +10,13 @@ interface AccommodationReviewProps {
     star: number;
     createdAt: string;
   };
-  accommodationName: string;
+  name: string;
   category: string;
 }
 
 function AccommodationReviewItem({
   review,
-  accommodationName,
+  name,
   category,
 }: AccommodationReviewProps) {
   return (
@@ -39,7 +39,7 @@ function AccommodationReviewItem({
       </StyledAccommodationReviewItemTop>
       <StyledAccommodationReviewItemTitle>
         <Heading as="h4" size="sm">
-          {accommodationName}
+          {name}
         </Heading>
         <Text as="p" size="sm" color="gray.84">
           {category}

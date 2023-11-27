@@ -5,12 +5,12 @@ import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { theme } from '../styles/theme';
 
 interface HeartProps {
-  isLiked: boolean;
+  liked: boolean;
   size: string;
 }
 
-function Heart({ isLiked, size }: HeartProps) {
-  const [isHeart, setIsHeart] = useState<boolean>(isLiked);
+function Heart({ liked, size }: HeartProps) {
+  const [isHeart, setIsHeart] = useState<boolean>(liked);
 
   function handleIsHeart() {
     setIsHeart(!isHeart);

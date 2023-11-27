@@ -19,8 +19,8 @@ interface AccommodationRoom {
   minCapacity: number;
   maxCapacity: number;
   images: string[];
-  isReservation: boolean;
-  stars: number;
+  soldOut: boolean;
+  averageRating: number;
 }
 
 function AccommodationRoomItem({
@@ -30,8 +30,8 @@ function AccommodationRoomItem({
   minCapacity,
   maxCapacity,
   images,
-  isReservation,
-  stars,
+  soldOut,
+  averageRating,
 }: AccommodationRoom) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ function AccommodationRoomItem({
             <StarFilled
               style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
             />
-            <StyledStarDigit>{stars}</StyledStarDigit>
+            <StyledStarDigit>{averageRating}</StyledStarDigit>
           </div>
         </StyledAccommodationRoomTitleBox>
         <StyledAccommodationRoomTitleBox>
@@ -115,7 +115,7 @@ function AccommodationRoomItem({
           </div>
           <StyledAccommodationRoomTitleBoxItem>
             <AccommodationRoomItemCart />
-            <ReservationBtn isReservation={isReservation} />
+            <ReservationBtn soldOut={soldOut} />
           </StyledAccommodationRoomTitleBoxItem>
         </StyledAccommodationRoomTitleBox>
       </StyledAccommodationRoomTitle>
