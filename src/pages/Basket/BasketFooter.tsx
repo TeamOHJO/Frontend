@@ -59,11 +59,8 @@ const StyledBasketFooterWrapper = styled.div`
   width: 768px;
   height: 105px;
   padding: 10px 1rem;
-
   position: fixed;
   bottom: 58px;
-  left: 50%;
-  transform: translate(-50%, 0);
   z-index: 10;
 
   background-color: ${theme.colors.white};

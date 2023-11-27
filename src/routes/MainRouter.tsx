@@ -1,10 +1,4 @@
-import {
-  Outlet,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import styled from '@emotion/styled';
 // import { useEffect } from 'react';
 import { theme } from '../styles/theme';
@@ -94,6 +88,8 @@ const StyledInnerContainer = styled.div`
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
+  width: 768px;
+  min-height: 100vh;
   width: ${theme.device.tablet};
   background-color: ${theme.colors.white};
   box-shadow: ${theme.shadows.shadow1.shadow};

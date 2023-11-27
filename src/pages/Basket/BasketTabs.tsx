@@ -9,7 +9,7 @@ import {
   Box,
   Button,
   useDisclosure,
-  Heading,
+  Text,
 } from '@chakra-ui/react';
 import BasketFooter from './BasketFooter';
 import BasketDisabledFooter from './BasketDisabledFooter';
@@ -26,6 +26,7 @@ import {
 } from '../../states/atom';
 import { DeleteBasketItem } from '../../api';
 import DefaultModal from '../../components/Modal/DefaultModal';
+import BasketNoProducts from './BasketNoProducts';
 
 function BasketTabs() {
   const [basketData, setBasketData] = useRecoilState(basketDataState);
@@ -75,48 +76,62 @@ function BasketTabs() {
   return (
     <>
       <Tabs variant="solid-rounded" colorScheme="blue" size="md">
-        <TabList>
+        <TabList p="1rem">
           <Tab>예약 가능 숙소</Tab>
           <Tab>예약 불가능 숙소</Tab>
         </TabList>
 
         <TabPanels paddingTop={3}>
           <TabPanel p={0}>
-            <Box textAlign="right" pb={5}>
-              <Button variant="blue" size="mini" onClick={handleOpenModal}>
-                선택 삭제
-              </Button>
-            </Box>
-            <StyledBasketCardWrapper>
-              {availableList.map((item: BasketData) => {
-                return <BasketCard key={item.basketId} item={item} />;
-              })}
-            </StyledBasketCardWrapper>
-            <BasketFooter />
+            {availableList.length > 0 ? (
+              <>
+                <Box px="1rem">
+                  <Box textAlign="right" pb={5}>
+                    <Button
+                      variant="blue"
+                      size="mini"
+                      onClick={handleOpenModal}
+                    >
+                      선택 삭제
+                    </Button>
+                  </Box>
+                  <StyledBasketCardWrapper>
+                    {availableList.map((item: BasketData) => {
+                      return <BasketCard key={item.basketId} item={item} />;
+                    })}
+                  </StyledBasketCardWrapper>
+                </Box>
+                <BasketFooter />
+              </>
+            ) : (
+              <BasketNoProducts text="예약 가능한 숙소가 없습니다." />
+            )}
           </TabPanel>
           <TabPanel p={0}>
             {unavailableList.length > 0 ? (
               <>
-                <Box textAlign="right" pb={5}>
-                  <Button
-                    variant="blue"
-                    size="mini"
-                    onClick={deleteAllUnavailable}
-                  >
-                    모두 삭제
-                  </Button>
+                <Box px="1rem">
+                  <Box textAlign="right" pb={5}>
+                    <Button
+                      variant="blue"
+                      size="mini"
+                      onClick={deleteAllUnavailable}
+                    >
+                      모두 삭제
+                    </Button>
+                  </Box>
+                  <StyledBasketCardWrapper>
+                    {unavailableList.map((item: BasketData) => {
+                      return (
+                        <BasketDisabledCard key={item.basketId} item={item} />
+                      );
+                    })}
+                  </StyledBasketCardWrapper>
                 </Box>
-                <StyledBasketCardWrapper>
-                  {unavailableList.map((item: BasketData) => {
-                    return (
-                      <BasketDisabledCard key={item.basketId} item={item} />
-                    );
-                  })}
-                </StyledBasketCardWrapper>
                 <BasketDisabledFooter />
               </>
             ) : (
-              <Heading as="h1">예약 불가능한 숙소가 없습니다.</Heading>
+              <BasketNoProducts text="예약 불가능한 숙소가 없습니다." />
             )}
           </TabPanel>
         </TabPanels>
@@ -138,6 +153,6 @@ const StyledBasketCardWrapper = styled.div`
   position: relative;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 15px;
 `;

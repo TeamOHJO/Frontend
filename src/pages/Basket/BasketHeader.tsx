@@ -26,8 +26,6 @@ export default BasketHeader;
 const StyledBasketHeaderWrapper = styled.div`
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
   z-index: 10;
 
   width: 100%;

@@ -12,6 +12,7 @@ import {
 } from '../../states/atom';
 import { BasketData } from '../../@types/interface';
 import { getBasket } from '../../api';
+import BasketNoProducts from './BasketNoProducts';
 
 function Basket() {
   const [basketData, setBasketData] = useRecoilState(basketDataState);
@@ -61,11 +62,9 @@ function Basket() {
       <StyledBasketWrapper>
         <BasketHeader />
         {basketData.length > 0 ? (
-          <StyledBasketContent>
-            <BasketTabs />
-          </StyledBasketContent>
+          <BasketTabs />
         ) : (
-          <Heading as="h1">장바구니에 담긴 상품이 없습니다.</Heading>
+          <BasketNoProducts text="장바구니에 담긴 상품이 없습니다." />
         )}
       </StyledBasketWrapper>
     </StyledContainer>
@@ -86,8 +85,4 @@ const StyledBasketWrapper = styled.div`
   min-height: calc(100vh - 250px);
   margin-top: 60px; //상하단 nav바 높이 제외 목적
   margin-bottom: 80px;
-`;
-
-const StyledBasketContent = styled.div`
-  padding: 1rem;
 `;
