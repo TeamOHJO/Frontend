@@ -32,18 +32,25 @@ const DefaultModal: FunctionComponent<ModalProps> = ({
         <Text size="md">{modalData.text}</Text>
       </ModalBody>
 
-      <ModalFooter gap="10px">
-        <Button variant="grayFull" onClick={onClose} width="auto">
+      <ModalFooter gap="10px" width="100%">
+        <Button
+          variant="grayFull"
+          width="auto"
+          size="md"
+          minWidth="0"
+          onClick={onClose}
+        >
           아니오
         </Button>
         <Button
           colorScheme="blue"
           size="md"
+          width="auto"
+          minWidth="0"
           onClick={() => {
             modalFunc();
             onClose();
           }}
-          width="auto"
         >
           예
         </Button>
