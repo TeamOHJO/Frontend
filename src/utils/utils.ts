@@ -27,11 +27,7 @@ export const validateField = ({ key, value, formData }: ValidationLogin) => {
   return error;
 };
 
-export const setCookies = async (
-  userEmail: string,
-  userName: string,
-  token: string,
-) => {
+export const setCookies = async (userEmail: string, userName: string, token: string) => {
   try {
     document.cookie = `userEmail=${userEmail};max-age=3600;path=/;secure`;
     document.cookie = `userName=${userName};max-age=3600;path=/;secure`;
