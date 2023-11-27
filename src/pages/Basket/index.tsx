@@ -19,34 +19,42 @@ function Basket() {
   const setAvailableList = useSetRecoilState(basketAvailableListState);
   const setUnavailableList = useSetRecoilState(basketUnavailableListState);
 
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       'http://localhost:5173/data/BasketData.json',
-  //       {
-  //         method: 'GET',
-  //       },
-  //     );
-  //     const data = await response.json();
-  //     setBasketData(data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        'http://localhost:5173/data/BasketData.json',
+        {
+          method: 'GET',
+        },
+      );
+      const data = await response.json();
+      console.log(data);
 
-  // useEffect(() => {
-  //   fetchData();
-  //   setBasketCheckedItems([]);
-  // }, []);
+      // Sort the data by startDate
+      data.sort(
+        (a: BasketData, b: BasketData) =>
+          new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
+      );
 
-  // useEffect(() => {
-  //   setAvailableList(
-  //     basketData.filter((item: BasketData) => item.canReserve === true),
-  //   );
-  //   setUnavailableList(
-  //     basketData.filter((item: BasketData) => item.canReserve === false),
-  //   );
-  // }, [basketData, setBasketData]);
+      setBasketData(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+    setBasketCheckedItems([]);
+  }, []);
+
+  useEffect(() => {
+    setAvailableList(
+      basketData.filter((item: BasketData) => item.canReserve === true),
+    );
+    setUnavailableList(
+      basketData.filter((item: BasketData) => item.canReserve === false),
+    );
+  }, [basketData, setBasketData]);
 
   return (
     <StyledContainer>

@@ -51,8 +51,8 @@ function BasketTabs() {
     setCheckedItems([]);
   };
 
-  console.log(basketData);
-  console.log(unavailableList);
+  // console.log(basketData);
+  // console.log(unavailableList);
   // console.log(availableList);
 
   return (
