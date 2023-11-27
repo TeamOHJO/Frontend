@@ -3,9 +3,9 @@ import { StarFilled } from '@ant-design/icons';
 import { Heading, Text, Button, useDisclosure } from '@chakra-ui/react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { theme } from '../../styles/theme';
-import DefaultModal from '../../components/Modal/DefaultModal';
 import AccommodationRoomImages from './AccommodationRoomImages';
 import AccommodationRoomItemCart from './AccommodationRoomItemCart';
+import ReservationBtn from './ReservationBtn';
 
 interface AccommodationRoom {
   name: string;
@@ -28,20 +28,8 @@ function AccommodationRoomItem({
   isReservation,
   stars,
 }: AccommodationRoom) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
   const navigate = useNavigate();
-
-  // 예약하기 버튼 모달
-  const modalData = {
-    heading: '예약하기',
-    text: '선택된 숙소를 예약하시겠습니까?',
-  };
-
-  const modalFunc = () => {
-    // 결제 페이지로 이동
-    console.log('모달 승인 시 실행될 함수 입니다.');
-  };
 
   return (
     <StyledAccommodationRoomItemWrapper>
@@ -73,26 +61,7 @@ function AccommodationRoomItem({
           </div>
           <StyledAccommodationRoomTitleBoxItem>
             <AccommodationRoomItemCart />
-            <DefaultModal
-              isOpen={isOpen}
-              onClose={onClose}
-              modalFunc={modalFunc}
-              modalData={modalData}
-            />
-            <Button
-              variant="blue"
-              size="lg"
-              style={{ width: '100px', height: '40px' }}
-              isDisabled={isReservation}
-              onClick={(
-                event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-              ) => {
-                event.stopPropagation();
-                onOpen();
-              }}
-            >
-              예약하기
-            </Button>
+            <ReservationBtn isReservation={isReservation} />
           </StyledAccommodationRoomTitleBoxItem>
         </StyledAccommodationRoomTitleBox>
       </StyledAccommodationRoomTitle>
