@@ -24,7 +24,7 @@ function BasketFooter() {
   const modalFunc = () => {
     alert('예약하기 페이지로 이동');
     // roomId를 url에 포함해서 예약하기 페이지로 이동
-    // navigate(`/reservation?items=${checkedItems.join('&')}`);
+    navigate(`/reservation?items=${checkedItems.join('&')}`);
     // navigate(`/reservation?items=${encodeURIComponent(checkedItems.join('&'))}`);
     setCheckedItems([]);
   };
