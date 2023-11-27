@@ -5,9 +5,10 @@ import { theme } from '../styles/theme';
 
 interface HeartProps {
   isLiked: boolean;
+  size: string;
 }
 
-function Heart({ isLiked }: HeartProps) {
+function Heart({ isLiked, size }: HeartProps) {
   const [isHeart, setIsHeart] = useState<boolean>(isLiked);
 
   function handleIsHeart() {
@@ -19,13 +20,13 @@ function Heart({ isLiked }: HeartProps) {
       {isHeart ? (
         <HeartFilled
           onClick={() => handleIsHeart()}
-          style={{ fontSize: '30px', color: theme.colors.red500 }}
+          style={{ fontSize: size, color: theme.colors.red500 }}
         />
       ) : (
         <HeartTwoTone
           onClick={() => handleIsHeart()}
           twoToneColor={theme.colors.red500}
-          style={{ fontSize: '30px' }}
+          style={{ fontSize: size }}
         />
       )}
     </StyledHeart>
