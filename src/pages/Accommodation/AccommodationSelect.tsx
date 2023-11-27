@@ -10,11 +10,11 @@ import {
 } from '../../states/atom';
 
 function AccommodationSelect() {
-  const [accommodationSelectStartDate] = useRecoilState<Date | null>(
+  const [accommodationSelectStartDate] = useRecoilState<Date>(
     accommodationSelectStartDateState,
   );
 
-  const [accommodationSelectEndDate] = useRecoilState<Date | null>(
+  const [accommodationSelectEndDate] = useRecoilState<Date>(
     accommodationSelectEndDateState,
   );
 
