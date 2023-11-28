@@ -9,7 +9,7 @@ function AccommodationRoomImages({ images }: any) {
 
   return (
     <StyledAccommodationRoomImagesWrapper>
-      <OnOpenSwiper borderRadius="0" images={images} onOpen={onOpen} />
+      <OnOpenSwiper borderRadius="10px" images={images} onOpen={onOpen} />
       <ImageModal isOpen={isOpen} onClose={onClose} images={images} />
     </StyledAccommodationRoomImagesWrapper>
   );

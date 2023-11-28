@@ -1,32 +1,54 @@
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
 import { useState } from 'react';
-import { HeartTwoTone, HeartFilled } from '@ant-design/icons';
+import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { theme } from '../styles/theme';
 
 interface HeartProps {
   isLiked: boolean;
+  size: string;
 }
 
-function Heart({ isLiked }: HeartProps) {
+function Heart({ isLiked, size }: HeartProps) {
   const [isHeart, setIsHeart] = useState<boolean>(isLiked);
 
   function handleIsHeart() {
     setIsHeart(!isHeart);
   }
 
+  const Bounce = keyframes`
+  0%{
+    transform:scale(1)
+  }
+  20%{
+    transform:scale(0.9)
+  }
+  40%{
+    transform:scale(1.1)
+  }
+  100%{
+    transform:scale(1)
+  }
+`;
+
+  const StyledHeartFilled = styled(HeartFilled)`
+    font-size: ${size};
+    color: ${theme.colors.red500};
+    animation: 300ms ${Bounce} forwards;
+  `;
+
+  const StyledHeartOutlined = styled(HeartOutlined)`
+    font-size: ${size};
+    color: ${theme.colors.red500};
+    animation: 300ms ${Bounce} forwards;
+  `;
+
   return (
     <StyledHeart>
       {isHeart ? (
-        <HeartFilled
-          onClick={() => handleIsHeart()}
-          style={{ fontSize: '30px', color: theme.colors.red500 }}
-        />
+        <StyledHeartFilled onClick={() => handleIsHeart()} />
       ) : (
-        <HeartTwoTone
-          onClick={() => handleIsHeart()}
-          twoToneColor={theme.colors.red500}
-          style={{ fontSize: '30px' }}
-        />
+        <StyledHeartOutlined onClick={() => handleIsHeart()} />
       )}
     </StyledHeart>
   );

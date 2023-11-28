@@ -64,6 +64,7 @@ function AccommodationInfoText({ title, content }: InfoProps) {
           overflow: 'hidden',
           marginBottom: '1rem',
           padding: '0 1rem',
+          whiteSpace: 'pre-line',
         }}
       >
         {content}

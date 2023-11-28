@@ -34,6 +34,7 @@ function Accommodation() {
         <AccommodationMainImages
           images={accommodationDetailData?.images}
           isLiked={accommodationDetailData?.isLiked}
+          tag={accommodationDetailData?.tag}
         />
         <AccommodationTitle
           accommodationName={accommodationDetailData?.accommodationName}
