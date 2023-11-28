@@ -22,6 +22,8 @@ interface AccommodationRoom {
   images: string[];
   soldOut: boolean;
   averageRating: number;
+  category: string;
+  location: string;
 }
 
 function AccommodationRoomItem({
@@ -34,8 +36,10 @@ function AccommodationRoomItem({
   images,
   soldOut,
   averageRating,
+  category,
+  location,
 }: AccommodationRoom) {
-  const location = useLocation();
+  const Location = useLocation();
   const navigate = useNavigate();
   const [accommodationSelectStartDate] = useRecoilState<Date>(
     accommodationSelectStartDateState,
@@ -59,8 +63,9 @@ function AccommodationRoomItem({
     <StyledAccommodationRoomItemWrapper>
       <AccommodationRoomImages images={images} />
       <StyledAccommodationRoomTitle
-        onClick={() => {
-          navigate(`${location.pathname}/id`);
+        onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+          event.stopPropagation();
+          navigate(`${Location.pathname}/id`);
         }}
       >
         <StyledAccommodationRoomTitleBox style={{ marginBottom: '0.5rem' }}>
@@ -117,7 +122,17 @@ function AccommodationRoomItem({
           </div>
           <StyledAccommodationRoomTitleBoxItem>
             <AccommodationRoomItemCart roomId={roomId} />
-            <ReservationBtn soldOut={soldOut} />
+            <ReservationBtn
+              soldOut={soldOut}
+              roomId={roomId}
+              image={images[0]}
+              category={category}
+              name={name}
+              star={averageRating}
+              location={location}
+              price={price}
+              discountPercentage={discountPercentage}
+            />
           </StyledAccommodationRoomTitleBoxItem>
         </StyledAccommodationRoomTitleBox>
       </StyledAccommodationRoomTitle>

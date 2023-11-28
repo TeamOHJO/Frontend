@@ -1,17 +1,15 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { theme } from '../../styles/theme';
 import AccommodationToastPopup from './AccommodationToastPopup';
-import { getCookie } from '../../utils/utils';
+import { getCookie, changeDateFormat } from '../../utils/utils';
 import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
   accommodationSelectVisitorsState,
   basketCountState,
 } from '../../states/atom';
-import ToastPopup from '../../components/Modal/ToastPopup';
 
 function AccommodationRoomItemCart({ roomId }: { roomId: number }) {
   const [cartHover, setCartHover] = useState(false);
@@ -36,31 +34,14 @@ function AccommodationRoomItemCart({ roomId }: { roomId: number }) {
   );
   const accessToken = getCookie('token');
 
-  // 날짜 포멧팅
-  function leftPad(value: number) {
-    if (value >= 10) {
-      return value;
-    }
-
-    return `0${value}`;
-  }
-
-  function toStringByFormatting(source: any, delimiter = '-') {
-    const year = source.getFullYear();
-    const month = leftPad(source.getMonth() + 1);
-    const day = leftPad(source.getDate());
-
-    return [year, month, day].join(delimiter);
-  }
-
   const createBasket = async () => {
     const response = await fetch(
       `https://yanoljaschool.site:8080/basket/rooms/${roomId}`,
       {
         method: 'POST',
         body: JSON.stringify({
-          startDate: toStringByFormatting(accommodationSelectStartDate),
-          endDate: toStringByFormatting(accommodationSelectEndDate),
+          startDate: changeDateFormat(accommodationSelectStartDate),
+          endDate: changeDateFormat(accommodationSelectEndDate),
           numberOfPerson: accommodationSelectVisitors,
         }),
         headers: {
@@ -96,25 +77,27 @@ function AccommodationRoomItemCart({ roomId }: { roomId: number }) {
   };
 
   return (
-    <StyledAccommodationRoomItemCart
-      className="material-symbols-outlined"
-      onMouseEnter={handleCartMouseEnter}
-      onMouseLeave={handleCartMouseLeave}
-      onClick={(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-        event.stopPropagation();
-        createBasket();
-      }}
-    >
-      add_shopping_cart
-      {cartHover ? (
-        <StyledTooltip style={{ fontFamily: 'Noto Sans KR' }}>
-          장바구니 담기
-        </StyledTooltip>
-      ) : (
-        ''
-      )}
+    <>
+      <StyledAccommodationRoomItemCart
+        className="material-symbols-outlined"
+        onMouseEnter={handleCartMouseEnter}
+        onMouseLeave={handleCartMouseLeave}
+        onClick={(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+          event.stopPropagation();
+          createBasket();
+        }}
+      >
+        add_shopping_cart
+        {cartHover ? (
+          <StyledTooltip style={{ fontFamily: 'Noto Sans KR' }}>
+            장바구니 담기
+          </StyledTooltip>
+        ) : (
+          ''
+        )}
+      </StyledAccommodationRoomItemCart>
       <AccommodationToastPopup status={showAlert} setFunc={setShowAlert} />
-    </StyledAccommodationRoomItemCart>
+    </>
   );
 }
 

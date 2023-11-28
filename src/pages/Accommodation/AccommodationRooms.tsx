@@ -18,9 +18,15 @@ interface AccommodationRoom {
 
 interface AccommodationRoomsProps {
   rooms: AccommodationRoom[];
+  category: string;
+  location: string;
 }
 
-function AccommodationRooms({ rooms }: AccommodationRoomsProps) {
+function AccommodationRooms({
+  rooms,
+  category,
+  location,
+}: AccommodationRoomsProps) {
   return (
     <StyledAccommodationRoomsWrapper>
       {rooms.map((room: AccommodationRoom) => (
@@ -34,6 +40,8 @@ function AccommodationRooms({ rooms }: AccommodationRoomsProps) {
           images={room.roomImages}
           soldOut={room.soldOut}
           averageRating={room.averageRating}
+          category={category}
+          location={location}
           key={uuid()}
         />
       ))}
