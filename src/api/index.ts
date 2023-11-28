@@ -62,6 +62,7 @@ export const DeleteBasketItem = async (basketId: number) => {
   return res;
 };
 
+// 마이페이지 > 예약 취소 요청 API
 export const CancelReservation = async (reservationId: number) => {
   const res = await clientToken.delete(`/reservation/${reservationId}`);
   return res;
