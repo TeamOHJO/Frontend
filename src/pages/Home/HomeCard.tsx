@@ -27,11 +27,7 @@ const HomeCard = ({
   };
 
   return (
-    <StyledCard
-      onClick={() => {
-        navigate(`/accommodation/${id}`);
-      }}
-    >
+    <StyledCard>
       <StyledImgWrapper>
         {onClickisLiked ? (
           <StyledHeartFilled onClick={cancelAddWishList} />
@@ -40,7 +36,11 @@ const HomeCard = ({
         )}
         <SwiperComponent images={images} borderRadius="8px" />
       </StyledImgWrapper>
-      <StyledInfoContainer>
+      <StyledInfoContainer
+        onClick={() => {
+          navigate(`/accommodation/${id}`);
+        }}
+      >
         <StyledCardHeader>
           <Text as="p" size="lg">
             {name}
@@ -69,7 +69,6 @@ const StyledCard = styled.div`
 
   background-color: ${theme.colors.white};
   border-radius: 8px;
-  cursor: pointer;
 
   @media screen and (max-width: 700px) {
     width: 90%;
@@ -88,6 +87,7 @@ const StyledInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem 1rem 0rem 1rem;
+  cursor: pointer;
 `;
 
 const StyledCardHeader = styled.div`
