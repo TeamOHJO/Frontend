@@ -7,7 +7,7 @@ export const toastPopupState = atom<AlertData>({
   default: { active: false, message: '' },
 });
 
-export const accommodationSelectStartDateState = atom<Date | null>({
+export const accommodationSelectStartDateState = atom<Date>({
   key: 'accommodationSelectStartDateState',
   default: new Date(),
 });
@@ -15,7 +15,7 @@ export const accommodationSelectStartDateState = atom<Date | null>({
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
 
-export const accommodationSelectEndDateState = atom<Date | null>({
+export const accommodationSelectEndDateState = atom<Date>({
   key: 'accommodationSelectEndDateState',
   default: tomorrow,
 });

@@ -2,10 +2,10 @@ import { useDisclosure, Button } from '@chakra-ui/react';
 import DefaultModal from '../../components/Modal/DefaultModal';
 
 interface ReservationBtnProps {
-  isReservation: boolean;
+  soldOut: boolean;
 }
 
-function ReservationBtn({ isReservation }: ReservationBtnProps) {
+function ReservationBtn({ soldOut }: ReservationBtnProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // 예약하기 버튼 모달
@@ -28,16 +28,16 @@ function ReservationBtn({ isReservation }: ReservationBtnProps) {
         modalData={modalData}
       />
       <Button
-        variant={isReservation ? 'gray' : 'blue'}
+        variant={soldOut ? 'gray' : 'blue'}
         size="lg"
         style={{ width: '100px', height: '40px' }}
-        isDisabled={isReservation}
+        isDisabled={soldOut}
         onClick={(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
           event.stopPropagation();
           onOpen();
         }}
       >
-        {isReservation ? '예약마감' : '예약하기'}
+        {soldOut ? '예약마감' : '예약하기'}
       </Button>
     </>
   );

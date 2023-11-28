@@ -6,14 +6,33 @@ import {
   UpOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { theme } from '../../styles/theme';
+import { getCookie } from '../../utils/utils';
 
 function AccommodationNavi() {
+  const [basketCount, setBasketCount] = useState<number>(0);
   const navigate = useNavigate();
 
   const ScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+  const accessToken = getCookie('token');
+
+  const fetchData = async () => {
+    const response = await fetch('https://yanoljaschool.site:8080/basket', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    const data = await response.json();
+    setBasketCount(data.data.length);
+  };
+
+  useEffect(() => {
+    if (accessToken) fetchData();
+  }, []);
   return (
     <StyledAccommodationNaviWrapper>
       <StyledAccommodationNaviLeft>
@@ -37,7 +56,7 @@ function AccommodationNavi() {
             navigate('/basket');
           }}
         />
-        <StyledCartCount>1</StyledCartCount>
+        {basketCount > 0 && <StyledCartCount>{basketCount}</StyledCartCount>}
       </StyledAccommodationNaviRight>
       <StyledTopBtn onClick={ScrollToTop}>
         <UpOutlined />

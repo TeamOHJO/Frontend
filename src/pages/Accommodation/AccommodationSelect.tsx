@@ -9,12 +9,16 @@ import {
   accommodationSelectVisitorsState,
 } from '../../states/atom';
 
-function AccommodationSelect() {
-  const [accommodationSelectStartDate] = useRecoilState<Date | null>(
+interface AccommodationSelectProps {
+  fetchData: () => void;
+}
+
+function AccommodationSelect({ fetchData }: AccommodationSelectProps) {
+  const [accommodationSelectStartDate] = useRecoilState<Date>(
     accommodationSelectStartDateState,
   );
 
-  const [accommodationSelectEndDate] = useRecoilState<Date | null>(
+  const [accommodationSelectEndDate] = useRecoilState<Date>(
     accommodationSelectEndDateState,
   );
 
@@ -59,7 +63,7 @@ function AccommodationSelect() {
           {accommodationSelectVisitors}명
         </StyledAccommodationSelectBoxRight>
       </StyledAccommodationSelectBox>
-      <SelectModal isOpen={isOpen} onClose={onClose} />
+      <SelectModal isOpen={isOpen} onClose={onClose} fetchData={fetchData} />
     </StyledAccommodationSelectWrapper>
   );
 }

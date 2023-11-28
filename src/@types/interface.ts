@@ -111,35 +111,43 @@ export interface ExplanationModalProps {
 }
 
 export interface AccommodationDetail {
-  category: string;
-  accommodationName: string;
-  location: string;
-  tag: string;
-  isDomestic: boolean;
-  explanation: string;
-  cancelInfo: string;
-  useGuide: string;
-  reservationNotice: string;
-  isLiked: boolean;
-  serviceInfo: string[];
-  images: string[];
-  stars: number;
-  reviews: {
-    userName: string;
-    reviewContents: string;
-    star: number;
-    createdAt: string;
-  }[];
-  rooms: {
+  code: number;
+  message: string;
+  data: {
+    accommodationId: number;
+    category: string;
     name: string;
-    price: number;
-    discountPercentage: number;
-    minCapacity: number;
-    maxCapacity: number;
-    images: string[];
-    isReservation: boolean;
-    stars: number;
-  }[];
+    location: string;
+    tag: string;
+    domestic: boolean;
+    explanation: string;
+    cancelInfo: string;
+    useGuide: string;
+    reservationNotice: string;
+    liked: boolean;
+    serviceInfo: string[];
+    accommodationImages: string[];
+    averageRating: number;
+    soldOut: boolean;
+    reviews: {
+      userName: string;
+      reviewContents: string;
+      star: number;
+      createdAt: string;
+    }[];
+    roomDetails: {
+      roomId: number;
+      name: string;
+      price: number;
+      discountPercentage: number;
+      minCapacity: number;
+      maxCapacity: number;
+      roomImages: string[];
+      soldOut: boolean;
+      averageRating: number;
+      serviceInfo: string[];
+    }[];
+  };
 }
 
 export interface RoomDetail {
@@ -152,7 +160,7 @@ export interface RoomDetail {
   minCapacity: number;
   maxCapacity: number;
   images: string[];
-  isReservation: boolean;
+  soldOut: boolean;
   stars: number;
 }
 

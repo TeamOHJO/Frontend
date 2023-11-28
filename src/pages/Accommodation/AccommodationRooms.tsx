@@ -9,9 +9,10 @@ interface AccommodationRoom {
   discountPercentage: number;
   minCapacity: number;
   maxCapacity: number;
-  images: string[];
-  isReservation: boolean;
-  stars: number;
+  roomImages: string[];
+  soldOut: boolean;
+  averageRating: number;
+  serviceInfo: string[];
 }
 
 interface AccommodationRoomsProps {
@@ -28,9 +29,9 @@ function AccommodationRooms({ rooms }: AccommodationRoomsProps) {
           discountPercentage={room.discountPercentage}
           minCapacity={room.minCapacity}
           maxCapacity={room.maxCapacity}
-          images={room.images}
-          isReservation={room.isReservation}
-          stars={room.stars}
+          images={room.roomImages}
+          soldOut={room.soldOut}
+          averageRating={room.averageRating}
           key={uuid()}
         />
       ))}

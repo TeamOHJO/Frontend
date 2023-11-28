@@ -26,7 +26,7 @@ const ExplanationModal: FunctionComponent<ExplanationModalProps> = ({
     onClose={onClose}
     isCentered
     motionPreset="slideInBottom"
-    size="full"
+    size="6xl"
   >
     <ModalOverlay background="none" />
     <ModalContent width="80%" border="1px solid" borderColor="#B8B8B8">
