@@ -129,8 +129,13 @@ export default AccommodationRoomItem;
 
 const StyledAccommodationRoomItemWrapper = styled.div`
   width: 100%;
-
+  padding: 1rem;
   margin-bottom: 3rem;
+  box-shadow: ${theme.shadows.shadow1.shadow};
+  border-radius: 10px;
+  &:hover {
+    background-color: ${theme.colors.gray100};
+  }
 `;
 
 const StyledAccommodationRoomTitle = styled.div`

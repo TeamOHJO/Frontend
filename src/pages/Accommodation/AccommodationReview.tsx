@@ -90,7 +90,7 @@ const StyledAccommodationReviewItemsContainer = styled.div`
 `;
 
 const StyledAccommodationReviewItemsWrapper = styled.div`
-  width: 300%;
+  width: auto;
   height: 220px;
 
   display: flex;
