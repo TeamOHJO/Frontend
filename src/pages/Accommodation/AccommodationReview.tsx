@@ -1,28 +1,45 @@
 import styled from '@emotion/styled';
 import { Heading, Button } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
+import { useState, useEffect } from 'react';
 import AccommodationReviewItem from './AccommodationReviewItem';
 
 interface AccommodationReviewObject {
-  userName: string;
-  reviewContents: string;
-  star: number;
-  createdAt: string;
-}
-
-interface AccommodationReviewProps {
-  reviews: AccommodationReviewObject[];
-  name: string;
+  reviewId: number;
+  roomId: number;
+  username: string;
+  roomName: string;
   category: string;
+  reviewContent: string;
+  star: number;
+  images: string[];
+  updatedAt: string;
+}
+interface ReviewsResponse {
+  code: number;
+  message: string;
+  data: AccommodationReviewObject[];
 }
 
-function AccommodationReview({
-  reviews,
-  name,
-  category,
-}: AccommodationReviewProps) {
+function AccommodationReview() {
+  const [reviews, setReviews] = useState<ReviewsResponse>();
   const navigate = useNavigate();
+  const params = useParams();
+
+  const fetchData = async () => {
+    const response = await fetch(
+      `https://yanoljaschool.site:8080/review/accommodation/${params.id}`,
+      {
+        method: 'GET',
+      },
+    );
+    setReviews(await response.json());
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     reviews && (
@@ -35,14 +52,11 @@ function AccommodationReview({
         <StyledAccommodationReviewItemsContainer>
           <StyledAccommodationReviewItemsWrapper>
             {reviews &&
-              reviews.map((review: AccommodationReviewObject) => (
-                <AccommodationReviewItem
-                  review={review}
-                  name={name}
-                  category={category}
-                  key={uuid()}
-                />
-              ))}
+              reviews.data
+                .slice(0, 5)
+                .map((review: AccommodationReviewObject) => (
+                  <AccommodationReviewItem review={review} key={uuid()} />
+                ))}
           </StyledAccommodationReviewItemsWrapper>
         </StyledAccommodationReviewItemsContainer>
         <StyledAccommodationReviewMoreBtnWrapper>

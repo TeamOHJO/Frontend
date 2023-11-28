@@ -15,6 +15,7 @@ import {
   accommodationSelectEndDateState,
   accommodationSelectVisitorsState,
 } from '../../states/atom';
+import { getCookie } from '../../utils/utils';
 
 function Accommodation() {
   const [accommodationDetailData, setAccommodationDetailData] =
@@ -51,18 +52,41 @@ function Accommodation() {
     return [year, month, day].join(delimiter);
   }
 
+  const accessToken = getCookie('token');
+
   const fetchData = async () => {
-    const response = await fetch(
-      `https://yanoljaschool.site:8080/accommodation/detail/${
-        params.id
-      }?maxCapacity=${accommodationSelectVisitors}&startDate=${toStringByFormatting(
-        new Date(accommodationSelectStartDate),
-      )}&endDate=${toStringByFormatting(new Date(accommodationSelectEndDate))}`,
-      {
-        method: 'GET',
-      },
-    );
-    setAccommodationDetailData(await response.json());
+    if (accessToken) {
+      const response = await fetch(
+        `https://yanoljaschool.site:8080/accommodation/detail/${
+          params.id
+        }?maxCapacity=${accommodationSelectVisitors}&startDate=${toStringByFormatting(
+          new Date(accommodationSelectStartDate),
+        )}&endDate=${toStringByFormatting(
+          new Date(accommodationSelectEndDate),
+        )}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      setAccommodationDetailData(await response.json());
+    } else {
+      const response = await fetch(
+        `https://yanoljaschool.site:8080/accommodation/detail/${
+          params.id
+        }?maxCapacity=${accommodationSelectVisitors}&startDate=${toStringByFormatting(
+          new Date(accommodationSelectStartDate),
+        )}&endDate=${toStringByFormatting(
+          new Date(accommodationSelectEndDate),
+        )}`,
+        {
+          method: 'GET',
+        },
+      );
+      setAccommodationDetailData(await response.json());
+    }
   };
 
   useEffect(() => {
@@ -86,11 +110,7 @@ function Accommodation() {
         />
         <AccommodationSelect fetchData={fetchData} />
         <AccommodationRooms rooms={accommodationDetailData?.data.roomDetails} />
-        <AccommodationReview
-          reviews={accommodationDetailData?.data.reviews}
-          name={accommodationDetailData?.data.name}
-          category={accommodationDetailData?.data.category}
-        />
+        <AccommodationReview />
         <AccommodationInfo
           explanation={accommodationDetailData?.data.explanation}
           cancelInfo={accommodationDetailData?.data.cancelInfo}
