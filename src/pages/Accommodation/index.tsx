@@ -51,16 +51,6 @@ function Accommodation() {
     return [year, month, day].join(delimiter);
   }
 
-  const fetchDataMok = async () => {
-    const response = await fetch(
-      'http://localhost:5173/data/accommodationDetail.json',
-      {
-        method: 'GET',
-      },
-    );
-    setAccommodationDetailData(await response.json());
-  };
-
   const fetchData = async () => {
     const response = await fetch(
       `https://yanoljaschool.site:8080/accommodation/detail/${
@@ -76,11 +66,7 @@ function Accommodation() {
   };
 
   useEffect(() => {
-    if (params.id === '123') {
-      fetchDataMok();
-    } else {
-      fetchData();
-    }
+    fetchData();
   }, []);
 
   return (
@@ -98,7 +84,7 @@ function Accommodation() {
           location={accommodationDetailData?.data.location}
           averageRating={accommodationDetailData?.data.averageRating}
         />
-        <AccommodationSelect />
+        <AccommodationSelect fetchData={fetchData} />
         <AccommodationRooms rooms={accommodationDetailData?.data.roomDetails} />
         <AccommodationReview
           reviews={accommodationDetailData?.data.reviews}
