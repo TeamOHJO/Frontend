@@ -9,7 +9,7 @@ import {
 } from '@ant-design/icons';
 import { theme } from '../../styles/theme';
 import TopBtn from '../TopBtn';
-import { getCookie } from '../../utils/utils';
+import { getCookie, removeCookies } from '../../utils/utils';
 
 function Navigation() {
   const [isUser, setIsUser] = useState(true);
@@ -24,8 +24,8 @@ function Navigation() {
     const email = getCookie('userEmail');
 
     if (!token || !name || !email) {
-      // setIsUser(false);
-      // removeCookies();
+      setIsUser(false);
+      removeCookies();
     } else {
       setIsUser(true);
     }
