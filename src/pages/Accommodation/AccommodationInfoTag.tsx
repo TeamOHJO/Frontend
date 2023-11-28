@@ -1,24 +1,13 @@
 import styled from '@emotion/styled';
 import { Heading, Text } from '@chakra-ui/react';
 import { CheckOutlined } from '@ant-design/icons';
+import { v4 as uuid } from 'uuid';
 
-function AccommodationInfoTag() {
-  const array = [
-    '보일러',
-    '주차시설하',
-    '여섯글자까지',
-    '일곱글자까지돼',
-    '보일러',
-    '보일러',
-    '보일러',
-    '보일러',
-    '보일러',
-    '보일러',
-    '보일러',
-    '보일러',
-    '보일러',
-  ];
+interface AccommodationInfoTagProps {
+  serviceInfo: string[];
+}
 
+function AccommodationInfoTag({ serviceInfo }: AccommodationInfoTagProps) {
   return (
     <StyledAccommodationInfoTagWrapper>
       <StyledAccommodationInfoTagTitle>
@@ -27,16 +16,17 @@ function AccommodationInfoTag() {
         </Heading>
       </StyledAccommodationInfoTagTitle>
       <StlyedAccommodationInfoTagBox>
-        {array.map((data: string) => (
-          <StyledAccommodationinfoTagItem>
-            <CheckOutlined
-              style={{ fontSize: '12px', marginRight: '0.5rem' }}
-            />
-            <Text as="p" size="xs" color="basic">
-              {data}
-            </Text>
-          </StyledAccommodationinfoTagItem>
-        ))}
+        {serviceInfo &&
+          serviceInfo.map((data: string) => (
+            <StyledAccommodationinfoTagItem key={uuid()}>
+              <CheckOutlined
+                style={{ fontSize: '12px', marginRight: '0.5rem' }}
+              />
+              <Text as="p" size="xs" color="basic">
+                {data}
+              </Text>
+            </StyledAccommodationinfoTagItem>
+          ))}
       </StlyedAccommodationInfoTagBox>
     </StyledAccommodationInfoTagWrapper>
   );

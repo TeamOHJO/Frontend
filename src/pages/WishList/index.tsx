@@ -1,8 +1,29 @@
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import { Box, Center, Heading, Grid } from '@chakra-ui/react';
 import WishListCard from './WishListCard';
+import { wishlistDataState } from '../../states/atom';
+import { WishlistData } from '../../@types/interface';
 
 function WishList() {
+  const [wishlistData, setWishlistData] = useRecoilState(wishlistDataState);
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://localhost:5173/data/wishlist.json', {
+        method: 'GET',
+      });
+      const data = await response.json();
+      setWishlistData(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <StyledContainer>
       <StyledInnerContainer>
@@ -17,9 +38,9 @@ function WishList() {
             gap={4}
             px="1rem"
           >
-            <WishListCard />
-            <WishListCard />
-            <WishListCard />
+            {wishlistData.map((item: WishlistData) => (
+              <WishListCard key={item.accommodationId} item={item} />
+            ))}
           </Grid>
         </Box>
       </StyledInnerContainer>

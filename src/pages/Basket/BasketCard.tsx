@@ -1,3 +1,4 @@
+import { useRecoilState } from 'recoil';
 import {
   Card,
   Image,
@@ -12,8 +13,33 @@ import {
 } from '@chakra-ui/react';
 import { StarFilled } from '@ant-design/icons';
 import { theme } from '../../styles/theme';
+import { BasketData } from '../../@types/interface';
+import { handleBadgeColor } from '../../utils/handleBadgeColor';
+import { basketCheckedItemsState } from '../../states/atom';
 
-function BasketCard() {
+function BasketCard({ item }: { item: BasketData }) {
+  const [checkedItems, setCheckedItems] = useRecoilState(
+    basketCheckedItemsState,
+  );
+  const totalPrice = item.price * item.nights;
+  const nights =
+    new Date(item.endDate).getDate() - new Date(item.startDate).getDate();
+
+  const badgeColor = handleBadgeColor(item.category);
+
+  const handleChange = (value: BasketData) => {
+    const isChecked = checkedItems.includes(value);
+    if (isChecked) {
+      setCheckedItems(
+        checkedItems.filter(
+          (checkedItem: BasketData) => checkedItem.basketId !== value.basketId,
+        ),
+      );
+    } else {
+      setCheckedItems([...checkedItems, value]);
+    }
+  };
+
   return (
     <Card size="sm">
       <CardBody display="flex" flexDirection="row" gap={3}>
@@ -22,7 +48,7 @@ function BasketCard() {
           objectFit="cover"
           borderRadius={8}
           dropShadow={theme.shadows.shadowTop}
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD3JBW-cAhYqwYXsEK9AosV69_t1SNqh5RYA&usqp=CAU"
+          src={item.image}
           alt="Accommodation Photo"
         />
         <Stack textAlign="left" width="100%" direction="column" gap={0.5}>
@@ -32,14 +58,20 @@ function BasketCard() {
             alignItems="center"
           >
             <Box textAlign="left">
-              <Badge variant="blue">펜션/풀빌라</Badge>
+              <Badge variant={badgeColor}>{item.category}</Badge>
             </Box>
-            <Checkbox size="md" colorScheme="blue" borderColor="gray.300" />
+            <Checkbox
+              checked={checkedItems.includes(item)}
+              onChange={() => handleChange(item)}
+              size="md"
+              colorScheme="blue"
+              borderColor="gray.300"
+            />
           </Box>
-          <Heading size="md">일본 도쿄 Nakano City</Heading>
-          <Text size="sm">디럭스 패밀리룸</Text>
+          <Heading size="md">{item.accommodationName}</Heading>
+          <Text size="sm">{item.name}</Text>
           <Text as="p" size="xs" color="blackAlpha.600">
-            12월 26일 - 12월 29일 (3박)
+            {item.startDate} ~ {item.endDate} ({nights}박)
           </Text>
           <Box
             display="flex"
@@ -51,16 +83,16 @@ function BasketCard() {
                 style={{ color: theme.colors.blue400, fontSize: '1rem' }}
               />
               <Text as="span" size="xs">
-                4.90
+                {item.stars.toFixed(2)}
               </Text>
             </Box>
           </Box>
           <Flex direction="column" alignItems="flex-end">
             <Text as="p" size="md" fontWeight="bold">
-              ￦435,400
+              ￦{totalPrice.toLocaleString()}
             </Text>
             <Text as="p" size="xs" color="blackAlpha.600">
-              3박 요금 (세금 포함)
+              {nights}박 요금 (세금 포함)
             </Text>
           </Flex>
         </Stack>

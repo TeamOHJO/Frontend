@@ -93,3 +93,89 @@ export interface ReservationData {
   nights: number;
   stars: number;
 }
+
+export interface ImagesModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  images: string[];
+}
+
+export interface ExplanationModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  explanation: string;
+  cancelInfo: string;
+  useGuide: string;
+  reservationNotice: string;
+  serviceInfo: string[];
+}
+
+export interface AccommodationDetail {
+  category: string;
+  accommodationName: string;
+  location: string;
+  tag: string;
+  isDomestic: boolean;
+  explanation: string;
+  cancelInfo: string;
+  useGuide: string;
+  reservationNotice: string;
+  isLiked: boolean;
+  serviceInfo: string[];
+  images: string[];
+  stars: number;
+  reviews: {
+    userName: string;
+    reviewContents: string;
+    star: number;
+    createdAt: string;
+  }[];
+  rooms: {
+    name: string;
+    price: number;
+    discountPercentage: number;
+    minCapacity: number;
+    maxCapacity: number;
+    images: string[];
+    isReservation: boolean;
+    stars: number;
+  }[];
+}
+
+export interface RoomDetail {
+  name: string;
+  price: number;
+  discountPercentage: number;
+  checkinExplanation: string;
+  explanation: string;
+  serviceInfo: string[];
+  minCapacity: number;
+  maxCapacity: number;
+  images: string[];
+  isReservation: boolean;
+  stars: number;
+}
+
+export interface BasketData {
+  basketId: number;
+  startDate: string;
+  endDate: string;
+  category: string;
+  accommodationName: string;
+  image: string;
+  name: string;
+  price: number;
+  nights: number;
+  stars: number;
+  canReserve: boolean;
+}
+
+export interface WishlistData {
+  accommodationId: number;
+  accommodationName: string;
+  category: string;
+  location: string;
+  image: string;
+  lowestPrice: number;
+  isLiked: boolean;
+}

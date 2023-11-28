@@ -2,29 +2,42 @@ import styled from '@emotion/styled';
 import { StarFilled } from '@ant-design/icons';
 import { Badge, Heading, Text } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
+import { handleBadgeColor } from '../../utils/handleBadgeColor';
 
-function AccommodationTitle() {
+interface AccommodationTitleProps {
+  accommodationName: string;
+  category: string;
+  location: string;
+  stars: number;
+}
+
+function AccommodationTitle({
+  accommodationName,
+  category,
+  location,
+  stars,
+}: AccommodationTitleProps) {
   return (
     <StyledAccommodationTitleWrapper>
       <StyledAccommodationBadgeStarWrapper>
         <StyledAccommodationBadge>
-          <Badge variant="blue" fontSize="0.8rem">
-            호텔/리조트
+          <Badge variant={handleBadgeColor(category)} fontSize="0.8rem">
+            {category}
           </Badge>
         </StyledAccommodationBadge>
         <StyledAccommodationStar>
           <StarFilled
             style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
           />
-          <StyledStarDigit>4.90</StyledStarDigit>
+          <StyledStarDigit>{stars}</StyledStarDigit>
         </StyledAccommodationStar>
       </StyledAccommodationBadgeStarWrapper>
       <StyledAccommodationTitleName>
         <Heading as="h2" size="lg">
-          숙박 업소 이름
+          {accommodationName}
         </Heading>
         <Text as="p" size="sm" color="gray.84">
-          서울특별시 주소 주소 주소
+          {location}
         </Text>
       </StyledAccommodationTitleName>
     </StyledAccommodationTitleWrapper>
