@@ -3,11 +3,19 @@ import { Text, Button, useDisclosure } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import DefaultModal from '../../components/Modal/DefaultModal';
 
-interface RoomBottomNaviProps {
+interface RoomSelectedInfoProps {
   price: number;
+  startDate: string | null;
+  endDate: string | null;
+  soldOut: boolean;
 }
 
-function RoomBottomNavi({ price }: RoomBottomNaviProps) {
+function RoomBottomNavi({
+  price,
+  startDate,
+  endDate,
+  soldOut,
+}: RoomBottomNaviProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // 예약하기 버튼 모달
@@ -21,11 +29,21 @@ function RoomBottomNavi({ price }: RoomBottomNaviProps) {
     console.log('모달 승인 시 실행될 함수 입니다.');
   };
 
+  const countDay = () => {
+    if (startDate && endDate) {
+      const diffDate =
+        new Date(endDate).getTime() - new Date(startDate).getTime();
+      return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
+    }
+    return 1;
+  };
+
   return (
     <StyledRoomBottomNaviWrapper>
       <StyledRoomBottomNaviLeft>
         <Text as="p" size="sm" color="gray.84">
-          ·총액 ￦{price}원
+          ·총액 ￦
+          {(Math.floor((price * countDay()) / 1000) * 1000).toLocaleString()}원
         </Text>
       </StyledRoomBottomNaviLeft>
       <StyledRoomBottomNaviRight>
@@ -36,17 +54,17 @@ function RoomBottomNavi({ price }: RoomBottomNaviProps) {
           modalData={modalData}
         />
         <Button
-          variant="blue"
+          variant={soldOut ? 'gray' : 'blue'}
           size="lg"
           style={{ width: '100px', height: '40px' }}
           // isReservation 필요
-          isDisabled={false}
+          isDisabled={soldOut}
           onClick={(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
             event.stopPropagation();
             onOpen();
           }}
         >
-          예약하기
+          {soldOut ? '예약마감' : '예약하기'}
         </Button>
       </StyledRoomBottomNaviRight>
     </StyledRoomBottomNaviWrapper>

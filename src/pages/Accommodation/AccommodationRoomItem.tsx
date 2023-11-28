@@ -10,7 +10,9 @@ import ReservationBtn from './ReservationBtn';
 import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
+  accommodationSelectVisitorsState,
 } from '../../states/atom';
+import { changeDateFormat } from '../../utils/utils';
 
 interface AccommodationRoom {
   roomId: number;
@@ -49,6 +51,10 @@ function AccommodationRoomItem({
     accommodationSelectEndDateState,
   );
 
+  const [accommodationSelectVisitors] = useRecoilState<number>(
+    accommodationSelectVisitorsState,
+  );
+
   const handleCountDay = () => {
     if (accommodationSelectStartDate && accommodationSelectEndDate) {
       const diffDate =
@@ -65,7 +71,13 @@ function AccommodationRoomItem({
       <StyledAccommodationRoomTitle
         onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
           event.stopPropagation();
-          navigate(`${Location.pathname}/id`);
+          navigate(
+            `/room/${roomId}?startDate=${changeDateFormat(
+              accommodationSelectStartDate,
+            )}&endDate=${changeDateFormat(
+              accommodationSelectEndDate,
+            )}&soldOut=${soldOut}`,
+          );
         }}
       >
         <StyledAccommodationRoomTitleBox style={{ marginBottom: '0.5rem' }}>

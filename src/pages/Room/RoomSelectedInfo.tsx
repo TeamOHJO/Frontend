@@ -6,9 +6,15 @@ import RoomToastPopup from './RoomToastPopup';
 
 interface RoomSelectedInfoProps {
   price: number;
+  startDate: string | null;
+  endDate: string | null;
 }
 
-function RoomSelectedInfo({ price }: RoomSelectedInfoProps) {
+function RoomSelectedInfo({
+  price,
+  startDate,
+  endDate,
+}: RoomSelectedInfoProps) {
   const [cartHover, setCartHover] = useState(false);
 
   // 장바구니 팝업
@@ -33,6 +39,15 @@ function RoomSelectedInfo({ price }: RoomSelectedInfoProps) {
   const handleCartMouseLeave = () => {
     setCartHover(false);
   };
+
+  const countDay = () => {
+    if (startDate && endDate) {
+      const diffDate =
+        new Date(endDate).getTime() - new Date(startDate).getTime();
+      return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
+    }
+    return 1;
+  };
   return (
     <StyledRoomSelectedInfoWrapper>
       <StyledRoomSelectedInfoBox>
@@ -40,9 +55,13 @@ function RoomSelectedInfo({ price }: RoomSelectedInfoProps) {
           <Heading as="h3" size="lg">
             숙박 기간
           </Heading>
-          <Text as="p" size="md" color="gray.84">
-            2023년 11월 22일 ~ 11월 23일
-          </Text>
+          {startDate && endDate && (
+            <Text as="p" size="md" color="gray.84">
+              {startDate.split('-')[0]}년 {startDate.split('-')[1]}월{' '}
+              {startDate.split('-')[2]}일 ~ {endDate.split('-')[1]}월{' '}
+              {endDate.split('-')[2]}일
+            </Text>
+          )}
         </StyledRoomSelectedInfoItem>
         <StyledRoomSelectedInfoItem>
           <Heading as="h3" size="lg">
@@ -57,7 +76,9 @@ function RoomSelectedInfo({ price }: RoomSelectedInfoProps) {
             가격
           </Heading>
           <Text as="p" size="md" color="gray.84">
-            ￦{price}원/박
+            ￦
+            {(Math.floor((price * countDay()) / 1000) * 1000).toLocaleString()}
+            원/ {countDay()}박
           </Text>
         </StyledRoomSelectedInfoItem>
         <StyledRoomSelectedCart

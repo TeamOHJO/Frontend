@@ -159,7 +159,7 @@ export interface RoomDetail {
   serviceInfo: string[];
   minCapacity: number;
   maxCapacity: number;
-  images: string[];
+  roomImages: string[];
   soldOut: boolean;
   stars: number;
 }

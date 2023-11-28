@@ -93,3 +93,14 @@ export const changeCategoryFormat = (category: string) => {
   // 아무것도 없을때
   return category;
 };
+
+export const changeCategoryReverseFormat = (category: string) => {
+  if (category === 'HOTEL') return '호텔/리조트';
+  if (category === 'HANOK') return '한옥';
+  if (category === 'PENSION') return '펜션/풀빌라';
+  if (category === 'MOTEL') return '모텔';
+  if (category === 'GUESTHOUSE') return '게스트하우스';
+
+  // 아무것도 없을때
+  return category;
+};
