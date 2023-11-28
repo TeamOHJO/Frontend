@@ -1,5 +1,6 @@
 import { atom, selector } from 'recoil';
-import { AlertData, BasketData } from '../@types/interface';
+import { AlertData, BasketData, WishlistData } from '../@types/interface';
+import { getTomorrow, changeDateFormat } from '../utils/utils';
 
 export const toastPopupState = atom<AlertData>({
   key: 'toastPopupState',
@@ -26,6 +27,38 @@ export const accommodationSelectVisitorsState = atom<number>({
 
 export const loginTabState = atom<number>({
   key: 'loginTabState',
+  default: 0,
+});
+
+export const searchFilteredState = atom({
+  key: 'searchFilteredState',
+  default: {
+    category: 'HOTEL',
+    isDomestic: true,
+    startDate: changeDateFormat(new Date()),
+    endDate: changeDateFormat(getTomorrow()),
+    numberOfPeople: 2,
+    page: 0,
+  },
+});
+
+export const searchPages = atom({
+  key: 'searchPage',
+  default: 0,
+});
+
+export const searchAttempt = atom({
+  key: 'searchAttempt',
+  default: 0,
+});
+
+export const accommodationList = atom<any[]>({
+  key: 'accommodationList',
+  default: [],
+});
+
+export const setPage = atom({
+  key: 'setPage',
   default: 0,
 });
 
@@ -82,4 +115,9 @@ export const getUnavailableIds = selector({
 export const basketCountState = atom<number>({
   key: 'basketCountState',
   default: 0,
+});
+
+export const wishlistDataState = atom<WishlistData[]>({
+  key: 'wishlistDataState',
+  default: [],
 });

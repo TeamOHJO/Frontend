@@ -69,6 +69,7 @@ export interface ValidationLogin {
   formData: FormData;
 }
 export interface HomeCardProps {
+  id: any;
   name: any;
   images: any;
   category: any;
@@ -175,4 +176,14 @@ export interface BasketData {
   nights: number;
   stars: number;
   canReserve: boolean;
+}
+
+export interface WishlistData {
+  accommodationId: number;
+  accommodationName: string;
+  category: string;
+  location: string;
+  image: string;
+  lowestPrice: number;
+  isLiked: boolean;
 }

@@ -11,6 +11,13 @@ import {
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import {
+  searchFilteredState,
+  searchAttempt,
+  setPage,
+} from '../../../states/atom';
+import { getTomorrow, changeDateFormat } from '../../../utils/utils';
 import Calendar from './Calendar';
 import VisitorSetter from './VisitorSetter';
 import RegionSetter from './RegionSetter';
@@ -23,19 +30,39 @@ interface ModalProps {
 function SearchModal({ isOpen, onClose }: ModalProps) {
   const [isDomestic, setIsDomestic] = useState(true);
   const [startDate, setStartDate] = useState(new Date());
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const [endDate, setEndDate] = useState(tomorrow);
+  const [endDate, setEndDate] = useState(getTomorrow());
   const [visitors, setVisitors] = useState(2);
+  const [searchFilter, setSearchFilter] = useRecoilState(searchFilteredState);
+  const [searchingAttempt, setSearchingAttempt] = useRecoilState(searchAttempt);
+  const setPaging = useSetRecoilState(setPage);
 
   const onChangeDate = (dates: any) => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
+    const startTime = changeDateFormat(start);
+    const endTime = changeDateFormat(end);
+    const newFilter = {
+      ...searchFilter,
+      startDate: startTime,
+      endDate: endTime,
+      page: 0,
+    };
+    setSearchFilter(newFilter);
+    setPaging(0);
   };
 
   const onChangeVisitor = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVisitors(Number(e.target.value));
+    const result = Number(e.target.value);
+    setVisitors(result);
+    const newFilter = { ...searchFilter, numberOfPeople: result, page: 0 };
+    setSearchFilter(newFilter);
+    setPaging(0);
+  };
+
+  const search = () => {
+    setSearchingAttempt(searchingAttempt + 1);
+    onClose();
   };
 
   return (
@@ -61,7 +88,9 @@ function SearchModal({ isOpen, onClose }: ModalProps) {
           <StyledButton colorScheme="gray" mr={3} onClick={onClose}>
             취소
           </StyledButton>
-          <StyledButton colorScheme="blue">검색</StyledButton>
+          <StyledButton colorScheme="blue" onClick={search}>
+            검색
+          </StyledButton>
         </StyledFooter>
       </ModalContent>
     </Modal>

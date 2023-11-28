@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import {
@@ -9,13 +9,27 @@ import {
 } from '@ant-design/icons';
 import { theme } from '../../styles/theme';
 import TopBtn from '../TopBtn';
+import { getCookie, removeCookies } from '../../utils/utils';
 
 function Navigation() {
-  const [isUser] = useState(true);
+  const [isUser, setIsUser] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
   const { pathname } = location;
   const pagesArr = ['/basket', '/wishlist', '/mypage'];
+
+  useEffect(() => {
+    const token = getCookie('token');
+    const name = getCookie('userName');
+    const email = getCookie('userEmail');
+
+    if (!token || !name || !email) {
+      setIsUser(false);
+      removeCookies();
+    } else {
+      setIsUser(true);
+    }
+  }, [location]);
 
   return (
     <StyledContainer>
