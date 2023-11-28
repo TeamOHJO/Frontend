@@ -46,7 +46,9 @@ function MyPageReservation() {
         </StyledHeader>
         <StyledCardWrapper>
           {reservationList.map((item: ReservationData) => {
-            return <MyPageReservationCard item={item} />;
+            return (
+              <MyPageReservationCard key={item.reservationId} item={item} />
+            );
           })}
         </StyledCardWrapper>
       </StyledContent>
@@ -61,7 +63,9 @@ function MyPageReservation() {
         </StyledHeader>
         <StyledCardWrapper>
           {cancellationList.map((item: ReservationData) => {
-            return <MyPageReservationCard item={item} />;
+            return (
+              <MyPageReservationCard key={item.reservationId} item={item} />
+            );
           })}
         </StyledCardWrapper>
       </StyledContent>

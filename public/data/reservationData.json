@@ -30,7 +30,7 @@
     "stars": 3.5
   },
   {
-    "reservationId": 123,
+    "reservationId": 1233,
     "startTime": "2023/12/22",
     "endTime": "2023/12/25",
     "numberOfPerson": 2,
@@ -45,7 +45,7 @@
     "stars": 4.5
   },
   {
-    "reservationId": 456,
+    "reservationId": 4563,
     "startTime": "2022/11/12",
     "endTime": "2022/11/16",
     "numberOfPerson": 10,
