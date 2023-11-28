@@ -12,6 +12,7 @@ import WishList from '../pages/WishList';
 import Room from '../pages/Room';
 import CustomerReview from '../pages/customerReview';
 import MyPage from '../pages/MyPage';
+import LoadingRouter from './LoadingRouter';
 
 function Dashboard() {
   return (
@@ -36,6 +37,7 @@ function MainRouter() {
             <Route path="/wishlist" element={<WishList />} />
             <Route path="/basket" element={<Basket />} />
             <Route path="/mypage" element={<MyPage />} />
+            <Route path="/loading" element={<LoadingRouter />} />
           </Route>
           <Route path="/accommodation/:id" element={<Accommodation />} />
           <Route path="/accommodation/:id/:id" element={<Room />} />

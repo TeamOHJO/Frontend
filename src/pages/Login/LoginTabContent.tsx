@@ -33,7 +33,7 @@ const LoginTabContent = () => {
       const res = await postLogin(formData);
       const { data } = res;
       await setCookies(data.email, data.name, data.token);
-      navigate('/');
+      navigate('/loading');
     } catch (error) {
       if (isAxiosError(error)) {
         const axiosError = error as AxiosError;
@@ -65,8 +65,8 @@ const LoginTabContent = () => {
     newErrors[key] = error;
     newIsError[key] = !!error;
 
-    setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    setIsError((prevIsError) => ({ ...prevIsError, ...newIsError }));
+    setErrors((prevErrors: any) => ({ ...prevErrors, ...newErrors }));
+    setIsError((prevIsError: any) => ({ ...prevIsError, ...newIsError }));
   };
 
   return (

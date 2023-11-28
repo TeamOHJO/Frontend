@@ -33,3 +33,13 @@ export const searchAttempt = atom({
   key: 'searchAttempt',
   default: 0,
 });
+
+export const accommodationList = atom<any[]>({
+  key: 'accommodationList',
+  default: [],
+});
+
+export const setPage = atom({
+  key: 'setPage',
+  default: 0,
+});

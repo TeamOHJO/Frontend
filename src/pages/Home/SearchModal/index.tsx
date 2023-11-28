@@ -11,8 +11,12 @@ import {
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useRecoilState } from 'recoil';
-import { searchFilteredState, searchAttempt } from '../../../states/atom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import {
+  searchFilteredState,
+  searchAttempt,
+  setPage,
+} from '../../../states/atom';
 import { getTomorrow, changeDateFormat } from '../../../utils/utils';
 import Calendar from './Calendar';
 import VisitorSetter from './VisitorSetter';
@@ -30,6 +34,7 @@ function SearchModal({ isOpen, onClose }: ModalProps) {
   const [visitors, setVisitors] = useState(2);
   const [searchFilter, setSearchFilter] = useRecoilState(searchFilteredState);
   const [searchingAttempt, setSearchingAttempt] = useRecoilState(searchAttempt);
+  const setPaging = useSetRecoilState(setPage);
 
   const onChangeDate = (dates: any) => {
     const [start, end] = dates;
@@ -41,15 +46,18 @@ function SearchModal({ isOpen, onClose }: ModalProps) {
       ...searchFilter,
       startDate: startTime,
       endDate: endTime,
+      page: 0,
     };
     setSearchFilter(newFilter);
+    setPaging(0);
   };
 
   const onChangeVisitor = (e: React.ChangeEvent<HTMLInputElement>) => {
     const result = Number(e.target.value);
     setVisitors(result);
-    const newFilter = { ...searchFilter, numberOfPeople: result };
+    const newFilter = { ...searchFilter, numberOfPeople: result, page: 0 };
     setSearchFilter(newFilter);
+    setPaging(0);
   };
 
   const search = () => {

@@ -57,17 +57,36 @@ interface SearchFilterProps {
   startDate: string;
   endDate: string;
   numberOfPeople: number;
+  page: number;
 }
 
+/* eslint-disable */
 export const getAccommodationList = async ({
   category,
   isDomestic,
   startDate,
   endDate,
   numberOfPeople,
+  page,
 }: SearchFilterProps) => {
-  const res = await client.get(
-    `/accommodation?category=${category}&isDomestic=${isDomestic}&page=0&startDate=${startDate}&endDate=${endDate}&numberOfPeople=${numberOfPeople}`,
-  );
+  const newToken = getCookie('token');
+  console.log(newToken);
+  if (newToken) {
+    const res = await clientToken.get(
+      `/accommodation?category=${category}&isDomestic=${isDomestic}&page=${page}&startDate=${startDate}&endDate=${endDate}&numberOfPeople=${numberOfPeople}`,
+    );
+    return res.data;
+  }
+  if (!newToken) {
+    const res = await client.get(
+      `/accommodation?category=${category}&isDomestic=${isDomestic}&page=${page}&startDate=${startDate}&endDate=${endDate}&numberOfPeople=${numberOfPeople}`,
+    );
+    return res.data;
+  }
+};
+/* eslint-enable */
+
+export const getReview = async () => {
+  const res = await client.get('/review/accommodation/1');
   return res.data;
 };
