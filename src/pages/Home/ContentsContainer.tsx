@@ -18,10 +18,9 @@ const ContentsContainer = () => {
   const [searchFilter, setSearchFilter] = useRecoilState(searchFilteredState);
   const [searchingAttempt] = useRecoilState(searchAttempt);
   const [paging, setPaging] = useRecoilState(setPage);
-  /* eslint-disable */
+
   const { category, isDomestic, startDate, endDate, numberOfPeople, page } =
     searchFilter;
-  /* eslint-enable */
 
   const fetchData = async () => {
     try {
@@ -86,7 +85,7 @@ const ContentsContainer = () => {
             images={e.accommodationImageList}
             category={e.category}
             score={e.averageReviewScore}
-            price={122200}
+            price={e.minPrice}
             isLiked={e.liked}
           />
         );
