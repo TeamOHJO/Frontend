@@ -21,26 +21,26 @@ function Room() {
   useEffect(() => {
     fetchData();
   }, []);
-  return (
-    roomDetailData && (
-      <StyledRoomContainer>
-        <RoomNavi />
-        <RoomMainImg images={roomDetailData?.images} />
-        <RoomTitle
-          name={roomDetailData?.name}
-          minCapacity={roomDetailData?.minCapacity}
-          maxCapacity={roomDetailData?.maxCapacity}
-          stars={roomDetailData?.stars}
-        />
-        <RoomSelectedInfo price={roomDetailData?.price} />
-        <RoomInfo
-          explanation={roomDetailData?.explanation}
-          checkinExplanation={roomDetailData?.checkinExplanation}
-          serviceInfo={roomDetailData?.serviceInfo}
-        />
-        <RoomBottomNavi price={roomDetailData?.price} />
-      </StyledRoomContainer>
-    )
+  return roomDetailData ? (
+    <StyledRoomContainer>
+      <RoomNavi />
+      <RoomMainImg images={roomDetailData?.images} />
+      <RoomTitle
+        name={roomDetailData?.name}
+        minCapacity={roomDetailData?.minCapacity}
+        maxCapacity={roomDetailData?.maxCapacity}
+        stars={roomDetailData?.stars}
+      />
+      <RoomSelectedInfo price={roomDetailData?.price} />
+      <RoomInfo
+        explanation={roomDetailData?.explanation}
+        checkinExplanation={roomDetailData?.checkinExplanation}
+        serviceInfo={roomDetailData?.serviceInfo}
+      />
+      <RoomBottomNavi price={roomDetailData?.price} />
+    </StyledRoomContainer>
+  ) : (
+    <>스켈레톤</>
   );
 }
 

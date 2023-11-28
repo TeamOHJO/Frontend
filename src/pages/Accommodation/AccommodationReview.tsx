@@ -41,36 +41,36 @@ function AccommodationReview() {
     fetchData();
   }, []);
 
-  return (
-    reviews && (
-      <StyledAccommodationReviewWrapper>
-        <StyledAccommodationReviewTitle>
-          <Heading as="h4" size="lg">
-            후기
-          </Heading>
-        </StyledAccommodationReviewTitle>
-        <StyledAccommodationReviewItemsContainer>
-          <StyledAccommodationReviewItemsWrapper>
-            {reviews &&
-              reviews.data
-                .slice(0, 5)
-                .map((review: AccommodationReviewObject) => (
-                  <AccommodationReviewItem review={review} key={uuid()} />
-                ))}
-          </StyledAccommodationReviewItemsWrapper>
-        </StyledAccommodationReviewItemsContainer>
-        <StyledAccommodationReviewMoreBtnWrapper>
-          <Button
-            variant="blue"
-            size="lg"
-            style={{ width: '260px', height: '40px' }}
-            onClick={() => navigate('/review/id')}
-          >
-            후기 전체보기
-          </Button>
-        </StyledAccommodationReviewMoreBtnWrapper>
-      </StyledAccommodationReviewWrapper>
-    )
+  return reviews ? (
+    <StyledAccommodationReviewWrapper>
+      <StyledAccommodationReviewTitle>
+        <Heading as="h4" size="lg">
+          후기
+        </Heading>
+      </StyledAccommodationReviewTitle>
+      <StyledAccommodationReviewItemsContainer>
+        <StyledAccommodationReviewItemsWrapper>
+          {reviews &&
+            reviews.data
+              .slice(0, 5)
+              .map((review: AccommodationReviewObject) => (
+                <AccommodationReviewItem review={review} key={uuid()} />
+              ))}
+        </StyledAccommodationReviewItemsWrapper>
+      </StyledAccommodationReviewItemsContainer>
+      <StyledAccommodationReviewMoreBtnWrapper>
+        <Button
+          variant="blue"
+          size="lg"
+          style={{ width: '260px', height: '40px' }}
+          onClick={() => navigate('/review/id')}
+        >
+          후기 전체보기
+        </Button>
+      </StyledAccommodationReviewMoreBtnWrapper>
+    </StyledAccommodationReviewWrapper>
+  ) : (
+    <>스켈레톤</>
   );
 }
 

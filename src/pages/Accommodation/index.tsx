@@ -93,34 +93,34 @@ function Accommodation() {
     fetchData();
   }, []);
 
-  return (
-    accommodationDetailData && (
-      <StyledAccommodationWrapper>
-        <AccommodationNavi />
-        <AccommodationMainImages
-          images={accommodationDetailData?.data.accommodationImages}
-          liked={accommodationDetailData?.data.liked}
-          tag={accommodationDetailData?.data.tag}
-        />
-        <AccommodationTitle
-          name={accommodationDetailData?.data.name}
-          category={accommodationDetailData?.data.category}
-          location={accommodationDetailData?.data.location}
-          averageRating={accommodationDetailData?.data.averageRating}
-        />
-        <AccommodationSelect fetchData={fetchData} />
-        <AccommodationRooms rooms={accommodationDetailData?.data.roomDetails} />
-        <AccommodationReview />
-        <AccommodationInfo
-          explanation={accommodationDetailData?.data.explanation}
-          cancelInfo={accommodationDetailData?.data.cancelInfo}
-          useGuide={accommodationDetailData?.data.useGuide}
-          reservationNotice={accommodationDetailData?.data.reservationNotice}
-          serviceInfo={accommodationDetailData?.data.serviceInfo}
-          location={accommodationDetailData?.data.location}
-        />
-      </StyledAccommodationWrapper>
-    )
+  return accommodationDetailData ? (
+    <StyledAccommodationWrapper>
+      <AccommodationNavi />
+      <AccommodationMainImages
+        images={accommodationDetailData?.data.accommodationImages}
+        liked={accommodationDetailData?.data.liked}
+        tag={accommodationDetailData?.data.tag}
+      />
+      <AccommodationTitle
+        name={accommodationDetailData?.data.name}
+        category={accommodationDetailData?.data.category}
+        location={accommodationDetailData?.data.location}
+        averageRating={accommodationDetailData?.data.averageRating}
+      />
+      <AccommodationSelect fetchData={fetchData} />
+      <AccommodationRooms rooms={accommodationDetailData?.data.roomDetails} />
+      <AccommodationReview />
+      <AccommodationInfo
+        explanation={accommodationDetailData?.data.explanation}
+        cancelInfo={accommodationDetailData?.data.cancelInfo}
+        useGuide={accommodationDetailData?.data.useGuide}
+        reservationNotice={accommodationDetailData?.data.reservationNotice}
+        serviceInfo={accommodationDetailData?.data.serviceInfo}
+        location={accommodationDetailData?.data.location}
+      />
+    </StyledAccommodationWrapper>
+  ) : (
+    <>스켈레톤</>
   );
 }
 
