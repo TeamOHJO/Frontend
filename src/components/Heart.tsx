@@ -13,11 +13,13 @@ interface HeartProps {
 function Heart({ liked, size }: HeartProps) {
   const [isHeart, setIsHeart] = useState<boolean>(liked);
 
+  const [activeHeart, setActiveHeart] = useState(false);
+
   const accessToken = getCookie('token');
 
   function handleIsHeart() {
     if (accessToken) setIsHeart(!isHeart);
-    else console.log('notLogin');
+    else setActiveHeart(!activeHeart);
   }
 
   const Bounce = keyframes`

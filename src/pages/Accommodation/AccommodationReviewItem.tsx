@@ -56,7 +56,7 @@ function AccommodationReviewItem({ review }: AccommodationReviewProps) {
 export default AccommodationReviewItem;
 
 const StyledAccommodationReviewItemWrapper = styled.div`
-  width: 50%;
+  width: 500px;
   min-width: 350px;
   height: 200px;
 
