@@ -13,6 +13,7 @@ import {
 import { StarFilled, CloseOutlined } from '@ant-design/icons';
 import { BasketData } from '../../@types/interface';
 import { basketDataState } from '../../states/atom';
+import { DeleteBasketItem } from '../../api';
 
 function BasketDisabledCard({ item }: { item: BasketData }) {
   const [basketData, setBasketData] = useRecoilState(basketDataState);
@@ -22,7 +23,7 @@ function BasketDisabledCard({ item }: { item: BasketData }) {
     new Date(item.endDate).getDate() - new Date(item.startDate).getDate();
 
   const deleteSingleItem = async (id: number) => {
-    // await DeleteBasketItem(id);
+    await DeleteBasketItem(id);
     setBasketData(
       basketData.filter((product: BasketData) => product.basketId !== id),
     );

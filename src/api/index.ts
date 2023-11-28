@@ -58,6 +58,6 @@ export const getBasket = async () => {
 };
 
 export const DeleteBasketItem = async (basketId: number) => {
-  const res = await client.delete(`/basket/${basketId}`);
+  const res = await clientToken.delete(`/basket/${basketId}`);
   return res;
 };
