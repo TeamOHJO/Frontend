@@ -77,10 +77,10 @@ export interface HomeCardProps {
   isLiked: boolean;
 }
 
-export interface ReservationData {
+export interface MyPageReservationData {
   reservationId: number;
-  startTime: string;
-  endTime: string;
+  startDate: string;
+  endDate: string;
   numberOfPerson: number;
   createdAt: string;
   deletedAt: string | null;

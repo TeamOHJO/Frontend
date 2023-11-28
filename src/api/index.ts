@@ -61,3 +61,8 @@ export const DeleteBasketItem = async (basketId: number) => {
   const res = await clientToken.delete(`/basket/${basketId}`);
   return res;
 };
+
+export const CancelReservation = async (reservationId: number) => {
+  const res = await clientToken.delete(`/reservation/${reservationId}`);
+  return res;
+};

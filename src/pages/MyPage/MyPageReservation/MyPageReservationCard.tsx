@@ -1,25 +1,29 @@
 import styled from '@emotion/styled';
-import {
-  Card,
-  CardBody,
-  Image,
-  Box,
-  Badge,
-  Heading,
-  Text,
-  Button,
-} from '@chakra-ui/react';
+import { Card, CardBody, Image, Box, Badge, Heading, Text, Button } from '@chakra-ui/react';
 import { StarFilled } from '@ant-design/icons';
 import { theme } from '../../../styles/theme';
-import { ReservationData } from '../../../@types/interface';
+import { MyPageReservationData } from '../../../@types/interface';
 import { handleBadgeColor } from '../../../utils/handleBadgeColor';
+import { CancelReservation } from '../../../api';
 
 interface MyPageReservationCardProps {
-  item: ReservationData;
+  item: MyPageReservationData;
 }
 
 function MyPageReservationCard({ item }: MyPageReservationCardProps) {
+  const TODAY = new Date();
   const badgeColor = handleBadgeColor(item.category);
+
+  // 예약 취소 버튼 클릭시 실행 함수
+  const onClickCancelButton = async (id: number) => {
+    try {
+      await CancelReservation(id);
+      console.log(id, '취소 완료');
+    } catch (err) {
+      console.log(err);
+      console.log(id, '취소 실패');
+    }
+  };
 
   return (
     <Card size="sm">
@@ -40,23 +44,31 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
             <Heading size="md">{item.accommodationName}</Heading>
             <Text size="sm">{item.name}</Text>
             <Text as="p" size="xs" color="blackAlpha.600">
-              {item.startTime} - {item.endTime} ({item.nights}박)
+              {item.startDate} - {item.endDate} ({item.nights}박)
             </Text>
           </StyledCardBodyLeft>
           <StyledCardBodyRight>
             <StyledStar>
-              <StarFilled
-                style={{ color: theme.colors.blue400, fontSize: '1rem' }}
-              />
+              <StarFilled style={{ color: theme.colors.blue400, fontSize: '1rem' }} />
               <Text as="span" size="xs">
                 {item.stars.toFixed(2)}
               </Text>
             </StyledStar>
-            {item.deletedAt ? (
-              <Button variant="gray" size="sm">
+            {!item.deletedAt && TODAY < new Date(item.startDate) && (
+              <Button
+                variant="gray"
+                size="sm"
+                onClick={() => onClickCancelButton(item.reservationId)}
+              >
                 예약 취소
               </Button>
-            ) : (
+            )}
+            {!item.deletedAt && new Date(item.endDate) < TODAY && (
+              <Button variant="gray" size="sm">
+                리뷰 작성
+              </Button>
+            )}
+            {item.deletedAt && (
               <Text size="sm" fontWeight="bold" color="red.500">
                 취소됨
               </Text>
