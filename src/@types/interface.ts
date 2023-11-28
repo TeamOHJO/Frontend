@@ -178,3 +178,9 @@ export interface WishlistData {
   lowestPrice: number;
   isLiked: boolean;
 }
+
+export interface AddReviewData {
+  reviewContent: string;
+  images?: string[];
+  star: number;
+}

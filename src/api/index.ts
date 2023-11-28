@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { JoinData, LoginData, Email } from './type';
 import { getCookie } from '../utils/utils';
+import { AddReviewData } from '../@types/interface';
 
 axios.defaults.withCredentials = true;
 const token = getCookie('token');
@@ -65,5 +66,11 @@ export const DeleteBasketItem = async (basketId: number) => {
 // 마이페이지 > 예약 취소 요청 API
 export const CancelReservation = async (reservationId: number) => {
   const res = await clientToken.delete(`/reservation/${reservationId}`);
+  return res;
+};
+
+// 마이페이지 > 리뷰 작성
+export const SubmitReview = async (reservationId: number, reviewData: AddReviewData) => {
+  const res = await clientToken.post(`/reservations/${reservationId}`, reviewData);
   return res;
 };

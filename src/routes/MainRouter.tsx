@@ -14,7 +14,7 @@ import CustomerReview from '../pages/customerReview';
 import MyPage from '../pages/MyPage';
 import Reservation from '../pages/Reservation';
 import ReservationComplete from '../pages/ReservationComplete';
-import WriteReview from '../pages/WriteReview';
+import WriteReview from '../pages/AddReview';
 
 function Dashboard() {
   return (

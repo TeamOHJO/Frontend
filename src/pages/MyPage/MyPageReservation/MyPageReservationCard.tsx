@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Card, CardBody, Image, Box, Badge, Heading, Text, Button } from '@chakra-ui/react';
 import { StarFilled } from '@ant-design/icons';
@@ -11,6 +12,7 @@ interface MyPageReservationCardProps {
 }
 
 function MyPageReservationCard({ item }: MyPageReservationCardProps) {
+  const navigate = useNavigate();
   const TODAY = new Date();
   const badgeColor = handleBadgeColor(item.category);
 
@@ -23,6 +25,10 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
       console.log(err);
       console.log(id, '취소 실패');
     }
+  };
+
+  const onClickWriteReview = (id: number) => {
+    navigate(`/review/write/${id}`);
   };
 
   return (
@@ -64,7 +70,11 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
               </Button>
             )}
             {!item.deletedAt && new Date(item.endDate) < TODAY && (
-              <Button variant="gray" size="sm">
+              <Button
+                variant="gray"
+                size="sm"
+                onClick={() => onClickWriteReview(item.reservationId)}
+              >
                 리뷰 작성
               </Button>
             )}
