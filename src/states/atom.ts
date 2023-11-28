@@ -78,3 +78,8 @@ export const getUnavailableIds = selector({
     return unavailableIds;
   },
 });
+
+export const basketCountState = atom<number>({
+  key: 'basketCountState',
+  default: 0,
+});

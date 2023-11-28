@@ -1,23 +1,90 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { theme } from '../../styles/theme';
 import AccommodationToastPopup from './AccommodationToastPopup';
+import { getCookie } from '../../utils/utils';
+import {
+  accommodationSelectStartDateState,
+  accommodationSelectEndDateState,
+  accommodationSelectVisitorsState,
+  basketCountState,
+} from '../../states/atom';
+import ToastPopup from '../../components/Modal/ToastPopup';
 
-function AccommodationRoomItemCart() {
+function AccommodationRoomItemCart({ roomId }: { roomId: number }) {
   const [cartHover, setCartHover] = useState(false);
+  const [basketCount, setBasketCount] =
+    useRecoilState<number>(basketCountState);
+
   // 장바구니 팝업
   const [showAlert, setShowAlert] = useState({
     active: false,
     message: '',
   });
+  const [accommodationSelectStartDate] = useRecoilState<Date>(
+    accommodationSelectStartDateState,
+  );
 
-  const openFunction = () => {
-    // 조건문 삽입(성공, 이미 장바구니)
-    const toastData = {
-      active: true,
-      message: '성공적으로 장바구니에 담겼습니다.',
-    };
-    setShowAlert(toastData);
+  const [accommodationSelectEndDate] = useRecoilState<Date>(
+    accommodationSelectEndDateState,
+  );
+
+  const [accommodationSelectVisitors] = useRecoilState<number>(
+    accommodationSelectVisitorsState,
+  );
+  const accessToken = getCookie('token');
+
+  // 날짜 포멧팅
+  function leftPad(value: number) {
+    if (value >= 10) {
+      return value;
+    }
+
+    return `0${value}`;
+  }
+
+  function toStringByFormatting(source: any, delimiter = '-') {
+    const year = source.getFullYear();
+    const month = leftPad(source.getMonth() + 1);
+    const day = leftPad(source.getDate());
+
+    return [year, month, day].join(delimiter);
+  }
+
+  const createBasket = async () => {
+    const response = await fetch(
+      `https://yanoljaschool.site:8080/basket/rooms/${roomId}`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          startDate: toStringByFormatting(accommodationSelectStartDate),
+          endDate: toStringByFormatting(accommodationSelectEndDate),
+          numberOfPerson: accommodationSelectVisitors,
+        }),
+        headers: {
+          'content-type': import.meta.env.VITE_CONTENT_TYPE,
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    ).then((res: any) => {
+      if (res.ok) {
+        const toastData = {
+          active: true,
+          message: '성공적으로 장바구니에 담겼습니다.',
+        };
+        setShowAlert(toastData);
+        setBasketCount(basketCount + 1);
+      } else {
+        const toastData = {
+          active: true,
+          message: '이미 장바구니에 담겨있습니다.',
+        };
+        setShowAlert(toastData);
+      }
+    });
+    // const res = response.json();
   };
 
   const handleCartMouseEnter = () => {
@@ -35,7 +102,7 @@ function AccommodationRoomItemCart() {
       onMouseLeave={handleCartMouseLeave}
       onClick={(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
         event.stopPropagation();
-        openFunction();
+        createBasket();
       }}
     >
       add_shopping_cart

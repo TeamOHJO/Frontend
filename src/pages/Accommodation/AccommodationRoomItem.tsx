@@ -13,6 +13,7 @@ import {
 } from '../../states/atom';
 
 interface AccommodationRoom {
+  roomId: number;
   name: string;
   price: number;
   discountPercentage: number;
@@ -24,6 +25,7 @@ interface AccommodationRoom {
 }
 
 function AccommodationRoomItem({
+  roomId,
   name,
   price,
   discountPercentage,
@@ -114,7 +116,7 @@ function AccommodationRoomItem({
             )}
           </div>
           <StyledAccommodationRoomTitleBoxItem>
-            <AccommodationRoomItemCart />
+            <AccommodationRoomItemCart roomId={roomId} />
             <ReservationBtn soldOut={soldOut} />
           </StyledAccommodationRoomTitleBoxItem>
         </StyledAccommodationRoomTitleBox>

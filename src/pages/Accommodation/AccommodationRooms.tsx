@@ -4,6 +4,7 @@ import { theme } from '../../styles/theme';
 import AccommodationRoomItem from './AccommodationRoomItem';
 
 interface AccommodationRoom {
+  roomId: number;
   name: string;
   price: number;
   discountPercentage: number;
@@ -24,6 +25,7 @@ function AccommodationRooms({ rooms }: AccommodationRoomsProps) {
     <StyledAccommodationRoomsWrapper>
       {rooms.map((room: AccommodationRoom) => (
         <AccommodationRoomItem
+          roomId={room.roomId}
           name={room.name}
           price={room.price}
           discountPercentage={room.discountPercentage}

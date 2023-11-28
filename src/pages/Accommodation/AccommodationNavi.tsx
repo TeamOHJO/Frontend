@@ -6,12 +6,15 @@ import {
   UpOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import { theme } from '../../styles/theme';
 import { getCookie } from '../../utils/utils';
+import { basketCountState } from '../../states/atom';
 
 function AccommodationNavi() {
-  const [basketCount, setBasketCount] = useState<number>(0);
+  const [basketCount, setBasketCount] =
+    useRecoilState<number>(basketCountState);
   const navigate = useNavigate();
 
   const ScrollToTop = () => {

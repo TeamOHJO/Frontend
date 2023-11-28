@@ -41,7 +41,7 @@ const AccommodationToastPopup: FunctionComponent<ToastPopupProps> = ({
         left="50%"
         bottom="30px"
         marginLeft="-160px"
-        style={{ zIndex: '2' }}
+        style={{ zIndex: '2', fontSize: '16px' }}
       >
         <AlertIcon />
         <AlertDescription>{status.message}</AlertDescription>
