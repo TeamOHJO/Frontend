@@ -67,6 +67,8 @@ function Accommodation() {
         {
           method: 'GET',
           headers: {
+            'content-type': import.meta.env.VITE_CONTENT_TYPE,
+
             Authorization: `Bearer ${accessToken}`,
           },
         },

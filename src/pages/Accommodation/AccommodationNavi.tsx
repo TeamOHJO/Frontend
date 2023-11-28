@@ -45,18 +45,28 @@ function AccommodationNavi() {
       </StyledAccommodationNaviLeft>
       <StyledAccommodationNaviRight>
         <HomeOutlined
-          style={{ fontSize: '24px', marginRight: '1rem', cursor: 'pointer' }}
+          style={{ fontSize: '24px', cursor: 'pointer' }}
           onClick={() => {
             navigate('/');
           }}
         />
-        <ShoppingCartOutlined
-          style={{ fontSize: '24px', cursor: 'pointer' }}
-          onClick={() => {
-            navigate('/basket');
-          }}
-        />
-        {basketCount > 0 && <StyledCartCount>{basketCount}</StyledCartCount>}
+        {accessToken && (
+          <>
+            <ShoppingCartOutlined
+              style={{
+                fontSize: '24px',
+                marginLeft: '1rem',
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                navigate('/basket');
+              }}
+            />
+            {basketCount > 0 && (
+              <StyledCartCount>{basketCount}</StyledCartCount>
+            )}
+          </>
+        )}
       </StyledAccommodationNaviRight>
       <StyledTopBtn onClick={ScrollToTop}>
         <UpOutlined />
