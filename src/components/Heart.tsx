@@ -3,6 +3,7 @@ import { keyframes } from '@emotion/react';
 import { useState } from 'react';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { theme } from '../styles/theme';
+import { getCookie } from '../utils/utils';
 
 interface HeartProps {
   liked: boolean;
@@ -12,8 +13,11 @@ interface HeartProps {
 function Heart({ liked, size }: HeartProps) {
   const [isHeart, setIsHeart] = useState<boolean>(liked);
 
+  const accessToken = getCookie('token');
+
   function handleIsHeart() {
-    setIsHeart(!isHeart);
+    if (accessToken) setIsHeart(!isHeart);
+    else console.log('notLogin');
   }
 
   const Bounce = keyframes`
