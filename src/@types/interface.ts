@@ -69,6 +69,7 @@ export interface ValidationLogin {
   formData: FormData;
 }
 export interface HomeCardProps {
+  id: any;
   name: any;
   images: any;
   category: any;

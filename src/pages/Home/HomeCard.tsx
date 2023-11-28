@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { StarFilled, HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { Text } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
@@ -7,6 +8,7 @@ import { HomeCardProps } from '../../@types/interface';
 import SwiperComponent from '../../components/Swiper/SwiperComponent';
 
 const HomeCard = ({
+  id,
   name,
   images,
   category,
@@ -15,7 +17,7 @@ const HomeCard = ({
   isLiked,
 }: HomeCardProps) => {
   const [onClickisLiked, setOnclickIsLiked] = useState(isLiked);
-
+  const navigate = useNavigate();
   const addWishList = () => {
     setOnclickIsLiked(true);
   };
@@ -34,7 +36,11 @@ const HomeCard = ({
         )}
         <SwiperComponent images={images} borderRadius="8px" />
       </StyledImgWrapper>
-      <StyledInfoContainer>
+      <StyledInfoContainer
+        onClick={() => {
+          navigate(`/accommodation/${id}`);
+        }}
+      >
         <StyledCardHeader>
           <Text as="p" size="lg">
             {name}
@@ -81,6 +87,7 @@ const StyledInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem 1rem 0rem 1rem;
+  cursor: pointer;
 `;
 
 const StyledCardHeader = styled.div`

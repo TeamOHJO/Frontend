@@ -32,7 +32,7 @@ function WishListCard({ item }: { item: WishlistData }) {
             alignItems="center"
           >
             <Heading size="sm">{item.accommodationName}</Heading>
-            <Heart isLiked={item.isLiked} />
+            <Heart size="20px" isLiked={item.isLiked} />
           </Box>
           <Box textAlign="left">
             <Badge variant={badgeColor}>{item.category}</Badge>
