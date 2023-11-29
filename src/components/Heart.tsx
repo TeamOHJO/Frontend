@@ -90,7 +90,6 @@ function Heart({ liked, size }: HeartProps) {
             handleIsHeart();
             if (!accessToken) {
               openFunction();
-              console.log(1);
             }
           }}
         />
