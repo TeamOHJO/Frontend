@@ -41,7 +41,7 @@ const RoomReservationBtnToastPopup: FunctionComponent<ToastPopupProps> = ({
         left="50%"
         bottom="70px"
         marginLeft="-160px"
-        style={{ zIndex: 2, fontSize: '16px', cursor: 'auto' }}
+        style={{ zIndex: 2, cursor: 'auto' }}
         onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
           event.stopPropagation();
         }}

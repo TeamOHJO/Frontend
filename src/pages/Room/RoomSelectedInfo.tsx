@@ -82,7 +82,7 @@ function RoomSelectedInfo({
       } else if (res.status === 401) {
         const toastData = {
           active: true,
-          message: '로그인 후 이용하실 수 있습니다.',
+          message: '로그인 후 진행하실 수 있습니다.',
         };
         setShowAlert(toastData);
       }
