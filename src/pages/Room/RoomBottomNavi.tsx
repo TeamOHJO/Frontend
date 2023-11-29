@@ -111,7 +111,7 @@ function RoomBottomNavi({
               </Text>
             </>
           ) : (
-            <Text as="p" size="sm">
+            <Text as="p" size="md" fontWeight="bold">
               ￦ {changePriceDiscountFormat(price, discountPercentage, countDay())}
               원/{countDay()}박
             </Text>

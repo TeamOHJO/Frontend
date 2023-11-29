@@ -16,6 +16,7 @@ import {
   accommodationSelectVisitorsState,
 } from '../../states/atom';
 import { getCookie, changeDateFormat } from '../../utils/utils';
+import LoadingCircle from '../../components/Loading';
 
 function Accommodation() {
   const [accommodationDetailData, setAccommodationDetailData] = useState<AccommodationDetail>();
@@ -97,7 +98,7 @@ function Accommodation() {
       />
     </StyledAccommodationWrapper>
   ) : (
-    ''
+    <LoadingCircle />
   );
 }
 
