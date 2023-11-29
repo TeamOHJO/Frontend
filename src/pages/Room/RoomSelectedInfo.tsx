@@ -67,13 +67,18 @@ function RoomSelectedInfo({
           active: true,
           message: '성공적으로 장바구니에 담겼습니다.',
         };
-
         setShowAlert(toastData);
         setBasketCount(basketCount + 1);
-      } else {
+      } else if (res.status === 400) {
         const toastData = {
           active: true,
           message: '이미 장바구니에 담겨있습니다.',
+        };
+        setShowAlert(toastData);
+      } else if (res.status === 401) {
+        const toastData = {
+          active: true,
+          message: '로그인 후 이용하실 수 있습니다.',
         };
         setShowAlert(toastData);
       }
