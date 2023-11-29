@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { useEffect } from 'react';
-import { Button } from '@chakra-ui/react';
 import { useRecoilState } from 'recoil';
 import { theme } from '../../../styles/theme';
 import MyPageSubtitle from '../MyPageSubtitle';
