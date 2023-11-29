@@ -106,7 +106,7 @@ export const changeCategoryReverseFormat = (category: string) => {
   return category;
 };
 
-export const changePrcieDiscountFromat = (
+export const changePriceDiscountFormat = (
   price: number,
   discountPercentage: number,
   day: number,
@@ -114,4 +114,11 @@ export const changePrcieDiscountFromat = (
   return (
     Math.floor((price * day * (100 - discountPercentage)) / 100000) * 1000
   ).toLocaleString();
+};
+
+export const changeStarFormat = (star: number) => {
+  if (star === 0) {
+    return '(리뷰 없음)';
+  }
+  return star.toFixed(1);
 };

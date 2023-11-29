@@ -11,7 +11,11 @@ import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
 } from '../../states/atom';
-import { changeDateFormat, changePrcieDiscountFromat } from '../../utils/utils';
+import {
+  changeDateFormat,
+  changePriceDiscountFormat,
+  changeStarFormat,
+} from '../../utils/utils';
 
 interface AccommodationRoom {
   roomId: number;
@@ -82,7 +86,7 @@ function AccommodationRoomItem({
             <StarFilled
               style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
             />
-            <StyledStarDigit>{averageRating.toFixed(1)}</StyledStarDigit>
+            <StyledStarDigit>{changeStarFormat(averageRating)}</StyledStarDigit>
           </div>
         </StyledAccommodationRoomTitleBox>
         <StyledAccommodationRoomTitleBox>
@@ -98,7 +102,7 @@ function AccommodationRoomItem({
                 </Text>
                 <Text as="p" size="sm">
                   ￦
-                  {changePrcieDiscountFromat(
+                  {changePriceDiscountFormat(
                     price,
                     discountPercentage,
                     handleCountDay(),
@@ -112,7 +116,7 @@ function AccommodationRoomItem({
             ) : (
               <Text as="p" size="sm">
                 ￦
-                {changePrcieDiscountFromat(
+                {changePriceDiscountFormat(
                   price,
                   discountPercentage,
                   handleCountDay(),

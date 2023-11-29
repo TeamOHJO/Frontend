@@ -62,16 +62,20 @@ function AccommodationReview() {
             ))}
         </StyledAccommodationReviewItemsWrapper>
       </StyledAccommodationReviewItemsContainer>
-      <StyledAccommodationReviewMoreBtnWrapper>
-        <Button
-          variant="blue"
-          size="lg"
-          style={{ width: '260px', height: '40px' }}
-          onClick={() => navigate(`/review/${params.id}`)}
-        >
-          후기 전체보기
-        </Button>
-      </StyledAccommodationReviewMoreBtnWrapper>
+      {reviews.data.length ? (
+        <StyledAccommodationReviewMoreBtnWrapper>
+          <Button
+            variant="blue"
+            size="lg"
+            style={{ width: '260px', height: '40px' }}
+            onClick={() => navigate(`/review/${params.id}`)}
+          >
+            후기 전체보기
+          </Button>
+        </StyledAccommodationReviewMoreBtnWrapper>
+      ) : (
+        ''
+      )}
     </StyledAccommodationReviewWrapper>
   ) : (
     <>스켈레톤</>

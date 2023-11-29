@@ -7,7 +7,7 @@ import RoomToastPopup from './RoomToastPopup';
 import {
   getCookie,
   changeDateFormat,
-  changePrcieDiscountFromat,
+  changePriceDiscountFormat,
 } from '../../utils/utils';
 import {
   accommodationSelectStartDateState,
@@ -137,12 +137,12 @@ function RoomSelectedInfo({
           {discountPercentage > 0 ? (
             <>
               <Text as="s" size="sm" color="blackAlpha.600">
-                ￦{price * countDay()}
+                ￦{(price * countDay()).toLocaleString()}
                 원/{countDay()}박
               </Text>
               <Text as="p" size="sm">
                 ￦
-                {changePrcieDiscountFromat(
+                {changePriceDiscountFormat(
                   price,
                   discountPercentage,
                   countDay(),
@@ -156,7 +156,7 @@ function RoomSelectedInfo({
           ) : (
             <Text as="p" size="sm">
               ￦
-              {changePrcieDiscountFromat(price, discountPercentage, countDay())}
+              {changePriceDiscountFormat(price, discountPercentage, countDay())}
               원/{countDay()}박
             </Text>
           )}

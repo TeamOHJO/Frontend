@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import AccommodationNavi from './AccommodationNavi';
 import AccommodationMainImages from './AccommodationMainImg';
@@ -36,6 +36,7 @@ function Accommodation() {
   );
 
   const accessToken = getCookie('token');
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     if (accessToken) {
