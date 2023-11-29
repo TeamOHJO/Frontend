@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { useRecoilState } from 'recoil';
 import { theme } from '../styles/theme';
 import Navigation from '../components/Layout/Navigation';
 import Accommodation from '../pages/Accommodation';
@@ -17,6 +18,8 @@ import Reservation from '../pages/Reservation';
 import ReservationComplete from '../pages/ReservationComplete';
 import WriteReview from '../pages/AddReview';
 import LoadingRouter from './LoadingRouter';
+import { searchFilteredState } from '../states/atom';
+import { changeDateFormat, getTomorrow } from '../utils/utils';
 
 function Dashboard() {
   return (
@@ -30,10 +33,20 @@ function Dashboard() {
 
 function MainRouter() {
   const { pathname } = useLocation();
+  const [searchFilter, setSearchFilter] = useRecoilState(searchFilteredState);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  useEffect(() => {
+    const newFilter = {
+      ...searchFilter,
+      startDate: changeDateFormat(new Date()),
+      endDate: changeDateFormat(getTomorrow()),
+    };
+    setSearchFilter(newFilter);
+  }, []);
 
   return (
     <StyledContainer>
