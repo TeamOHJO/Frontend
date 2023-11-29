@@ -134,3 +134,55 @@ export const getAccommodationList = async (
     return res.data;
   }
 };
+
+export const getMyInfo = async () => {
+  const newToken = getCookie('token');
+
+  const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/user/mypage`, {
+    headers: {
+      'content-type': import.meta.env.VITE_CONTENT_TYPE,
+      Authorization: `Bearer ${newToken}`,
+    },
+  });
+  return res.data;
+};
+
+export const changeInfo = async (userName: string, phoneNum: string) => {
+  const newToken = getCookie('token');
+
+  const res = await axios.put(
+    `${import.meta.env.VITE_SERVER_URL}/user`,
+    {
+      username: userName,
+      phonenumber: phoneNum,
+    },
+    {
+      headers: {
+        'content-type': import.meta.env.VITE_CONTENT_TYPE,
+        Authorization: `Bearer ${newToken}`,
+      },
+    },
+  );
+
+  return res.data;
+};
+
+export const changePw = async (oldPw: string, newPw: string) => {
+  const newToken = getCookie('token');
+
+  const res = await axios.put(
+    `${import.meta.env.VITE_SERVER_URL}/user/password`,
+    {
+      oldPassword: oldPw,
+      newPassword: newPw,
+    },
+    {
+      headers: {
+        'content-type': import.meta.env.VITE_CONTENT_TYPE,
+        Authorization: `Bearer ${newToken}`,
+      },
+    },
+  );
+
+  return res.data;
+};
