@@ -23,6 +23,7 @@ function ExplanationModalInfoText({ title, content }: InfoProps) {
         style={{
           marginBottom: '1rem',
           padding: '0 1rem',
+          whiteSpace: 'pre-line',
         }}
       >
         {content}

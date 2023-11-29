@@ -22,7 +22,7 @@ function AccommodationInfoMap({ location }: AccommodationInfoMapProps) {
   useEffect(() => {
     const geocoder = new kakao.maps.services.Geocoder();
 
-    const callback = function (result: any, status: any) {
+    const callback = (result: any, status: any) => {
       if (status === kakao.maps.services.Status.OK) {
         const newSearch = result[0];
         setCoordinate({ lat: newSearch.y, lng: newSearch.x });

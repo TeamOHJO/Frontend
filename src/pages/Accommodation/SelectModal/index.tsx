@@ -11,6 +11,7 @@ import {
 import styled from '@emotion/styled';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useRecoilState } from 'recoil';
+import { useEffect, useState } from 'react';
 import Calendar from './Calendar';
 import VisitorSetter from './VisitorSetter';
 import {
@@ -22,15 +23,15 @@ import {
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
+  fetchData: () => void;
 }
 
-function SelectModal({ isOpen, onClose }: ModalProps) {
+function SelectModal({ isOpen, onClose, fetchData }: ModalProps) {
+  const [handleState, setHandleState] = useState<number>(1);
   const [accommodationSelectStartDate, setAccommodationSelectStartDate] =
-    useRecoilState<Date | null>(accommodationSelectStartDateState);
-
+    useRecoilState<Date>(accommodationSelectStartDateState);
   const [accommodationSelectEndDate, setAccommodationSelectEndDate] =
-    useRecoilState<Date | null>(accommodationSelectEndDateState);
-
+    useRecoilState<Date>(accommodationSelectEndDateState);
   const [accommodationSelectVisitors, setAccommodationSelectVisitors] =
     useRecoilState<number>(accommodationSelectVisitorsState);
 
@@ -58,7 +59,12 @@ function SelectModal({ isOpen, onClose }: ModalProps) {
         setAccommodationSelectEndDate(tomorrow);
       }
     }
+    setHandleState(handleState + 1);
   };
+
+  useEffect(() => {
+    fetchData();
+  }, [handleState]);
 
   return (
     <Modal
@@ -91,7 +97,7 @@ function SelectModal({ isOpen, onClose }: ModalProps) {
           </StyledButton>
           <StyledButton
             colorScheme="blue"
-            onClick={() => {
+            onClick={async () => {
               checkNull();
               onClose();
             }}
