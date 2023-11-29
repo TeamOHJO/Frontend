@@ -82,7 +82,7 @@ function AccommodationRoomItem({
             <StarFilled
               style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
             />
-            <StyledStarDigit>{averageRating}</StyledStarDigit>
+            <StyledStarDigit>{averageRating.toFixed(1)}</StyledStarDigit>
           </div>
         </StyledAccommodationRoomTitleBox>
         <StyledAccommodationRoomTitleBox>

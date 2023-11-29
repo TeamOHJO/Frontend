@@ -26,7 +26,7 @@ function AccommodationReviewItem({ review }: AccommodationReviewProps) {
             <StarFilled
               style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
             />
-            <StyledStarDigit>{review.star}</StyledStarDigit>
+            <StyledStarDigit>{review.star.toFixed(1)}</StyledStarDigit>
           </div>
           <Heading as="h4" size="sm">
             {review.username}

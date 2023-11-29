@@ -36,7 +36,7 @@ function RoomTitle({
           <StarFilled
             style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
           />
-          <StyledStarDigit>{star}</StyledStarDigit>
+          <StyledStarDigit>{star.toFixed(1)}</StyledStarDigit>
         </StyledRoomStar>
       </StyledRoomBadgeStarWrapper>
     </StyledRoomTitleWrapper>
