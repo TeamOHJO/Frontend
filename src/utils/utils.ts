@@ -114,3 +114,8 @@ export const changeStarFormat = (star: number) => {
   }
   return star.toFixed(1);
 };
+
+export const countDay = (startDate: string, endDate: string) => {
+  const diffDate = new Date(endDate).getTime() - new Date(startDate).getTime();
+  return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
+};

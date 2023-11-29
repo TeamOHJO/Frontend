@@ -23,6 +23,7 @@ import {
   changeCategoryReverseFormat,
   changePriceDiscountFormat,
   changeStarFormat,
+  countDay,
 } from '../../utils/utils';
 import DefaultModal from '../../components/Modal/DefaultModal';
 
@@ -38,9 +39,15 @@ interface BasketCardProps {
 
 function BasketCard({ item, setShowAlert }: BasketCardProps) {
   const navigate = useNavigate();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [basketData, setBasketData] = useRecoilState(basketDataState);
 
+  const nights = countDay(item.startDate, item.endDate);
+  const totalPrice = item.price * nights;
+  const badgeText = changeCategoryReverseFormat(item.category);
+  const badgeColor = handleBadgeColor(badgeText);
+  const discountPrice = changePriceDiscountFormat(item.price, item.discountPercentage, nights);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const toastFunc = (text: string) => {
     const toastData = {
       active: true,
@@ -68,19 +75,6 @@ function BasketCard({ item, setShowAlert }: BasketCardProps) {
       `/room/${item.roomId}?startDate=${item.startDate}&endDate=${item.endDate}&numberOfPerson=${item.numberOfPerson}&soldOut=${item.canReserve}`,
     );
   };
-
-  const countDay = (startDate: string, endDate: string) => {
-    const diffDate = new Date(endDate).getTime() - new Date(startDate).getTime();
-    return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
-  };
-
-  const nights = countDay(item.startDate, item.endDate);
-  const totalPrice = item.price * nights;
-
-  const badgeText = changeCategoryReverseFormat(item.category);
-  const badgeColor = handleBadgeColor(badgeText);
-
-  const discountPrice = changePriceDiscountFormat(item.price, item.discountPercentage, nights);
 
   const deleteSingleItem = async (id: number) => {
     await DeleteBasketItem(id);
