@@ -114,3 +114,10 @@ export const changeStarFormat = (star: number) => {
   }
   return star.toFixed(1);
 };
+
+export const cutStringLength = (str: string) => {
+  if (str.length > 15) {
+    return `${str.slice(0, 15)}...`;
+  }
+  return str;
+};
