@@ -170,16 +170,22 @@ export interface RoomDetail {
 
 export interface BasketData {
   basketId: number;
+  accommodationName: string;
+  roomId: number;
+  tag: string;
+  category: string;
+  roomName: string;
+  roomInfo: string;
   startDate: string;
   endDate: string;
-  category: string;
-  accommodationName: string;
-  image: string;
-  name: string;
+  checkInOutExplanation: string;
+  star: number;
   price: number;
-  nights: number;
-  stars: number;
+  discountPercentage: number;
+  image: string;
   canReserve: boolean;
+  numberOfPerson: number;
+  location: string;
 }
 
 export interface ReservationInfo {

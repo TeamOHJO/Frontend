@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 import {
   Tabs,
@@ -10,64 +10,70 @@ import {
   Button,
   useDisclosure,
 } from '@chakra-ui/react';
-import BasketFooter from './BasketFooter';
-import BasketDisabledFooter from './BasketDisabledFooter';
 import BasketCard from './BasketCard';
 import { BasketData } from '../../@types/interface';
 import BasketDisabledCard from './BasketDisabledCard';
 import {
   basketAvailableListState,
-  basketCheckedItemsState,
   basketDataState,
   basketUnavailableListState,
-  getCheckedIds,
+  getAvailableIds,
   getUnavailableIds,
 } from '../../states/atom';
 import DefaultModal from '../../components/Modal/DefaultModal';
 import BasketNoProducts from './BasketNoProducts';
 import { DeleteBasketItem } from '../../api';
 
-function BasketTabs() {
+interface ToastData {
+  active: boolean;
+  message: string;
+}
+
+interface BasketTabsProps {
+  setShowAlert: (value: ToastData) => void;
+}
+
+function BasketTabs({ setShowAlert }: BasketTabsProps) {
   const [basketData, setBasketData] = useRecoilState(basketDataState);
   const availableList = useRecoilValue(basketAvailableListState);
   const unavailableList = useRecoilValue(basketUnavailableListState);
-  const setCheckedItems = useSetRecoilState(basketCheckedItemsState);
-  const checkedIds = useRecoilValue(getCheckedIds);
   const unavailableIds = useRecoilValue(getUnavailableIds);
+  const availableIds = useRecoilValue(getAvailableIds);
 
+  const toastFunc = (text: string) => {
+    const toastData = {
+      active: true,
+      message: text,
+    };
+    setShowAlert(toastData);
+  };
+
+  // 예약 불가능 숙소 모두 삭제
   const deleteAllUnavailable = () => {
     unavailableIds.forEach((id: number) => DeleteBasketItem(id));
     setBasketData(
-      basketData.filter(
-        (product: BasketData) => !unavailableIds.includes(product.basketId),
-      ),
+      basketData.filter((product: BasketData) => !unavailableIds.includes(product.basketId)),
     );
+    toastFunc('예약 불가능한 숙소를 모두 삭제하였습니다.');
   };
 
-  const deleteCheckedItems = () => {
-    checkedIds.forEach((checkedId: number) => DeleteBasketItem(checkedId));
+  // 예약 가능 숙소 모두 삭제
+  const deleteAllAvailable = () => {
+    availableIds.forEach((id: number) => DeleteBasketItem(id));
     setBasketData(
-      basketData.filter(
-        (product: BasketData) => !checkedIds.includes(product.basketId),
-      ),
+      basketData.filter((product: BasketData) => !availableIds.includes(product.basketId)),
     );
-    setCheckedItems([]);
+    toastFunc('예약 가능한 숙소를 모두 삭제하였습니다.');
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const handleOpenModal = () => {
-    if (checkedIds.length > 0) {
-      onOpen();
-    } else {
-      alert('선택한 숙소가 없습니다.');
-    }
-  };
+
   const modalData = {
     heading: '삭제하기',
-    text: '선택한 숙소를 삭제하시겠습니까?',
+    text: '모든 숙소를 삭제하시겠습니까?',
   };
   const modalFunc = () => {
-    deleteCheckedItems();
+    deleteAllAvailable();
   };
 
   return (
@@ -81,64 +87,51 @@ function BasketTabs() {
         <TabPanels paddingTop={3}>
           <TabPanel p={0}>
             {availableList.length > 0 ? (
-              <>
-                <Box px="1rem">
-                  <Box textAlign="right" pb={5}>
-                    <Button
-                      variant="blue"
-                      size="mini"
-                      onClick={handleOpenModal}
-                    >
-                      선택 삭제
-                    </Button>
-                  </Box>
-                  <StyledBasketCardWrapper>
-                    {availableList.map((item: BasketData) => {
-                      return <BasketCard key={item.basketId} item={item} />;
-                    })}
-                  </StyledBasketCardWrapper>
+              <Box px="1rem">
+                <Box textAlign="right" pb={5}>
+                  <Button variant="blue" size="mini" onClick={onOpen}>
+                    모두 삭제
+                  </Button>
                 </Box>
-                <BasketFooter />
-              </>
+                <StyledBasketCardWrapper>
+                  {availableList.map((item: BasketData) => {
+                    return (
+                      <BasketCard key={item.basketId} item={item} setShowAlert={setShowAlert} />
+                    );
+                  })}
+                </StyledBasketCardWrapper>
+              </Box>
             ) : (
               <BasketNoProducts text="예약 가능한 숙소가 없습니다." />
             )}
           </TabPanel>
           <TabPanel p={0}>
             {unavailableList.length > 0 ? (
-              <>
-                <Box px="1rem">
-                  <Box textAlign="right" pb={5}>
-                    <Button
-                      variant="blue"
-                      size="mini"
-                      onClick={deleteAllUnavailable}
-                    >
-                      모두 삭제
-                    </Button>
-                  </Box>
-                  <StyledBasketCardWrapper>
-                    {unavailableList.map((item: BasketData) => {
-                      return (
-                        <BasketDisabledCard key={item.basketId} item={item} />
-                      );
-                    })}
-                  </StyledBasketCardWrapper>
+              <Box px="1rem">
+                <Box textAlign="right" pb={5}>
+                  <Button variant="blue" size="mini" onClick={deleteAllUnavailable}>
+                    모두 삭제
+                  </Button>
                 </Box>
-                <BasketDisabledFooter />
-              </>
+                <StyledBasketCardWrapper>
+                  {unavailableList.map((item: BasketData) => {
+                    return (
+                      <BasketDisabledCard
+                        key={item.basketId}
+                        item={item}
+                        setShowAlert={setShowAlert}
+                      />
+                    );
+                  })}
+                </StyledBasketCardWrapper>
+              </Box>
             ) : (
               <BasketNoProducts text="예약 불가능한 숙소가 없습니다." />
             )}
           </TabPanel>
         </TabPanels>
       </Tabs>
-      <DefaultModal
-        isOpen={isOpen}
-        onClose={onClose}
-        modalFunc={modalFunc}
-        modalData={modalData}
-      />
+      <DefaultModal isOpen={isOpen} onClose={onClose} modalFunc={modalFunc} modalData={modalData} />
     </>
   );
 }
