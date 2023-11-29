@@ -7,12 +7,14 @@ import StarRating from '../../components/StarRating';
 import AddReviewImages from './AddReviewImages';
 import { SubmitReview } from '../../api';
 import ToastPopup from '../../components/Modal/ToastPopup';
+import { addImage, handleImageUpload } from '../../utils/firebase';
 
 function AddReviewForm() {
   const { id } = useParams();
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState(5);
-  const [showImages, setShowImages] = useState<string[]>([]);
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [imageURLs, setImageURLs] = useState<string[]>([]);
 
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = event.target.value;
@@ -40,37 +42,52 @@ function AddReviewForm() {
     setShowAlert(toastData);
   };
 
+  const uploadImages = (Files: File[]) => {
+    const urls = Files.map(async (file: File) => {
+      const imageURL = await addImage(file);
+      return imageURL;
+    });
+    return urls;
+  };
+
   // 리뷰 저장 (API 요청 보내기)
   const handleSubmit = async () => {
     const reservationId = Number(id);
     const reviewData = {
       reviewContent: reviewText,
       star: rating,
-      images: [...showImages],
+      images: [...imageURLs],
     };
 
-    console.log(reviewData, reservationId);
+    // if (reviewData.reviewContent === '') {
+    //   failFunction('리뷰 내용을 작성해주세요!');
+    // } else if (reviewData.reviewContent !== '' && reviewData.images) {
+    //   await handleImageUpload(imageFiles, setImageURLs);
+    //   // console.log('이미지 포함해서 등록완료');
+    //   console.log(imageURLs);
+    //   // console.log(reviewData, reservationId);
+    // } else {
+    //   // console.log('이미지 없이 등록완료');
+    //   // console.log(reviewData, reservationId);
+    // }
+    // } else {
+    //   try {
+    //     const response = await SubmitReview(reservationId, reviewData);
 
-    if (reviewData.reviewContent === '') {
-      failFunction('리뷰 내용을 작성해주세요!');
-    } else {
-      try {
-        const response = await SubmitReview(reservationId, reviewData);
-
-        if (response.data.code === 201) {
-          console.log('등록 완료!');
-          successFunction();
-        } else if (response.data.message === '해당 작업을 수행 할 권한이 존재하지 않습니다.') {
-          console.log('해당 작업을 수행 할 권한이 존재하지 않습니다.');
-          failFunction('해당 작업을 수행 할 권한이 존재하지 않습니다.');
-        } else if (response.data.message === '존재하지 않는 reservationId입니다.') {
-          console.log('존재하지 않는 reservationId입니다.');
-          failFunction('해당하는 예약이 없습니다.');
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    }
+    //     if (response.data.code === 201) {
+    //       console.log('등록 완료!');
+    //       successFunction();
+    //     } else if (response.data.message === '해당 작업을 수행 할 권한이 존재하지 않습니다.') {
+    //       console.log('해당 작업을 수행 할 권한이 존재하지 않습니다.');
+    //       failFunction('해당 작업을 수행 할 권한이 존재하지 않습니다.');
+    //     } else if (response.data.message === '존재하지 않는 reservationId입니다.') {
+    //       console.log('존재하지 않는 reservationId입니다.');
+    //       failFunction('해당하는 예약이 없습니다.');
+    //     }
+    //   } catch (err) {
+    //     console.error(err);
+    //   }
+    // }
   };
 
   return (
@@ -102,7 +119,7 @@ function AddReviewForm() {
           <Heading as="h1" size="lg" mb="1rem">
             숙소 사진
           </Heading>
-          <AddReviewImages showImages={showImages} setShowImages={setShowImages} />
+          <AddReviewImages imageFiles={imageFiles} setImageFiles={setImageFiles} />
         </div>
         <Button variant="blue" size="sm" onClick={handleSubmit}>
           저장하기

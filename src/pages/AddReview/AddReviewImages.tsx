@@ -1,23 +1,28 @@
 import styled from '@emotion/styled';
 import { CloseCircleFilled, PlusOutlined } from '@ant-design/icons';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { theme } from '../../styles/theme';
 
-interface AddReviewImagesProps {
-  showImages: string[];
-  setShowImages: (urlList: string[]) => void;
-}
+function AddReviewImages({
+  imageFiles,
+  setImageFiles,
+}: {
+  imageFiles: File[];
+  setImageFiles: (files: File[]) => void;
+}) {
+  const [showImages, setShowImages] = useState<string[]>([]);
 
-function AddReviewImages({ showImages, setShowImages }: AddReviewImagesProps) {
-  // 이미지 상대경로 저장
-  const handleAddImages = (event: ChangeEvent<HTMLInputElement>) => {
-    const imageLists = event.target.files as FileList;
+  // 이미지 미리보기용 상대경로 & 이미지 (파일 형태) 저장
+  const handleChangeImages = (event: ChangeEvent<HTMLInputElement>) => {
+    const imageLists = Array.from(event.target.files as FileList);
     let imageUrlLists: string[] = [...showImages];
+    const imageFileLists = [...imageFiles];
 
     for (let i = 0; i < imageLists.length; i += 1) {
       const currentImageUrl = URL.createObjectURL(imageLists[i]);
       imageUrlLists.push(currentImageUrl);
+      imageFileLists.push(imageLists[i]);
     }
 
     if (imageUrlLists.length > 10) {
@@ -25,6 +30,7 @@ function AddReviewImages({ showImages, setShowImages }: AddReviewImagesProps) {
     }
 
     setShowImages(imageUrlLists);
+    setImageFiles(imageFileLists);
   };
 
   // X버튼 클릭 시 이미지 삭제
@@ -35,7 +41,7 @@ function AddReviewImages({ showImages, setShowImages }: AddReviewImagesProps) {
   return (
     <>
       <StyledLabel htmlFor="input-file">
-        <StyledInput type="file" id="input-file" multiple onChange={handleAddImages} />
+        <StyledInput type="file" id="input-file" multiple onChange={handleChangeImages} />
         <PlusOutlined />
         <span>사진추가</span>
       </StyledLabel>
