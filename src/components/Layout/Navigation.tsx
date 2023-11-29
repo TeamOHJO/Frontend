@@ -81,6 +81,7 @@ function Navigation() {
               style={{
                 fontSize: '20px',
                 color: `${pathname === '/mypage' ? 'black' : theme.colors.gray400}`,
+                // color: `${pathname.slice(0, 7) === '/mypage' ? 'black' : theme.colors.gray400}`,
               }}
             />
             마이페이지

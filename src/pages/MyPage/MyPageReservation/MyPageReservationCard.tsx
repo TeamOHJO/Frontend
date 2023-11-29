@@ -28,7 +28,7 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
   };
 
   const onClickWriteReview = (id: number) => {
-    navigate(`/review/write/${id}`);
+    navigate(`/mypage/review/write/${id}`);
   };
 
   return (

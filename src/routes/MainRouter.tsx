@@ -40,7 +40,7 @@ function MainRouter() {
             <Route path="/wishlist" element={<WishList />} />
             <Route path="/basket" element={<Basket />} />
             <Route path="/mypage" element={<MyPage />} />
-            <Route path="/review/write/:id" element={<WriteReview />} />
+            <Route path="/mypage/review/write/:id" element={<WriteReview />} />
             <Route path="/loading" element={<LoadingRouter />} />
           </Route>
           <Route path="/accommodation/:id" element={<Accommodation />} />
