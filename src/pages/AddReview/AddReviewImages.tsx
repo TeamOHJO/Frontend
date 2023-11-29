@@ -1,58 +1,42 @@
 import styled from '@emotion/styled';
 import { CloseCircleFilled, PlusOutlined } from '@ant-design/icons';
 import { ChangeEvent, useState } from 'react';
-import { v4 as uuid } from 'uuid';
 import { theme } from '../../styles/theme';
 
-function AddReviewImages({
-  imageFiles,
-  setImageFiles,
-}: {
-  imageFiles: File[];
-  setImageFiles: (files: File[]) => void;
-}) {
-  const [showImages, setShowImages] = useState<string[]>([]);
+interface AddReviewImagesProps {
+  setImageFile: (file: File) => void;
+}
+
+function AddReviewImages({ setImageFile }: AddReviewImagesProps) {
+  const [previewImageURL, setPreviewImageURL] = useState<string>('');
 
   // 이미지 미리보기용 상대경로 & 이미지 (파일 형태) 저장
-  const handleChangeImages = (event: ChangeEvent<HTMLInputElement>) => {
-    const imageLists = Array.from(event.target.files as FileList);
-    let imageUrlLists: string[] = [...showImages];
-    const imageFileLists = [...imageFiles];
+  const handleChangeImage = (event: ChangeEvent<HTMLInputElement>) => {
+    const imageFileList = event.target.files as FileList;
+    const imageFile = imageFileList[0];
 
-    for (let i = 0; i < imageLists.length; i += 1) {
-      const currentImageUrl = URL.createObjectURL(imageLists[i]);
-      imageUrlLists.push(currentImageUrl);
-      imageFileLists.push(imageLists[i]);
-    }
-
-    if (imageUrlLists.length > 10) {
-      imageUrlLists = imageUrlLists.slice(0, 10);
-    }
-
-    setShowImages(imageUrlLists);
-    setImageFiles(imageFileLists);
+    setPreviewImageURL(URL.createObjectURL(imageFile));
+    setImageFile(imageFile);
   };
 
   // X버튼 클릭 시 이미지 삭제
-  const handleDeleteImage = (id: number) => {
-    setShowImages(showImages.filter((_, index) => index !== id));
+  const handleDeleteImage = () => {
+    setPreviewImageURL('');
   };
 
   return (
     <>
       <StyledLabel htmlFor="input-file">
-        <StyledInput type="file" id="input-file" multiple onChange={handleChangeImages} />
+        <StyledInput type="file" id="input-file" onChange={handleChangeImage} />
         <PlusOutlined />
         <span>사진추가</span>
       </StyledLabel>
-      <StyledImageWrapper>
-        {showImages.map((image, id) => (
-          <StyledImageWrap key={uuid()}>
-            <img src={image} alt={`${image}-${id}`} />
-            <StyledDeleteIcon onClick={() => handleDeleteImage(id)} />
-          </StyledImageWrap>
-        ))}
-      </StyledImageWrapper>
+      {previewImageURL && (
+        <StyledImageWrap>
+          <StyledImage src={previewImageURL} alt="reviewImage" />
+          <StyledDeleteIcon onClick={handleDeleteImage} />
+        </StyledImageWrap>
+      )}
     </>
   );
 }
@@ -81,15 +65,17 @@ const StyledInput = styled.input`
   display: none;
 `;
 
-const StyledImageWrapper = styled.div`
+const StyledImageWrap = styled.div`
   margin-top: 1rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 15px;
+  position: relative;
+  width: 200px;
+  height: 200px;
 `;
 
-const StyledImageWrap = styled.div`
+const StyledImage = styled.img`
   position: relative;
+  width: 100%;
+  height: 100%;
 `;
 
 const StyledDeleteIcon = styled(CloseCircleFilled)`
