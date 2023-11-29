@@ -3,7 +3,6 @@ import {
   ArrowLeftOutlined,
   HomeOutlined,
   ShoppingCartOutlined,
-  UpOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';

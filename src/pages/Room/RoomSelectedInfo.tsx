@@ -50,26 +50,24 @@ function RoomSelectedInfo({
   const accessToken = getCookie('token');
 
   const createBasket = async () => {
-    const response = await fetch(
-      `https://yanoljaschool.site:8080/basket/rooms/${roomId}`,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          startDate: changeDateFormat(accommodationSelectStartDate),
-          endDate: changeDateFormat(accommodationSelectEndDate),
-          numberOfPerson: accommodationSelectVisitors,
-        }),
-        headers: {
-          'content-type': import.meta.env.VITE_CONTENT_TYPE,
-          Authorization: `Bearer ${accessToken}`,
-        },
+    await fetch(`https://yanoljaschool.site:8080/basket/rooms/${roomId}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        startDate: changeDateFormat(accommodationSelectStartDate),
+        endDate: changeDateFormat(accommodationSelectEndDate),
+        numberOfPerson: accommodationSelectVisitors,
+      }),
+      headers: {
+        'content-type': import.meta.env.VITE_CONTENT_TYPE,
+        Authorization: `Bearer ${accessToken}`,
       },
-    ).then((res: any) => {
+    }).then((res: any) => {
       if (res.ok) {
         const toastData = {
           active: true,
           message: '성공적으로 장바구니에 담겼습니다.',
         };
+
         setShowAlert(toastData);
         setBasketCount(basketCount + 1);
       } else {
