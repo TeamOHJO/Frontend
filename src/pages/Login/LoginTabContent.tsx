@@ -33,7 +33,7 @@ const LoginTabContent = () => {
       const res = await postLogin(formData);
       const { data } = res;
       await setCookies(data.email, data.name, data.token);
-      navigate('/loading');
+      navigate('/');
     } catch (error) {
       if (isAxiosError(error)) {
         const axiosError = error as AxiosError;
