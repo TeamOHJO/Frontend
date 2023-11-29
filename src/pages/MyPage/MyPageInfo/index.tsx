@@ -1,12 +1,9 @@
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { Button, useDisclosure } from '@chakra-ui/react';
-import { RightOutlined } from '@ant-design/icons';
+import { Button } from '@chakra-ui/react';
 import { useRecoilState } from 'recoil';
 import { theme } from '../../../styles/theme';
 import MyPageSubtitle from '../MyPageSubtitle';
-import DefaultModal from '../../../components/Modal/DefaultModal';
 import InfoInput from './InfoInput';
 import PasswordSection from './PasswordSection';
 import { getMyInfo } from '../../../api';
@@ -41,19 +38,19 @@ function MyPageInfo() {
   }, []);
 
   const { email, userName, phoneNum } = userInfo;
-  const navigate = useNavigate();
-  const { onOpen, isOpen, onClose } = useDisclosure();
+  // const navigate = useNavigate();
+  // const { onOpen, isOpen, onClose } = useDisclosure();
 
-  const modalData = {
-    heading: '회원 탈퇴',
-    text: '회원을 탈퇴하시겠습니까?',
-  };
+  // const modalData = {
+  //   heading: '회원 탈퇴',
+  //   text: '회원을 탈퇴하시겠습니까?',
+  // };
 
-  const modalFunc = () => {
-    console.log('회원탈퇴 api 전송');
-    alert('탈퇴되셨습니다');
-    navigate('/');
-  };
+  // const modalFunc = () => {
+  //   console.log('회원탈퇴 api 전송');
+  //   alert('탈퇴되셨습니다');
+  //   navigate('/');
+  // };
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -72,21 +69,11 @@ function MyPageInfo() {
           <StyledInfoLabel>이메일</StyledInfoLabel>
           <StyledInfoDetail>{email}</StyledInfoDetail>
         </StyledInfoWrapper>
-        <InfoInput
-          name="userName"
-          list="이름"
-          item={userName}
-          onChangeInput={onChangeInput}
-        />
-        <InfoInput
-          name="phoneNum"
-          list="전화번호"
-          item={phoneNum}
-          onChangeInput={onChangeInput}
-        />
+        <InfoInput name="userName" list="이름" item={userName} onChangeInput={onChangeInput} />
+        <InfoInput name="phoneNum" list="전화번호" item={phoneNum} onChangeInput={onChangeInput} />
         <PasswordSection />
       </StyledInnerContainer>
-      <MyPageSubtitle subtitle="회원 탈퇴" />
+      {/* <MyPageSubtitle subtitle="회원 탈퇴" />
       <StyledResignBtn
         variant="blue"
         size="md"
@@ -100,7 +87,7 @@ function MyPageInfo() {
         onClose={onClose}
         modalFunc={modalFunc}
         modalData={modalData}
-      />
+      /> */}
     </StyledContainer>
   );
 }
