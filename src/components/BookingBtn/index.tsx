@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { Button } from '@chakra-ui/react';
 import ReservationModal from '../Modal/ReservationModal';
+import { ReservationInfo } from '../../@types/interface';
+import { postReservation } from '../../api';
 
-function BookingBtn() {
+function BookingBtn(roomsId: number) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPaymentCompleted, setIsPaymentCompleted] = useState(false);
+  const [reservationInfo, setReservationInfo] =
+    useState<ReservationInfo | null>(null);
 
   const handleButtonClick = () => {
     setIsModalOpen(true);
@@ -15,8 +19,18 @@ function BookingBtn() {
     setIsModalOpen(false);
   };
 
-  const handleConfirm = () => {
-    handleCloseModal();
+  const handleConfirm = async () => {
+    try {
+      // 예약 정보를 서버에 보내는 로직
+      if (reservationInfo) {
+        await postReservation(roomsId, reservationInfo);
+        setIsPaymentCompleted(true);
+      }
+    } catch (error) {
+      // 예약 실패 시의 처리
+      console.error('Error during reservation:', error);
+    }
+    // handleCloseModal();
   };
   return (
     <>
@@ -31,6 +45,7 @@ function BookingBtn() {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onConfirm={handleConfirm}
+        // setReservationInfo={setReservationInfo}
       />
     </>
   );
