@@ -1,34 +1,55 @@
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { Button, useDisclosure } from '@chakra-ui/react';
-import { RightOutlined } from '@ant-design/icons';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import { theme } from '../../../styles/theme';
 import MyPageSubtitle from '../MyPageSubtitle';
-import DefaultModal from '../../../components/Modal/DefaultModal';
 import InfoInput from './InfoInput';
+import PasswordSection from './PasswordSection';
+import { getMyInfo } from '../../../api';
+import { userInformation } from '../../../states/atom';
+import { getCookie } from '../../../utils/utils';
 
 function MyPageInfo() {
-  const [userInfo, setUserInfo] = useState({
-    email: 'rlaxmrgml@naver.com',
-    userName: '김특희',
-    phoneNum: '010-1234-5678',
-  });
+  const [userInfo, setUserInfo] = useRecoilState(userInformation);
+  const fetchData = async () => {
+    try {
+      const res = await getMyInfo();
+      const { data } = res;
+      setUserInfo({
+        ...userInfo,
+        email: data.email,
+        userName: data.name,
+        phoneNum: data.phonenumber,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    const name = getCookie('userName');
+    if (userInfo.email === '') {
+      fetchData();
+    }
+    if (userInfo.userName !== name) {
+      fetchData();
+    }
+  }, []);
 
   const { email, userName, phoneNum } = userInfo;
-  const navigate = useNavigate();
-  const { onOpen, isOpen, onClose } = useDisclosure();
+  // const navigate = useNavigate();
+  // const { onOpen, isOpen, onClose } = useDisclosure();
 
-  const modalData = {
-    heading: '회원 탈퇴',
-    text: '회원을 탈퇴하시겠습니까?',
-  };
+  // const modalData = {
+  //   heading: '회원 탈퇴',
+  //   text: '회원을 탈퇴하시겠습니까?',
+  // };
 
-  const modalFunc = () => {
-    console.log('회원탈퇴 api 전송');
-    alert('탈퇴되셨습니다');
-    navigate('/');
-  };
+  // const modalFunc = () => {
+  //   console.log('회원탈퇴 api 전송');
+  //   alert('탈퇴되셨습니다');
+  //   navigate('/');
+  // };
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -47,34 +68,25 @@ function MyPageInfo() {
           <StyledInfoLabel>이메일</StyledInfoLabel>
           <StyledInfoDetail>{email}</StyledInfoDetail>
         </StyledInfoWrapper>
-        <InfoInput
-          name="userName"
-          list="이름"
-          item={userName}
-          onChangeInput={onChangeInput}
-        />
-        <InfoInput
-          name="phoneNum"
-          list="전화번호"
-          item={phoneNum}
-          onChangeInput={onChangeInput}
-        />
-
-        <StyledResignBtn
-          variant="blue"
-          size="md"
-          rightIcon={<RightOutlined />}
-          onClick={onOpen}
-        >
-          회원탈퇴
-        </StyledResignBtn>
-        <DefaultModal
-          isOpen={isOpen}
-          onClose={onClose}
-          modalFunc={modalFunc}
-          modalData={modalData}
-        />
+        <InfoInput name="userName" list="이름" item={userName} onChangeInput={onChangeInput} />
+        <InfoInput name="phoneNum" list="전화번호" item={phoneNum} onChangeInput={onChangeInput} />
+        <PasswordSection />
       </StyledInnerContainer>
+      {/* <MyPageSubtitle subtitle="회원 탈퇴" />
+      <StyledResignBtn
+        variant="blue"
+        size="md"
+        rightIcon={<RightOutlined />}
+        onClick={onOpen}
+      >
+        회원탈퇴
+      </StyledResignBtn>
+      <DefaultModal
+        isOpen={isOpen}
+        onClose={onClose}
+        modalFunc={modalFunc}
+        modalData={modalData}
+      /> */}
     </StyledContainer>
   );
 }
@@ -91,12 +103,6 @@ const StyledContainer = styled.div`
 const StyledInnerContainer = styled(StyledContainer)`
   margin-top: 3rem;
   align-items: center;
-`;
-
-const StyledResignBtn = styled(Button)`
-  display: flex;
-  align-items: center;
-  margin-top: 7rem;
 `;
 
 const StyledInfoWrapper = styled.div`
@@ -123,3 +129,9 @@ const StyledInfoDetail = styled.span`
   flex: 4;
   color: ${theme.colors.gray400};
 `;
+
+// const StyledResignBtn = styled(Button)`
+//   display: flex;
+//   align-items: center;
+//   margin-top: 7rem;
+// `;
