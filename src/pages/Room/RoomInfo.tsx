@@ -1,23 +1,17 @@
 import styled from '@emotion/styled';
 import RoomInfoText from './RoomInfoText';
+import RoomInfoTag from './RoomInfoTag';
 
 interface RoomInfoProps {
-  explanation: string;
   checkinExplanation: string;
   serviceInfo: string[];
 }
 
-function RoomInfo({
-  explanation,
-  checkinExplanation,
-  serviceInfo,
-}: RoomInfoProps) {
-  console.log(serviceInfo);
-
+function RoomInfo({ checkinExplanation, serviceInfo }: RoomInfoProps) {
   return (
     <StyledRoomInfoWrapper>
-      <RoomInfoText title="숙소 안내" content={explanation} />
       <RoomInfoText title="체크인 안내" content={checkinExplanation} />
+      <RoomInfoTag serviceInfo={serviceInfo} />
     </StyledRoomInfoWrapper>
   );
 }

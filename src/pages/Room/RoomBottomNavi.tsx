@@ -1,13 +1,29 @@
 import styled from '@emotion/styled';
 import { Text, Button, useDisclosure } from '@chakra-ui/react';
+import { UpOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { theme } from '../../styles/theme';
 import DefaultModal from '../../components/Modal/DefaultModal';
+import { changeDateFormat } from '../../utils/utils';
+import {
+  accommodationSelectStartDateState,
+  accommodationSelectEndDateState,
+  accommodationSelectVisitorsState,
+} from '../../states/atom';
 
-interface RoomSelectedInfoProps {
+interface RoomBottomNaviProps {
   price: number;
   startDate: string | null;
   endDate: string | null;
   soldOut: boolean;
+  category: string | null;
+  location: string | null;
+  image: string;
+  name: string;
+  discountPercentage: number;
+  roomId: string | undefined;
+  star: number;
 }
 
 function RoomBottomNavi({
@@ -15,9 +31,32 @@ function RoomBottomNavi({
   startDate,
   endDate,
   soldOut,
+  category,
+  location,
+  image,
+  name,
+  discountPercentage,
+  roomId,
+  star,
 }: RoomBottomNaviProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [accommodationSelectStartDate] = useRecoilState<Date>(
+    accommodationSelectStartDateState,
+  );
 
+  const [accommodationSelectEndDate] = useRecoilState<Date>(
+    accommodationSelectEndDateState,
+  );
+
+  const [accommodationSelectVisitors] = useRecoilState<number>(
+    accommodationSelectVisitorsState,
+  );
+
+  const navigate = useNavigate();
+
+  const ScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
   // 예약하기 버튼 모달
   const modalData = {
     heading: '예약하기',
@@ -26,7 +65,13 @@ function RoomBottomNavi({
 
   const modalFunc = () => {
     // 결제 페이지로 이동
-    console.log('모달 승인 시 실행될 함수 입니다.');
+    navigate(
+      `/reservation/1?startDate=${changeDateFormat(
+        accommodationSelectStartDate,
+      )}&endDate=${changeDateFormat(
+        accommodationSelectEndDate,
+      )}&image=${image}&category=${category}&name=${name}&numberOfPerson=${accommodationSelectVisitors}&star=${star}&location=${location}&prcie=${price}&discountPercentage=${discountPercentage}&basketId=${null}&roomId=${roomId}`,
+    );
   };
 
   const countDay = () => {
@@ -57,7 +102,6 @@ function RoomBottomNavi({
           variant={soldOut ? 'gray' : 'blue'}
           size="lg"
           style={{ width: '100px', height: '40px' }}
-          // isReservation 필요
           isDisabled={soldOut}
           onClick={(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
             event.stopPropagation();
@@ -67,6 +111,9 @@ function RoomBottomNavi({
           {soldOut ? '예약마감' : '예약하기'}
         </Button>
       </StyledRoomBottomNaviRight>
+      <StyledTopBtn onClick={ScrollToTop}>
+        <UpOutlined />
+      </StyledTopBtn>
     </StyledRoomBottomNaviWrapper>
   );
 }
@@ -97,4 +144,16 @@ const StyledRoomBottomNaviLeft = styled.div`
 
 const StyledRoomBottomNaviRight = styled.div`
   margin-right: 2rem;
+`;
+
+const StyledTopBtn = styled.button`
+  position: absolute;
+  right: 10px;
+  top: -50px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: ${theme.colors.white};
+  box-shadow: ${theme.shadows.shadow3.shadow};
+  z-index: 10;
 `;

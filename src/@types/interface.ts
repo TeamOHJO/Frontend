@@ -161,7 +161,7 @@ export interface RoomDetail {
   maxCapacity: number;
   roomImages: string[];
   soldOut: boolean;
-  stars: number;
+  averageRating: number;
 }
 
 export interface BasketData {

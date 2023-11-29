@@ -76,7 +76,7 @@ function AccommodationRoomItem({
               accommodationSelectStartDate,
             )}&endDate=${changeDateFormat(
               accommodationSelectEndDate,
-            )}&soldOut=${soldOut}`,
+            )}&soldOut=${soldOut}&category=${category}&location=${location}`,
           );
         }}
       >

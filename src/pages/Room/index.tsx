@@ -31,7 +31,10 @@ function Room() {
   const [searchParams] = useSearchParams();
   const startDate = searchParams.get('startDate');
   const endDate = searchParams.get('endDate');
-  const soldOut = Boolean(searchParams.get('soldOut'));
+  // boolean 다시 정의
+  const soldOut = searchParams.get('soldOut') === 'true';
+  const category = searchParams.get('category');
+  const location = searchParams.get('location');
 
   return roomDetailData ? (
     <StyledRoomContainer>
@@ -39,25 +42,34 @@ function Room() {
       <RoomMainImg images={roomDetailData?.roomImages} />
       <RoomTitle
         name={roomDetailData?.name}
+        explanation={roomDetailData?.explanation}
         minCapacity={roomDetailData?.minCapacity}
         maxCapacity={roomDetailData?.maxCapacity}
-        stars={roomDetailData?.stars}
+        star={roomDetailData?.averageRating}
       />
       <RoomSelectedInfo
+        roomId={params.id}
         price={roomDetailData?.price}
         startDate={startDate}
         endDate={endDate}
+        discountPercentage={roomDetailData?.discountPercentage}
       />
       <RoomInfo
-        explanation={roomDetailData?.explanation}
         checkinExplanation={roomDetailData?.checkinExplanation}
         serviceInfo={roomDetailData?.serviceInfo}
       />
       <RoomBottomNavi
         price={roomDetailData?.price}
+        image={roomDetailData?.roomImages[0]}
+        name={roomDetailData?.name}
         startDate={startDate}
         endDate={endDate}
         soldOut={soldOut}
+        category={category}
+        location={location}
+        discountPercentage={roomDetailData?.discountPercentage}
+        roomId={params.id}
+        star={roomDetailData?.averageRating}
       />
     </StyledRoomContainer>
   ) : (
