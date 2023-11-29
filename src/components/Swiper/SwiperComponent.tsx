@@ -55,8 +55,6 @@ export default function SwiperComponent({ images, borderRadius }: SwiperProps) {
     }
   `;
 
-  const index = 1;
-
   return (
     <StyledSwiperWrapper
       pagination
