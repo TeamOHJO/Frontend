@@ -42,7 +42,7 @@ function MainRouter() {
             <Route path="/loading" element={<LoadingRouter />} />
           </Route>
           <Route path="/accommodation/:id" element={<Accommodation />} />
-          <Route path="/accommodation/:id/:id" element={<Room />} />
+          <Route path="/room/:id" element={<Room />} />
           <Route path="/review/:id" element={<CustomerReview />} />
           <Route path="/reservation" element={<Reservation />} />
           <Route

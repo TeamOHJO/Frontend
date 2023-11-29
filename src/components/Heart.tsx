@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 import { useState } from 'react';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
+import { useParams } from 'react-router-dom';
 import { theme } from '../styles/theme';
 import { getCookie } from '../utils/utils';
 
@@ -12,13 +13,31 @@ interface HeartProps {
 
 function Heart({ liked, size }: HeartProps) {
   const [isHeart, setIsHeart] = useState<boolean>(liked);
-
+  const [activeHeart, setActiveHeart] = useState(false);
+  const params = useParams();
   const accessToken = getCookie('token');
 
   function handleIsHeart() {
-    if (accessToken) setIsHeart(!isHeart);
-    else console.log('notLogin');
+    if (accessToken) {
+      fetchData();
+    } else {
+      setActiveHeart(!activeHeart);
+    }
   }
+
+  const fetchData = async () => {
+    const response = await fetch(
+      `https://yanoljaschool.site:8080/accommodation/${params.id}/likes`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+    const res = await response.json();
+    setIsHeart(res.data.liked);
+  };
 
   const Bounce = keyframes`
   0%{

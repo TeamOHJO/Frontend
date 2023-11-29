@@ -15,7 +15,7 @@ import {
   accommodationSelectEndDateState,
   accommodationSelectVisitorsState,
 } from '../../states/atom';
-import { getCookie } from '../../utils/utils';
+import { getCookie, changeDateFormat } from '../../utils/utils';
 
 function Accommodation() {
   const [accommodationDetailData, setAccommodationDetailData] =
@@ -35,23 +35,6 @@ function Accommodation() {
     accommodationSelectVisitorsState,
   );
 
-  // 날짜 포멧팅
-  function leftPad(value: number) {
-    if (value >= 10) {
-      return value;
-    }
-
-    return `0${value}`;
-  }
-
-  function toStringByFormatting(source: any, delimiter = '-') {
-    const year = source.getFullYear();
-    const month = leftPad(source.getMonth() + 1);
-    const day = leftPad(source.getDate());
-
-    return [year, month, day].join(delimiter);
-  }
-
   const accessToken = getCookie('token');
 
   const fetchData = async () => {
@@ -59,14 +42,13 @@ function Accommodation() {
       const response = await fetch(
         `https://yanoljaschool.site:8080/accommodation/detail/${
           params.id
-        }?maxCapacity=${accommodationSelectVisitors}&startDate=${toStringByFormatting(
+        }?maxCapacity=${accommodationSelectVisitors}&startDate=${changeDateFormat(
           new Date(accommodationSelectStartDate),
-        )}&endDate=${toStringByFormatting(
-          new Date(accommodationSelectEndDate),
-        )}`,
+        )}&endDate=${changeDateFormat(new Date(accommodationSelectEndDate))}`,
         {
           method: 'GET',
           headers: {
+            'content-type': import.meta.env.VITE_CONTENT_TYPE,
             Authorization: `Bearer ${accessToken}`,
           },
         },
@@ -76,11 +58,9 @@ function Accommodation() {
       const response = await fetch(
         `https://yanoljaschool.site:8080/accommodation/detail/${
           params.id
-        }?maxCapacity=${accommodationSelectVisitors}&startDate=${toStringByFormatting(
+        }?maxCapacity=${accommodationSelectVisitors}&startDate=${changeDateFormat(
           new Date(accommodationSelectStartDate),
-        )}&endDate=${toStringByFormatting(
-          new Date(accommodationSelectEndDate),
-        )}`,
+        )}&endDate=${changeDateFormat(new Date(accommodationSelectEndDate))}`,
         {
           method: 'GET',
         },
@@ -108,7 +88,11 @@ function Accommodation() {
         averageRating={accommodationDetailData?.data.averageRating}
       />
       <AccommodationSelect fetchData={fetchData} />
-      <AccommodationRooms rooms={accommodationDetailData?.data.roomDetails} />
+      <AccommodationRooms
+        rooms={accommodationDetailData?.data.roomDetails}
+        category={accommodationDetailData?.data.category}
+        location={accommodationDetailData?.data.location}
+      />
       <AccommodationReview />
       <AccommodationInfo
         explanation={accommodationDetailData?.data.explanation}

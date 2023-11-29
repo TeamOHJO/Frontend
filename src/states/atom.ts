@@ -113,6 +113,11 @@ export const getUnavailableIds = selector({
   },
 });
 
+export const basketCountState = atom<number>({
+  key: 'basketCountState',
+  default: 0,
+});
+
 export const wishlistDataState = atom<WishlistData[]>({
   key: 'wishlistDataState',
   default: [],

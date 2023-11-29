@@ -63,7 +63,7 @@ function AccommodationReview() {
           variant="blue"
           size="lg"
           style={{ width: '260px', height: '40px' }}
-          onClick={() => navigate('/review/id')}
+          onClick={() => navigate(`/review/${params.id}`)}
         >
           후기 전체보기
         </Button>
@@ -90,7 +90,7 @@ const StyledAccommodationReviewItemsContainer = styled.div`
 `;
 
 const StyledAccommodationReviewItemsWrapper = styled.div`
-  width: 300%;
+  width: auto;
   height: 220px;
 
   display: flex;

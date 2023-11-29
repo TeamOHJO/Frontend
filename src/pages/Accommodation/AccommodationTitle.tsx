@@ -3,6 +3,7 @@ import { StarFilled } from '@ant-design/icons';
 import { Badge, Heading, Text } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import { handleBadgeColor } from '../../utils/handleBadgeColor';
+import { changeCategoryReverseFormat } from '../../utils/utils';
 
 interface AccommodationTitleProps {
   name: string;
@@ -21,8 +22,11 @@ function AccommodationTitle({
     <StyledAccommodationTitleWrapper>
       <StyledAccommodationBadgeStarWrapper>
         <StyledAccommodationBadge>
-          <Badge variant={handleBadgeColor(category)} fontSize="0.8rem">
-            {category}
+          <Badge
+            variant={handleBadgeColor(changeCategoryReverseFormat(category))}
+            fontSize="0.8rem"
+          >
+            {changeCategoryReverseFormat(category)}
           </Badge>
         </StyledAccommodationBadge>
         <StyledAccommodationStar>

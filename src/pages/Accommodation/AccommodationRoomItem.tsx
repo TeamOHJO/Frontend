@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { StarFilled } from '@ant-design/icons';
 import { Heading, Text, Badge } from '@chakra-ui/react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { theme } from '../../styles/theme';
 import AccommodationRoomImages from './AccommodationRoomImages';
@@ -11,8 +11,10 @@ import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
 } from '../../states/atom';
+import { changeDateFormat } from '../../utils/utils';
 
 interface AccommodationRoom {
+  roomId: number;
   name: string;
   price: number;
   discountPercentage: number;
@@ -21,9 +23,12 @@ interface AccommodationRoom {
   images: string[];
   soldOut: boolean;
   averageRating: number;
+  category: string;
+  location: string;
 }
 
 function AccommodationRoomItem({
+  roomId,
   name,
   price,
   discountPercentage,
@@ -32,8 +37,9 @@ function AccommodationRoomItem({
   images,
   soldOut,
   averageRating,
+  category,
+  location,
 }: AccommodationRoom) {
-  const location = useLocation();
   const navigate = useNavigate();
   const [accommodationSelectStartDate] = useRecoilState<Date>(
     accommodationSelectStartDateState,
@@ -57,8 +63,15 @@ function AccommodationRoomItem({
     <StyledAccommodationRoomItemWrapper>
       <AccommodationRoomImages images={images} />
       <StyledAccommodationRoomTitle
-        onClick={() => {
-          navigate(`${location.pathname}/id`);
+        onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+          event.stopPropagation();
+          navigate(
+            `/room/${roomId}?startDate=${changeDateFormat(
+              accommodationSelectStartDate,
+            )}&endDate=${changeDateFormat(
+              accommodationSelectEndDate,
+            )}&soldOut=${soldOut}&category=${category}&location=${location}`,
+          );
         }}
       >
         <StyledAccommodationRoomTitleBox style={{ marginBottom: '0.5rem' }}>
@@ -114,8 +127,18 @@ function AccommodationRoomItem({
             )}
           </div>
           <StyledAccommodationRoomTitleBoxItem>
-            <AccommodationRoomItemCart />
-            <ReservationBtn soldOut={soldOut} />
+            <AccommodationRoomItemCart roomId={roomId} />
+            <ReservationBtn
+              soldOut={soldOut}
+              roomId={roomId}
+              image={images[0]}
+              category={category}
+              name={name}
+              star={averageRating}
+              location={location}
+              price={price}
+              discountPercentage={discountPercentage}
+            />
           </StyledAccommodationRoomTitleBoxItem>
         </StyledAccommodationRoomTitleBox>
       </StyledAccommodationRoomTitle>
@@ -127,8 +150,13 @@ export default AccommodationRoomItem;
 
 const StyledAccommodationRoomItemWrapper = styled.div`
   width: 100%;
-
+  padding: 1rem;
   margin-bottom: 3rem;
+  box-shadow: ${theme.shadows.shadow1.shadow};
+  border-radius: 10px;
+  &:hover {
+    background-color: ${theme.colors.gray100};
+  }
 `;
 
 const StyledAccommodationRoomTitle = styled.div`
