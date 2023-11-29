@@ -84,7 +84,7 @@ function BasketCard({ item, setShowAlert }: BasketCardProps) {
             />
           </Box>
           <StyledTitle>{item.accommodationName}</StyledTitle>
-          <Text size="sm">{item.roomName}</Text>
+          <StyledText size="sm">{item.roomName}</StyledText>
           <Text as="p" size="xs" color="blackAlpha.600">
             {item.startDate} ~ {item.endDate} ({nights}박)
           </Text>
@@ -104,7 +104,7 @@ function BasketCard({ item, setShowAlert }: BasketCardProps) {
         flexDirection="row"
         justifyContent="space-between"
         alignItems="center"
-        gap={3}
+        // gap={3}
       >
         <Button variant="blue" size="sm" width="150px">
           예약하기
@@ -138,17 +138,24 @@ function BasketCard({ item, setShowAlert }: BasketCardProps) {
 export default BasketCard;
 
 const StyledBox = styled.div`
-  width: calc(100% - 120px);
+  width: calc(100% - 123px);
   display: flex;
   flex-direction: column;
   gap: 1px;
 `;
 
 const StyledTitle = styled.h1`
-  width: 90%;
+  width: 95%;
   font-size: 1rem;
   font-weight: bold;
 
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+`;
+
+const StyledText = styled(Text)`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
