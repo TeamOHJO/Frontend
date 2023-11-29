@@ -4,16 +4,19 @@ import ReservationAgreeCard from './ReservationAgreeCard';
 import ReservationPaymentCard from './ReservationPaymentCard';
 import ReservationInfo from '../../components/ReservationInfo';
 import ReservationBottomNav from '../../components/Layout/ReservationBottomNav';
+import { CheckboxProvider } from '../../context/checkboxContext';
 
 const Reservation = () => {
   return (
-    <StyledLayout>
-      <UnFooterNav />
-      <ReservationInfo />
-      <ReservationAgreeCard />
-      <ReservationPaymentCard />
-      <ReservationBottomNav />
-    </StyledLayout>
+    <CheckboxProvider>
+      <StyledLayout>
+        <UnFooterNav />
+        <ReservationInfo />
+        <ReservationAgreeCard />
+        <ReservationPaymentCard />
+        <ReservationBottomNav />
+      </StyledLayout>
+    </CheckboxProvider>
   );
 };
 

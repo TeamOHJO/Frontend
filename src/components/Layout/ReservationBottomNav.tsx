@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
 import { theme } from '../../styles/theme';
+import BookingBtn from '../BookingBtn';
 
-function ReservationBottomNav() {
+const ReservationBottomNav = () => {
   return (
     <StyledReservationBottomNavWrapper>
-      <span>·총액 ￦1230000</span>
+      <BookingBtn />
     </StyledReservationBottomNavWrapper>
   );
-}
+};
 
 export default ReservationBottomNav;
 
@@ -27,6 +28,6 @@ const StyledReservationBottomNavWrapper = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   z-index: 2;
 `;

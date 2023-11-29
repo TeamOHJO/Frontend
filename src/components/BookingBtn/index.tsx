@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { Button } from '@chakra-ui/react';
 import ReservationModal from '../Modal/ReservationModal';
+import { useCheckboxContext } from '../../context/checkboxContext';
 
-function BookingBtn() {
+const BookingBtn = () => {
+  const { isChecked } = useCheckboxContext();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPaymentCompleted, setIsPaymentCompleted] = useState(false);
 
@@ -23,7 +26,8 @@ function BookingBtn() {
       <Button
         variant="blue"
         onClick={handleButtonClick}
-        disabled={isPaymentCompleted}
+        isDisabled={isPaymentCompleted || !isChecked}
+        // disabled={isPaymentCompleted}
       >
         결제하기
       </Button>
@@ -34,6 +38,6 @@ function BookingBtn() {
       />
     </>
   );
-}
+};
 
 export default BookingBtn;
