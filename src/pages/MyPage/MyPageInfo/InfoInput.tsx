@@ -1,6 +1,11 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input, Button } from '@chakra-ui/react';
+import { useRecoilValue } from 'recoil';
+import { AxiosError } from 'axios';
+import { userInformation } from '../../../states/atom';
+import { changeInfo } from '../../../api';
+import { ErrorData } from '../../../api/type';
 
 interface InfoInputProps {
   name: string;
@@ -11,6 +16,23 @@ interface InfoInputProps {
 
 function InfoInput({ name, list, item, onChangeInput }: InfoInputProps) {
   const [onClicked, setOnClicked] = useState(false);
+  const userInfo = useRecoilValue(userInformation);
+  const { userName, phoneNum } = userInfo;
+
+  const submitChangeInfo = async () => {
+    try {
+      const res = await changeInfo(userName, phoneNum);
+      const { message } = res;
+      console.log(message);
+      setOnClicked(false);
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      const data = axiosError.response?.data as ErrorData;
+      if (data.code === 411) {
+        alert(data.message);
+      }
+    }
+  };
 
   return (
     <StyledInfoWrapper>
@@ -24,22 +46,36 @@ function InfoInput({ name, list, item, onChangeInput }: InfoInputProps) {
       {!onClicked ? (
         <StyledEditBtn
           variant="blue"
-          size="md"
+          size="100px"
+          style={{ height: '40px' }}
           onClick={() => {
             setOnClicked(true);
           }}
         >
-          수정하기
+          수정
         </StyledEditBtn>
       ) : (
-        <StyledSubmitBtn
-          colorScheme="blue"
-          onClick={() => {
-            setOnClicked(false);
-          }}
-        >
-          수정완료
-        </StyledSubmitBtn>
+        <>
+          <StyledSubmitBtn
+            colorScheme="blue"
+            size="100px"
+            style={{ height: '40px', marginRight: '5px' }}
+            onClick={() => {
+              submitChangeInfo();
+            }}
+          >
+            완료
+          </StyledSubmitBtn>
+          <StyledSubmitBtn
+            size="100px"
+            style={{ height: '40px' }}
+            onClick={() => {
+              setOnClicked(false);
+            }}
+          >
+            취소
+          </StyledSubmitBtn>
+        </>
       )}
     </StyledInfoWrapper>
   );
@@ -56,12 +92,13 @@ const StyledInfoWrapper = styled.div`
   width: 80%;
 
   @media screen and (max-width: 500px) {
-    width: 95%;
+    width: 100%;
   }
 `;
 
 const StyledInfoLabel = styled.span`
   flex: 0.5;
+  font-size: 12px;
   font-weight: 500;
   @media screen and (max-width: 500px) {
     flex: 1;
@@ -69,6 +106,7 @@ const StyledInfoLabel = styled.span`
 `;
 
 const StyledInfoInput = styled(Input)`
+  margin-right: 10px;
   flex: 1.5;
 `;
 

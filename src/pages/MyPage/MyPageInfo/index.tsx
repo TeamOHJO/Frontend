@@ -1,19 +1,44 @@
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { Button, useDisclosure } from '@chakra-ui/react';
 import { RightOutlined } from '@ant-design/icons';
+import { useRecoilState } from 'recoil';
 import { theme } from '../../../styles/theme';
 import MyPageSubtitle from '../MyPageSubtitle';
 import DefaultModal from '../../../components/Modal/DefaultModal';
 import InfoInput from './InfoInput';
+import PasswordSection from './PasswordSection';
+import { getMyInfo } from '../../../api';
+import { userInformation } from '../../../states/atom';
+import { getCookie } from '../../../utils/utils';
 
 function MyPageInfo() {
-  const [userInfo, setUserInfo] = useState({
-    email: 'rlaxmrgml@naver.com',
-    userName: '김특희',
-    phoneNum: '010-1234-5678',
-  });
+  const [userInfo, setUserInfo] = useRecoilState(userInformation);
+  const fetchData = async () => {
+    try {
+      const res = await getMyInfo();
+      const { data } = res;
+      setUserInfo({
+        ...userInfo,
+        email: data.email,
+        userName: data.name,
+        phoneNum: data.phonenumber,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    const name = getCookie('userName');
+    if (userInfo.email === '') {
+      fetchData();
+    }
+    if (userInfo.userName !== name) {
+      fetchData();
+    }
+  }, []);
 
   const { email, userName, phoneNum } = userInfo;
   const navigate = useNavigate();
@@ -59,22 +84,23 @@ function MyPageInfo() {
           item={phoneNum}
           onChangeInput={onChangeInput}
         />
-
-        <StyledResignBtn
-          variant="blue"
-          size="md"
-          rightIcon={<RightOutlined />}
-          onClick={onOpen}
-        >
-          회원탈퇴
-        </StyledResignBtn>
-        <DefaultModal
-          isOpen={isOpen}
-          onClose={onClose}
-          modalFunc={modalFunc}
-          modalData={modalData}
-        />
+        <PasswordSection />
       </StyledInnerContainer>
+      <MyPageSubtitle subtitle="회원 탈퇴" />
+      <StyledResignBtn
+        variant="blue"
+        size="md"
+        rightIcon={<RightOutlined />}
+        onClick={onOpen}
+      >
+        회원탈퇴
+      </StyledResignBtn>
+      <DefaultModal
+        isOpen={isOpen}
+        onClose={onClose}
+        modalFunc={modalFunc}
+        modalData={modalData}
+      />
     </StyledContainer>
   );
 }
