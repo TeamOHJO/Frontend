@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { StarFilled } from '@ant-design/icons';
 import { Heading, Text, Badge } from '@chakra-ui/react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { theme } from '../../styles/theme';
 import AccommodationRoomImages from './AccommodationRoomImages';
@@ -10,7 +10,6 @@ import ReservationBtn from './ReservationBtn';
 import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
-  accommodationSelectVisitorsState,
 } from '../../states/atom';
 import { changeDateFormat } from '../../utils/utils';
 
@@ -41,7 +40,6 @@ function AccommodationRoomItem({
   category,
   location,
 }: AccommodationRoom) {
-  const Location = useLocation();
   const navigate = useNavigate();
   const [accommodationSelectStartDate] = useRecoilState<Date>(
     accommodationSelectStartDateState,
@@ -49,10 +47,6 @@ function AccommodationRoomItem({
 
   const [accommodationSelectEndDate] = useRecoilState<Date>(
     accommodationSelectEndDateState,
-  );
-
-  const [accommodationSelectVisitors] = useRecoilState<number>(
-    accommodationSelectVisitorsState,
   );
 
   const handleCountDay = () => {
