@@ -34,7 +34,7 @@ function WishList() {
               위시리스트
             </Heading>
           </Center>
-          {wishlistData.length < 0 ? (
+          {wishlistData.length > 0 ? (
             <Grid gridTemplateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={4} px="1rem">
               {wishlistData.map((item: WishlistData) => (
                 <WishListCard key={uuid()} item={item} />
