@@ -98,6 +98,8 @@ const StyledAccommodationNaviLeft = styled.div`
 
 const StyledAccommodationNaviRight = styled.div`
   margin-right: 1rem;
+  display: flex;
+  align-items: center;
 `;
 
 const StyledTopBtn = styled.button`

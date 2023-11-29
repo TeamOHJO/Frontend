@@ -1,8 +1,8 @@
 import { useEffect, FunctionComponent } from 'react';
 import { Alert, AlertIcon, CloseButton, AlertDescription, Fade } from '@chakra-ui/react';
-import { ToastPopupProps } from '../../@types/interface';
+import { ToastPopupProps } from '../@types/interface';
 
-const AccommodationToastPopup: FunctionComponent<ToastPopupProps> = ({ status, setFunc }) => {
+const HeartToastPopup: FunctionComponent<ToastPopupProps> = ({ status, setFunc }) => {
   const onClose = () => {
     setFunc({ active: false, message: status.message });
   };
@@ -44,4 +44,4 @@ const AccommodationToastPopup: FunctionComponent<ToastPopupProps> = ({ status, s
     </Fade>
   );
 };
-export default AccommodationToastPopup;
+export default HeartToastPopup;

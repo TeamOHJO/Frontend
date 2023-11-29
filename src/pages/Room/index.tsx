@@ -73,7 +73,7 @@ function Room() {
       />
     </StyledRoomContainer>
   ) : (
-    <>스켈레톤</>
+    ''
   );
 }
 
