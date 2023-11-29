@@ -79,12 +79,13 @@ export interface HomeCardProps {
 
 export interface ReservationData {
   reservationId: number;
-  startTime: string;
-  endTime: string;
+  startDate: string;
+  endDate: string;
   numberOfPerson: number;
-  createdAt: string;
-  deletedAt: string | null;
   category: string;
+  location: string;
+  discountPercentage: number;
+  discountPrice: number;
   accommodationName: string;
   image: string;
   name: string;
@@ -167,4 +168,23 @@ export interface BasketData {
   nights: number;
   stars: number;
   canReserve: boolean;
+}
+
+export interface ReservationInfo {
+  startDate: string;
+  endDate: string;
+  numberOfPerson: number;
+}
+
+export interface Review {
+  reviewId: number;
+  star: number;
+  roomId: number;
+  userName: string;
+  accommodationName: string;
+  roomName: string;
+  category: string;
+  reviewContent: string;
+  images: string[];
+  updatedAt: string;
 }
