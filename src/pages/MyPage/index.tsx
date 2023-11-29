@@ -1,14 +1,16 @@
 import styled from '@emotion/styled';
 import { Center, Text } from '@chakra-ui/react';
 import MyPageTabs from './MyPageTabs';
+import { getCookie } from '../../utils/utils';
 
 function MyPage() {
+  const name = getCookie('userName');
   return (
     <StyledContainer>
       <StyledInnerContainer>
         <Center height="90px">
           <Text as="p" size="sm" textAlign="center">
-            000님, 같이 여행을 즐겨요
+            {name}님, 같이 여행을 즐겨요
           </Text>
         </Center>
         <MyPageTabs />

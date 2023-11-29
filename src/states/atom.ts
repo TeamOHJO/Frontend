@@ -105,3 +105,12 @@ export const wishlistDataState = atom<WishlistData[]>({
   key: 'wishlistDataState',
   default: [],
 });
+
+export const userInformation = atom({
+  key: 'userInfo',
+  default: {
+    email: '',
+    userName: '',
+    phoneNum: '',
+  },
+});
