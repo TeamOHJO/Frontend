@@ -28,25 +28,18 @@ function RoomSelectedInfo({
   discountPercentage,
 }: RoomSelectedInfoProps) {
   const [cartHover, setCartHover] = useState(false);
-  const [basketCount, setBasketCount] =
-    useRecoilState<number>(basketCountState);
+  const [basketCount, setBasketCount] = useRecoilState<number>(basketCountState);
 
   // 장바구니 팝업
   const [showAlert, setShowAlert] = useState({
     active: false,
     message: '',
   });
-  const [accommodationSelectStartDate] = useRecoilState<Date>(
-    accommodationSelectStartDateState,
-  );
+  const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
 
-  const [accommodationSelectEndDate] = useRecoilState<Date>(
-    accommodationSelectEndDateState,
-  );
+  const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
 
-  const [accommodationSelectVisitors] = useRecoilState<number>(
-    accommodationSelectVisitorsState,
-  );
+  const [accommodationSelectVisitors] = useRecoilState<number>(accommodationSelectVisitorsState);
   const accessToken = getCookie('token');
 
   const createBasket = async () => {
@@ -91,8 +84,7 @@ function RoomSelectedInfo({
 
   const countDay = () => {
     if (startDate && endDate) {
-      const diffDate =
-        new Date(endDate).getTime() - new Date(startDate).getTime();
+      const diffDate = new Date(endDate).getTime() - new Date(startDate).getTime();
       return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
     }
     return 1;
@@ -106,9 +98,8 @@ function RoomSelectedInfo({
           </Heading>
           {startDate && endDate && (
             <Text as="p" size="md" color="gray.84">
-              {startDate.split('-')[0]}년 {startDate.split('-')[1]}월{' '}
-              {startDate.split('-')[2]}일 ~ {endDate.split('-')[1]}월{' '}
-              {endDate.split('-')[2]}일
+              {startDate.split('-')[0]}년 {startDate.split('-')[1]}월 {startDate.split('-')[2]}일 ~{' '}
+              {endDate.split('-')[1]}월 {endDate.split('-')[2]}일
             </Text>
           )}
         </StyledRoomSelectedInfoItem>
@@ -128,18 +119,13 @@ function RoomSelectedInfo({
           {discountPercentage > 0 ? (
             <>
               <Text as="s" size="sm" color="blackAlpha.600">
-                ￦
-                {(
-                  Math.floor((price * countDay()) / 1000) * 1000
-                ).toLocaleString()}
+                ￦{(Math.floor((price * countDay()) / 1000) * 1000).toLocaleString()}
                 원/{countDay()}박
               </Text>
               <Text as="p" size="sm">
                 ￦
                 {(
-                  Math.floor(
-                    (price * countDay() * (100 - discountPercentage)) / 100000,
-                  ) * 1000
+                  Math.floor((price * countDay() * (100 - discountPercentage)) / 100000) * 1000
                 ).toLocaleString()}
                 원/{countDay()}박
                 <Badge fontSize="0.8rem" style={{ marginLeft: '0.5rem' }}>
@@ -151,9 +137,7 @@ function RoomSelectedInfo({
             <Text as="p" size="sm">
               ￦
               {(
-                Math.floor(
-                  (price * countDay() * (100 - discountPercentage)) / 100000,
-                ) * 1000
+                Math.floor((price * countDay() * (100 - discountPercentage)) / 100000) * 1000
               ).toLocaleString()}
               원/{countDay()}박
             </Text>
@@ -170,9 +154,7 @@ function RoomSelectedInfo({
         >
           add_shopping_cart
           {cartHover ? (
-            <StyledTooltip style={{ fontFamily: 'Noto Sans KR' }}>
-              장바구니 담기
-            </StyledTooltip>
+            <StyledTooltip style={{ fontFamily: 'Noto Sans KR' }}>장바구니 담기</StyledTooltip>
           ) : (
             ''
           )}

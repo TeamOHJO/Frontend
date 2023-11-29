@@ -14,6 +14,7 @@ import CustomerReview from '../pages/customerReview';
 import MyPage from '../pages/MyPage';
 import Reservation from '../pages/Reservation';
 import ReservationComplete from '../pages/ReservationComplete';
+import WriteReview from '../pages/AddReview';
 import LoadingRouter from './LoadingRouter';
 
 function Dashboard() {
@@ -39,16 +40,14 @@ function MainRouter() {
             <Route path="/wishlist" element={<WishList />} />
             <Route path="/basket" element={<Basket />} />
             <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mypage/review/write/:id" element={<WriteReview />} />
             <Route path="/loading" element={<LoadingRouter />} />
           </Route>
           <Route path="/accommodation/:id" element={<Accommodation />} />
           <Route path="/room/:id" element={<Room />} />
           <Route path="/review/:id" element={<CustomerReview />} />
           <Route path="/reservation/:id" element={<Reservation />} />
-          <Route
-            path="/reservation-complete/:id"
-            element={<ReservationComplete />}
-          />
+          <Route path="/reservation-complete/:id" element={<ReservationComplete />} />
         </Routes>
       </StyledInnerContainer>
     </StyledContainer>

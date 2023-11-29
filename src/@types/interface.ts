@@ -78,7 +78,7 @@ export interface HomeCardProps {
   isLiked: boolean;
 }
 
-export interface ReservationData {
+export interface MyPageReservationData {
   reservationId: number;
   startDate: string;
   endDate: string;
@@ -209,4 +209,10 @@ export interface WishlistData {
   image: string;
   lowestPrice: number;
   isLiked: boolean;
+}
+
+export interface AddReviewData {
+  reviewContent: string;
+  images?: string[];
+  star: number;
 }

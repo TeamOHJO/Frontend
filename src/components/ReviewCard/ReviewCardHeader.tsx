@@ -12,9 +12,7 @@ const ReviewCardHeader = ({ reviewData }: { reviewData: Review }) => {
     <div key={reviewData.reviewId}>
       <CardHeader display="flex" justifyContent="space-between">
         <Box display="flex">
-          <StarFilled
-            style={{ color: theme.colors.blue400, fontSize: '1rem' }}
-          />
+          <StarFilled style={{ color: theme.colors.blue400, fontSize: '1rem' }} />
           <Text color="black" ml=".8rem">
             {reviewData.star}
           </Text>

@@ -13,25 +13,18 @@ import {
 
 function AccommodationRoomItemCart({ roomId }: { roomId: number }) {
   const [cartHover, setCartHover] = useState(false);
-  const [basketCount, setBasketCount] =
-    useRecoilState<number>(basketCountState);
+  const [basketCount, setBasketCount] = useRecoilState<number>(basketCountState);
 
   // 장바구니 팝업
   const [showAlert, setShowAlert] = useState({
     active: false,
     message: '',
   });
-  const [accommodationSelectStartDate] = useRecoilState<Date>(
-    accommodationSelectStartDateState,
-  );
+  const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
 
-  const [accommodationSelectEndDate] = useRecoilState<Date>(
-    accommodationSelectEndDateState,
-  );
+  const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
 
-  const [accommodationSelectVisitors] = useRecoilState<number>(
-    accommodationSelectVisitorsState,
-  );
+  const [accommodationSelectVisitors] = useRecoilState<number>(accommodationSelectVisitorsState);
   const accessToken = getCookie('token');
 
   const createBasket = async () => {
@@ -86,9 +79,7 @@ function AccommodationRoomItemCart({ roomId }: { roomId: number }) {
       >
         add_shopping_cart
         {cartHover ? (
-          <StyledTooltip style={{ fontFamily: 'Noto Sans KR' }}>
-            장바구니 담기
-          </StyledTooltip>
+          <StyledTooltip style={{ fontFamily: 'Noto Sans KR' }}>장바구니 담기</StyledTooltip>
         ) : (
           ''
         )}

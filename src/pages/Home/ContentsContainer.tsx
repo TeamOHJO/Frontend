@@ -4,11 +4,7 @@ import { useRecoilState } from 'recoil';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@chakra-ui/react';
 import { v4 as uuid } from 'uuid';
-import {
-  searchFilteredState,
-  searchAttempt,
-  accommodationList,
-} from '../../states/atom';
+import { searchFilteredState, searchAttempt, accommodationList } from '../../states/atom';
 import { getAccommodationList } from '../../api';
 import HomeCard from './HomeCard';
 import { changeCategoryFormat } from '../../utils/utils';
@@ -21,8 +17,7 @@ const ContentsContainer = () => {
   const [searchingAttempt, setSearchingAttempt] = useRecoilState(searchAttempt);
   const [page, setPage] = useState(0);
 
-  const { category, isDomestic, startDate, endDate, numberOfPeople } =
-    searchFilter;
+  const { category, isDomestic, startDate, endDate, numberOfPeople } = searchFilter;
 
   const fetchData = async () => {
     try {

@@ -41,19 +41,14 @@ function AccommodationRoomItem({
   location,
 }: AccommodationRoom) {
   const navigate = useNavigate();
-  const [accommodationSelectStartDate] = useRecoilState<Date>(
-    accommodationSelectStartDateState,
-  );
+  const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
 
-  const [accommodationSelectEndDate] = useRecoilState<Date>(
-    accommodationSelectEndDateState,
-  );
+  const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
 
   const handleCountDay = () => {
     if (accommodationSelectStartDate && accommodationSelectEndDate) {
       const diffDate =
-        accommodationSelectEndDate.getTime() -
-        accommodationSelectStartDate.getTime();
+        accommodationSelectEndDate.getTime() - accommodationSelectStartDate.getTime();
       return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
     }
     return 1;
@@ -79,9 +74,7 @@ function AccommodationRoomItem({
             {name}
           </Heading>
           <div>
-            <StarFilled
-              style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
-            />
+            <StarFilled style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }} />
             <StyledStarDigit>{averageRating}</StyledStarDigit>
           </div>
         </StyledAccommodationRoomTitleBox>
@@ -93,19 +86,14 @@ function AccommodationRoomItem({
             {discountPercentage > 0 ? (
               <>
                 <Text as="s" size="sm" color="blackAlpha.600">
-                  ￦
-                  {(
-                    Math.floor((price * handleCountDay()) / 1000) * 1000
-                  ).toLocaleString()}
+                  ￦{(Math.floor((price * handleCountDay()) / 1000) * 1000).toLocaleString()}
                   원/{handleCountDay()}박
                 </Text>
                 <Text as="p" size="sm">
                   ￦
                   {(
-                    Math.floor(
-                      (price * handleCountDay() * (100 - discountPercentage)) /
-                        100000,
-                    ) * 1000
+                    Math.floor((price * handleCountDay() * (100 - discountPercentage)) / 100000) *
+                    1000
                   ).toLocaleString()}
                   원/{handleCountDay()}박
                   <Badge fontSize="0.8rem" style={{ marginLeft: '0.5rem' }}>
@@ -117,10 +105,8 @@ function AccommodationRoomItem({
               <Text as="p" size="sm">
                 ￦
                 {(
-                  Math.floor(
-                    (price * handleCountDay() * (100 - discountPercentage)) /
-                      100000,
-                  ) * 1000
+                  Math.floor((price * handleCountDay() * (100 - discountPercentage)) / 100000) *
+                  1000
                 ).toLocaleString()}
                 원/{handleCountDay()}박
               </Text>

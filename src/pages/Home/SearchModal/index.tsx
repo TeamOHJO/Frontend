@@ -66,11 +66,7 @@ function SearchModal({ isOpen, onClose }: ModalProps) {
         <ModalCloseButton />
         <ModalBody>
           <RegionSetter isDomestic={isDomestic} setIsDomestic={setIsDomestic} />
-          <Calendar
-            startDate={startDate}
-            endDate={endDate}
-            onChangeDate={onChangeDate}
-          />
+          <Calendar startDate={startDate} endDate={endDate} onChangeDate={onChangeDate} />
           <VisitorSetter
             visitors={visitors}
             setVisitors={setVisitors}

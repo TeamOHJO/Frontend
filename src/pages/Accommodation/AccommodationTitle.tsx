@@ -12,12 +12,7 @@ interface AccommodationTitleProps {
   averageRating: number;
 }
 
-function AccommodationTitle({
-  name,
-  category,
-  location,
-  averageRating,
-}: AccommodationTitleProps) {
+function AccommodationTitle({ name, category, location, averageRating }: AccommodationTitleProps) {
   return (
     <StyledAccommodationTitleWrapper>
       <StyledAccommodationBadgeStarWrapper>
@@ -30,9 +25,7 @@ function AccommodationTitle({
           </Badge>
         </StyledAccommodationBadge>
         <StyledAccommodationStar>
-          <StarFilled
-            style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
-          />
+          <StarFilled style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }} />
           <StyledStarDigit>{averageRating}</StyledStarDigit>
         </StyledAccommodationStar>
       </StyledAccommodationBadgeStarWrapper>

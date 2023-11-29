@@ -7,15 +7,7 @@ import { theme } from '../../styles/theme';
 import { HomeCardProps } from '../../@types/interface';
 import SwiperComponent from '../../components/Swiper/SwiperComponent';
 
-const HomeCard = ({
-  id,
-  name,
-  images,
-  category,
-  score,
-  price,
-  isLiked,
-}: HomeCardProps) => {
+const HomeCard = ({ id, name, images, category, score, price, isLiked }: HomeCardProps) => {
   const [onClickisLiked, setOnclickIsLiked] = useState(isLiked);
   const navigate = useNavigate();
   const addWishList = () => {
@@ -47,9 +39,7 @@ const HomeCard = ({
             {name}
           </Text>
           <StyledScoreWrapper>
-            <StarFilled
-              style={{ color: theme.colors.blue400, fontSize: '1rem' }}
-            />
+            <StarFilled style={{ color: theme.colors.blue400, fontSize: '1rem' }} />
             <StyledScoreDigit>{score}</StyledScoreDigit>
           </StyledScoreWrapper>
         </StyledCardHeader>

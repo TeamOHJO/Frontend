@@ -71,16 +71,8 @@ const LoginTabContent = () => {
 
   return (
     <StyledForm onSubmit={handleLoginSubmit}>
-      <LoginInput
-        isError={isError}
-        errors={errors}
-        errorSetFunc={errorSetFunc}
-      />
-      <LoginTabButton
-        errors={errors}
-        formData={formData}
-        errorSetFunc={errorSetFunc}
-      />
+      <LoginInput isError={isError} errors={errors} errorSetFunc={errorSetFunc} />
+      <LoginTabButton errors={errors} formData={formData} errorSetFunc={errorSetFunc} />
     </StyledForm>
   );
 };

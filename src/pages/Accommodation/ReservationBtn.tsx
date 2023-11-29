@@ -33,15 +33,9 @@ function ReservationBtn({
   discountPercentage,
 }: ReservationBtnProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [accommodationSelectStartDate] = useRecoilState<Date>(
-    accommodationSelectStartDateState,
-  );
-  const [accommodationSelectEndDate] = useRecoilState<Date>(
-    accommodationSelectEndDateState,
-  );
-  const [accommodationSelectVisitors] = useRecoilState<number>(
-    accommodationSelectVisitorsState,
-  );
+  const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
+  const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
+  const [accommodationSelectVisitors] = useRecoilState<number>(accommodationSelectVisitorsState);
   const navigate = useNavigate();
 
   // 예약하기 버튼 모달
@@ -63,12 +57,7 @@ function ReservationBtn({
 
   return (
     <>
-      <DefaultModal
-        isOpen={isOpen}
-        onClose={onClose}
-        modalFunc={modalFunc}
-        modalData={modalData}
-      />
+      <DefaultModal isOpen={isOpen} onClose={onClose} modalFunc={modalFunc} modalData={modalData} />
       <Button
         variant={soldOut ? 'gray' : 'blue'}
         size="lg"

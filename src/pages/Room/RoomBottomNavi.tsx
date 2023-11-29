@@ -40,17 +40,11 @@ function RoomBottomNavi({
   star,
 }: RoomBottomNaviProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [accommodationSelectStartDate] = useRecoilState<Date>(
-    accommodationSelectStartDateState,
-  );
+  const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
 
-  const [accommodationSelectEndDate] = useRecoilState<Date>(
-    accommodationSelectEndDateState,
-  );
+  const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
 
-  const [accommodationSelectVisitors] = useRecoilState<number>(
-    accommodationSelectVisitorsState,
-  );
+  const [accommodationSelectVisitors] = useRecoilState<number>(accommodationSelectVisitorsState);
 
   const navigate = useNavigate();
 
@@ -76,8 +70,7 @@ function RoomBottomNavi({
 
   const countDay = () => {
     if (startDate && endDate) {
-      const diffDate =
-        new Date(endDate).getTime() - new Date(startDate).getTime();
+      const diffDate = new Date(endDate).getTime() - new Date(startDate).getTime();
       return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
     }
     return 1;
@@ -89,18 +82,13 @@ function RoomBottomNavi({
         {discountPercentage > 0 ? (
           <>
             <Text as="s" size="sm" color="blackAlpha.600">
-              ￦
-              {(
-                Math.floor((price * countDay()) / 1000) * 1000
-              ).toLocaleString()}
+              ￦{(Math.floor((price * countDay()) / 1000) * 1000).toLocaleString()}
               원/{countDay()}박
             </Text>
             <Text as="p" size="sm">
               ￦
               {(
-                Math.floor(
-                  (price * countDay() * (100 - discountPercentage)) / 100000,
-                ) * 1000
+                Math.floor((price * countDay() * (100 - discountPercentage)) / 100000) * 1000
               ).toLocaleString()}
               원/{countDay()}박
             </Text>
@@ -109,9 +97,7 @@ function RoomBottomNavi({
           <Text as="p" size="sm">
             ￦
             {(
-              Math.floor(
-                (price * countDay() * (100 - discountPercentage)) / 100000,
-              ) * 1000
+              Math.floor((price * countDay() * (100 - discountPercentage)) / 100000) * 1000
             ).toLocaleString()}
             원/{countDay()}박
           </Text>

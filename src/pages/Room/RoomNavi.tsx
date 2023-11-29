@@ -1,9 +1,5 @@
 import styled from '@emotion/styled';
-import {
-  ArrowLeftOutlined,
-  HomeOutlined,
-  ShoppingCartOutlined,
-} from '@ant-design/icons';
+import { ArrowLeftOutlined, HomeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
@@ -12,8 +8,7 @@ import { getCookie } from '../../utils/utils';
 import { basketCountState } from '../../states/atom';
 
 function RoomNavi() {
-  const [basketCount, setBasketCount] =
-    useRecoilState<number>(basketCountState);
+  const [basketCount, setBasketCount] = useRecoilState<number>(basketCountState);
   const navigate = useNavigate();
 
   const accessToken = getCookie('token');
@@ -61,9 +56,7 @@ function RoomNavi() {
                 navigate('/basket');
               }}
             />
-            {basketCount > 0 && (
-              <StyledCartCount>{basketCount}</StyledCartCount>
-            )}
+            {basketCount > 0 && <StyledCartCount>{basketCount}</StyledCartCount>}
           </>
         )}
       </StyledRoomNaviRight>
