@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Slider from 'react-slick';
 import { Box } from '@chakra-ui/react';
@@ -6,12 +6,18 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import PrevArrow from './PrevArrow';
 import NextArrow from './NextArrow';
+import { Review } from '../../@types/interface';
 
-const ReviewCardImage = () => {
+const ReviewCardImage = ({ reviewData }: { reviewData: Review }) => {
+  if (!reviewData || !reviewData.images || reviewData.images.length === 0) {
+    return null;
+  }
+
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const mainSliderRef = useRef<Slider>(null);
   const prevSliderRef = useRef<Slider>(null);
+  const [imagesLoaded, setImagesLoaded] = useState<boolean>(false);
 
   const mainSliderSettings = {
     dots: false,
@@ -34,7 +40,7 @@ const ReviewCardImage = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: 3,
     slidesToScroll: 1,
     centerMode: true,
     centerPadding: '18px',
@@ -47,14 +53,8 @@ const ReviewCardImage = () => {
     },
   };
 
-  const images = [
-    'https://i.pinimg.com/564x/04/23/d3/0423d390ac97c0051525c4d8d8aa1468.jpg',
-    'https://i.pinimg.com/564x/19/74/27/197427ae81179978da67055c4ce6ac2d.jpg',
-    'https://i.pinimg.com/564x/0c/7f/7b/0c7f7b30a7774b8a8f2b3059462313cd.jpg',
-    'https://i.pinimg.com/564x/48/39/88/483988e0541139d9b774dd70feb038ee.jpg',
-    'https://i.pinimg.com/564x/96/57/12/9657121154f3837e05c04c3b86a45668.jpg',
-    'https://i.pinimg.com/564x/73/48/11/734811bd95bec06aae5d936eb23f033c.jpg',
-  ];
+  const { images } = reviewData;
+  // console.log(images);
 
   const handleImageClick = () => {
     setIsFullscreen(true);
@@ -66,52 +66,74 @@ const ReviewCardImage = () => {
 
   const updateIsCenter = (index: number) => index === currentSlide;
 
-  return (
-    <Box
-      display="flex"
-      flexDir="column"
-      justifyContent="center"
-      alignContent="center"
-    >
-      <StyledSlider {...mainSliderSettings} ref={mainSliderRef}>
-        {images.map((imageUrl, index) => {
-          return (
-            <StyledImgContainer key={imageUrl}>
-              <StyledThumImages
-                src={imageUrl}
-                alt={`${index + 1}`}
-                onClick={handleImageClick}
-              />
-            </StyledImgContainer>
-          );
-        })}
-      </StyledSlider>
-      <StyledSlider {...prevSliderSettings} ref={prevSliderRef}>
-        {images.map((imageUrl, index) => {
-          const altText = `${index + 1}`;
-          const isCenter = updateIsCenter(index);
+  // useEffect(() => {
+  //   const loadImage = (url: string) => {
+  //     return new Promise<void>(resolve => {
+  //       const img = new Image();
+  //       img.onload = () => resolve();
+  //       img.src = url;
+  //     });
+  //   };
+  //   const loadImages = async () => {
+  //     const promises = images.map(url => loadImage(url));
+  //     await Promise.all(promises);
+  //     setImagesLoaded(true);
+  //   };
 
-          return (
-            <StyledImgContainer key={imageUrl}>
-              <StyledListImage
-                src={imageUrl}
-                alt={altText}
-                className={isCenter ? 'selected' : ''}
-                isCenter={isCenter}
-              />
-            </StyledImgContainer>
-          );
-        })}
-      </StyledSlider>
-      {isFullscreen && (
-        <FullscreenOverlay onClick={handleCloseFullscreen}>
-          <FullscreenImage
-            src={images[currentSlide]}
-            alt={`Fullscreen ${currentSlide + 1}`}
-          />
-        </FullscreenOverlay>
-      )}
-    </Box>
+  //   loadImages();
+  // }, [images]);
+
+  return (
+    <div key={reviewData.reviewId}>
+      <Box
+        display="flex"
+        flexDir="column"
+        justifyContent="center"
+        alignContent="center"
+      >
+        {/* {reviewData.images && reviewData.images.length > 0 && ( */}
+        {imagesLoaded && images.length > 0 && (
+          <>
+            <StyledSlider {...mainSliderSettings} ref={mainSliderRef}>
+              {reviewData.images.map((imageUrl, index) => (
+                <StyledImgContainer key={imageUrl}>
+                  <StyledThumImages
+                    src={imageUrl}
+                    alt={`${index + 1}`}
+                    onClick={handleImageClick}
+                  />
+                </StyledImgContainer>
+              ))}
+            </StyledSlider>
+            <StyledSlider {...prevSliderSettings} ref={prevSliderRef}>
+              {reviewData.images.map((imageUrl, index) => {
+                const altText = `${index + 1}`;
+                const isCenter = updateIsCenter(index);
+
+                return (
+                  <StyledImgContainer key={imageUrl}>
+                    <StyledListImage
+                      src={imageUrl}
+                      alt={altText}
+                      className={isCenter ? 'selected' : ''}
+                      isCenter={isCenter}
+                    />
+                  </StyledImgContainer>
+                );
+              })}
+            </StyledSlider>
+            {isFullscreen && (
+              <FullscreenOverlay onClick={handleCloseFullscreen}>
+                <FullscreenImage
+                  src={reviewData.images[currentSlide]}
+                  alt={`Fullscreen ${currentSlide + 1}`}
+                />
+              </FullscreenOverlay>
+            )}
+          </>
+        )}
+      </Box>
+    </div>
   );
 };
 
@@ -198,3 +220,12 @@ const FullscreenImage = styled.img`
   max-height: 90%;
   object-fit: contain;
 `;
+
+// const images = [
+//   'https://i.pinimg.com/564x/04/23/d3/0423d390ac97c0051525c4d8d8aa1468.jpg',
+//   'https://i.pinimg.com/564x/19/74/27/197427ae81179978da67055c4ce6ac2d.jpg',
+//   'https://i.pinimg.com/564x/0c/7f/7b/0c7f7b30a7774b8a8f2b3059462313cd.jpg',
+//   'https://i.pinimg.com/564x/48/39/88/483988e0541139d9b774dd70feb038ee.jpg',
+//   'https://i.pinimg.com/564x/96/57/12/9657121154f3837e05c04c3b86a45668.jpg',
+//   'https://i.pinimg.com/564x/73/48/11/734811bd95bec06aae5d936eb23f033c.jpg',
+// ];
