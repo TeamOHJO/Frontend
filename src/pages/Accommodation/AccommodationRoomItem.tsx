@@ -45,7 +45,7 @@ function AccommodationRoomItem({
 
   const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
 
-  const handleCountDay = () => {
+  const countDay = () => {
     if (accommodationSelectStartDate && accommodationSelectEndDate) {
       const diffDate =
         accommodationSelectEndDate.getTime() - accommodationSelectStartDate.getTime();
@@ -85,22 +85,22 @@ function AccommodationRoomItem({
             </Text>
             {discountPercentage > 0 ? (
               <>
-                <Text as="s" size="sm" color="blackAlpha.600">
-                  ￦{(price * handleCountDay()).toLocaleString()}
-                  원/{handleCountDay()}박
+                <Text as="s" size="xs" color="blackAlpha.600">
+                  ￦{(price * countDay()).toLocaleString()}
+                  원/{countDay()}박
                 </Text>
-                <Text as="p" size="sm">
-                  ￦{changePriceDiscountFormat(price, discountPercentage, handleCountDay())}
-                  원/{handleCountDay()}박
-                  <Badge fontSize="0.8rem" style={{ marginLeft: '0.5rem' }}>
+                <Text as="p" size="md" fontWeight="bold">
+                  ￦ {changePriceDiscountFormat(price, discountPercentage, countDay())}
+                  원/{countDay()}박
+                  <Badge variant="red" style={{ marginLeft: '0.5rem' }}>
                     {discountPercentage}% 할인
                   </Badge>
                 </Text>
               </>
             ) : (
-              <Text as="p" size="sm">
-                ￦{changePriceDiscountFormat(price, discountPercentage, handleCountDay())}
-                원/{handleCountDay()}박
+              <Text as="p" size="md" fontWeight="bold">
+                ￦ {changePriceDiscountFormat(price, discountPercentage, countDay())}
+                원/{countDay()}박
               </Text>
             )}
           </div>
