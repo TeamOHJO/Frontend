@@ -89,15 +89,16 @@ export const postReservation = async (
 // 리뷰 조회 GET 해오기!!
 export const getReview = async (accommodationId: string) => {
   const res = await client.get(`/review/accommodation/${accommodationId}`);
-
-  interface SearchFilterProps {
-    category: string;
-    isDomestic: boolean;
-    startDate: string;
-    endDate: string;
-    numberOfPeople: number;
-  }
+  return res.data;
 };
+
+interface SearchFilterProps {
+  category: string;
+  isDomestic: boolean;
+  startDate: string;
+  endDate: string;
+  numberOfPeople: number;
+}
 
 /* eslint-disable */
 export const getAccommodationList = async (

@@ -30,7 +30,7 @@ function BookingBtn(roomsId: number) {
       // 예약 실패 시의 처리
       console.error('Error during reservation:', error);
     }
-    // handleCloseModal();
+    handleCloseModal();
   };
   return (
     <>

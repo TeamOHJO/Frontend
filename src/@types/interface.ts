@@ -93,6 +93,9 @@ export interface ReservationData {
   price: number;
   nights: number;
   stars: number;
+  startTime: number;
+  endTime: number;
+  deletedAt: number;
 }
 
 export interface ImagesModalProps {

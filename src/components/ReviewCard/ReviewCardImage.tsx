@@ -4,8 +4,8 @@ import Slider from 'react-slick';
 import { Box } from '@chakra-ui/react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import PrevArrow from './PrevArrow';
-import NextArrow from './NextArrow';
+// import PrevArrow from './PrevArrow';
+// import NextArrow from './NextArrow';
 import { Review } from '../../@types/interface';
 
 const ReviewCardImage = ({ reviewData }: { reviewData: Review }) => {
@@ -185,21 +185,21 @@ const StyledThumImages = styled.img`
     opacity 0.3s ease-in-out;
 `;
 
-const StyledListImage = styled.img<{ isCenter: boolean }>`
-  display: flex;
-  width: ${({ isCenter }) => (isCenter ? '110px' : '100px')};
-  height: ${({ isCenter }) => (isCenter ? '75px' : '75px')};
-  object-fit: cover;
-  border-radius: 4px;
-  margin: 0 auto;
-  border: none;
-  cursor: pointer;
+// const StyledListImage = styled.img<{ isCenter: boolean }>`
+//   display: flex;
+//   width: ${({ isCenter }) => (isCenter ? '110px' : '100px')};
+//   height: ${({ isCenter }) => (isCenter ? '75px' : '75px')};
+//   object-fit: cover;
+//   border-radius: 4px;
+//   margin: 0 auto;
+//   border: none;
+//   cursor: pointer;
 
-  &:hover {
-    transform: ${({ isCenter }) => (isCenter ? 'none' : 'translateY(8px)')};
-  }
-  transition: all 0.5s;
-`;
+//   &:hover {
+//     transform: ${({ isCenter }) => (isCenter ? 'none' : 'translateY(8px)')};
+//   }
+//   transition: all 0.5s;
+// `;
 
 // 이미지 클릭 시 전체화면 띄워주기
 const FullscreenOverlay = styled.div`
