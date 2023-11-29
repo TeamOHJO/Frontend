@@ -4,7 +4,11 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { theme } from '../../styles/theme';
 import RoomToastPopup from './RoomToastPopup';
-import { getCookie, changeDateFormat } from '../../utils/utils';
+import {
+  getCookie,
+  changeDateFormat,
+  changePrcieDiscountFromat,
+} from '../../utils/utils';
 import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
@@ -133,19 +137,16 @@ function RoomSelectedInfo({
           {discountPercentage > 0 ? (
             <>
               <Text as="s" size="sm" color="blackAlpha.600">
-                ￦
-                {(
-                  Math.floor((price * countDay()) / 1000) * 1000
-                ).toLocaleString()}
+                ￦{price * countDay()}
                 원/{countDay()}박
               </Text>
               <Text as="p" size="sm">
                 ￦
-                {(
-                  Math.floor(
-                    (price * countDay() * (100 - discountPercentage)) / 100000,
-                  ) * 1000
-                ).toLocaleString()}
+                {changePrcieDiscountFromat(
+                  price,
+                  discountPercentage,
+                  countDay(),
+                )}
                 원/{countDay()}박
                 <Badge fontSize="0.8rem" style={{ marginLeft: '0.5rem' }}>
                   {discountPercentage}% 할인
@@ -155,11 +156,7 @@ function RoomSelectedInfo({
           ) : (
             <Text as="p" size="sm">
               ￦
-              {(
-                Math.floor(
-                  (price * countDay() * (100 - discountPercentage)) / 100000,
-                ) * 1000
-              ).toLocaleString()}
+              {changePrcieDiscountFromat(price, discountPercentage, countDay())}
               원/{countDay()}박
             </Text>
           )}

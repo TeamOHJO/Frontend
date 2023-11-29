@@ -6,7 +6,11 @@ import { useRecoilState } from 'recoil';
 import { useState } from 'react';
 import { theme } from '../../styles/theme';
 import DefaultModal from '../../components/Modal/DefaultModal';
-import { changeDateFormat, getCookie } from '../../utils/utils';
+import {
+  changeDateFormat,
+  getCookie,
+  changePrcieDiscountFromat,
+} from '../../utils/utils';
 import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
@@ -79,7 +83,7 @@ function RoomBottomNavi({
         accommodationSelectStartDate,
       )}&endDate=${changeDateFormat(
         accommodationSelectEndDate,
-      )}&image=${image}&category=${category}&name=${name}&numberOfPerson=${accommodationSelectVisitors}&star=${star}&location=${location}&prcie=${price}&discountPercentage=${discountPercentage}&basketId=${null}&roomId=${roomId}`,
+      )}&image=${image}&category=${category}&name=${name}&numberOfPerson=${accommodationSelectVisitors}&star=${star}&location=${location}&price=${price}&discountPercentage=${discountPercentage}&basketId=${null}&roomId=${roomId}`,
     );
   };
 
@@ -106,30 +110,23 @@ function RoomBottomNavi({
           {discountPercentage > 0 ? (
             <>
               <Text as="s" size="sm" color="blackAlpha.600">
-                ￦
-                {(
-                  Math.floor((price * countDay()) / 1000) * 1000
-                ).toLocaleString()}
+                ￦{price * countDay()}
                 원/{countDay()}박
               </Text>
               <Text as="p" size="sm">
-                ￦
-                {(
-                  Math.floor(
-                    (price * countDay() * (100 - discountPercentage)) / 100000,
-                  ) * 1000
-                ).toLocaleString()}
+                ￦{' '}
+                {changePrcieDiscountFromat(
+                  price,
+                  discountPercentage,
+                  countDay(),
+                )}
                 원/{countDay()}박
               </Text>
             </>
           ) : (
             <Text as="p" size="sm">
-              ￦
-              {(
-                Math.floor(
-                  (price * countDay() * (100 - discountPercentage)) / 100000,
-                ) * 1000
-              ).toLocaleString()}
+              ￦{' '}
+              {changePrcieDiscountFromat(price, discountPercentage, countDay())}
               원/{countDay()}박
             </Text>
           )}

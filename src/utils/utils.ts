@@ -105,3 +105,13 @@ export const changeCategoryReverseFormat = (category: string) => {
   // 아무것도 없을때
   return category;
 };
+
+export const changePrcieDiscountFromat = (
+  price: number,
+  discountPercentage: number,
+  day: number,
+) => {
+  return (
+    Math.floor((price * day * (100 - discountPercentage)) / 100000) * 1000
+  ).toLocaleString();
+};

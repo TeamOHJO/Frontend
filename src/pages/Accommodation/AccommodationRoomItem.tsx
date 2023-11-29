@@ -11,7 +11,7 @@ import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
 } from '../../states/atom';
-import { changeDateFormat } from '../../utils/utils';
+import { changeDateFormat, changePrcieDiscountFromat } from '../../utils/utils';
 
 interface AccommodationRoom {
   roomId: number;
@@ -93,20 +93,16 @@ function AccommodationRoomItem({
             {discountPercentage > 0 ? (
               <>
                 <Text as="s" size="sm" color="blackAlpha.600">
-                  ￦
-                  {(
-                    Math.floor((price * handleCountDay()) / 1000) * 1000
-                  ).toLocaleString()}
+                  ￦{(price * handleCountDay()).toLocaleString()}
                   원/{handleCountDay()}박
                 </Text>
                 <Text as="p" size="sm">
                   ￦
-                  {(
-                    Math.floor(
-                      (price * handleCountDay() * (100 - discountPercentage)) /
-                        100000,
-                    ) * 1000
-                  ).toLocaleString()}
+                  {changePrcieDiscountFromat(
+                    price,
+                    discountPercentage,
+                    handleCountDay(),
+                  )}
                   원/{handleCountDay()}박
                   <Badge fontSize="0.8rem" style={{ marginLeft: '0.5rem' }}>
                     {discountPercentage}% 할인
@@ -116,12 +112,11 @@ function AccommodationRoomItem({
             ) : (
               <Text as="p" size="sm">
                 ￦
-                {(
-                  Math.floor(
-                    (price * handleCountDay() * (100 - discountPercentage)) /
-                      100000,
-                  ) * 1000
-                ).toLocaleString()}
+                {changePrcieDiscountFromat(
+                  price,
+                  discountPercentage,
+                  handleCountDay(),
+                )}
                 원/{handleCountDay()}박
               </Text>
             )}

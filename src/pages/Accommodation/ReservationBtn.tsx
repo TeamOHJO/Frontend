@@ -64,7 +64,7 @@ function ReservationBtn({
         accommodationSelectStartDate,
       )}&endDate=${changeDateFormat(
         accommodationSelectEndDate,
-      )}&image=${image}&category=${category}&name=${name}&numberOfPerson=${accommodationSelectVisitors}&star=${star}&location=${location}&prcie=${price}&discountPercentage=${discountPercentage}&basketId=${null}&roomId=${roomId}`,
+      )}&image=${image}&category=${category}&name=${name}&numberOfPerson=${accommodationSelectVisitors}&star=${star}&location=${location}&price=${price}&discountPercentage=${discountPercentage}&basketId=${null}&roomId=${roomId}`,
     );
   };
 
