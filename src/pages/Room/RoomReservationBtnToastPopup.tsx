@@ -1,8 +1,17 @@
 import { useEffect, FunctionComponent } from 'react';
-import { Alert, AlertIcon, CloseButton, AlertDescription, Fade } from '@chakra-ui/react';
+import {
+  Alert,
+  AlertIcon,
+  CloseButton,
+  AlertDescription,
+  Fade,
+} from '@chakra-ui/react';
 import { ToastPopupProps } from '../../@types/interface';
 
-const AccommodationToastPopup: FunctionComponent<ToastPopupProps> = ({ status, setFunc }) => {
+const RoomReservationBtnToastPopup: FunctionComponent<ToastPopupProps> = ({
+  status,
+  setFunc,
+}) => {
   const onClose = () => {
     setFunc({ active: false, message: status.message });
   };
@@ -30,7 +39,7 @@ const AccommodationToastPopup: FunctionComponent<ToastPopupProps> = ({ status, s
         width="320px"
         position="fixed"
         left="50%"
-        bottom="30px"
+        bottom="70px"
         marginLeft="-160px"
         style={{ zIndex: 2, cursor: 'auto' }}
         onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -39,9 +48,15 @@ const AccommodationToastPopup: FunctionComponent<ToastPopupProps> = ({ status, s
       >
         <AlertIcon />
         <AlertDescription>{status.message}</AlertDescription>
-        <CloseButton alignSelf="flex-end" position="absolute" right={1} top={1} onClick={onClose} />
+        <CloseButton
+          alignSelf="flex-end"
+          position="absolute"
+          right={1}
+          top={1}
+          onClick={onClose}
+        />
       </Alert>
     </Fade>
   );
 };
-export default AccommodationToastPopup;
+export default RoomReservationBtnToastPopup;

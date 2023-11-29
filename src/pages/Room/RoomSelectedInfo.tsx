@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { theme } from '../../styles/theme';
 import RoomToastPopup from './RoomToastPopup';
-import { getCookie, changeDateFormat } from '../../utils/utils';
+import { getCookie, changeDateFormat, changePriceDiscountFormat } from '../../utils/utils';
 import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
@@ -60,13 +60,18 @@ function RoomSelectedInfo({
           active: true,
           message: '성공적으로 장바구니에 담겼습니다.',
         };
-
         setShowAlert(toastData);
         setBasketCount(basketCount + 1);
-      } else {
+      } else if (res.status === 400) {
         const toastData = {
           active: true,
           message: '이미 장바구니에 담겨있습니다.',
+        };
+        setShowAlert(toastData);
+      } else if (res.status === 401) {
+        const toastData = {
+          active: true,
+          message: '로그인 후 진행하실 수 있습니다.',
         };
         setShowAlert(toastData);
       }
@@ -119,14 +124,11 @@ function RoomSelectedInfo({
           {discountPercentage > 0 ? (
             <>
               <Text as="s" size="sm" color="blackAlpha.600">
-                ￦{(Math.floor((price * countDay()) / 1000) * 1000).toLocaleString()}
+                ￦{(price * countDay()).toLocaleString()}
                 원/{countDay()}박
               </Text>
               <Text as="p" size="sm">
-                ￦
-                {(
-                  Math.floor((price * countDay() * (100 - discountPercentage)) / 100000) * 1000
-                ).toLocaleString()}
+                ￦{changePriceDiscountFormat(price, discountPercentage, countDay())}
                 원/{countDay()}박
                 <Badge fontSize="0.8rem" style={{ marginLeft: '0.5rem' }}>
                   {discountPercentage}% 할인
@@ -135,10 +137,7 @@ function RoomSelectedInfo({
             </>
           ) : (
             <Text as="p" size="sm">
-              ￦
-              {(
-                Math.floor((price * countDay() * (100 - discountPercentage)) / 100000) * 1000
-              ).toLocaleString()}
+              ￦{changePriceDiscountFormat(price, discountPercentage, countDay())}
               원/{countDay()}박
             </Text>
           )}

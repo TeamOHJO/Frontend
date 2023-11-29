@@ -97,7 +97,7 @@ function Accommodation() {
       />
     </StyledAccommodationWrapper>
   ) : (
-    <>스켈레톤</>
+    ''
   );
 }
 

@@ -51,23 +51,31 @@ function AccommodationReview() {
       <StyledAccommodationReviewItemsContainer>
         <StyledAccommodationReviewItemsWrapper>
           {reviews &&
-            reviews.data
-              .slice(0, 5)
-              .map((review: AccommodationReviewObject) => (
-                <AccommodationReviewItem review={review} key={uuid()} />
-              ))}
+            (reviews.data.length > 0 ? (
+              reviews.data
+                .slice(0, 5)
+                .map((review: AccommodationReviewObject) => (
+                  <AccommodationReviewItem review={review} key={uuid()} />
+                ))
+            ) : (
+              <StyledNotReview>후기가 없습니다.</StyledNotReview>
+            ))}
         </StyledAccommodationReviewItemsWrapper>
       </StyledAccommodationReviewItemsContainer>
-      <StyledAccommodationReviewMoreBtnWrapper>
-        <Button
-          variant="blue"
-          size="lg"
-          style={{ width: '260px', height: '40px' }}
-          onClick={() => navigate(`/review/${params.id}`)}
-        >
-          후기 전체보기
-        </Button>
-      </StyledAccommodationReviewMoreBtnWrapper>
+      {reviews.data.length ? (
+        <StyledAccommodationReviewMoreBtnWrapper>
+          <Button
+            variant="blue"
+            size="lg"
+            style={{ width: '260px', height: '40px' }}
+            onClick={() => navigate(`/review/${params.id}`)}
+          >
+            후기 전체보기
+          </Button>
+        </StyledAccommodationReviewMoreBtnWrapper>
+      ) : (
+        ''
+      )}
     </StyledAccommodationReviewWrapper>
   ) : (
     <>스켈레톤</>
@@ -106,4 +114,14 @@ const StyledAccommodationReviewMoreBtnWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const StyledNotReview = styled.div`
+  width: 100%;
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
 `;
