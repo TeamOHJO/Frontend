@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { JoinData, LoginData, Email } from './type';
 import { getCookie } from '../utils/utils';
+import { ReservationInfo } from '../@types/interface';
 
 axios.defaults.withCredentials = true;
 const token = getCookie('token');
@@ -60,4 +61,33 @@ export const getBasket = async () => {
 export const DeleteBasketItem = async (basketId: number) => {
   const res = await client.delete(`/basket/${basketId}`);
   return res;
+};
+
+// 예약내역 GET 해오기 !!
+export const getReservation = async (roomsId: number) => {
+  const res = await clientToken.get(`/reservation/details/rooms/${roomsId}`);
+  return res;
+};
+
+// 예약페이지 POST 요청 보내기!
+export const postReservation = async (
+  roomsId: number,
+  reservationInfo: ReservationInfo,
+) => {
+  try {
+    const res = await clientToken.post(
+      `/reservation/rooms/${roomsId}`,
+      reservationInfo,
+    );
+    return res;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+// 리뷰 조회 GET 해오기!!
+export const getReview = async (accommodationId: string) => {
+  const res = await client.get(`/review/accommodation/${accommodationId}`);
+  return res.data;
 };
