@@ -1,10 +1,8 @@
 import styled from '@emotion/styled';
 import { StarFilled } from '@ant-design/icons';
-import { Heading, Text, Checkbox } from '@chakra-ui/react';
-import { useRecoilState } from 'recoil';
-import { useState } from 'react';
+import { Heading, Text, Button, useDisclosure } from '@chakra-ui/react';
 import { theme } from '../../../styles/theme';
-import { myReviewCheckedItemsState } from '../../../states/atom';
+import DefaultModal from '../../../components/Modal/DefaultModal';
 
 interface ReviewProps {
   review: {
@@ -19,19 +17,14 @@ interface ReviewProps {
 }
 
 function ReviewItem({ review }: ReviewProps) {
-  const [checkedItems, setCheckedItems] = useRecoilState(myReviewCheckedItemsState);
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-
-  const handleCheckedItems = () => {
-    if (isChecked) {
-      console.log('check');
-      setIsChecked(!isChecked);
-    } else {
-      console.log('notCheck');
-      setIsChecked(!isChecked);
-    }
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const modalData = {
+    heading: '리뷰 삭제',
+    text: '리뷰를 삭제하시겠습니까?',
   };
-
+  const modalFunc = () => {
+    console.log('모달 승인 시 실행될 함수 입니다.');
+  };
   return (
     <StyledReviewItemWrapper>
       <StyledReviewItemTop>
@@ -41,17 +34,17 @@ function ReviewItem({ review }: ReviewProps) {
             <StyledStarDigit>{review.star.toFixed(1)}</StyledStarDigit>
           </div>
         </StyledReviewItemTopLeft>
-        <Text as="p" size="sm" color="gray.84" style={{ marginRight: '2rem' }}>
+        <Text as="p" size="sm" color="gray.84" style={{ marginRight: '70px' }}>
           {review.startDate}~{review.endDate}
         </Text>
-        <StyledCheckbox
-          checked={isChecked}
-          onChange={() => {
-            handleCheckedItems();
-          }}
-          size="md"
-          colorScheme="blue"
-          borderColor="gray.300"
+        <StyledButton size="sm" variant="blue" onClick={onOpen}>
+          삭제
+        </StyledButton>
+        <DefaultModal
+          isOpen={isOpen}
+          onClose={onClose}
+          modalFunc={modalFunc}
+          modalData={modalData}
         />
       </StyledReviewItemTop>
       <StyledReviewItemTitle>
@@ -114,8 +107,11 @@ const StyledReviewItemContent = styled.div`
   width: 100%;
 `;
 
-const StyledCheckbox = styled(Checkbox)`
+const StyledButton = styled(Button)`
   position: absolute;
-  top: 3px;
+  width: 50px;
+  font-size: 12px;
+  height: 30px;
+  top: -3px;
   right: 0.5rem;
 `;

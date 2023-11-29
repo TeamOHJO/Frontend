@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { Skeleton } from '@chakra-ui/react';
+import { v4 as uuid } from 'uuid';
 import MyPageSubtitle from '../MyPageSubtitle';
 import { getCookie } from '../../../utils/utils';
 import ReviewCard from './ReviewCard';
@@ -33,7 +35,6 @@ function MyPageReview() {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log(1);
       setMyReviews(await response.json());
     } catch (error) {
       console.log(error);
@@ -44,10 +45,15 @@ function MyPageReview() {
     fetchData();
   }, []);
 
+  const skel = [1, 2, 3, 4, 5];
+
   return (
     <div>
       <MyPageSubtitle subtitle="내 리뷰" />
-      {myReviews && myReviews.data.map((review: ReviewState) => <ReviewCard review={review} />)}
+      {}
+      {myReviews
+        ? myReviews.data.map((review: ReviewState) => <ReviewCard review={review} key={uuid()} />)
+        : skel.map(() => <Skeleton height="220px" style={{ margin: '10px' }} />)}
     </div>
   );
 }
