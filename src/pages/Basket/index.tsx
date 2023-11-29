@@ -1,32 +1,33 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import BasketTabs from './BasketTabs';
 import BasketHeader from './BasketHeader';
 import {
   basketAvailableListState,
-  basketCheckedItemsState,
   basketDataState,
   basketUnavailableListState,
 } from '../../states/atom';
 import { BasketData } from '../../@types/interface';
 import BasketNoProducts from './BasketNoProducts';
+import { getBasket } from '../../api';
+import ToastPopup from '../../components/Modal/ToastPopup';
 
 function Basket() {
+  const TODAY = new Date();
   const [basketData, setBasketData] = useRecoilState(basketDataState);
-  const setBasketCheckedItems = useSetRecoilState(basketCheckedItemsState);
   const setAvailableList = useSetRecoilState(basketAvailableListState);
   const setUnavailableList = useSetRecoilState(basketUnavailableListState);
 
+  const [showAlert, setShowAlert] = useState({
+    active: false,
+    message: '',
+  });
+
   const fetchData = async () => {
     try {
-      const response = await fetch(
-        'http://localhost:5173/data/BasketData.json',
-        {
-          method: 'GET',
-        },
-      );
-      const data = await response.json();
+      const response = await getBasket();
+      const { data } = response.data;
 
       // Sort the data by startDate
       data.sort(
@@ -42,29 +43,35 @@ function Basket() {
 
   useEffect(() => {
     fetchData();
-    setBasketCheckedItems([]);
   }, []);
 
   useEffect(() => {
     setAvailableList(
-      basketData.filter((item: BasketData) => item.canReserve === true),
+      basketData.filter(
+        (item: BasketData) => item.canReserve === true && new Date(item.startDate) > TODAY,
+      ),
     );
     setUnavailableList(
-      basketData.filter((item: BasketData) => item.canReserve === false),
+      basketData.filter(
+        (item: BasketData) => item.canReserve === false || new Date(item.startDate) <= TODAY,
+      ),
     );
   }, [basketData, setBasketData]);
 
   return (
-    <StyledContainer>
-      <StyledBasketWrapper>
-        <BasketHeader />
-        {basketData.length > 0 ? (
-          <BasketTabs />
-        ) : (
-          <BasketNoProducts text="장바구니에 담긴 상품이 없습니다." />
-        )}
-      </StyledBasketWrapper>
-    </StyledContainer>
+    <>
+      <StyledContainer>
+        <StyledBasketWrapper>
+          <BasketHeader />
+          {basketData.length > 0 ? (
+            <BasketTabs setShowAlert={setShowAlert} />
+          ) : (
+            <BasketNoProducts text="장바구니에 담긴 상품이 없습니다." />
+          )}
+        </StyledBasketWrapper>
+      </StyledContainer>
+      <ToastPopup status={showAlert} setFunc={setShowAlert} />
+    </>
   );
 }
 
@@ -74,7 +81,6 @@ const StyledContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  min-height: 100vh;
 `;
 
 const StyledBasketWrapper = styled.div`

@@ -52,12 +52,13 @@ export const testToken = async () => {
   return res;
 };
 
-// 장바구니 API
+// 장바구니 가져오기
 export const getBasket = async () => {
   const res = await clientToken.get('/basket');
   return res;
 };
 
+// 장바구니 삭제
 export const DeleteBasketItem = async (basketId: number) => {
   const res = await clientToken.delete(`/basket/${basketId}`);
   return res;

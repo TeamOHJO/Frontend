@@ -78,34 +78,21 @@ export const basketUnavailableListState = atom<BasketData[]>({
   default: [],
 });
 
-export const basketCheckedItemsState = atom<BasketData[]>({
-  key: 'basketCheckedItemsState',
-  default: [],
-});
-
-export const getTotalPriceOfCheckedItems = selector({
-  key: 'getTotalPriceOfCheckedItems',
-  get: ({ get }) => {
-    const checkedItems = get(basketCheckedItemsState);
-    return checkedItems.reduce((acc, cur) => acc + cur.price * cur.nights, 0);
-  },
-});
-
-export const getCheckedIds = selector({
-  key: 'getCheckedIds',
-  get: ({ get }) => {
-    const checkedItems = get(basketCheckedItemsState);
-    const checkedIds = checkedItems.map((checkedItem: BasketData) => checkedItem.basketId);
-    return checkedIds;
-  },
-});
-
 export const getUnavailableIds = selector({
   key: 'getUnavailableIds',
   get: ({ get }) => {
     const unavailableList = get(basketUnavailableListState);
-    const unavailableIds = unavailableList.map((checkedItem: BasketData) => checkedItem.basketId);
+    const unavailableIds = unavailableList.map((item: BasketData) => item.basketId);
     return unavailableIds;
+  },
+});
+
+export const getAvailableIds = selector({
+  key: 'getAvailableIds',
+  get: ({ get }) => {
+    const availableList = get(basketAvailableListState);
+    const availableIds = availableList.map((item: BasketData) => item.basketId);
+    return availableIds;
   },
 });
 
