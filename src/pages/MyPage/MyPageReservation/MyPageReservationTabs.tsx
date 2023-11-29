@@ -5,6 +5,7 @@ import MyPageReservationCompleted from './MyPageReservationCompleted';
 import MyPageReservationCancelled from './MyPageReservationCancelled';
 import { MyPageReservationData } from '../../../@types/interface';
 import { theme } from '../../../styles/theme';
+import MyPageReservationNoHistory from './MyPageReservationNoHistory.tsx';
 
 interface MyPageReservationTabsProps {
   reservationData: MyPageReservationData[];
@@ -33,13 +34,25 @@ function MyPageReservationTabs({ reservationData, cancelledList }: MyPageReserva
       </StyledTabList>
       <TabPanels>
         <TabPanel>
-          <MyPageReservationUpcoming upcomingList={upcomingList} />
+          {upcomingList.length > 0 ? (
+            <MyPageReservationUpcoming upcomingList={upcomingList} />
+          ) : (
+            <MyPageReservationNoHistory text="예약 내역이 없습니다." />
+          )}
         </TabPanel>
         <TabPanel>
-          <MyPageReservationCompleted completedList={completedList} />
+          {completedList.length > 0 ? (
+            <MyPageReservationCompleted completedList={completedList} />
+          ) : (
+            <MyPageReservationNoHistory text="이용 완료 내역이 없습니다." />
+          )}
         </TabPanel>
         <TabPanel>
-          <MyPageReservationCancelled cancelledList={cancelledList} />
+          {cancelledList.length > 0 ? (
+            <MyPageReservationCancelled cancelledList={cancelledList} />
+          ) : (
+            <MyPageReservationNoHistory text="예약 취소 내역이 없습니다." />
+          )}
         </TabPanel>
       </TabPanels>
     </Tabs>
