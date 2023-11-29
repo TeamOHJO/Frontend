@@ -8,6 +8,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
+import { Heading } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import { getCookie } from '../../utils/utils';
 import { basketCountState } from '../../states/atom';
@@ -37,6 +38,9 @@ function AccommodationNavi() {
   }, []);
   return (
     <StyledAccommodationNaviWrapper>
+      <StyledTitle as="h3" size="md">
+        숙소 상세
+      </StyledTitle>
       <StyledAccommodationNaviLeft>
         <ArrowLeftOutlined
           style={{ fontSize: '24px', cursor: 'pointer' }}
@@ -130,4 +134,11 @@ const StyledCartCount = styled.div`
 
   background-color: red;
   color: white;
+`;
+
+const StyledTitle = styled(Heading)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
 `;
