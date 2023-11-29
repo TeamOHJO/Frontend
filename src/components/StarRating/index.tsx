@@ -66,6 +66,6 @@ const RatingStar = styled(StarFilled)`
 `;
 
 const StyledText = styled(Text)`
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-left: 10px;
 `;

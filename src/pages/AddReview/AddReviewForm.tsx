@@ -9,10 +9,15 @@ import { SubmitReview } from '../../api';
 import ToastPopup from '../../components/Modal/ToastPopup';
 
 function AddReviewForm() {
-  const id = useParams();
+  const { id } = useParams();
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState(5);
   const [showImages, setShowImages] = useState<string[]>([]);
+
+  const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const inputValue = event.target.value;
+    setReviewText(inputValue);
+  };
 
   const [showAlert, setShowAlert] = useState({
     active: false,
@@ -35,11 +40,7 @@ function AddReviewForm() {
     setShowAlert(toastData);
   };
 
-  const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const inputValue = event.target.value;
-    setReviewText(inputValue);
-  };
-
+  // 리뷰 저장 (API 요청 보내기)
   const handleSubmit = async () => {
     const reservationId = Number(id);
     const reviewData = {
@@ -48,23 +49,27 @@ function AddReviewForm() {
       images: [...showImages],
     };
 
-    // console.log(reviewData);
+    console.log(reviewData, reservationId);
 
-    try {
-      const response = await SubmitReview(reservationId, reviewData);
+    if (reviewData.reviewContent === '') {
+      failFunction('리뷰 내용을 작성해주세요!');
+    } else {
+      try {
+        const response = await SubmitReview(reservationId, reviewData);
 
-      if (response.data.code === 201) {
-        console.log('등록 완료!');
-        successFunction();
-      } else if (response.data.message === '해당 작업을 수행 할 권한이 존재하지 않습니다.') {
-        console.log('해당 작업을 수행 할 권한이 존재하지 않습니다.');
-        failFunction('해당 작업을 수행 할 권한이 존재하지 않습니다.');
-      } else if (response.data.message === '존재하지 않는 reservationId입니다.') {
-        console.log('존재하지 않는 reservationId입니다.');
-        failFunction('해당하는 예약이 없습니다.');
+        if (response.data.code === 201) {
+          console.log('등록 완료!');
+          successFunction();
+        } else if (response.data.message === '해당 작업을 수행 할 권한이 존재하지 않습니다.') {
+          console.log('해당 작업을 수행 할 권한이 존재하지 않습니다.');
+          failFunction('해당 작업을 수행 할 권한이 존재하지 않습니다.');
+        } else if (response.data.message === '존재하지 않는 reservationId입니다.') {
+          console.log('존재하지 않는 reservationId입니다.');
+          failFunction('해당하는 예약이 없습니다.');
+        }
+      } catch (err) {
+        console.error(err);
       }
-    } catch (err) {
-      console.error(err);
     }
   };
 
