@@ -26,8 +26,7 @@ function WishlistHeart({ liked, accommodationId }: HeartProps) {
 
   const fetchData = async () => {
     const response = await clickLiked(accommodationId);
-    console.log(response.data);
-    setIsHeart(response.data.liked);
+    setIsHeart(response.data.data.liked);
   };
 
   const Bounce = keyframes`

@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
-import { Card, Image, Heading, Text, Badge, Box, CardBody, Stack, calc } from '@chakra-ui/react';
+import { Card, Image, Text, Badge, Box, CardBody } from '@chakra-ui/react';
 import { EnvironmentOutlined } from '@ant-design/icons';
 import { WishlistData } from '../../@types/interface';
 import { handleBadgeColor } from '../../utils/handleBadgeColor';
 import WishlistHeart from '../../components/WishlistHeart';
-import { theme } from '../../styles/theme';
 
 function WishListCard({ item }: { item: WishlistData }) {
   const badgeColor = handleBadgeColor(item.category);
