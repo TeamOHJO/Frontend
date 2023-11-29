@@ -1,12 +1,10 @@
 import styled from '@emotion/styled';
 import { theme } from '../../styles/theme';
-import BookingBtn from '../BookingBtn';
 
 function ReservationBottomNav() {
   return (
     <StyledReservationBottomNavWrapper>
       <span>·총액 ￦1230000</span>
-      <BookingBtn />
     </StyledReservationBottomNavWrapper>
   );
 }

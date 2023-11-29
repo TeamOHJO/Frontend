@@ -78,20 +78,24 @@ export interface HomeCardProps {
   isLiked: boolean;
 }
 
-export interface ReservationData {
+export interface MyPageReservationData {
   reservationId: number;
-  startTime: string;
-  endTime: string;
+  startDate: string;
+  endDate: string;
   numberOfPerson: number;
-  createdAt: string;
-  deletedAt: string | null;
   category: string;
+  location: string;
+  discountPercentage: number;
+  discountPrice: number;
   accommodationName: string;
   image: string;
   name: string;
   price: number;
   nights: number;
   stars: number;
+  startTime: number;
+  endTime: number;
+  deletedAt: number;
 }
 
 export interface ImagesModalProps {
@@ -159,9 +163,9 @@ export interface RoomDetail {
   serviceInfo: string[];
   minCapacity: number;
   maxCapacity: number;
-  images: string[];
+  roomImages: string[];
   soldOut: boolean;
-  stars: number;
+  averageRating: number;
 }
 
 export interface BasketData {
@@ -178,6 +182,25 @@ export interface BasketData {
   canReserve: boolean;
 }
 
+export interface ReservationInfo {
+  startDate: string;
+  endDate: string;
+  numberOfPerson: number;
+}
+
+export interface Review {
+  reviewId: number;
+  star: number;
+  roomId: number;
+  userName: string;
+  accommodationName: string;
+  roomName: string;
+  category: string;
+  reviewContent: string;
+  images: string[];
+  updatedAt: string;
+}
+
 export interface WishlistData {
   accommodationId: number;
   accommodationName: string;
@@ -186,4 +209,10 @@ export interface WishlistData {
   image: string;
   lowestPrice: number;
   isLiked: boolean;
+}
+
+export interface AddReviewData {
+  reviewContent: string;
+  images?: string[];
+  star: number;
 }

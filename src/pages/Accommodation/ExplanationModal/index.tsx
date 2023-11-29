@@ -21,13 +21,7 @@ const ExplanationModal: FunctionComponent<ExplanationModalProps> = ({
   reservationNotice,
   serviceInfo,
 }) => (
-  <Modal
-    isOpen={isOpen}
-    onClose={onClose}
-    isCentered
-    motionPreset="slideInBottom"
-    size="6xl"
-  >
+  <Modal isOpen={isOpen} onClose={onClose} isCentered motionPreset="slideInBottom" size="6xl">
     <ModalOverlay background="none" />
     <ModalContent width="80%" border="1px solid" borderColor="#B8B8B8">
       <ModalHeader fontSize="lg">설명 한 눈에 보기</ModalHeader>

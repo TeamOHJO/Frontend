@@ -95,9 +95,7 @@ export const getCheckedIds = selector({
   key: 'getCheckedIds',
   get: ({ get }) => {
     const checkedItems = get(basketCheckedItemsState);
-    const checkedIds = checkedItems.map(
-      (checkedItem: BasketData) => checkedItem.basketId,
-    );
+    const checkedIds = checkedItems.map((checkedItem: BasketData) => checkedItem.basketId);
     return checkedIds;
   },
 });
@@ -106,11 +104,14 @@ export const getUnavailableIds = selector({
   key: 'getUnavailableIds',
   get: ({ get }) => {
     const unavailableList = get(basketUnavailableListState);
-    const unavailableIds = unavailableList.map(
-      (checkedItem: BasketData) => checkedItem.basketId,
-    );
+    const unavailableIds = unavailableList.map((checkedItem: BasketData) => checkedItem.basketId);
     return unavailableIds;
   },
+});
+
+export const basketCountState = atom<number>({
+  key: 'basketCountState',
+  default: 0,
 });
 
 export const wishlistDataState = atom<WishlistData[]>({

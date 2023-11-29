@@ -23,10 +23,8 @@ function AccommodationReviewItem({ review }: AccommodationReviewProps) {
       <StyledAccommodationReviewItemTop>
         <StyledAccommodationReviewItemTopLeft>
           <div>
-            <StarFilled
-              style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
-            />
-            <StyledStarDigit>{review.star}</StyledStarDigit>
+            <StarFilled style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }} />
+            <StyledStarDigit>{review.star.toFixed(1)}</StyledStarDigit>
           </div>
           <Heading as="h4" size="sm">
             {review.username}
@@ -56,7 +54,7 @@ function AccommodationReviewItem({ review }: AccommodationReviewProps) {
 export default AccommodationReviewItem;
 
 const StyledAccommodationReviewItemWrapper = styled.div`
-  width: 50%;
+  width: 500px;
   min-width: 350px;
   height: 200px;
 

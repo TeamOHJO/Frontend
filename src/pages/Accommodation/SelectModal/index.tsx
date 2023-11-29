@@ -28,12 +28,15 @@ interface ModalProps {
 
 function SelectModal({ isOpen, onClose, fetchData }: ModalProps) {
   const [handleState, setHandleState] = useState<number>(1);
-  const [accommodationSelectStartDate, setAccommodationSelectStartDate] =
-    useRecoilState<Date>(accommodationSelectStartDateState);
-  const [accommodationSelectEndDate, setAccommodationSelectEndDate] =
-    useRecoilState<Date>(accommodationSelectEndDateState);
-  const [accommodationSelectVisitors, setAccommodationSelectVisitors] =
-    useRecoilState<number>(accommodationSelectVisitorsState);
+  const [accommodationSelectStartDate, setAccommodationSelectStartDate] = useRecoilState<Date>(
+    accommodationSelectStartDateState,
+  );
+  const [accommodationSelectEndDate, setAccommodationSelectEndDate] = useRecoilState<Date>(
+    accommodationSelectEndDateState,
+  );
+  const [accommodationSelectVisitors, setAccommodationSelectVisitors] = useRecoilState<number>(
+    accommodationSelectVisitorsState,
+  );
 
   const onChangeDate = (dates: any) => {
     const [start, end] = dates;
@@ -50,8 +53,7 @@ function SelectModal({ isOpen, onClose, fetchData }: ModalProps) {
   const checkNull = () => {
     if (
       accommodationSelectEndDate == null ||
-      accommodationSelectStartDate?.getTime() ===
-        accommodationSelectEndDate?.getTime()
+      accommodationSelectStartDate?.getTime() === accommodationSelectEndDate?.getTime()
     ) {
       if (accommodationSelectStartDate) {
         const tomorrow = new Date(accommodationSelectStartDate);

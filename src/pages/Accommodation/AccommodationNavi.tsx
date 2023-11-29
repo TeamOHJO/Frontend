@@ -6,12 +6,14 @@ import {
   UpOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import { theme } from '../../styles/theme';
 import { getCookie } from '../../utils/utils';
+import { basketCountState } from '../../states/atom';
 
 function AccommodationNavi() {
-  const [basketCount, setBasketCount] = useState<number>(0);
+  const [basketCount, setBasketCount] = useRecoilState<number>(basketCountState);
   const navigate = useNavigate();
 
   const ScrollToTop = () => {
@@ -45,18 +47,26 @@ function AccommodationNavi() {
       </StyledAccommodationNaviLeft>
       <StyledAccommodationNaviRight>
         <HomeOutlined
-          style={{ fontSize: '24px', marginRight: '1rem', cursor: 'pointer' }}
+          style={{ fontSize: '24px', cursor: 'pointer' }}
           onClick={() => {
             navigate('/');
           }}
         />
-        <ShoppingCartOutlined
-          style={{ fontSize: '24px', cursor: 'pointer' }}
-          onClick={() => {
-            navigate('/basket');
-          }}
-        />
-        {basketCount > 0 && <StyledCartCount>{basketCount}</StyledCartCount>}
+        {accessToken && (
+          <>
+            <ShoppingCartOutlined
+              style={{
+                fontSize: '24px',
+                marginLeft: '1rem',
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                navigate('/basket');
+              }}
+            />
+            {basketCount > 0 && <StyledCartCount>{basketCount}</StyledCartCount>}
+          </>
+        )}
       </StyledAccommodationNaviRight>
       <StyledTopBtn onClick={ScrollToTop}>
         <UpOutlined />
@@ -88,6 +98,8 @@ const StyledAccommodationNaviLeft = styled.div`
 
 const StyledAccommodationNaviRight = styled.div`
   margin-right: 1rem;
+  display: flex;
+  align-items: center;
 `;
 
 const StyledTopBtn = styled.button`

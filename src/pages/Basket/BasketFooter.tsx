@@ -3,17 +3,12 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 import { Text, Button, useDisclosure } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
-import {
-  basketCheckedItemsState,
-  getTotalPriceOfCheckedItems,
-} from '../../states/atom';
+import { basketCheckedItemsState, getTotalPriceOfCheckedItems } from '../../states/atom';
 import DefaultModal from '../../components/Modal/DefaultModal';
 
 function BasketFooter() {
   const navigate = useNavigate();
-  const [checkedItems, setCheckedItems] = useRecoilState(
-    basketCheckedItemsState,
-  );
+  const [checkedItems, setCheckedItems] = useRecoilState(basketCheckedItemsState);
   const totalPrice = useRecoilValue(getTotalPriceOfCheckedItems);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -42,12 +37,7 @@ function BasketFooter() {
       <Button variant="blue" size="lg" width="100%" onClick={onOpen}>
         예약하기
       </Button>
-      <DefaultModal
-        isOpen={isOpen}
-        onClose={onClose}
-        modalFunc={modalFunc}
-        modalData={modalData}
-      />
+      <DefaultModal isOpen={isOpen} onClose={onClose} modalFunc={modalFunc} modalData={modalData} />
     </StyledBasketFooterWrapper>
   );
 }

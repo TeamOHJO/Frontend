@@ -2,8 +2,10 @@ import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 import { useState } from 'react';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
+import { useParams } from 'react-router-dom';
 import { theme } from '../styles/theme';
 import { getCookie } from '../utils/utils';
+import HeartToastPopup from './HeartToastPopup';
 
 interface HeartProps {
   liked: boolean;
@@ -12,13 +14,44 @@ interface HeartProps {
 
 function Heart({ liked, size }: HeartProps) {
   const [isHeart, setIsHeart] = useState<boolean>(liked);
-
+  const [activeHeart, setActiveHeart] = useState(false);
+  const params = useParams();
   const accessToken = getCookie('token');
 
   function handleIsHeart() {
-    if (accessToken) setIsHeart(!isHeart);
-    else console.log('notLogin');
+    if (accessToken) {
+      fetchData();
+    } else {
+      setActiveHeart(!activeHeart);
+    }
   }
+
+  const [showAlert, setShowAlert] = useState({
+    active: false,
+    message: '',
+  });
+
+  const openFunction = () => {
+    const toastData = {
+      active: true,
+      message: '로그인 후 진행하실 수 있습니다.',
+    };
+    setShowAlert(toastData);
+  };
+
+  const fetchData = async () => {
+    const response = await fetch(
+      `https://yanoljaschool.site:8080/accommodation/${params.id}/likes`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+    const res = await response.json();
+    setIsHeart(res.data.liked);
+  };
 
   const Bounce = keyframes`
   0%{
@@ -52,8 +85,16 @@ function Heart({ liked, size }: HeartProps) {
       {isHeart ? (
         <StyledHeartFilled onClick={() => handleIsHeart()} />
       ) : (
-        <StyledHeartOutlined onClick={() => handleIsHeart()} />
+        <StyledHeartOutlined
+          onClick={() => {
+            handleIsHeart();
+            if (!accessToken) {
+              openFunction();
+            }
+          }}
+        />
       )}
+      <HeartToastPopup status={showAlert} setFunc={setShowAlert} />
     </StyledHeart>
   );
 }
