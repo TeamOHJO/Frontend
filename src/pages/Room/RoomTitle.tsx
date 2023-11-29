@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { StarFilled } from '@ant-design/icons';
 import { Heading, Text } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
+import { changeStarFormat } from '../../utils/utils';
 
 interface RoomTitleProps {
   name: string;
@@ -28,7 +29,7 @@ function RoomTitle({ name, explanation, minCapacity, maxCapacity, star }: RoomTi
         </StyledRoomTitleName>
         <StyledRoomStar>
           <StarFilled style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }} />
-          <StyledStarDigit>{star}</StyledStarDigit>
+          <StyledStarDigit>{changeStarFormat(star)}</StyledStarDigit>
         </StyledRoomStar>
       </StyledRoomBadgeStarWrapper>
     </StyledRoomTitleWrapper>

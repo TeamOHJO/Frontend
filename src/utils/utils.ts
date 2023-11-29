@@ -99,3 +99,18 @@ export const changeCategoryReverseFormat = (category: string) => {
   // 아무것도 없을때
   return category;
 };
+
+export const changePriceDiscountFormat = (
+  price: number,
+  discountPercentage: number,
+  day: number,
+) => {
+  return (Math.floor((price * day * (100 - discountPercentage)) / 100000) * 1000).toLocaleString();
+};
+
+export const changeStarFormat = (star: number) => {
+  if (star === 0) {
+    return '(리뷰 없음)';
+  }
+  return star.toFixed(1);
+};
