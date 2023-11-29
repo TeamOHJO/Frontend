@@ -5,6 +5,7 @@ import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { useParams } from 'react-router-dom';
 import { theme } from '../styles/theme';
 import { getCookie } from '../utils/utils';
+import HeartToastPopup from './HeartToastPopup';
 
 interface HeartProps {
   liked: boolean;
@@ -24,6 +25,19 @@ function Heart({ liked, size }: HeartProps) {
       setActiveHeart(!activeHeart);
     }
   }
+
+  const [showAlert, setShowAlert] = useState({
+    active: false,
+    message: '',
+  });
+
+  const openFunction = () => {
+    const toastData = {
+      active: true,
+      message: '로그인 후 진행하실 수 있습니다.',
+    };
+    setShowAlert(toastData);
+  };
 
   const fetchData = async () => {
     const response = await fetch(
@@ -71,8 +85,17 @@ function Heart({ liked, size }: HeartProps) {
       {isHeart ? (
         <StyledHeartFilled onClick={() => handleIsHeart()} />
       ) : (
-        <StyledHeartOutlined onClick={() => handleIsHeart()} />
+        <StyledHeartOutlined
+          onClick={() => {
+            handleIsHeart();
+            if (!accessToken) {
+              openFunction();
+              console.log(1);
+            }
+          }}
+        />
       )}
+      <HeartToastPopup status={showAlert} setFunc={setShowAlert} />
     </StyledHeart>
   );
 }

@@ -7,7 +7,7 @@ import {
   accommodationSelectEndDateState,
   accommodationSelectVisitorsState,
 } from '../../states/atom';
-import { changeDateFormat } from '../../utils/utils';
+import { changeDateFormat, getCookie } from '../../utils/utils';
 
 interface ReservationBtnProps {
   soldOut: boolean;
@@ -43,14 +43,20 @@ function ReservationBtn({
     accommodationSelectVisitorsState,
   );
   const navigate = useNavigate();
+  const accessToken = getCookie('token');
 
   // 예약하기 버튼 모달
-  const modalData = {
+  const accessModalData = {
     heading: '예약하기',
     text: '선택된 숙소를 예약하시겠습니까?',
   };
 
-  const modalFunc = () => {
+  const notAccessModalData = {
+    heading: '예약불가',
+    text: '로그인 페이지로 이동하시겠습니까?',
+  };
+
+  const accessModalFunc = () => {
     // 결제 페이지로 이동
     navigate(
       `/reservation/1?startDate=${changeDateFormat(
@@ -61,13 +67,17 @@ function ReservationBtn({
     );
   };
 
+  const notAccessModalFunc = () => {
+    navigate('/login');
+  };
+
   return (
     <>
       <DefaultModal
         isOpen={isOpen}
         onClose={onClose}
-        modalFunc={modalFunc}
-        modalData={modalData}
+        modalFunc={accessToken ? accessModalFunc : notAccessModalFunc}
+        modalData={accessToken ? accessModalData : notAccessModalData}
       />
       <Button
         variant={soldOut ? 'gray' : 'blue'}
