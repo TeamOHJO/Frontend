@@ -86,10 +86,36 @@ function RoomBottomNavi({
   return (
     <StyledRoomBottomNaviWrapper>
       <StyledRoomBottomNaviLeft>
-        <Text as="p" size="sm" color="gray.84">
-          ·총액 ￦
-          {(Math.floor((price * countDay()) / 1000) * 1000).toLocaleString()}원
-        </Text>
+        {discountPercentage > 0 ? (
+          <>
+            <Text as="s" size="sm" color="blackAlpha.600">
+              ￦
+              {(
+                Math.floor((price * countDay()) / 1000) * 1000
+              ).toLocaleString()}
+              원/{countDay()}박
+            </Text>
+            <Text as="p" size="sm">
+              ￦
+              {(
+                Math.floor(
+                  (price * countDay() * (100 - discountPercentage)) / 100000,
+                ) * 1000
+              ).toLocaleString()}
+              원/{countDay()}박
+            </Text>
+          </>
+        ) : (
+          <Text as="p" size="sm">
+            ￦
+            {(
+              Math.floor(
+                (price * countDay() * (100 - discountPercentage)) / 100000,
+              ) * 1000
+            ).toLocaleString()}
+            원/{countDay()}박
+          </Text>
+        )}
       </StyledRoomBottomNaviLeft>
       <StyledRoomBottomNaviRight>
         <DefaultModal
