@@ -46,8 +46,8 @@ function MainRouter() {
           <Route path="/accommodation/:id" element={<Accommodation />} />
           <Route path="/room/:id" element={<Room />} />
           <Route path="/review/:id" element={<CustomerReview />} />
-          <Route path="/reservation" element={<Reservation />} />
-          <Route path="/reservation-complete" element={<ReservationComplete />} />
+          <Route path="/reservation/:id" element={<Reservation />} />
+          <Route path="/reservation-complete/:id" element={<ReservationComplete />} />
         </Routes>
       </StyledInnerContainer>
     </StyledContainer>

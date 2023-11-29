@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { JoinData, LoginData, Email } from './type';
 import { getCookie } from '../utils/utils';
-import { AddReviewData } from '../@types/interface';
+import { AddReviewData, ReservationInfo } from '../@types/interface';
 
 axios.defaults.withCredentials = true;
 const token = getCookie('token');
@@ -75,6 +75,29 @@ export const SubmitReview = async (reservationId: number, reviewData: AddReviewD
   return res;
 };
 
+// 예약내역 GET 해오기 !!
+export const getReservation = async (roomsId: number) => {
+  const res = await clientToken.get(`/reservation/details/rooms/${roomsId}`);
+  return res;
+};
+
+// 예약페이지 POST 요청 보내기!
+export const postReservation = async (roomsId: number, reservationInfo: ReservationInfo) => {
+  try {
+    const res = await clientToken.post(`/reservation/rooms/${roomsId}`, reservationInfo);
+    return res;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+// 리뷰 조회 GET 해오기!!
+export const getReview = async (accommodationId: string) => {
+  const res = await client.get(`/review/accommodation/${accommodationId}`);
+  return res.data;
+};
+
 interface SearchFilterProps {
   category: string;
   isDomestic: boolean;
@@ -110,10 +133,4 @@ export const getAccommodationList = async (
     );
     return res.data;
   }
-};
-/* eslint-enable */
-
-export const getReview = async () => {
-  const res = await client.get('/review/accommodation/1');
-  return res.data;
 };
