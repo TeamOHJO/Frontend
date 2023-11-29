@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
-import { Input, Button } from '@chakra-ui/react';
+import { Input } from '@chakra-ui/react';
 
 interface PasswordInputProps {
   name: string;
@@ -56,12 +55,4 @@ const StyledInfoLabel = styled.span`
 const StyledInfoInput = styled(Input)`
   margin-right: 10px;
   flex: 1.5;
-`;
-
-const StyledEditBtn = styled(Button)`
-  flex: 0.5;
-`;
-
-const StyledSubmitBtn = styled(Button)`
-  flex: 0.5;
 `;
