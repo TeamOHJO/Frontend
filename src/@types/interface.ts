@@ -202,13 +202,13 @@ export interface Review {
 }
 
 export interface WishlistData {
-  accommodationId: number;
-  accommodationName: string;
   category: string;
-  location: string;
   image: string;
-  lowestPrice: number;
-  isLiked: boolean;
+  liked: boolean;
+  location: string;
+  name: string;
+  price: number;
+  accommodationId: number;
 }
 
 export interface AddReviewData {

@@ -135,6 +135,18 @@ export const getAccommodationList = async (
   }
 };
 
+// 위시리스트 목록 불러오기
+export const getWishlist = async () => {
+  const res = await clientToken.get('/wishlist');
+  return res;
+};
+
+// 좋아요 생성 & 해제
+export const clickLiked = async (accommodationId: number) => {
+  const res = await clientToken.post(`/accommodation/${accommodationId}/likes`);
+  return res;
+};
+
 export const getMyInfo = async () => {
   const newToken = getCookie('token');
 

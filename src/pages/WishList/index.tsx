@@ -1,27 +1,28 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
+import { v4 as uuid } from 'uuid';
 import { Box, Center, Heading, Grid } from '@chakra-ui/react';
 import WishListCard from './WishListCard';
 import { wishlistDataState } from '../../states/atom';
 import { WishlistData } from '../../@types/interface';
+import { getWishlist } from '../../api';
+import WishListNoLiked from './WishListNoLiked';
 
 function WishList() {
   const [wishlistData, setWishlistData] = useRecoilState(wishlistDataState);
-  const fetchData = async () => {
+
+  const fetchWishlistData = async () => {
     try {
-      const response = await fetch('http://localhost:5173/data/wishlist.json', {
-        method: 'GET',
-      });
-      const data = await response.json();
-      setWishlistData(data);
+      const response = await getWishlist();
+      setWishlistData(response.data.data);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    fetchData();
+    fetchWishlistData();
   }, []);
 
   return (
@@ -33,15 +34,15 @@ function WishList() {
               위시리스트
             </Heading>
           </Center>
-          <Grid
-            gridTemplateColumns="repeat(auto-fill, minmax(360px, 1fr))"
-            gap={4}
-            px="1rem"
-          >
-            {wishlistData.map((item: WishlistData) => (
-              <WishListCard key={item.accommodationId} item={item} />
-            ))}
-          </Grid>
+          {wishlistData.length > 0 ? (
+            <Grid gridTemplateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={4} px="1rem">
+              {wishlistData.map((item: WishlistData) => (
+                <WishListCard key={uuid()} item={item} />
+              ))}
+            </Grid>
+          ) : (
+            <WishListNoLiked />
+          )}
         </Box>
       </StyledInnerContainer>
     </StyledContainer>
@@ -54,7 +55,6 @@ const StyledContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  min-height: 100vh;
 `;
 
 const StyledInnerContainer = styled.div`
