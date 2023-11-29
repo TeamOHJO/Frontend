@@ -1,36 +1,37 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@chakra-ui/react';
+import { v4 as uuid } from 'uuid';
 import {
   searchFilteredState,
   searchAttempt,
   accommodationList,
-  setPage,
 } from '../../states/atom';
 import { getAccommodationList } from '../../api';
 import HomeCard from './HomeCard';
+import { changeCategoryFormat } from '../../utils/utils';
 
 const ContentsContainer = () => {
   const [list, setList] = useRecoilState(accommodationList);
+  const { id } = useParams();
   const navigate = useNavigate();
   const [searchFilter, setSearchFilter] = useRecoilState(searchFilteredState);
-  const [searchingAttempt] = useRecoilState(searchAttempt);
-  const [paging, setPaging] = useRecoilState(setPage);
+  const [searchingAttempt, setSearchingAttempt] = useRecoilState(searchAttempt);
+  const [page, setPage] = useState(0);
 
-  const { category, isDomestic, startDate, endDate, numberOfPeople, page } =
+  const { category, isDomestic, startDate, endDate, numberOfPeople } =
     searchFilter;
 
   const fetchData = async () => {
     try {
-      const res = await getAccommodationList({
+      const res = await getAccommodationList(page, {
         category,
         isDomestic,
         startDate,
         endDate,
         numberOfPeople,
-        page,
       });
 
       const { data } = res;
@@ -41,18 +42,27 @@ const ContentsContainer = () => {
   };
 
   useEffect(() => {
-    fetchData();
-  }, [navigate, searchingAttempt]);
+    setPage(0);
+    const newCat = changeCategoryFormat(id);
+    const newSearchFilter = { ...searchFilter, category: newCat };
+    setSearchFilter(newSearchFilter);
+    setSearchingAttempt(searchingAttempt + 1);
+  }, [navigate]);
+
+  useEffect(() => {
+    if (page === 0) {
+      fetchData();
+    }
+  }, [searchingAttempt, page]);
 
   const getMoreData = async () => {
     try {
-      const res = await getAccommodationList({
+      const res = await getAccommodationList(page, {
         category,
         isDomestic,
         startDate,
         endDate,
         numberOfPeople,
-        page,
       });
 
       const { data } = res;
@@ -63,23 +73,23 @@ const ContentsContainer = () => {
   };
 
   const onClickMoreBtn = () => {
-    const newFilter = { ...searchFilter, page: page + 1 };
+    const newFilter = { ...searchFilter };
     setSearchFilter(newFilter);
-    setPaging(page + 1);
+    setPage(page + 1);
   };
 
   useEffect(() => {
-    if (paging !== 0) {
+    if (page !== 0) {
       getMoreData();
     }
-  }, [paging]);
+  }, [page]);
 
   return (
     <StyledContainer>
       {list.map((e: any) => {
         return (
           <HomeCard
-            key={e.accommodationId}
+            key={uuid()}
             id={e.accommodationId}
             name={e.accommodationName}
             images={e.accommodationImageList}

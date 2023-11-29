@@ -4,6 +4,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
+import { v4 as uuid } from 'uuid';
 
 interface SwiperProps {
   images: string[];
@@ -54,8 +55,6 @@ export default function SwiperComponent({ images, borderRadius }: SwiperProps) {
     }
   `;
 
-  const index = 1;
-
   return (
     <StyledSwiperWrapper
       pagination
@@ -64,7 +63,7 @@ export default function SwiperComponent({ images, borderRadius }: SwiperProps) {
       className="mySwiper"
     >
       {images.map((image: string) => (
-        <SwiperSlide key={index + 1}>
+        <SwiperSlide key={uuid()}>
           <StyledImg src={image} alt="#" />
         </SwiperSlide>
       ))}

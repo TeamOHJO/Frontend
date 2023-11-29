@@ -83,7 +83,8 @@ export const changeDateFormat = (date: Date) => {
   return `${year}-${month}-${day}`;
 };
 
-export const changeCategoryFormat = (category: string) => {
+export const changeCategoryFormat = (category: string | undefined) => {
+  if (category === undefined) return 'HOTEL';
   if (category === '호텔·리조트') return 'HOTEL';
   if (category === '한옥') return 'HANOK';
   if (category === '펜션·풀빌라') return 'PENSION';
