@@ -118,3 +118,8 @@ export const wishlistDataState = atom<WishlistData[]>({
   key: 'wishlistDataState',
   default: [],
 });
+
+export const myReviewCheckedItemsState = atom<BasketData[]>({
+  key: 'myReviewCheckedItemsState',
+  default: [],
+});
