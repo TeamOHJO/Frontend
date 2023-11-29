@@ -13,10 +13,10 @@ const ReviewCardImage = ({ reviewData }: { reviewData: Review }) => {
     return null;
   }
 
-  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  // const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const mainSliderRef = useRef<Slider>(null);
-  const prevSliderRef = useRef<Slider>(null);
+  // const prevSliderRef = useRef<Slider>(null);
   const [imagesLoaded, setImagesLoaded] = useState<boolean>(false);
 
   const mainSliderSettings = {
@@ -26,32 +26,32 @@ const ReviewCardImage = ({ reviewData }: { reviewData: Review }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     draggable: false,
-    afterChange: (current: number) => {
-      setCurrentSlide(current);
-      if (prevSliderRef.current) {
-        prevSliderRef.current.slickGoTo(current);
-      }
-    },
-    prevArrow: <PrevArrow onClick={() => {}} />,
-    nextArrow: <NextArrow onClick={() => {}} />,
+    // afterChange: (current: number) => {
+    //   setCurrentSlide(current);
+    //   if (prevSliderRef.current) {
+    //     prevSliderRef.current.slickGoTo(current);
+    //   }
+    // },
+    // prevArrow: <PrevArrow onClick={() => {}} />,
+    // nextArrow: <NextArrow onClick={() => {}} />,
   };
 
-  const prevSliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    centerMode: true,
-    centerPadding: '18px',
-    focusOnSelect: true,
-    afterChange: (current: number) => {
-      setCurrentSlide(current);
-      if (mainSliderRef.current) {
-        mainSliderRef.current.slickGoTo(current);
-      }
-    },
-  };
+  // const prevSliderSettings = {
+  //   dots: true,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  //   centerMode: true,
+  //   centerPadding: '18px',
+  //   focusOnSelect: true,
+  //   afterChange: (current: number) => {
+  //     setCurrentSlide(current);
+  //     if (mainSliderRef.current) {
+  //       mainSliderRef.current.slickGoTo(current);
+  //     }
+  //   },
+  // };
 
   const { images } = reviewData;
   // console.log(images);
@@ -64,24 +64,24 @@ const ReviewCardImage = ({ reviewData }: { reviewData: Review }) => {
     setIsFullscreen(false);
   };
 
-  const updateIsCenter = (index: number) => index === currentSlide;
+  // const updateIsCenter = (index: number) => index === currentSlide;
 
-  // useEffect(() => {
-  //   const loadImage = (url: string) => {
-  //     return new Promise<void>(resolve => {
-  //       const img = new Image();
-  //       img.onload = () => resolve();
-  //       img.src = url;
-  //     });
-  //   };
-  //   const loadImages = async () => {
-  //     const promises = images.map(url => loadImage(url));
-  //     await Promise.all(promises);
-  //     setImagesLoaded(true);
-  //   };
+  useEffect(() => {
+    const loadImage = (url: string) => {
+      return new Promise<void>(resolve => {
+        const img = new Image();
+        img.onload = () => resolve();
+        img.src = url;
+      });
+    };
+    const loadImages = async () => {
+      const promises = images.map(url => loadImage(url));
+      await Promise.all(promises);
+      setImagesLoaded(true);
+    };
 
-  //   loadImages();
-  // }, [images]);
+    loadImages();
+  }, [images]);
 
   return (
     <div key={reviewData.reviewId}>
@@ -105,7 +105,7 @@ const ReviewCardImage = ({ reviewData }: { reviewData: Review }) => {
                 </StyledImgContainer>
               ))}
             </StyledSlider>
-            <StyledSlider {...prevSliderSettings} ref={prevSliderRef}>
+            {/* <StyledSlider {...prevSliderSettings} ref={prevSliderRef}>
               {reviewData.images.map((imageUrl, index) => {
                 const altText = `${index + 1}`;
                 const isCenter = updateIsCenter(index);
@@ -121,12 +121,13 @@ const ReviewCardImage = ({ reviewData }: { reviewData: Review }) => {
                   </StyledImgContainer>
                 );
               })}
-            </StyledSlider>
+            </StyledSlider> */}
             {isFullscreen && (
               <FullscreenOverlay onClick={handleCloseFullscreen}>
                 <FullscreenImage
-                  src={reviewData.images[currentSlide]}
-                  alt={`Fullscreen ${currentSlide + 1}`}
+                  src={reviewData.images[0]}
+                  // src={reviewData.images[currentSlide]}
+                  // alt={`Fullscreen ${currentSlide + 1}`}
                 />
               </FullscreenOverlay>
             )}
