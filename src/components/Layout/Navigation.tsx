@@ -1,12 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
-import {
-  ShoppingCartOutlined,
-  HomeOutlined,
-  HeartOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { ShoppingCartOutlined, HomeOutlined, HeartOutlined, UserOutlined } from '@ant-design/icons';
 import { theme } from '../../styles/theme';
 import TopBtn from '../TopBtn';
 import { getCookie, removeCookies } from '../../utils/utils';
@@ -43,9 +38,7 @@ function Navigation() {
             <ShoppingCartOutlined
               style={{
                 fontSize: '20px',
-                color: `${
-                  pathname === '/basket' ? 'black' : theme.colors.gray400
-                }`,
+                color: `${pathname === '/basket' ? 'black' : theme.colors.gray400}`,
               }}
             />
             장바구니
@@ -74,9 +67,7 @@ function Navigation() {
             <HeartOutlined
               style={{
                 fontSize: '20px',
-                color: `${
-                  pathname === '/wishlist' ? 'black' : theme.colors.gray400
-                }`,
+                color: `${pathname === '/wishlist' ? 'black' : theme.colors.gray400}`,
               }}
             />
             위시 리스트
@@ -89,9 +80,8 @@ function Navigation() {
             <UserOutlined
               style={{
                 fontSize: '20px',
-                color: `${
-                  pathname === '/mypage' ? 'black' : theme.colors.gray400
-                }`,
+                color: `${pathname === '/mypage' ? 'black' : theme.colors.gray400}`,
+                // color: `${pathname.slice(0, 7) === '/mypage' ? 'black' : theme.colors.gray400}`,
               }}
             />
             마이페이지

@@ -12,13 +12,7 @@ interface RoomTitleProps {
   star: number;
 }
 
-function RoomTitle({
-  name,
-  explanation,
-  minCapacity,
-  maxCapacity,
-  star,
-}: RoomTitleProps) {
+function RoomTitle({ name, explanation, minCapacity, maxCapacity, star }: RoomTitleProps) {
   return (
     <StyledRoomTitleWrapper>
       <StyledRoomBadgeStarWrapper>
@@ -34,9 +28,7 @@ function RoomTitle({
           </Text>
         </StyledRoomTitleName>
         <StyledRoomStar>
-          <StarFilled
-            style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
-          />
+          <StarFilled style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }} />
           <StyledStarDigit>{changeStarFormat(star)}</StyledStarDigit>
         </StyledRoomStar>
       </StyledRoomBadgeStarWrapper>

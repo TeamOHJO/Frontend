@@ -6,11 +6,7 @@ import { useRecoilState } from 'recoil';
 import { useState } from 'react';
 import { theme } from '../../styles/theme';
 import DefaultModal from '../../components/Modal/DefaultModal';
-import {
-  changeDateFormat,
-  getCookie,
-  changePriceDiscountFormat,
-} from '../../utils/utils';
+import { changeDateFormat, getCookie, changePriceDiscountFormat } from '../../utils/utils';
 import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
@@ -46,17 +42,11 @@ function RoomBottomNavi({
   star,
 }: RoomBottomNaviProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [accommodationSelectStartDate] = useRecoilState<Date>(
-    accommodationSelectStartDateState,
-  );
+  const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
 
-  const [accommodationSelectEndDate] = useRecoilState<Date>(
-    accommodationSelectEndDateState,
-  );
+  const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
 
-  const [accommodationSelectVisitors] = useRecoilState<number>(
-    accommodationSelectVisitorsState,
-  );
+  const [accommodationSelectVisitors] = useRecoilState<number>(accommodationSelectVisitorsState);
 
   const navigate = useNavigate();
 
@@ -89,8 +79,7 @@ function RoomBottomNavi({
 
   const countDay = () => {
     if (startDate && endDate) {
-      const diffDate =
-        new Date(endDate).getTime() - new Date(startDate).getTime();
+      const diffDate = new Date(endDate).getTime() - new Date(startDate).getTime();
       return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
     }
     return 1;
@@ -114,19 +103,13 @@ function RoomBottomNavi({
                 원/{countDay()}박
               </Text>
               <Text as="p" size="sm">
-                ￦{' '}
-                {changePriceDiscountFormat(
-                  price,
-                  discountPercentage,
-                  countDay(),
-                )}
+                ￦ {changePriceDiscountFormat(price, discountPercentage, countDay())}
                 원/{countDay()}박
               </Text>
             </>
           ) : (
             <Text as="p" size="sm">
-              ￦{' '}
-              {changePriceDiscountFormat(price, discountPercentage, countDay())}
+              ￦ {changePriceDiscountFormat(price, discountPercentage, countDay())}
               원/{countDay()}박
             </Text>
           )}

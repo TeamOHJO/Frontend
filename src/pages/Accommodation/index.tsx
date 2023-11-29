@@ -18,22 +18,15 @@ import {
 import { getCookie, changeDateFormat } from '../../utils/utils';
 
 function Accommodation() {
-  const [accommodationDetailData, setAccommodationDetailData] =
-    useState<AccommodationDetail>();
+  const [accommodationDetailData, setAccommodationDetailData] = useState<AccommodationDetail>();
 
   const params = useParams();
 
-  const [accommodationSelectStartDate] = useRecoilState<Date>(
-    accommodationSelectStartDateState,
-  );
+  const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
 
-  const [accommodationSelectEndDate] = useRecoilState<Date>(
-    accommodationSelectEndDateState,
-  );
+  const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
 
-  const [accommodationSelectVisitors] = useRecoilState<number>(
-    accommodationSelectVisitorsState,
-  );
+  const [accommodationSelectVisitors] = useRecoilState<number>(accommodationSelectVisitorsState);
 
   const accessToken = getCookie('token');
 

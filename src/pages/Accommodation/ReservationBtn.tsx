@@ -35,15 +35,9 @@ function ReservationBtn({
   discountPercentage,
 }: ReservationBtnProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [accommodationSelectStartDate] = useRecoilState<Date>(
-    accommodationSelectStartDateState,
-  );
-  const [accommodationSelectEndDate] = useRecoilState<Date>(
-    accommodationSelectEndDateState,
-  );
-  const [accommodationSelectVisitors] = useRecoilState<number>(
-    accommodationSelectVisitorsState,
-  );
+  const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
+  const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
+  const [accommodationSelectVisitors] = useRecoilState<number>(accommodationSelectVisitorsState);
   const [showAlert, setShowAlert] = useState({
     active: false,
     message: '',

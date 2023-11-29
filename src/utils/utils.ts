@@ -13,12 +13,10 @@ export const validateField = ({ key, value, formData }: ValidationLogin) => {
         if (value.length < 5) error = '비밀번호는 최소 5자 이상이어야 합니다.';
         break;
       case 'passwordConfirm':
-        if (value !== formData.password)
-          error = '비밀번호가 일치하지 않습니다.';
+        if (value !== formData.password) error = '비밀번호가 일치하지 않습니다.';
         break;
       case 'phone':
-        if (!/^\d{10,11}$/.test(value))
-          error = '올바른 휴대전화번호 형식이 아닙니다.';
+        if (!/^\d{10,11}$/.test(value)) error = '올바른 휴대전화번호 형식이 아닙니다.';
         break;
       case 'name':
         if (value.length > 10) error = '이름은 10자 이내로 입력해야 합니다.';
@@ -32,11 +30,7 @@ export const validateField = ({ key, value, formData }: ValidationLogin) => {
 };
 /* eslint-enable */
 
-export const setCookies = async (
-  userEmail: string,
-  userName: string,
-  token: string,
-) => {
+export const setCookies = async (userEmail: string, userName: string, token: string) => {
   try {
     document.cookie = `userEmail=${userEmail};max-age=3600;path=/;secure`;
     document.cookie = `userName=${userName};max-age=3600;path=/;secure`;
@@ -111,9 +105,7 @@ export const changePriceDiscountFormat = (
   discountPercentage: number,
   day: number,
 ) => {
-  return (
-    Math.floor((price * day * (100 - discountPercentage)) / 100000) * 1000
-  ).toLocaleString();
+  return (Math.floor((price * day * (100 - discountPercentage)) / 100000) * 1000).toLocaleString();
 };
 
 export const changeStarFormat = (star: number) => {

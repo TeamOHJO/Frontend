@@ -13,8 +13,7 @@ import { getCookie } from '../../utils/utils';
 import { basketCountState } from '../../states/atom';
 
 function AccommodationNavi() {
-  const [basketCount, setBasketCount] =
-    useRecoilState<number>(basketCountState);
+  const [basketCount, setBasketCount] = useRecoilState<number>(basketCountState);
   const navigate = useNavigate();
 
   const ScrollToTop = () => {
@@ -65,9 +64,7 @@ function AccommodationNavi() {
                 navigate('/basket');
               }}
             />
-            {basketCount > 0 && (
-              <StyledCartCount>{basketCount}</StyledCartCount>
-            )}
+            {basketCount > 0 && <StyledCartCount>{basketCount}</StyledCartCount>}
           </>
         )}
       </StyledAccommodationNaviRight>

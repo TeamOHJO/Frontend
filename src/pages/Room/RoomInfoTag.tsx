@@ -19,9 +19,7 @@ function RoomInfoTag({ serviceInfo }: RoomInfoTagProps) {
         {serviceInfo &&
           serviceInfo.map((data: string) => (
             <StyledRoomInfoTagItem key={uuid()}>
-              <CheckOutlined
-                style={{ fontSize: '12px', marginRight: '0.5rem' }}
-              />
+              <CheckOutlined style={{ fontSize: '12px', marginRight: '0.5rem' }} />
               <Text as="p" size="xs" color="basic">
                 {data}
               </Text>

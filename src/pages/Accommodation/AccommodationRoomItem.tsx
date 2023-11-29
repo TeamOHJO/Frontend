@@ -11,11 +11,7 @@ import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
 } from '../../states/atom';
-import {
-  changeDateFormat,
-  changePriceDiscountFormat,
-  changeStarFormat,
-} from '../../utils/utils';
+import { changeDateFormat, changePriceDiscountFormat, changeStarFormat } from '../../utils/utils';
 
 interface AccommodationRoom {
   roomId: number;
@@ -45,19 +41,14 @@ function AccommodationRoomItem({
   location,
 }: AccommodationRoom) {
   const navigate = useNavigate();
-  const [accommodationSelectStartDate] = useRecoilState<Date>(
-    accommodationSelectStartDateState,
-  );
+  const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
 
-  const [accommodationSelectEndDate] = useRecoilState<Date>(
-    accommodationSelectEndDateState,
-  );
+  const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
 
   const handleCountDay = () => {
     if (accommodationSelectStartDate && accommodationSelectEndDate) {
       const diffDate =
-        accommodationSelectEndDate.getTime() -
-        accommodationSelectStartDate.getTime();
+        accommodationSelectEndDate.getTime() - accommodationSelectStartDate.getTime();
       return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
     }
     return 1;
@@ -83,9 +74,7 @@ function AccommodationRoomItem({
             {name}
           </Heading>
           <div>
-            <StarFilled
-              style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
-            />
+            <StarFilled style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }} />
             <StyledStarDigit>{changeStarFormat(averageRating)}</StyledStarDigit>
           </div>
         </StyledAccommodationRoomTitleBox>
@@ -101,12 +90,7 @@ function AccommodationRoomItem({
                   원/{handleCountDay()}박
                 </Text>
                 <Text as="p" size="sm">
-                  ￦
-                  {changePriceDiscountFormat(
-                    price,
-                    discountPercentage,
-                    handleCountDay(),
-                  )}
+                  ￦{changePriceDiscountFormat(price, discountPercentage, handleCountDay())}
                   원/{handleCountDay()}박
                   <Badge fontSize="0.8rem" style={{ marginLeft: '0.5rem' }}>
                     {discountPercentage}% 할인
@@ -115,12 +99,7 @@ function AccommodationRoomItem({
               </>
             ) : (
               <Text as="p" size="sm">
-                ￦
-                {changePriceDiscountFormat(
-                  price,
-                  discountPercentage,
-                  handleCountDay(),
-                )}
+                ￦{changePriceDiscountFormat(price, discountPercentage, handleCountDay())}
                 원/{handleCountDay()}박
               </Text>
             )}

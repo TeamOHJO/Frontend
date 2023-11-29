@@ -22,11 +22,7 @@ interface AccommodationRoomsProps {
   location: string;
 }
 
-function AccommodationRooms({
-  rooms,
-  category,
-  location,
-}: AccommodationRoomsProps) {
+function AccommodationRooms({ rooms, category, location }: AccommodationRoomsProps) {
   return (
     <StyledAccommodationRoomsWrapper>
       {rooms.map((room: AccommodationRoom) => (
