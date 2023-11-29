@@ -19,7 +19,7 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
   const badgeText = changeCategoryReverseFormat(item.category);
   const badgeColor = handleBadgeColor(badgeText);
 
-  // 예약 취소 버튼 클릭시 실행 함수
+  // 예약 취소 함수
   const onClickCancelButton = async (id: number) => {
     try {
       await CancelReservation(id);
@@ -30,8 +30,14 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
     }
   };
 
+  // 리뷰 작성 페이지로 이동
   const onClickWriteReview = (id: number) => {
     navigate(`/mypage/review/write/${id}`);
+  };
+
+  // 객실 상세 페이지로 이동
+  const moveToDetails = () => {
+    navigate(`/room/${item.roomId}`);
   };
 
   return (
@@ -44,13 +50,15 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
           src={item.image}
           alt="Accommodation Photo"
           borderRadius="lg"
+          onClick={moveToDetails}
+          style={{ cursor: 'pointer' }}
         />
         <StyledCardContent>
           <StyledCardBodyLeft>
             <Box textAlign="left">
               <Badge variant={badgeColor}>{badgeText}</Badge>
             </Box>
-            <Heading size="md">{item.accommodationName}</Heading>
+            <StyledTitle onClick={moveToDetails}>{item.accommodationName}</StyledTitle>
             <Text size="sm">{item.roomName}</Text>
             <Text as="p" size="xs" color="blackAlpha.600">
               {item.startDate} - {item.endDate} ({nights}박)
@@ -120,4 +128,20 @@ const StyledCardContent = styled(Box)`
   flex-direction: row;
   justify-content: space-between;
   margin-top: 1rem;
+`;
+
+const StyledTitle = styled.h1`
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: left;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+
+  :hover {
+    cursor: pointer;
+  }
 `;

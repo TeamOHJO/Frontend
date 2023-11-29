@@ -115,6 +115,7 @@ const StyledTitle = styled.h1`
   font-size: 1rem;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.48);
+  text-align: left;
 
   overflow: hidden;
   white-space: nowrap;

@@ -62,6 +62,7 @@ const StyledBox = styled.div`
 const StyledTitle = styled.h1`
   font-size: 14px;
   font-weight: bold;
+  text-align: left;
 
   overflow: hidden;
   white-space: nowrap;

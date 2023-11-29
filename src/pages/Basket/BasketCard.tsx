@@ -176,6 +176,7 @@ const StyledTitle = styled.h1`
   width: 95%;
   font-size: 1rem;
   font-weight: bold;
+  text-align: left;
 
   overflow: hidden;
   white-space: nowrap;
