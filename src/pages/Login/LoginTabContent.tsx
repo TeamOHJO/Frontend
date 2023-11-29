@@ -65,22 +65,14 @@ const LoginTabContent = () => {
     newErrors[key] = error;
     newIsError[key] = !!error;
 
-    setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    setIsError((prevIsError) => ({ ...prevIsError, ...newIsError }));
+    setErrors((prevErrors: any) => ({ ...prevErrors, ...newErrors }));
+    setIsError((prevIsError: any) => ({ ...prevIsError, ...newIsError }));
   };
 
   return (
     <StyledForm onSubmit={handleLoginSubmit}>
-      <LoginInput
-        isError={isError}
-        errors={errors}
-        errorSetFunc={errorSetFunc}
-      />
-      <LoginTabButton
-        errors={errors}
-        formData={formData}
-        errorSetFunc={errorSetFunc}
-      />
+      <LoginInput isError={isError} errors={errors} errorSetFunc={errorSetFunc} />
+      <LoginTabButton errors={errors} formData={formData} errorSetFunc={errorSetFunc} />
     </StyledForm>
   );
 };

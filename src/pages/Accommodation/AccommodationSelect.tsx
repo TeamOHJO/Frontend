@@ -9,18 +9,16 @@ import {
   accommodationSelectVisitorsState,
 } from '../../states/atom';
 
-function AccommodationSelect() {
-  const [accommodationSelectStartDate] = useRecoilState<Date | null>(
-    accommodationSelectStartDateState,
-  );
+interface AccommodationSelectProps {
+  fetchData: () => void;
+}
 
-  const [accommodationSelectEndDate] = useRecoilState<Date | null>(
-    accommodationSelectEndDateState,
-  );
+function AccommodationSelect({ fetchData }: AccommodationSelectProps) {
+  const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
 
-  const [accommodationSelectVisitors] = useRecoilState<number>(
-    accommodationSelectVisitorsState,
-  );
+  const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
+
+  const [accommodationSelectVisitors] = useRecoilState<number>(accommodationSelectVisitorsState);
   const { onOpen, isOpen, onClose } = useDisclosure();
 
   const Day = ['일', '월', '화', '수', '목', '금', '토'];
@@ -35,23 +33,13 @@ function AccommodationSelect() {
       <StyledAccommodationSelectBox>
         <StyledAccommodationSelectBoxLeft>
           <StyledAccommodationSelectBoxLeftSpan>
-            {accommodationSelectStartDate &&
-              accommodationSelectStartDate.getMonth() + 1}
-            .
-            {accommodationSelectStartDate &&
-              accommodationSelectStartDate.getDate()}
-            (
-            {accommodationSelectStartDate &&
-              Day[accommodationSelectStartDate.getDay()]}
+            {accommodationSelectStartDate && accommodationSelectStartDate.getMonth() + 1}.
+            {accommodationSelectStartDate && accommodationSelectStartDate.getDate()}(
+            {accommodationSelectStartDate && Day[accommodationSelectStartDate.getDay()]}
             )~
-            {accommodationSelectEndDate &&
-              accommodationSelectEndDate.getMonth() + 1}
-            .
-            {accommodationSelectEndDate && accommodationSelectEndDate.getDate()}
-            (
-            {accommodationSelectEndDate &&
-              Day[accommodationSelectEndDate.getDay()]}
-            ) 날짜
+            {accommodationSelectEndDate && accommodationSelectEndDate.getMonth() + 1}.
+            {accommodationSelectEndDate && accommodationSelectEndDate.getDate()}(
+            {accommodationSelectEndDate && Day[accommodationSelectEndDate.getDay()]}) 날짜
           </StyledAccommodationSelectBoxLeftSpan>
           <CalendarOutlined style={{ fontSize: '20px' }} />
         </StyledAccommodationSelectBoxLeft>
@@ -59,7 +47,7 @@ function AccommodationSelect() {
           {accommodationSelectVisitors}명
         </StyledAccommodationSelectBoxRight>
       </StyledAccommodationSelectBox>
-      <SelectModal isOpen={isOpen} onClose={onClose} />
+      <SelectModal isOpen={isOpen} onClose={onClose} fetchData={fetchData} />
     </StyledAccommodationSelectWrapper>
   );
 }

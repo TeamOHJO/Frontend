@@ -3,38 +3,35 @@ import { StarFilled } from '@ant-design/icons';
 import { Badge, Heading, Text } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import { handleBadgeColor } from '../../utils/handleBadgeColor';
+import { changeCategoryReverseFormat } from '../../utils/utils';
 
 interface AccommodationTitleProps {
-  accommodationName: string;
+  name: string;
   category: string;
   location: string;
-  stars: number;
+  averageRating: number;
 }
 
-function AccommodationTitle({
-  accommodationName,
-  category,
-  location,
-  stars,
-}: AccommodationTitleProps) {
+function AccommodationTitle({ name, category, location, averageRating }: AccommodationTitleProps) {
   return (
     <StyledAccommodationTitleWrapper>
       <StyledAccommodationBadgeStarWrapper>
         <StyledAccommodationBadge>
-          <Badge variant={handleBadgeColor(category)} fontSize="0.8rem">
-            {category}
+          <Badge
+            variant={handleBadgeColor(changeCategoryReverseFormat(category))}
+            fontSize="0.8rem"
+          >
+            {changeCategoryReverseFormat(category)}
           </Badge>
         </StyledAccommodationBadge>
         <StyledAccommodationStar>
-          <StarFilled
-            style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
-          />
-          <StyledStarDigit>{stars}</StyledStarDigit>
+          <StarFilled style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }} />
+          <StyledStarDigit>{averageRating}</StyledStarDigit>
         </StyledAccommodationStar>
       </StyledAccommodationBadgeStarWrapper>
       <StyledAccommodationTitleName>
         <Heading as="h2" size="lg">
-          {accommodationName}
+          {name}
         </Heading>
         <Text as="p" size="sm" color="gray.84">
           {location}

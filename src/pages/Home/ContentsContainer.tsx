@@ -1,43 +1,109 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import { useRecoilState } from 'recoil';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@chakra-ui/react';
+import { v4 as uuid } from 'uuid';
+import { searchFilteredState, searchAttempt, accommodationList } from '../../states/atom';
+import { getAccommodationList } from '../../api';
 import HomeCard from './HomeCard';
-import { HomeCardProps } from '../../@types/interface';
+import { changeCategoryFormat } from '../../utils/utils';
 
 const ContentsContainer = () => {
-  const [list, setList] = useState([]);
+  const [list, setList] = useRecoilState(accommodationList);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [searchFilter, setSearchFilter] = useRecoilState(searchFilteredState);
+  const [searchingAttempt, setSearchingAttempt] = useRecoilState(searchAttempt);
+  const [page, setPage] = useState(0);
+
+  const { category, isDomestic, startDate, endDate, numberOfPeople } = searchFilter;
 
   const fetchData = async () => {
-    const response = await fetch(
-      'http://localhost:5173/data/accommodationList.json',
-      {
-        method: 'GET',
-      },
-    );
-    setList(await response.json());
+    try {
+      const res = await getAccommodationList(page, {
+        category,
+        isDomestic,
+        startDate,
+        endDate,
+        numberOfPeople,
+      });
+
+      const { data } = res;
+      setList(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    setPage(0);
+    const newCat = changeCategoryFormat(id);
+    const newSearchFilter = { ...searchFilter, category: newCat };
+    setSearchFilter(newSearchFilter);
+    setSearchingAttempt(searchingAttempt + 1);
+  }, [navigate]);
+
+  useEffect(() => {
+    if (page === 0) {
+      fetchData();
+    }
+  }, [searchingAttempt, page]);
+
+  const getMoreData = async () => {
+    try {
+      const res = await getAccommodationList(page, {
+        category,
+        isDomestic,
+        startDate,
+        endDate,
+        numberOfPeople,
+      });
+
+      const { data } = res;
+      setList((prevList: any[]) => [...prevList, ...data]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onClickMoreBtn = () => {
+    const newFilter = { ...searchFilter };
+    setSearchFilter(newFilter);
+    setPage(page + 1);
+  };
+
+  useEffect(() => {
+    if (page !== 0) {
+      getMoreData();
+    }
+  }, [page]);
 
   return (
     <StyledContainer>
-      {list.map((e: HomeCardProps) => {
+      {list.map((e: any) => {
         return (
           <HomeCard
-            key={String(e.price * e.score) + e.name}
-            name={e.name}
-            images={e.images}
+            key={uuid()}
+            id={e.accommodationId}
+            name={e.accommodationName}
+            images={e.accommodationImageList}
             category={e.category}
-            score={e.score}
-            price={e.price}
-            isLiked={e.isLiked}
+            score={e.averageReviewScore}
+            price={e.minPrice}
+            isLiked={e.liked}
           />
         );
       })}
       <StyledButtonWrapper>
-        <Button colorScheme="blue">더보기</Button>
+        <Button
+          colorScheme="blue"
+          onClick={() => {
+            onClickMoreBtn();
+          }}
+        >
+          더보기
+        </Button>
       </StyledButtonWrapper>
     </StyledContainer>
   );

@@ -4,33 +4,40 @@ import { theme } from '../../styles/theme';
 import AccommodationRoomItem from './AccommodationRoomItem';
 
 interface AccommodationRoom {
+  roomId: number;
   name: string;
   price: number;
   discountPercentage: number;
   minCapacity: number;
   maxCapacity: number;
-  images: string[];
-  isReservation: boolean;
-  stars: number;
+  roomImages: string[];
+  soldOut: boolean;
+  averageRating: number;
+  serviceInfo: string[];
 }
 
 interface AccommodationRoomsProps {
   rooms: AccommodationRoom[];
+  category: string;
+  location: string;
 }
 
-function AccommodationRooms({ rooms }: AccommodationRoomsProps) {
+function AccommodationRooms({ rooms, category, location }: AccommodationRoomsProps) {
   return (
     <StyledAccommodationRoomsWrapper>
       {rooms.map((room: AccommodationRoom) => (
         <AccommodationRoomItem
+          roomId={room.roomId}
           name={room.name}
           price={room.price}
           discountPercentage={room.discountPercentage}
           minCapacity={room.minCapacity}
           maxCapacity={room.maxCapacity}
-          images={room.images}
-          isReservation={room.isReservation}
-          stars={room.stars}
+          images={room.roomImages}
+          soldOut={room.soldOut}
+          averageRating={room.averageRating}
+          category={category}
+          location={location}
           key={uuid()}
         />
       ))}

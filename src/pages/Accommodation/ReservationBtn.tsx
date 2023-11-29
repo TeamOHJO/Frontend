@@ -1,12 +1,42 @@
 import { useDisclosure, Button } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import DefaultModal from '../../components/Modal/DefaultModal';
+import {
+  accommodationSelectStartDateState,
+  accommodationSelectEndDateState,
+  accommodationSelectVisitorsState,
+} from '../../states/atom';
+import { changeDateFormat } from '../../utils/utils';
 
 interface ReservationBtnProps {
-  isReservation: boolean;
+  soldOut: boolean;
+  roomId: number;
+  image: string;
+  category: string;
+  name: string;
+  star: number;
+  location: string;
+  price: number;
+  discountPercentage: number;
 }
 
-function ReservationBtn({ isReservation }: ReservationBtnProps) {
+function ReservationBtn({
+  soldOut,
+  roomId,
+  image,
+  category,
+  name,
+  star,
+  location,
+  price,
+  discountPercentage,
+}: ReservationBtnProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
+  const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
+  const [accommodationSelectVisitors] = useRecoilState<number>(accommodationSelectVisitorsState);
+  const navigate = useNavigate();
 
   // 예약하기 버튼 모달
   const modalData = {
@@ -16,28 +46,29 @@ function ReservationBtn({ isReservation }: ReservationBtnProps) {
 
   const modalFunc = () => {
     // 결제 페이지로 이동
-    console.log('모달 승인 시 실행될 함수 입니다.');
+    navigate(
+      `/reservation/1?startDate=${changeDateFormat(
+        accommodationSelectStartDate,
+      )}&endDate=${changeDateFormat(
+        accommodationSelectEndDate,
+      )}&image=${image}&category=${category}&name=${name}&numberOfPerson=${accommodationSelectVisitors}&star=${star}&location=${location}&prcie=${price}&discountPercentage=${discountPercentage}&basketId=${null}&roomId=${roomId}`,
+    );
   };
 
   return (
     <>
-      <DefaultModal
-        isOpen={isOpen}
-        onClose={onClose}
-        modalFunc={modalFunc}
-        modalData={modalData}
-      />
+      <DefaultModal isOpen={isOpen} onClose={onClose} modalFunc={modalFunc} modalData={modalData} />
       <Button
-        variant={isReservation ? 'gray' : 'blue'}
+        variant={soldOut ? 'gray' : 'blue'}
         size="lg"
         style={{ width: '100px', height: '40px' }}
-        isDisabled={isReservation}
+        isDisabled={soldOut}
         onClick={(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
           event.stopPropagation();
           onOpen();
         }}
       >
-        {isReservation ? '예약마감' : '예약하기'}
+        {soldOut ? '예약마감' : '예약하기'}
       </Button>
     </>
   );

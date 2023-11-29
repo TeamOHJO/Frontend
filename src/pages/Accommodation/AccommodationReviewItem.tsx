@@ -5,49 +5,46 @@ import { theme } from '../../styles/theme';
 
 interface AccommodationReviewProps {
   review: {
-    userName: string;
-    reviewContents: string;
+    reviewId: number;
+    roomId: number;
+    username: string;
+    roomName: string;
+    category: string;
+    reviewContent: string;
     star: number;
-    createdAt: string;
+    images: string[];
+    updatedAt: string;
   };
-  accommodationName: string;
-  category: string;
 }
 
-function AccommodationReviewItem({
-  review,
-  accommodationName,
-  category,
-}: AccommodationReviewProps) {
+function AccommodationReviewItem({ review }: AccommodationReviewProps) {
   return (
     <StyledAccommodationReviewItemWrapper>
       <StyledAccommodationReviewItemTop>
         <StyledAccommodationReviewItemTopLeft>
           <div>
-            <StarFilled
-              style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
-            />
+            <StarFilled style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }} />
             <StyledStarDigit>{review.star}</StyledStarDigit>
           </div>
           <Heading as="h4" size="sm">
-            {review.userName}
+            {review.username}
           </Heading>
         </StyledAccommodationReviewItemTopLeft>
         <Text as="p" size="sm" color="gray.84">
-          {review.createdAt}
+          {review.updatedAt.split('T')[0]}
         </Text>
       </StyledAccommodationReviewItemTop>
       <StyledAccommodationReviewItemTitle>
         <Heading as="h4" size="sm">
-          {accommodationName}
+          {review.roomName}
         </Heading>
         <Text as="p" size="sm" color="gray.84">
-          {category}
+          {review.category}
         </Text>
       </StyledAccommodationReviewItemTitle>
       <StyledAccommodationReviewItemContent>
         <Text as="p" size="sm" color="basic">
-          {review.reviewContents}
+          {review.reviewContent}
         </Text>
       </StyledAccommodationReviewItemContent>
     </StyledAccommodationReviewItemWrapper>
@@ -57,7 +54,7 @@ function AccommodationReviewItem({
 export default AccommodationReviewItem;
 
 const StyledAccommodationReviewItemWrapper = styled.div`
-  width: 50%;
+  width: 500px;
   min-width: 350px;
   height: 200px;
 

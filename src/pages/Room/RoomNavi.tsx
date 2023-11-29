@@ -1,32 +1,65 @@
 import styled from '@emotion/styled';
-import {
-  ArrowLeftOutlined,
-  HomeOutlined,
-  ShoppingCartOutlined,
-  UpOutlined,
-} from '@ant-design/icons';
+import { ArrowLeftOutlined, HomeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import { theme } from '../../styles/theme';
+import { getCookie } from '../../utils/utils';
+import { basketCountState } from '../../states/atom';
 
 function RoomNavi() {
-  const ScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const [basketCount, setBasketCount] = useRecoilState<number>(basketCountState);
+  const navigate = useNavigate();
+
+  const accessToken = getCookie('token');
+
+  const fetchData = async () => {
+    const response = await fetch('https://yanoljaschool.site:8080/basket', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    const data = await response.json();
+    setBasketCount(data.data.length);
   };
 
+  useEffect(() => {
+    if (accessToken) fetchData();
+  }, []);
   return (
     <StyledRoomNaviWrapper>
       <StyledRoomNaviLeft>
-        <ArrowLeftOutlined style={{ fontSize: '24px', cursor: 'pointer' }} />
+        <ArrowLeftOutlined
+          style={{ fontSize: '24px', cursor: 'pointer' }}
+          onClick={() => {
+            navigate(-1);
+          }}
+        />
       </StyledRoomNaviLeft>
       <StyledRoomNaviRight>
         <HomeOutlined
-          style={{ fontSize: '24px', marginRight: '1rem', cursor: 'pointer' }}
+          style={{ fontSize: '24px', cursor: 'pointer' }}
+          onClick={() => {
+            navigate('/');
+          }}
         />
-        <ShoppingCartOutlined style={{ fontSize: '24px', cursor: 'pointer' }} />
-      </StyledRoomNaviRight>{' '}
-      <StyledTopBtn onClick={ScrollToTop}>
-        <UpOutlined />
-      </StyledTopBtn>
-      <StyledCartCount>1</StyledCartCount>
+        {accessToken && (
+          <>
+            <ShoppingCartOutlined
+              style={{
+                fontSize: '24px',
+                marginLeft: '1rem',
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                navigate('/basket');
+              }}
+            />
+            {basketCount > 0 && <StyledCartCount>{basketCount}</StyledCartCount>}
+          </>
+        )}
+      </StyledRoomNaviRight>
     </StyledRoomNaviWrapper>
   );
 }
@@ -45,7 +78,7 @@ const StyledRoomNaviWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 2;
+  z-index: 3;
 `;
 
 const StyledRoomNaviLeft = styled.div`
@@ -54,18 +87,6 @@ const StyledRoomNaviLeft = styled.div`
 
 const StyledRoomNaviRight = styled.div`
   margin-right: 1rem;
-`;
-
-const StyledTopBtn = styled.button`
-  position: absolute;
-  right: 10px;
-  top: 85vh;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: ${theme.colors.white};
-  box-shadow: ${theme.shadows.shadow3.shadow};
-  z-index: 10;
 `;
 
 const StyledCartCount = styled.div`

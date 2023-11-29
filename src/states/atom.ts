@@ -1,13 +1,19 @@
 import { atom, selector } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 import { AlertData, BasketData, WishlistData } from '../@types/interface';
-import { getTomorrow } from '../utils/utils';
+import { getTomorrow, changeDateFormat } from '../utils/utils';
+
+const { persistAtom } = recoilPersist({
+  key: 'localStorage',
+  storage: localStorage,
+});
 
 export const toastPopupState = atom<AlertData>({
   key: 'toastPopupState',
   default: { active: false, message: '' },
 });
 
-export const accommodationSelectStartDateState = atom<Date | null>({
+export const accommodationSelectStartDateState = atom<Date>({
   key: 'accommodationSelectStartDateState',
   default: new Date(),
 });
@@ -15,7 +21,7 @@ export const accommodationSelectStartDateState = atom<Date | null>({
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
 
-export const accommodationSelectEndDateState = atom<Date | null>({
+export const accommodationSelectEndDateState = atom<Date>({
   key: 'accommodationSelectEndDateState',
   default: tomorrow,
 });
@@ -35,15 +41,26 @@ export const searchFilteredState = atom({
   default: {
     category: 'HOTEL',
     isDomestic: true,
-    startTime: new Date(),
-    endtime: getTomorrow(),
-    numberOfPerson: 2,
+    startDate: changeDateFormat(new Date()),
+    endDate: changeDateFormat(getTomorrow()),
+    numberOfPeople: 2,
   },
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const searchPages = atom({
   key: 'searchPage',
   default: 0,
+});
+
+export const searchAttempt = atom({
+  key: 'searchAttempt',
+  default: 0,
+});
+
+export const accommodationList = atom<any[]>({
+  key: 'accommodationList',
+  default: [],
 });
 
 export const basketDataState = atom<BasketData[]>({
@@ -78,9 +95,7 @@ export const getCheckedIds = selector({
   key: 'getCheckedIds',
   get: ({ get }) => {
     const checkedItems = get(basketCheckedItemsState);
-    const checkedIds = checkedItems.map(
-      (checkedItem: BasketData) => checkedItem.basketId,
-    );
+    const checkedIds = checkedItems.map((checkedItem: BasketData) => checkedItem.basketId);
     return checkedIds;
   },
 });
@@ -89,11 +104,14 @@ export const getUnavailableIds = selector({
   key: 'getUnavailableIds',
   get: ({ get }) => {
     const unavailableList = get(basketUnavailableListState);
-    const unavailableIds = unavailableList.map(
-      (checkedItem: BasketData) => checkedItem.basketId,
-    );
+    const unavailableIds = unavailableList.map((checkedItem: BasketData) => checkedItem.basketId);
     return unavailableIds;
   },
+});
+
+export const basketCountState = atom<number>({
+  key: 'basketCountState',
+  default: 0,
 });
 
 export const wishlistDataState = atom<WishlistData[]>({

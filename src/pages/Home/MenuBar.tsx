@@ -1,20 +1,32 @@
 import styled from '@emotion/styled';
+import { useRecoilState } from 'recoil';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
+import { searchFilteredState } from '../../states/atom';
+import { changeCategoryFormat } from '../../utils/utils';
 
 const Category = ['한옥', '펜션·풀빌라', '모텔', '게스트하우스'];
 
 function MenuBar() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [searchFilter, setSearchFilter] = useRecoilState(searchFilteredState);
+
+  const selectCategory = (item: string) => {
+    navigate(`/${item}`);
+    const newCat = changeCategoryFormat(item) as string;
+
+    const newSearchFilter = { ...searchFilter, category: newCat };
+    setSearchFilter(newSearchFilter);
+  };
 
   return (
     <StyledContainer>
       <Button
         className="호텔·리조트"
         onClick={() => {
-          navigate('/호텔·리조트');
+          selectCategory('호텔·리조트');
         }}
         padding={3}
         margin={2}
@@ -29,7 +41,7 @@ function MenuBar() {
         <Button
           className={item}
           onClick={() => {
-            navigate(`/${item}`);
+            selectCategory(item);
           }}
           key={item}
           padding={3}

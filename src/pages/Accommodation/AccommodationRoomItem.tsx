@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { StarFilled } from '@ant-design/icons';
 import { Heading, Text, Badge } from '@chakra-ui/react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { theme } from '../../styles/theme';
 import AccommodationRoomImages from './AccommodationRoomImages';
@@ -11,43 +11,44 @@ import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
 } from '../../states/atom';
+import { changeDateFormat } from '../../utils/utils';
 
 interface AccommodationRoom {
+  roomId: number;
   name: string;
   price: number;
   discountPercentage: number;
   minCapacity: number;
   maxCapacity: number;
   images: string[];
-  isReservation: boolean;
-  stars: number;
+  soldOut: boolean;
+  averageRating: number;
+  category: string;
+  location: string;
 }
 
 function AccommodationRoomItem({
+  roomId,
   name,
   price,
   discountPercentage,
   minCapacity,
   maxCapacity,
   images,
-  isReservation,
-  stars,
+  soldOut,
+  averageRating,
+  category,
+  location,
 }: AccommodationRoom) {
-  const location = useLocation();
   const navigate = useNavigate();
-  const [accommodationSelectStartDate] = useRecoilState<Date | null>(
-    accommodationSelectStartDateState,
-  );
+  const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
 
-  const [accommodationSelectEndDate] = useRecoilState<Date | null>(
-    accommodationSelectEndDateState,
-  );
+  const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
 
   const handleCountDay = () => {
     if (accommodationSelectStartDate && accommodationSelectEndDate) {
       const diffDate =
-        accommodationSelectEndDate.getTime() -
-        accommodationSelectStartDate.getTime();
+        accommodationSelectEndDate.getTime() - accommodationSelectStartDate.getTime();
       return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
     }
     return 1;
@@ -57,8 +58,15 @@ function AccommodationRoomItem({
     <StyledAccommodationRoomItemWrapper>
       <AccommodationRoomImages images={images} />
       <StyledAccommodationRoomTitle
-        onClick={() => {
-          navigate(`${location.pathname}/id`);
+        onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+          event.stopPropagation();
+          navigate(
+            `/room/${roomId}?startDate=${changeDateFormat(
+              accommodationSelectStartDate,
+            )}&endDate=${changeDateFormat(
+              accommodationSelectEndDate,
+            )}&soldOut=${soldOut}&category=${category}&location=${location}`,
+          );
         }}
       >
         <StyledAccommodationRoomTitleBox style={{ marginBottom: '0.5rem' }}>
@@ -66,10 +74,8 @@ function AccommodationRoomItem({
             {name}
           </Heading>
           <div>
-            <StarFilled
-              style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
-            />
-            <StyledStarDigit>{stars}</StyledStarDigit>
+            <StarFilled style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }} />
+            <StyledStarDigit>{averageRating}</StyledStarDigit>
           </div>
         </StyledAccommodationRoomTitleBox>
         <StyledAccommodationRoomTitleBox>
@@ -80,19 +86,14 @@ function AccommodationRoomItem({
             {discountPercentage > 0 ? (
               <>
                 <Text as="s" size="sm" color="blackAlpha.600">
-                  ￦
-                  {(
-                    Math.floor((price * handleCountDay()) / 1000) * 1000
-                  ).toLocaleString()}
+                  ￦{(Math.floor((price * handleCountDay()) / 1000) * 1000).toLocaleString()}
                   원/{handleCountDay()}박
                 </Text>
                 <Text as="p" size="sm">
                   ￦
                   {(
-                    Math.floor(
-                      (price * handleCountDay() * (100 - discountPercentage)) /
-                        100000,
-                    ) * 1000
+                    Math.floor((price * handleCountDay() * (100 - discountPercentage)) / 100000) *
+                    1000
                   ).toLocaleString()}
                   원/{handleCountDay()}박
                   <Badge fontSize="0.8rem" style={{ marginLeft: '0.5rem' }}>
@@ -104,18 +105,26 @@ function AccommodationRoomItem({
               <Text as="p" size="sm">
                 ￦
                 {(
-                  Math.floor(
-                    (price * handleCountDay() * (100 - discountPercentage)) /
-                      100000,
-                  ) * 1000
+                  Math.floor((price * handleCountDay() * (100 - discountPercentage)) / 100000) *
+                  1000
                 ).toLocaleString()}
                 원/{handleCountDay()}박
               </Text>
             )}
           </div>
           <StyledAccommodationRoomTitleBoxItem>
-            <AccommodationRoomItemCart />
-            <ReservationBtn isReservation={isReservation} />
+            <AccommodationRoomItemCart roomId={roomId} />
+            <ReservationBtn
+              soldOut={soldOut}
+              roomId={roomId}
+              image={images[0]}
+              category={category}
+              name={name}
+              star={averageRating}
+              location={location}
+              price={price}
+              discountPercentage={discountPercentage}
+            />
           </StyledAccommodationRoomTitleBoxItem>
         </StyledAccommodationRoomTitleBox>
       </StyledAccommodationRoomTitle>
@@ -127,8 +136,13 @@ export default AccommodationRoomItem;
 
 const StyledAccommodationRoomItemWrapper = styled.div`
   width: 100%;
-
+  padding: 1rem;
   margin-bottom: 3rem;
+  box-shadow: ${theme.shadows.shadow1.shadow};
+  border-radius: 10px;
+  &:hover {
+    background-color: ${theme.colors.gray100};
+  }
 `;
 
 const StyledAccommodationRoomTitle = styled.div`

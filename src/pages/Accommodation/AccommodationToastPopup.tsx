@@ -1,17 +1,8 @@
 import { useEffect, FunctionComponent } from 'react';
-import {
-  Alert,
-  AlertIcon,
-  CloseButton,
-  AlertDescription,
-  Fade,
-} from '@chakra-ui/react';
+import { Alert, AlertIcon, CloseButton, AlertDescription, Fade } from '@chakra-ui/react';
 import { ToastPopupProps } from '../../@types/interface';
 
-const AccommodationToastPopup: FunctionComponent<ToastPopupProps> = ({
-  status,
-  setFunc,
-}) => {
+const AccommodationToastPopup: FunctionComponent<ToastPopupProps> = ({ status, setFunc }) => {
   const onClose = () => {
     setFunc({ active: false, message: status.message });
   };
@@ -41,17 +32,14 @@ const AccommodationToastPopup: FunctionComponent<ToastPopupProps> = ({
         left="50%"
         bottom="30px"
         marginLeft="-160px"
-        style={{ zIndex: '2' }}
+        style={{ zIndex: 2, fontSize: '16px', cursor: 'auto' }}
+        onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+          event.stopPropagation();
+        }}
       >
         <AlertIcon />
         <AlertDescription>{status.message}</AlertDescription>
-        <CloseButton
-          alignSelf="flex-end"
-          position="absolute"
-          right={1}
-          top={1}
-          onClick={onClose}
-        />
+        <CloseButton alignSelf="flex-end" position="absolute" right={1} top={1} onClick={onClose} />
       </Alert>
     </Fade>
   );

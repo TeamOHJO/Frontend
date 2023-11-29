@@ -74,3 +74,46 @@ export const SubmitReview = async (reservationId: number, reviewData: AddReviewD
   const res = await clientToken.post(`/reservations/${reservationId}`, reviewData);
   return res;
 };
+
+interface SearchFilterProps {
+  category: string;
+  isDomestic: boolean;
+  startDate: string;
+  endDate: string;
+  numberOfPeople: number;
+}
+
+/* eslint-disable */
+export const getAccommodationList = async (
+  page: number,
+  { category, isDomestic, startDate, endDate, numberOfPeople }: SearchFilterProps,
+) => {
+  const newToken = getCookie('token');
+  if (newToken) {
+    const res = await axios.get(
+      `${
+        import.meta.env.VITE_SERVER_URL
+      }/accommodation?category=${category}&isDomestic=${isDomestic}&page=${page}&startDate=${startDate}&endDate=${endDate}&numberOfPeople=${numberOfPeople}`,
+      {
+        headers: {
+          'content-type': import.meta.env.VITE_CONTENT_TYPE,
+          Authorization: `Bearer ${newToken}`,
+        },
+      },
+    );
+
+    return res.data;
+  }
+  if (!newToken) {
+    const res = await client.get(
+      `/accommodation?category=${category}&isDomestic=${isDomestic}&page=${page}&startDate=${startDate}&endDate=${endDate}&numberOfPeople=${numberOfPeople}`,
+    );
+    return res.data;
+  }
+};
+/* eslint-enable */
+
+export const getReview = async () => {
+  const res = await client.get('/review/accommodation/1');
+  return res.data;
+};

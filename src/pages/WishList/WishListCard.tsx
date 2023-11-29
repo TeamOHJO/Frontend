@@ -1,13 +1,4 @@
-import {
-  Card,
-  Image,
-  Heading,
-  Text,
-  Badge,
-  Box,
-  CardBody,
-  Stack,
-} from '@chakra-ui/react';
+import { Card, Image, Heading, Text, Badge, Box, CardBody, Stack } from '@chakra-ui/react';
 import { EnvironmentOutlined } from '@ant-design/icons';
 import { WishlistData } from '../../@types/interface';
 import Heart from '../../components/Heart';
@@ -26,13 +17,9 @@ function WishListCard({ item }: { item: WishlistData }) {
           alt="Accomodation Photo"
         />
         <Stack width="100%">
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-          >
+          <Box display="flex" justifyContent="space-between" alignItems="center">
             <Heading size="sm">{item.accommodationName}</Heading>
-            <Heart isLiked={item.isLiked} />
+            <Heart size="20px" liked={item.isLiked} />
           </Box>
           <Box textAlign="left">
             <Badge variant={badgeColor}>{item.category}</Badge>
