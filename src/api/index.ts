@@ -90,13 +90,14 @@ export const postReservation = async (
 export const getReview = async (accommodationId: string) => {
   const res = await client.get(`/review/accommodation/${accommodationId}`);
 
-interface SearchFilterProps {
-  category: string;
-  isDomestic: boolean;
-  startDate: string;
-  endDate: string;
-  numberOfPeople: number;
-}
+  interface SearchFilterProps {
+    category: string;
+    isDomestic: boolean;
+    startDate: string;
+    endDate: string;
+    numberOfPeople: number;
+  }
+};
 
 /* eslint-disable */
 export const getAccommodationList = async (
@@ -131,10 +132,4 @@ export const getAccommodationList = async (
     );
     return res.data;
   }
-};
-/* eslint-enable */
-
-export const getReview = async () => {
-  const res = await client.get('/review/accommodation/1');
-  return res.data;
 };
