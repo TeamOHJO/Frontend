@@ -1,4 +1,5 @@
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { theme } from '../styles/theme';
 import Navigation from '../components/Layout/Navigation';
@@ -28,6 +29,12 @@ function Dashboard() {
 }
 
 function MainRouter() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <StyledContainer>
       <StyledInnerContainer>
