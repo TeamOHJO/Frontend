@@ -38,6 +38,7 @@ const HomeCard = ({
       </StyledImgWrapper>
       <StyledInfoContainer
         onClick={() => {
+          // window.open(`http://localhost:5173/accommodation/${id}`, '_blank');
           navigate(`/accommodation/${id}`);
         }}
       >

@@ -68,24 +68,33 @@ interface SearchFilterProps {
   startDate: string;
   endDate: string;
   numberOfPeople: number;
-  page: number;
 }
 
 /* eslint-disable */
-export const getAccommodationList = async ({
-  category,
-  isDomestic,
-  startDate,
-  endDate,
-  numberOfPeople,
-  page,
-}: SearchFilterProps) => {
+export const getAccommodationList = async (
+  page: number,
+  {
+    category,
+    isDomestic,
+    startDate,
+    endDate,
+    numberOfPeople,
+  }: SearchFilterProps,
+) => {
   const newToken = getCookie('token');
-  console.log(newToken);
   if (newToken) {
-    const res = await clientToken.get(
-      `/accommodation?category=${category}&isDomestic=${isDomestic}&page=${page}&startDate=${startDate}&endDate=${endDate}&numberOfPeople=${numberOfPeople}`,
+    const res = await axios.get(
+      `${
+        import.meta.env.VITE_SERVER_URL
+      }/accommodation?category=${category}&isDomestic=${isDomestic}&page=${page}&startDate=${startDate}&endDate=${endDate}&numberOfPeople=${numberOfPeople}`,
+      {
+        headers: {
+          'content-type': import.meta.env.VITE_CONTENT_TYPE,
+          Authorization: `Bearer ${newToken}`,
+        },
+      },
     );
+
     return res.data;
   }
   if (!newToken) {
