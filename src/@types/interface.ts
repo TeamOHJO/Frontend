@@ -80,22 +80,16 @@ export interface HomeCardProps {
 
 export interface MyPageReservationData {
   reservationId: number;
+  roomId: number;
+  category: string;
+  accommodationName: string;
+  roomName: string;
+  location: string;
+  star: number;
+  image: string;
   startDate: string;
   endDate: string;
-  numberOfPerson: number;
-  category: string;
-  location: string;
-  discountPercentage: number;
-  discountPrice: number;
-  accommodationName: string;
-  image: string;
-  name: string;
-  price: number;
-  nights: number;
-  stars: number;
-  startTime: number;
-  endTime: number;
-  deletedAt: number;
+  deletedAt?: string;
 }
 
 export interface ImagesModalProps {

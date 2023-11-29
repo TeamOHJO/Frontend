@@ -6,22 +6,22 @@ import MyPageReservationCancelled from './MyPageReservationCancelled';
 import { MyPageReservationData } from '../../../@types/interface';
 import { theme } from '../../../styles/theme';
 
-function MyPageReservationTabs({ reservationData }: { reservationData: MyPageReservationData[] }) {
+interface MyPageReservationTabsProps {
+  reservationData: MyPageReservationData[];
+  cancelledList: MyPageReservationData[];
+}
+
+function MyPageReservationTabs({ reservationData, cancelledList }: MyPageReservationTabsProps) {
   const TODAY = new Date();
 
   // 이용 예정
   const upcomingList = reservationData.filter(
-    (item: MyPageReservationData) => item.deletedAt === null && TODAY < new Date(item.startDate),
+    (item: MyPageReservationData) => TODAY < new Date(item.startDate),
   );
 
   // 이용 완료
   const completedList = reservationData.filter(
-    (item: MyPageReservationData) => item.deletedAt === null && new Date(item.endDate) < TODAY,
-  );
-
-  // 예약 취소
-  const cancelledList = reservationData.filter(
-    (item: MyPageReservationData) => item.deletedAt !== null,
+    (item: MyPageReservationData) => new Date(item.endDate) < TODAY,
   );
 
   return (

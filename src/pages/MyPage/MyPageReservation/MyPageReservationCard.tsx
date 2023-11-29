@@ -6,6 +6,7 @@ import { theme } from '../../../styles/theme';
 import { MyPageReservationData } from '../../../@types/interface';
 import { handleBadgeColor } from '../../../utils/handleBadgeColor';
 import { CancelReservation } from '../../../api';
+import { changeCategoryReverseFormat, changeStarFormat } from '../../../utils/utils';
 
 interface MyPageReservationCardProps {
   item: MyPageReservationData;
@@ -14,7 +15,15 @@ interface MyPageReservationCardProps {
 function MyPageReservationCard({ item }: MyPageReservationCardProps) {
   const navigate = useNavigate();
   const TODAY = new Date();
-  const badgeColor = handleBadgeColor(item.category);
+  const badgeText = changeCategoryReverseFormat(item.category);
+  const badgeColor = handleBadgeColor(badgeText);
+
+  const countDay = (startDate: string, endDate: string) => {
+    const diffDate = new Date(endDate).getTime() - new Date(startDate).getTime();
+    return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
+  };
+
+  const nights = countDay(item.startDate, item.endDate);
 
   // 예약 취소 버튼 클릭시 실행 함수
   const onClickCancelButton = async (id: number) => {
@@ -45,22 +54,22 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
         <StyledCardContent>
           <StyledCardBodyLeft>
             <Box textAlign="left">
-              <Badge variant={badgeColor}>{item.category}</Badge>
+              <Badge variant={badgeColor}>{badgeText}</Badge>
             </Box>
             <Heading size="md">{item.accommodationName}</Heading>
-            <Text size="sm">{item.name}</Text>
+            <Text size="sm">{item.roomName}</Text>
             <Text as="p" size="xs" color="blackAlpha.600">
-              {item.startDate} - {item.endDate} ({item.nights}박)
+              {item.startDate} - {item.endDate} ({nights}박)
             </Text>
           </StyledCardBodyLeft>
           <StyledCardBodyRight>
             <StyledStar>
               <StarFilled style={{ color: theme.colors.blue400, fontSize: '1rem' }} />
               <Text as="span" size="xs">
-                {item.stars.toFixed(2)}
+                {changeStarFormat(item.star)}
               </Text>
             </StyledStar>
-            {!item.deletedAt && TODAY < new Date(item.startDate) && (
+            {item.deletedAt === null && TODAY < new Date(item.startDate) && (
               <Button
                 variant="gray"
                 size="sm"
@@ -69,7 +78,7 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
                 예약 취소
               </Button>
             )}
-            {!item.deletedAt && new Date(item.endDate) < TODAY && (
+            {item.deletedAt === null && new Date(item.endDate) < TODAY && (
               <Button
                 variant="gray"
                 size="sm"

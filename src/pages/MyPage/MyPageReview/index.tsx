@@ -53,7 +53,7 @@ function MyPageReview() {
       {}
       {myReviews
         ? myReviews.data.map((review: ReviewState) => <ReviewCard review={review} key={uuid()} />)
-        : skel.map(() => <Skeleton height="220px" style={{ margin: '10px' }} />)}
+        : skel.map(() => <Skeleton key={uuid()} height="220px" style={{ margin: '10px' }} />)}
     </div>
   );
 }
