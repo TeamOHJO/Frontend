@@ -1,8 +1,24 @@
 import { Box, Image, Text } from '@chakra-ui/react';
+import { useSearchParams } from 'react-router-dom';
 import { theme } from '../../styles/theme';
 import LocationIcon from '../../assets/location-outline.svg';
+import {
+  calculateDaysDifference,
+  formatNumberWithCommas,
+} from '../../utils/utils';
 
 const ReservationSubBreakDown = () => {
+  const [searchParams] = useSearchParams();
+  const location = searchParams.get('location');
+  const startDate = String(searchParams.get('startDate'));
+  const endDate = String(searchParams.get('endDate'));
+  const price = Number(searchParams.get('price'));
+
+  const dayNights: number = calculateDaysDifference(startDate, endDate);
+  const allPrice = price * dayNights;
+
+  const formattedAllPrice = formatNumberWithCommas(allPrice);
+
   return (
     <Box
       display="flex"
@@ -18,16 +34,16 @@ const ReservationSubBreakDown = () => {
         <Box display="flex" flexDir="row">
           <Image src={LocationIcon} alt="Loaction Icon" boxSize={5} />
           <Text fontFamily={theme.fonts.body4} color={theme.colors.basic}>
-            강원도 강릉시 옥계면 헌화로 455-34
+            {location}
           </Text>
         </Box>
       </Box>
       <Box display="flex" flexDir="column">
         <Text fontWeight="bold" fontSize="lg">
-          ￦435,400원{' '}
+          ￦{formattedAllPrice}원
         </Text>
         <Text fontWeight="re" fontSize="md" color={theme.colors.gray400}>
-          3박 요금(세금 포함)
+          {dayNights}박 요금(세금 포함)
         </Text>
       </Box>
     </Box>

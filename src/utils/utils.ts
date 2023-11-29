@@ -105,3 +105,41 @@ export const changeCategoryReverseFormat = (category: string) => {
   // 아무것도 없을때
   return category;
 };
+
+export function calculateDaysDifference(
+  startDate: string,
+  endDate: string,
+): number {
+  const start: Date = new Date(startDate);
+  const end: Date = new Date(endDate);
+
+  const timeDifference: number = end.getTime() - start.getTime();
+
+  const daysDifference: number = Math.floor(
+    timeDifference / (1000 * 60 * 60 * 24),
+  );
+
+  return daysDifference;
+}
+
+export function formatNumberWithCommas(number: number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+export function calculateDiscountedPrice(
+  price: number,
+  discountPercentage: number,
+) {
+  if (Number.isNaN(price) || Number.isNaN(discountPercentage)) {
+    throw new Error('유효하지 않은 가격이나 할인가 입니다.');
+  }
+
+  if (discountPercentage === 0) {
+    return price;
+  }
+
+  const discountAmount = (price * discountPercentage) / 100;
+  const discountedPrice = price - discountAmount;
+
+  return discountedPrice;
+}

@@ -1,8 +1,16 @@
 import { Badge, Box, Heading, Image, Text } from '@chakra-ui/react';
 import { StarFilled } from '@ant-design/icons';
+import { useSearchParams } from 'react-router-dom';
 import { theme } from '../../styles/theme';
 
 const ReservationBreakDown = () => {
+  const [searchParams] = useSearchParams();
+  const roomName = searchParams.get('name');
+  const category = searchParams.get('category');
+  const numberOfPerson = searchParams.get('numberOfPerson');
+  const star = searchParams.get('star');
+  const image = String(searchParams.get('image'));
+
   return (
     <Box display="flex" flexDir="row" pl="8" pr="8" pb="8" height="100%">
       <Box width="50%">
@@ -11,7 +19,7 @@ const ReservationBreakDown = () => {
           height="12rem"
           objectFit="cover"
           borderRadius={8}
-          src="https://i.pinimg.com/564x/73/48/11/734811bd95bec06aae5d936eb23f033c.jpg"
+          src={image}
           alt="Reservation List"
         />
       </Box>
@@ -24,18 +32,18 @@ const ReservationBreakDown = () => {
         gap="6"
       >
         <Box>
-          <Badge variant="blue">펜션/풀빌라</Badge>
+          <Badge variant="blue">{category}</Badge>
         </Box>
-        <Heading size="md">일본 도쿄 Nakano City</Heading>
+        <Heading size="md">{roomName}</Heading>
         <Text fontWeight="bold" color={theme.colors.gray600}>
-          예약 인원 2명
+          예약 인원 {numberOfPerson}명
         </Text>
         <Box display="flex" alignItems="center" gap={1}>
           <StarFilled
             style={{ color: theme.colors.blue400, fontSize: '1rem' }}
           />
           <Text as="span" size="xs">
-            4.90
+            {star}
           </Text>
         </Box>
       </Box>
