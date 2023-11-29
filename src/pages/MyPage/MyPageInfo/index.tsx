@@ -106,12 +106,6 @@ const StyledInnerContainer = styled(StyledContainer)`
   align-items: center;
 `;
 
-const StyledResignBtn = styled(Button)`
-  display: flex;
-  align-items: center;
-  margin-top: 7rem;
-`;
-
 const StyledInfoWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -136,3 +130,9 @@ const StyledInfoDetail = styled.span`
   flex: 4;
   color: ${theme.colors.gray400};
 `;
+
+// const StyledResignBtn = styled(Button)`
+//   display: flex;
+//   align-items: center;
+//   margin-top: 7rem;
+// `;
