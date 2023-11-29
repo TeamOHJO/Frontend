@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import { Card, Image, Text, Box, CardBody, Badge, CardFooter } from '@chakra-ui/react';
@@ -17,6 +18,7 @@ interface BasketCardProps {
   setShowAlert: (value: ToastData) => void;
 }
 function BasketDisabledCard({ item, setShowAlert }: BasketCardProps) {
+  const navigate = useNavigate();
   const [basketData, setBasketData] = useRecoilState(basketDataState);
 
   const toastFunc = (text: string) => {
@@ -25,6 +27,13 @@ function BasketDisabledCard({ item, setShowAlert }: BasketCardProps) {
       message: text,
     };
     setShowAlert(toastData);
+  };
+
+  // 객실 상세 페이지로 이동
+  const moveToDetails = () => {
+    navigate(
+      `/room/${item.roomId}?startDate=${item.startDate}&endDate=${item.endDate}&numberOfPerson=${item.numberOfPerson}&soldOut=${item.canReserve}`,
+    );
   };
 
   const countDay = (startDate: string, endDate: string) => {
@@ -52,6 +61,8 @@ function BasketDisabledCard({ item, setShowAlert }: BasketCardProps) {
           borderRadius={8}
           src={item.image}
           alt="Accommodation Photo"
+          onClick={moveToDetails}
+          style={{ cursor: 'pointer' }}
         />
         <StyledBox>
           <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -63,7 +74,7 @@ function BasketDisabledCard({ item, setShowAlert }: BasketCardProps) {
               style={{ fontSize: '20px', cursor: 'pointer' }}
             />
           </Box>
-          <StyledTitle>{item.accommodationName}</StyledTitle>
+          <StyledTitle onClick={moveToDetails}>{item.accommodationName}</StyledTitle>
           <StyledText size="sm" color="blackAlpha.600">
             {item.roomName}
           </StyledText>
@@ -116,6 +127,10 @@ const StyledTitle = styled.h1`
   white-space: nowrap;
   text-overflow: ellipsis;
   word-break: break-all;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const StyledText = styled(Text)`

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import {
@@ -10,6 +11,7 @@ import {
   Badge,
   CardFooter,
   Button,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { CloseOutlined, StarFilled } from '@ant-design/icons';
 import { theme } from '../../styles/theme';
@@ -22,6 +24,7 @@ import {
   changePriceDiscountFormat,
   changeStarFormat,
 } from '../../utils/utils';
+import DefaultModal from '../../components/Modal/DefaultModal';
 
 interface ToastData {
   active: boolean;
@@ -34,6 +37,8 @@ interface BasketCardProps {
 }
 
 function BasketCard({ item, setShowAlert }: BasketCardProps) {
+  const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [basketData, setBasketData] = useRecoilState(basketDataState);
 
   const toastFunc = (text: string) => {
@@ -42,6 +47,26 @@ function BasketCard({ item, setShowAlert }: BasketCardProps) {
       message: text,
     };
     setShowAlert(toastData);
+  };
+
+  // 예약하기 버튼 모달
+  const accessModalData = {
+    heading: '예약하기',
+    text: '선택된 숙소를 예약하시겠습니까?',
+  };
+
+  const accessModalFunc = () => {
+    // 예약(결제) 페이지로 이동
+    navigate(
+      `/reservation/${item.roomId}?startDate=${item.startDate}&endDate=${item.endDate}&image=${item.image}&category=${item.category}&name=${item.roomName}&numberOfPerson=${item.numberOfPerson}&star=${item.star}&location=${item.location}&price=${item.price}&discountPercentage=${item.discountPercentage}&basketId=${item.basketId}&roomId=${item.roomId}`,
+    );
+  };
+
+  // 객실 상세 페이지로 이동
+  const moveToDetails = () => {
+    navigate(
+      `/room/${item.roomId}?startDate=${item.startDate}&endDate=${item.endDate}&numberOfPerson=${item.numberOfPerson}&soldOut=${item.canReserve}`,
+    );
   };
 
   const countDay = (startDate: string, endDate: string) => {
@@ -64,74 +89,83 @@ function BasketCard({ item, setShowAlert }: BasketCardProps) {
   };
 
   return (
-    <Card size="sm">
-      <CardBody display="flex" flexDirection="row" gap={3}>
-        <Image
-          boxSize="110px"
-          objectFit="cover"
-          borderRadius={8}
-          src={item.image}
-          alt="Accommodation Photo"
-        />
-        <StyledBox>
-          <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Box textAlign="left">
-              <Badge variant={badgeColor}>{badgeText}</Badge>
+    <>
+      <DefaultModal
+        isOpen={isOpen}
+        onClose={onClose}
+        modalFunc={accessModalFunc}
+        modalData={accessModalData}
+      />
+      <Card size="sm">
+        <CardBody display="flex" flexDirection="row" gap={3}>
+          <Image
+            boxSize="110px"
+            objectFit="cover"
+            borderRadius={8}
+            src={item.image}
+            alt="Accommodation Photo"
+            onClick={moveToDetails}
+            style={{ cursor: 'pointer' }}
+          />
+          <StyledBox>
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+              <Box textAlign="left">
+                <Badge variant={badgeColor}>{badgeText}</Badge>
+              </Box>
+              <CloseOutlined
+                onClick={() => deleteSingleItem(item.basketId)}
+                style={{ fontSize: '20px', cursor: 'pointer' }}
+              />
             </Box>
-            <CloseOutlined
-              onClick={() => deleteSingleItem(item.basketId)}
-              style={{ fontSize: '20px', cursor: 'pointer' }}
-            />
-          </Box>
-          <StyledTitle>{item.accommodationName}</StyledTitle>
-          <StyledText size="sm">{item.roomName}</StyledText>
-          <Text as="p" size="xs" color="blackAlpha.600">
-            {item.startDate} ~ {item.endDate} ({nights}박)
-          </Text>
-          <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Box display="flex" alignItems="center" gap={1}>
-              <StarFilled style={{ color: theme.colors.blue400, fontSize: '1rem' }} />
-              <Text as="span" size="xs">
-                {changeStarFormat(item.star)}
-              </Text>
+            <StyledTitle onClick={moveToDetails}>{item.accommodationName}</StyledTitle>
+            <StyledText size="sm">{item.roomName}</StyledText>
+            <Text as="p" size="xs" color="blackAlpha.600">
+              {item.startDate} ~ {item.endDate} ({nights}박)
+            </Text>
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+              <Box display="flex" alignItems="center" gap={1}>
+                <StarFilled style={{ color: theme.colors.blue400, fontSize: '1rem' }} />
+                <Text as="span" size="xs">
+                  {changeStarFormat(item.star)}
+                </Text>
+              </Box>
             </Box>
-          </Box>
-        </StyledBox>
-      </CardBody>
-      <CardFooter
-        pt={0}
-        display="flex"
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="center"
-        // gap={3}
-      >
-        <Button variant="blue" size="sm" width="150px">
-          예약하기
-        </Button>
-        <Flex direction="column" alignItems="flex-end">
-          {item.discountPercentage === 0 ? (
-            <>
-              <Text as="p" size="md" fontWeight="bold">
-                ￦{totalPrice.toLocaleString()}
-              </Text>
-              <Text as="p" size="xs" color="blackAlpha.600">
-                {nights}박 요금 (세금 포함)
-              </Text>
-            </>
-          ) : (
-            <>
-              <Text as="p" size="md" fontWeight="bold">
-                <Badge variant="red">{item.discountPercentage}% 할인</Badge> ￦{discountPrice}
-              </Text>
-              <Text as="s" size="xs" color="blackAlpha.600">
-                ￦ {totalPrice.toLocaleString()}
-              </Text>
-            </>
-          )}
-        </Flex>
-      </CardFooter>
-    </Card>
+          </StyledBox>
+        </CardBody>
+        <CardFooter
+          pt={0}
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Button variant="blue" size="sm" width="150px" onClick={onOpen}>
+            예약하기
+          </Button>
+          <Flex direction="column" alignItems="flex-end">
+            {item.discountPercentage === 0 ? (
+              <>
+                <Text as="p" size="md" fontWeight="bold">
+                  ￦{totalPrice.toLocaleString()}
+                </Text>
+                <Text as="p" size="xs" color="blackAlpha.600">
+                  {nights}박 요금 (세금 포함)
+                </Text>
+              </>
+            ) : (
+              <>
+                <Text as="p" size="md" fontWeight="bold">
+                  <Badge variant="red">{item.discountPercentage}% 할인</Badge> ￦{discountPrice}
+                </Text>
+                <Text as="s" size="xs" color="blackAlpha.600">
+                  ￦ {totalPrice.toLocaleString()}
+                </Text>
+              </>
+            )}
+          </Flex>
+        </CardFooter>
+      </Card>
+    </>
   );
 }
 
@@ -153,6 +187,10 @@ const StyledTitle = styled.h1`
   white-space: nowrap;
   text-overflow: ellipsis;
   word-break: break-all;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const StyledText = styled(Text)`
