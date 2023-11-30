@@ -6,8 +6,8 @@
 <a href="#Introduction">Introduction</a> •
 <a href="#function">functions</a> •
 <a href="#stack">Stack</a> •
-<a href="#backend-repo">Backend repo</a> •
 <a href="#contributors">Contributors</a> •
+<a href="#backend-repo">Backend repo</a> •
 
 </div>
 
@@ -112,7 +112,11 @@
 
 <br>
 
+<div id=contributors>
+ 
 ## 🙋‍♀️Contributors
+
+</div>
 
 | <img src="https://avatars.githubusercontent.com/u/83493231?v=4" width="150px" /> | <img src="https://avatars.githubusercontent.com/u/38286505?v=4" width="150px" /> | <img src="https://avatars.githubusercontent.com/u/57976371?v=4" width="150px" /> | <img src="https://avatars.githubusercontent.com/u/139190686?v=4" width="150px" /> | <img src="https://avatars.githubusercontent.com/u/139193612?v=4" width="150px" /> |
 | :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------: |
@@ -124,7 +128,11 @@
 
 <br />
 
+<div id="backend-repo">
+
 ## 백엔드 REPOSITORY
+
+</div>
 
 **[`OHNOLZA-BACKEND 레포지토리`](https://github.com/TeamOHJO/yanoljaProject-Backend)**
 
