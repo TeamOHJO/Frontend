@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Textarea, Heading, Button } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
@@ -10,6 +10,7 @@ import ToastPopup from '../../components/Modal/ToastPopup';
 import { addImage } from '../../utils/firebase';
 
 function AddReviewForm() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState(5);
@@ -63,6 +64,7 @@ function AddReviewForm() {
         if (response.data.code === 201) {
           console.log('등록 완료!');
           successFunction();
+          navigate('/mypage');
         } else if (response.data.message === '해당 작업을 수행 할 권한이 존재하지 않습니다.') {
           console.log('해당 작업을 수행 할 권한이 존재하지 않습니다.');
           failFunction('해당 작업을 수행 할 권한이 존재하지 않습니다.');
@@ -80,6 +82,7 @@ function AddReviewForm() {
         if (response.data.code === 201) {
           console.log('등록 완료!');
           successFunction();
+          navigate('/mypage');
         } else if (response.data.message === '해당 작업을 수행 할 권한이 존재하지 않습니다.') {
           console.log('해당 작업을 수행 할 권한이 존재하지 않습니다.');
           failFunction('해당 작업을 수행 할 권한이 존재하지 않습니다.');
