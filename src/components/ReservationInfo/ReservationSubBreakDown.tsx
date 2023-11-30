@@ -28,8 +28,7 @@ const ReservationSubBreakDown = ({
   const roomPriceCompletePage = roomDetails?.price;
 
   // 실제로 표시할 값
-  const location =
-    locationReservationPage || roomLocationCompletePage || '어디든지';
+  const location = locationReservationPage || roomLocationCompletePage || '';
 
   const price = priceReservationPage || roomPriceCompletePage || 0;
 
