@@ -2,10 +2,10 @@ import { Badge, Box, Heading, Image, Text } from '@chakra-ui/react';
 import { StarFilled } from '@ant-design/icons';
 import { useSearchParams } from 'react-router-dom';
 import { theme } from '../../styles/theme';
-import { ReservationData } from '../../@types/interface';
+import { MyPageReservationData } from '../../@types/interface';
 
 interface ReservationBreakDownProps {
-  roomDetails?: ReservationData | null;
+  roomDetails?: MyPageReservationData | null;
 }
 
 const ReservationBreakDown = ({ roomDetails }: ReservationBreakDownProps) => {
@@ -24,12 +24,9 @@ const ReservationBreakDown = ({ roomDetails }: ReservationBreakDownProps) => {
   const roomStarCompletePage = roomDetails?.stars;
 
   // 실제로 표시할 값
-  const roomName =
-    roomNameCompletePage || roomNameReservationPage || 'Default Name';
-  const roomImage =
-    roomImageCompletePage || roomImageReservationPage || 'Default Image URL';
-  const category =
-    roomCategoryReservationPage || roomCategoryCompletePage || '기본 카테고리';
+  const roomName = roomNameCompletePage || roomNameReservationPage || 'Default Name';
+  const roomImage = roomImageCompletePage || roomImageReservationPage || 'Default Image URL';
+  const category = roomCategoryReservationPage || roomCategoryCompletePage || '기본 카테고리';
   const star = roomstarReservationPage || roomStarCompletePage || '0.0';
 
   return (
@@ -44,14 +41,7 @@ const ReservationBreakDown = ({ roomDetails }: ReservationBreakDownProps) => {
           alt="Reservation List"
         />
       </Box>
-      <Box
-        width="50%"
-        ml="2rem"
-        display="flex"
-        flexDir="column"
-        justifyContent="center"
-        gap="6"
-      >
+      <Box width="50%" ml="2rem" display="flex" flexDir="column" justifyContent="center" gap="6">
         <Box>
           <Badge variant="blue">{category}</Badge>
         </Box>
@@ -60,9 +50,7 @@ const ReservationBreakDown = ({ roomDetails }: ReservationBreakDownProps) => {
           예약 인원 {numberOfPerson}명
         </Text>
         <Box display="flex" alignItems="center" gap={1}>
-          <StarFilled
-            style={{ color: theme.colors.blue400, fontSize: '1rem' }}
-          />
+          <StarFilled style={{ color: theme.colors.blue400, fontSize: '1rem' }} />
           <Text as="span" size="xs">
             {star}
           </Text>

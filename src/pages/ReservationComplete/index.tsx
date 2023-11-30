@@ -4,14 +4,14 @@ import UnFooterNav from '../../components/Layout/UnFooterNav';
 import ReservationInfo from '../../components/ReservationInfo';
 import ReservationCompleteText from './ReservationCompleteText';
 import { getRoomDetails } from '../../api';
-import { ReservationData } from '../../@types/interface';
+import { MyPageReservationData } from '../../@types/interface';
 
 const ReservationComplete = () => {
   const pathSegments = window.location.pathname.split('/');
   const roomIdString = pathSegments[pathSegments.length - 1];
   const roomId = parseInt(roomIdString, 10);
 
-  const [roomDetails, setRoomDetails] = useState<ReservationData | null>(null);
+  const [roomDetails, setRoomDetails] = useState<MyPageReservationData | null>(null);
 
   useEffect(() => {
     const fetchRoomDetails = async () => {

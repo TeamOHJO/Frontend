@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { JoinData, LoginData, Email, ReservationPostData } from './type';
 import { getCookie } from '../utils/utils';
-import { AddReviewData, ReservationInfo } from '../@types/interface';
+import { AddReviewData } from '../@types/interface';
 
 axios.defaults.withCredentials = true;
 // const token = getCookie('token');
@@ -95,15 +95,9 @@ export const getReservation = async (roomsId: number) => {
   return res;
 };
 
-export const postReservation = async (
-  roomsId: number,
-  reservationInfo: ReservationPostData,
-) => {
+export const postReservation = async (roomsId: number, reservationInfo: ReservationPostData) => {
   try {
-    const res = await clientToken.post(
-      `/reservation/rooms/${roomsId}`,
-      reservationInfo,
-    );
+    const res = await clientToken.post(`/reservation/rooms/${roomsId}`, reservationInfo);
     return res;
   } catch (error) {
     console.error(error);
