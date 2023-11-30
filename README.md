@@ -25,7 +25,7 @@
 
 <h3>
 
-**[OHNOLZA 바로가기](https://smartalk.vercel.app/)**
+**[OHNOLZA 바로가기](https://dashing-tiramisu-cbdade.netlify.app/)**
 
 </h3>
 
