@@ -2,10 +2,10 @@ import { Badge, Box, Heading, Image, Text } from '@chakra-ui/react';
 import { StarFilled } from '@ant-design/icons';
 import { useSearchParams } from 'react-router-dom';
 import { theme } from '../../styles/theme';
-import { MyPageReservationData } from '../../@types/interface';
+import { ReservationInfoData } from '../../@types/interface';
 
 interface ReservationBreakDownProps {
-  roomDetails?: MyPageReservationData | null;
+  roomDetails?: ReservationInfoData | null;
 }
 
 const ReservationBreakDown = ({ roomDetails }: ReservationBreakDownProps) => {
@@ -21,8 +21,7 @@ const ReservationBreakDown = ({ roomDetails }: ReservationBreakDownProps) => {
   const roomNameCompletePage = roomDetails?.name;
   const roomImageCompletePage = roomDetails?.roomImages?.[0];
   const roomCategoryCompletePage = roomDetails?.category;
-  const roomStarCompletePage = roomDetails?.stars;
-  console.log(roomStarCompletePage);
+  const roomStarCompletePage = roomDetails?.averageRating;
 
   // 실제로 표시할 값
   const roomName = roomNameCompletePage || roomNameReservationPage || 'Default Name';

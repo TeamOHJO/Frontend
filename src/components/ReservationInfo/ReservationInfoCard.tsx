@@ -2,10 +2,10 @@ import { Card, SimpleGrid } from '@chakra-ui/react';
 import ReservationDate from './ReservationDate';
 import ReservationBreakDown from './ReservationBreakDown';
 import ReservationSubBreakDown from './ReservationSubBreakDown';
-import { MyPageReservationData } from '../../@types/interface';
+import { ReservationInfoData } from '../../@types/interface';
 
 interface ReservationInfoCardProps {
-  roomDetails?: MyPageReservationData | null;
+  roomDetails?: ReservationInfoData | null;
 }
 
 const ReservationInfoCard = ({ roomDetails }: ReservationInfoCardProps) => {

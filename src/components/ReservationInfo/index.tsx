@@ -1,10 +1,10 @@
 import ReservationPageTitle from './ReservationPageTitle';
 import ReservationSubtitle from './ReservationSubtitle';
 import ReservationInfoCard from './ReservationInfoCard';
-import { MyPageReservationData } from '../../@types/interface';
+import { ReservationInfoData } from '../../@types/interface';
 
 interface ReservationInfoProps {
-  roomDetails?: MyPageReservationData | null;
+  roomDetails?: ReservationInfoData | null;
 }
 
 const ReservationInfo = ({ roomDetails }: ReservationInfoProps) => {

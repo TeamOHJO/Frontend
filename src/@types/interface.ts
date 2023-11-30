@@ -106,7 +106,7 @@ export interface ReservationInfoData {
   name: string;
   price: number;
   nights: number;
-  stars: number;
+  averageRating: number;
   startTime: number;
   endTime: number;
   deletedAt: number;
