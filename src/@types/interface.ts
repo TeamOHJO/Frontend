@@ -78,7 +78,7 @@ export interface HomeCardProps {
   isLiked: boolean;
 }
 
-export interface ReservationData {
+export interface MyPageReservationData {
   reservationId: number;
   startDate: string;
   endDate: string;
@@ -171,16 +171,22 @@ export interface RoomDetail {
 
 export interface BasketData {
   basketId: number;
+  accommodationName: string;
+  roomId: number;
+  tag: string;
+  category: string;
+  roomName: string;
+  roomInfo: string;
   startDate: string;
   endDate: string;
-  category: string;
-  accommodationName: string;
-  image: string;
-  name: string;
+  checkInOutExplanation: string;
+  star: number;
   price: number;
-  nights: number;
-  stars: number;
+  discountPercentage: number;
+  image: string;
   canReserve: boolean;
+  numberOfPerson: number;
+  location: string;
 }
 
 export interface Review {
@@ -197,11 +203,17 @@ export interface Review {
 }
 
 export interface WishlistData {
-  accommodationId: number;
-  accommodationName: string;
   category: string;
-  location: string;
   image: string;
-  lowestPrice: number;
-  isLiked: boolean;
+  liked: boolean;
+  location: string;
+  name: string;
+  price: number;
+  accommodationId: number;
+}
+
+export interface AddReviewData {
+  reviewContent: string;
+  images?: string[];
+  star: number;
 }

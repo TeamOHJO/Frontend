@@ -1,5 +1,7 @@
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { useRecoilState } from 'recoil';
 import { theme } from '../styles/theme';
 import Navigation from '../components/Layout/Navigation';
 import Accommodation from '../pages/Accommodation';
@@ -14,7 +16,10 @@ import CustomerReview from '../pages/customerReview';
 import MyPage from '../pages/MyPage';
 import Reservation from '../pages/Reservation';
 import ReservationComplete from '../pages/ReservationComplete';
+import WriteReview from '../pages/AddReview';
 import LoadingRouter from './LoadingRouter';
+import { searchFilteredState } from '../states/atom';
+import { changeDateFormat, getTomorrow } from '../utils/utils';
 
 function Dashboard() {
   return (
@@ -27,6 +32,22 @@ function Dashboard() {
 }
 
 function MainRouter() {
+  const { pathname } = useLocation();
+  const [searchFilter, setSearchFilter] = useRecoilState(searchFilteredState);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  useEffect(() => {
+    const newFilter = {
+      ...searchFilter,
+      startDate: changeDateFormat(new Date()),
+      endDate: changeDateFormat(getTomorrow()),
+    };
+    setSearchFilter(newFilter);
+  }, []);
+
   return (
     <StyledContainer>
       <StyledInnerContainer>
@@ -39,16 +60,14 @@ function MainRouter() {
             <Route path="/wishlist" element={<WishList />} />
             <Route path="/basket" element={<Basket />} />
             <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mypage/review/write/:id" element={<WriteReview />} />
             <Route path="/loading" element={<LoadingRouter />} />
           </Route>
           <Route path="/accommodation/:id" element={<Accommodation />} />
           <Route path="/room/:id" element={<Room />} />
           <Route path="/review/:id" element={<CustomerReview />} />
           <Route path="/reservation/:id" element={<Reservation />} />
-          <Route
-            path="/reservation-complete/:id"
-            element={<ReservationComplete />}
-          />
+          <Route path="/reservation-complete/:id" element={<ReservationComplete />} />
         </Routes>
       </StyledInnerContainer>
     </StyledContainer>

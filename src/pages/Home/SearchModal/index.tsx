@@ -25,11 +25,11 @@ interface ModalProps {
 
 function SearchModal({ isOpen, onClose }: ModalProps) {
   const [isDomestic, setIsDomestic] = useState(true);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(getTomorrow());
   const [visitors, setVisitors] = useState(2);
   const [searchFilter, setSearchFilter] = useRecoilState(searchFilteredState);
   const [searchingAttempt, setSearchingAttempt] = useRecoilState(searchAttempt);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(getTomorrow());
 
   const onChangeDate = (dates: any) => {
     const [start, end] = dates;
@@ -41,7 +41,6 @@ function SearchModal({ isOpen, onClose }: ModalProps) {
       ...searchFilter,
       startDate: startTime,
       endDate: endTime,
-      page: 0,
     };
     setSearchFilter(newFilter);
   };
@@ -53,7 +52,23 @@ function SearchModal({ isOpen, onClose }: ModalProps) {
     setSearchFilter(newFilter);
   };
 
+  const checkValidEndDate = () => {
+    if (endDate === null || startDate === endDate) {
+      const newEndDate = new Date(startDate);
+      newEndDate.setDate(newEndDate.getDate() + 1);
+      setEndDate(newEndDate);
+
+      const newFilter = {
+        ...searchFilter,
+        startDate: changeDateFormat(startDate),
+        endDate: changeDateFormat(newEndDate),
+      };
+      setSearchFilter(newFilter);
+    }
+  };
+
   const search = () => {
+    checkValidEndDate();
     setSearchingAttempt(searchingAttempt + 1);
     onClose();
   };
@@ -66,11 +81,7 @@ function SearchModal({ isOpen, onClose }: ModalProps) {
         <ModalCloseButton />
         <ModalBody>
           <RegionSetter isDomestic={isDomestic} setIsDomestic={setIsDomestic} />
-          <Calendar
-            startDate={startDate}
-            endDate={endDate}
-            onChangeDate={onChangeDate}
-          />
+          <Calendar startDate={startDate} endDate={endDate} onChangeDate={onChangeDate} />
           <VisitorSetter
             visitors={visitors}
             setVisitors={setVisitors}

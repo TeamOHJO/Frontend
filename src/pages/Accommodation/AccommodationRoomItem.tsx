@@ -11,7 +11,7 @@ import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
 } from '../../states/atom';
-import { changeDateFormat } from '../../utils/utils';
+import { changeDateFormat, changePriceDiscountFormat, changeStarFormat } from '../../utils/utils';
 
 interface AccommodationRoom {
   roomId: number;
@@ -41,19 +41,14 @@ function AccommodationRoomItem({
   location,
 }: AccommodationRoom) {
   const navigate = useNavigate();
-  const [accommodationSelectStartDate] = useRecoilState<Date>(
-    accommodationSelectStartDateState,
-  );
+  const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
 
-  const [accommodationSelectEndDate] = useRecoilState<Date>(
-    accommodationSelectEndDateState,
-  );
+  const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
 
-  const handleCountDay = () => {
+  const countDay = () => {
     if (accommodationSelectStartDate && accommodationSelectEndDate) {
       const diffDate =
-        accommodationSelectEndDate.getTime() -
-        accommodationSelectStartDate.getTime();
+        accommodationSelectEndDate.getTime() - accommodationSelectStartDate.getTime();
       return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
     }
     return 1;
@@ -79,10 +74,8 @@ function AccommodationRoomItem({
             {name}
           </Heading>
           <div>
-            <StarFilled
-              style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }}
-            />
-            <StyledStarDigit>{averageRating}</StyledStarDigit>
+            <StarFilled style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }} />
+            <StyledStarDigit>{changeStarFormat(averageRating)}</StyledStarDigit>
           </div>
         </StyledAccommodationRoomTitleBox>
         <StyledAccommodationRoomTitleBox>
@@ -92,37 +85,22 @@ function AccommodationRoomItem({
             </Text>
             {discountPercentage > 0 ? (
               <>
-                <Text as="s" size="sm" color="blackAlpha.600">
-                  ￦
-                  {(
-                    Math.floor((price * handleCountDay()) / 1000) * 1000
-                  ).toLocaleString()}
-                  원/{handleCountDay()}박
+                <Text as="s" size="xs" color="blackAlpha.600">
+                  ￦{(price * countDay()).toLocaleString()}
+                  원/{countDay()}박
                 </Text>
-                <Text as="p" size="sm">
-                  ￦
-                  {(
-                    Math.floor(
-                      (price * handleCountDay() * (100 - discountPercentage)) /
-                        100000,
-                    ) * 1000
-                  ).toLocaleString()}
-                  원/{handleCountDay()}박
-                  <Badge fontSize="0.8rem" style={{ marginLeft: '0.5rem' }}>
+                <Text as="p" size="md" fontWeight="bold">
+                  ￦ {changePriceDiscountFormat(price, discountPercentage, countDay())}
+                  원/{countDay()}박
+                  <Badge variant="red" style={{ marginLeft: '0.5rem' }}>
                     {discountPercentage}% 할인
                   </Badge>
                 </Text>
               </>
             ) : (
-              <Text as="p" size="sm">
-                ￦
-                {(
-                  Math.floor(
-                    (price * handleCountDay() * (100 - discountPercentage)) /
-                      100000,
-                  ) * 1000
-                ).toLocaleString()}
-                원/{handleCountDay()}박
+              <Text as="p" size="md" fontWeight="bold">
+                ￦ {changePriceDiscountFormat(price, discountPercentage, countDay())}
+                원/{countDay()}박
               </Text>
             )}
           </div>

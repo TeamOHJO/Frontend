@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import AccommodationNavi from './AccommodationNavi';
 import AccommodationMainImages from './AccommodationMainImg';
@@ -16,26 +16,21 @@ import {
   accommodationSelectVisitorsState,
 } from '../../states/atom';
 import { getCookie, changeDateFormat } from '../../utils/utils';
+import LoadingCircle from '../../components/Loading';
 
 function Accommodation() {
-  const [accommodationDetailData, setAccommodationDetailData] =
-    useState<AccommodationDetail>();
+  const [accommodationDetailData, setAccommodationDetailData] = useState<AccommodationDetail>();
 
   const params = useParams();
 
-  const [accommodationSelectStartDate] = useRecoilState<Date>(
-    accommodationSelectStartDateState,
-  );
+  const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
 
-  const [accommodationSelectEndDate] = useRecoilState<Date>(
-    accommodationSelectEndDateState,
-  );
+  const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
 
-  const [accommodationSelectVisitors] = useRecoilState<number>(
-    accommodationSelectVisitorsState,
-  );
+  const [accommodationSelectVisitors] = useRecoilState<number>(accommodationSelectVisitorsState);
 
   const accessToken = getCookie('token');
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     if (accessToken) {
@@ -52,8 +47,11 @@ function Accommodation() {
             Authorization: `Bearer ${accessToken}`,
           },
         },
-      );
-      setAccommodationDetailData(await response.json());
+      ).then((res: any) => {
+        if (!res.ok) navigate('/');
+        return res.json();
+      });
+      setAccommodationDetailData(await response);
     } else {
       const response = await fetch(
         `https://yanoljaschool.site:8080/accommodation/detail/${
@@ -64,8 +62,11 @@ function Accommodation() {
         {
           method: 'GET',
         },
-      );
-      setAccommodationDetailData(await response.json());
+      ).then((res: any) => {
+        if (!res.ok) navigate('/');
+        return res.json();
+      });
+      setAccommodationDetailData(await response);
     }
   };
 
@@ -104,7 +105,7 @@ function Accommodation() {
       />
     </StyledAccommodationWrapper>
   ) : (
-    <>스켈레톤</>
+    <LoadingCircle />
   );
 }
 

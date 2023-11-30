@@ -10,11 +10,7 @@ interface AccommodationMainImgProps {
   tag: string;
 }
 
-function AccommodationMainImg({
-  images,
-  liked,
-  tag,
-}: AccommodationMainImgProps) {
+function AccommodationMainImg({ images, liked, tag }: AccommodationMainImgProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
