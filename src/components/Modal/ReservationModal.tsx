@@ -8,9 +8,11 @@ import {
   ModalCloseButton,
   Button,
 } from '@chakra-ui/react';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { postReservation } from '../../api';
 import { ReservationPostData } from '../../api/type';
+import ReservationToastPopup from '../../pages/Reservation/ReservationToastPopup';
 
 interface ReservationModalProps {
   isOpen: boolean;
@@ -27,6 +29,10 @@ const ReservationModal = ({ isOpen, onClose, onConfirm, roomId }: ReservationMod
   const startDate = searchParams.get('startDate');
   const endDate = searchParams.get('endDate');
   const numberOfPerson = searchParams.get('numberOfPerson');
+  const [showAlert, setShowAlert] = useState({
+    active: false,
+    message: '',
+  });
 
   const handleConfirm = async () => {
     try {
@@ -44,9 +50,13 @@ const ReservationModal = ({ isOpen, onClose, onConfirm, roomId }: ReservationMod
       navigate(
         `/reservation-complete/${roomId}?startDate=${startDate}&endDate=${endDate}&numberOfPerson=${numberOfPerson}`,
       );
-      // navigate(`/reservation-complete/${roomId}`);
     } catch (error) {
       console.error(error);
+      const toastData = {
+        active: true,
+        message: '이미 예약이 완료되었습니다.',
+      };
+      setShowAlert(toastData);
     }
   };
 
@@ -65,6 +75,7 @@ const ReservationModal = ({ isOpen, onClose, onConfirm, roomId }: ReservationMod
             취소
           </Button>
         </ModalFooter>
+        <ReservationToastPopup status={showAlert} setFunc={setShowAlert} />
       </ModalContent>
     </Modal>
   );
