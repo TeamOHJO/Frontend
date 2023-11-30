@@ -112,6 +112,7 @@ const ContentsContainer = () => {
             onClick={() => {
               onClickMoreBtn();
             }}
+            style={{ zIndex: '10' }}
           >
             더보기
           </Button>
