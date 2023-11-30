@@ -105,7 +105,7 @@ function AccommodationRoomItem({
             )}
           </div>
           <StyledAccommodationRoomTitleBoxItem>
-            <AccommodationRoomItemCart roomId={roomId} />
+            <AccommodationRoomItemCart roomId={roomId} soldOut={soldOut} />
             <ReservationBtn
               soldOut={soldOut}
               roomId={roomId}

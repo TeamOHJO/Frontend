@@ -14,7 +14,6 @@ import { getBasket } from '../../api';
 import ToastPopup from '../../components/Modal/ToastPopup';
 
 function Basket() {
-  const TODAY = new Date();
   const [basketData, setBasketData] = useRecoilState(basketDataState);
   const setAvailableList = useSetRecoilState(basketAvailableListState);
   const setUnavailableList = useSetRecoilState(basketUnavailableListState);
@@ -46,16 +45,8 @@ function Basket() {
   }, []);
 
   useEffect(() => {
-    setAvailableList(
-      basketData.filter(
-        (item: BasketData) => item.canReserve === true && new Date(item.startDate) > TODAY,
-      ),
-    );
-    setUnavailableList(
-      basketData.filter(
-        (item: BasketData) => item.canReserve === false || new Date(item.startDate) <= TODAY,
-      ),
-    );
+    setAvailableList(basketData.filter((item: BasketData) => item.canReserve === true));
+    setUnavailableList(basketData.filter((item: BasketData) => item.canReserve === false));
   }, [basketData, setBasketData]);
 
   return (
