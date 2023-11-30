@@ -70,7 +70,8 @@
 와이어프레임
 <br>
 <br>
-![Section 2](https://github.com/TeamOHJO/Frontend/assets/38286505/eaae2568-5e7f-4b9d-ab54-7e4d712313b5)
+<img width="3047" alt="Section 2" src="https://github.com/TeamOHJO/Frontend/assets/38286505/0d53b656-ad7c-4d91-b858-df9bd9e5ecb5">
+
 
 </div>
 
