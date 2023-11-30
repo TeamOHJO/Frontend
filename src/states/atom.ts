@@ -1,6 +1,6 @@
 import { atom, selector } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import { AlertData, BasketData, WishlistData } from '../@types/interface';
+import { AlertData, BasketData, MyPageReservationData, WishlistData } from '../@types/interface';
 import { getTomorrow, changeDateFormat } from '../utils/utils';
 
 const { persistAtom } = recoilPersist({
@@ -113,4 +113,14 @@ export const userInformation = atom({
     userName: '',
     phoneNum: '',
   },
+});
+
+export const myPageReservationDataState = atom<MyPageReservationData[]>({
+  key: 'myPageReservationDataState',
+  default: [],
+});
+
+export const myPageCancelledState = atom<MyPageReservationData[]>({
+  key: 'myPageCancelledState',
+  default: [],
 });

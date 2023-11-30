@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 import styled from '@emotion/styled';
 import MyPageReservationCard from './MyPageReservationCard';
 import { MyPageReservationData } from '../../../@types/interface';
@@ -6,7 +7,7 @@ function MyPageReservationUpcoming({ upcomingList }: { upcomingList: MyPageReser
   return (
     <StyledCardWrapper>
       {upcomingList.map((item: MyPageReservationData) => {
-        return <MyPageReservationCard key={item.reservationId} item={item} />;
+        return <MyPageReservationCard key={uuid()} item={item} />;
       })}
     </StyledCardWrapper>
   );

@@ -2,10 +2,10 @@ import { Badge, Box, Heading, Image, Text } from '@chakra-ui/react';
 import { StarFilled } from '@ant-design/icons';
 import { useSearchParams } from 'react-router-dom';
 import { theme } from '../../styles/theme';
-import { MyPageReservationData } from '../../@types/interface';
+import { ReservationInfoData } from '../../@types/interface';
 
 interface ReservationBreakDownProps {
-  roomDetails?: MyPageReservationData | null;
+  roomDetails?: ReservationInfoData | null;
 }
 
 const ReservationBreakDown = ({ roomDetails }: ReservationBreakDownProps) => {

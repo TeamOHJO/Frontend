@@ -83,6 +83,18 @@ export const CancelReservation = async (reservationId: number) => {
   return res;
 };
 
+// 마이페이지 > 예약 내역 가져오기
+export const getMyPageReservationList = async () => {
+  const res = await clientToken.get('/reservation');
+  return res;
+};
+
+// 마이페이지 > 예약 취소 내역 가져오기
+export const getMyPageCancelledList = async () => {
+  const res = await clientToken.get('/reservation/canceled');
+  return res;
+};
+
 // 마이페이지 > 리뷰 작성
 export const SubmitReview = async (reservationId: number, reviewData: AddReviewData) => {
   const res = await clientToken.post(
@@ -222,6 +234,19 @@ export const changePw = async (oldPw: string, newPw: string) => {
       },
     },
   );
+
+  return res.data;
+};
+
+export const resignUser = async () => {
+  const newToken = getCookie('token');
+
+  const res = await axios.delete('https://yanoljaschool.site:8080/user', {
+    headers: {
+      'content-type': import.meta.env.VITE_CONTENT_TYPE,
+      Authorization: `Bearer ${newToken}`,
+    },
+  });
 
   return res.data;
 };
