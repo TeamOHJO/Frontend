@@ -11,7 +11,7 @@ import {
   basketCountState,
 } from '../../states/atom';
 
-function AccommodationRoomItemCart({ roomId }: { roomId: number }) {
+function AccommodationRoomItemCart({ roomId, soldOut }: { roomId: number; soldOut: boolean }) {
   const [cartHover, setCartHover] = useState(false);
   const [basketCount, setBasketCount] = useRecoilState<number>(basketCountState);
 
@@ -76,12 +76,20 @@ function AccommodationRoomItemCart({ roomId }: { roomId: number }) {
     <>
       <StyledAccommodationRoomItemCart
         className="material-symbols-outlined"
-        onMouseEnter={handleCartMouseEnter}
-        onMouseLeave={handleCartMouseLeave}
+        onMouseEnter={() => {
+          if (!soldOut) handleCartMouseEnter();
+        }}
+        onMouseLeave={() => {
+          if (!soldOut) handleCartMouseLeave();
+        }}
         onClick={(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
           event.stopPropagation();
-          createBasket();
+
+          if (!soldOut) {
+            createBasket();
+          }
         }}
+        style={cartHover ? { color: theme.colors.basic } : {}}
       >
         add_shopping_cart
         {cartHover ? (
@@ -102,10 +110,6 @@ const StyledAccommodationRoomItemCart = styled.span`
   font-size: 30px;
   color: ${theme.colors.gray300};
   margin-right: 1rem;
-  cursor: pointer;
-  &:hover {
-    color: ${theme.colors.basic};
-  }
 `;
 
 const StyledTooltip = styled.span`

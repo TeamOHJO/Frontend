@@ -128,11 +128,12 @@ export default ContentsContainer;
 
 const StyledContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
   align-items: center;
   margin-top: 8rem;
   width: 100%;
+  padding-left: 10px;
 `;
 
 const StyledButtonWrapper = styled.div`
