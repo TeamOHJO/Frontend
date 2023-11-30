@@ -6,7 +6,7 @@ import { StarFilled, CloseOutlined } from '@ant-design/icons';
 import { BasketData } from '../../@types/interface';
 import { basketDataState } from '../../states/atom';
 import { DeleteBasketItem } from '../../api';
-import { changeCategoryReverseFormat, changeStarFormat } from '../../utils/utils';
+import { changeCategoryReverseFormat, changeStarFormat, countDay } from '../../utils/utils';
 
 interface ToastData {
   active: boolean;
@@ -20,6 +20,9 @@ interface BasketCardProps {
 function BasketDisabledCard({ item, setShowAlert }: BasketCardProps) {
   const navigate = useNavigate();
   const [basketData, setBasketData] = useRecoilState(basketDataState);
+  const nights = countDay(item.startDate, item.endDate);
+  const totalPrice = item.price * nights;
+  const badgeText = changeCategoryReverseFormat(item.category);
 
   const toastFunc = (text: string) => {
     const toastData = {
@@ -35,16 +38,6 @@ function BasketDisabledCard({ item, setShowAlert }: BasketCardProps) {
       `/room/${item.roomId}?startDate=${item.startDate}&endDate=${item.endDate}&numberOfPerson=${item.numberOfPerson}&soldOut=${item.canReserve}`,
     );
   };
-
-  const countDay = (startDate: string, endDate: string) => {
-    const diffDate = new Date(endDate).getTime() - new Date(startDate).getTime();
-    return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
-  };
-
-  const nights = countDay(item.startDate, item.endDate);
-  const totalPrice = item.price * nights;
-
-  const badgeText = changeCategoryReverseFormat(item.category);
 
   const deleteSingleItem = async (id: number) => {
     await DeleteBasketItem(id);
@@ -122,6 +115,7 @@ const StyledTitle = styled.h1`
   font-size: 1rem;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.48);
+  text-align: left;
 
   overflow: hidden;
   white-space: nowrap;

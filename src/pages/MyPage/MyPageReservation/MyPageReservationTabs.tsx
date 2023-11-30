@@ -5,25 +5,19 @@ import MyPageReservationCompleted from './MyPageReservationCompleted';
 import MyPageReservationCancelled from './MyPageReservationCancelled';
 import { MyPageReservationData } from '../../../@types/interface';
 import { theme } from '../../../styles/theme';
+import MyPageReservationNoHistory from './MyPageReservationNoHistory.tsx';
 
-function MyPageReservationTabs({ reservationData }: { reservationData: MyPageReservationData[] }) {
-  const TODAY = new Date();
+interface MyPageReservationTabsProps {
+  upcomingList: MyPageReservationData[];
+  completedList: MyPageReservationData[];
+  cancelledList: MyPageReservationData[];
+}
 
-  // 이용 예정
-  const upcomingList = reservationData.filter(
-    (item: MyPageReservationData) => item.deletedAt === null && TODAY < new Date(item.startDate),
-  );
-
-  // 이용 완료
-  const completedList = reservationData.filter(
-    (item: MyPageReservationData) => item.deletedAt === null && new Date(item.endDate) < TODAY,
-  );
-
-  // 예약 취소
-  const cancelledList = reservationData.filter(
-    (item: MyPageReservationData) => item.deletedAt !== null,
-  );
-
+function MyPageReservationTabs({
+  upcomingList,
+  completedList,
+  cancelledList,
+}: MyPageReservationTabsProps) {
   return (
     <Tabs isFitted variant="soft-rounded" colorScheme="blue" size="md" align="center">
       <StyledTabList>
@@ -33,13 +27,25 @@ function MyPageReservationTabs({ reservationData }: { reservationData: MyPageRes
       </StyledTabList>
       <TabPanels>
         <TabPanel>
-          <MyPageReservationUpcoming upcomingList={upcomingList} />
+          {upcomingList.length > 0 ? (
+            <MyPageReservationUpcoming upcomingList={upcomingList} />
+          ) : (
+            <MyPageReservationNoHistory text="예약 내역이 없습니다." />
+          )}
         </TabPanel>
         <TabPanel>
-          <MyPageReservationCompleted completedList={completedList} />
+          {completedList.length > 0 ? (
+            <MyPageReservationCompleted completedList={completedList} />
+          ) : (
+            <MyPageReservationNoHistory text="이용 완료 내역이 없습니다." />
+          )}
         </TabPanel>
         <TabPanel>
-          <MyPageReservationCancelled cancelledList={cancelledList} />
+          {cancelledList.length > 0 ? (
+            <MyPageReservationCancelled cancelledList={cancelledList} />
+          ) : (
+            <MyPageReservationNoHistory text="예약 취소 내역이 없습니다." />
+          )}
         </TabPanel>
       </TabPanels>
     </Tabs>

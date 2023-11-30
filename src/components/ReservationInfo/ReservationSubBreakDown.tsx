@@ -3,10 +3,10 @@ import { useSearchParams } from 'react-router-dom';
 import { theme } from '../../styles/theme';
 import LocationIcon from '../../assets/location-outline.svg';
 import { calculateDaysDifference, formatNumberWithCommas } from '../../utils/utils';
-import { MyPageReservationData } from '../../@types/interface';
+import { ReservationInfoData } from '../../@types/interface';
 
 interface ReservationSubBreakDownProps {
-  roomDetails?: MyPageReservationData | null;
+  roomDetails?: ReservationInfoData | null;
 }
 
 const ReservationSubBreakDown = ({ roomDetails }: ReservationSubBreakDownProps) => {

@@ -134,6 +134,15 @@ export const chakraTheme = extendTheme({
             backgroundColor: 'gray.300',
           },
         },
+        disabled: {
+          backgroundColor: 'gray.100',
+          _hover: {
+            cursor: 'default',
+          },
+          _active: {
+            backgroundColor: 'gray.100',
+          },
+        },
         navy: {
           border: '1px solid',
           borderColor: 'blue.600',
