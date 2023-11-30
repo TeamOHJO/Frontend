@@ -222,3 +222,16 @@ export const changePw = async (oldPw: string, newPw: string) => {
 
   return res.data;
 };
+
+export const resignUser = async () => {
+  const newToken = getCookie('token');
+
+  const res = await axios.delete('https://yanoljaschool.site:8080/user', {
+    headers: {
+      'content-type': import.meta.env.VITE_CONTENT_TYPE,
+      Authorization: `Bearer ${newToken}`,
+    },
+  });
+
+  return res.data;
+};

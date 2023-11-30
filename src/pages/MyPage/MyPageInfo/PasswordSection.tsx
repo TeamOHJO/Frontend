@@ -89,7 +89,7 @@ const PasswordSection = () => {
           onChangeInput={onChangeInput}
         />
         {errorMsg.length ? <StyledErrorMsg>{errorMsg}</StyledErrorMsg> : null}
-        <StyledBtn colorScheme="blue" size="md" onClick={submitChangePw}>
+        <StyledBtn variant="blue" size="md" onClick={submitChangePw}>
           비밀번호 변경
         </StyledBtn>
       </StyledInnerContainer>
