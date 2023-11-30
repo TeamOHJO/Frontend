@@ -8,23 +8,16 @@ import { theme } from '../../../styles/theme';
 import MyPageReservationNoHistory from './MyPageReservationNoHistory.tsx';
 
 interface MyPageReservationTabsProps {
-  reservationData: MyPageReservationData[];
+  upcomingList: MyPageReservationData[];
+  completedList: MyPageReservationData[];
   cancelledList: MyPageReservationData[];
 }
 
-function MyPageReservationTabs({ reservationData, cancelledList }: MyPageReservationTabsProps) {
-  const TODAY = new Date();
-
-  // 이용 예정
-  const upcomingList = reservationData.filter(
-    (item: MyPageReservationData) => TODAY < new Date(item.startDate),
-  );
-
-  // 이용 완료
-  const completedList = reservationData.filter(
-    (item: MyPageReservationData) => new Date(item.endDate) < TODAY,
-  );
-
+function MyPageReservationTabs({
+  upcomingList,
+  completedList,
+  cancelledList,
+}: MyPageReservationTabsProps) {
   return (
     <Tabs isFitted variant="soft-rounded" colorScheme="blue" size="md" align="center">
       <StyledTabList>
