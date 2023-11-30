@@ -17,6 +17,7 @@ const ReservationComplete = () => {
     const fetchRoomDetails = async () => {
       try {
         const details = await getRoomDetails(roomId);
+
         setRoomDetails(details.data);
       } catch (error) {
         console.error(error);

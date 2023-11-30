@@ -1,5 +1,5 @@
 import { Box, Image, Text } from '@chakra-ui/react';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { theme } from '../../styles/theme';
 import LocationIcon from '../../assets/location-outline.svg';
 import { calculateDaysDifference, formatNumberWithCommas } from '../../utils/utils';
@@ -10,6 +10,7 @@ interface ReservationSubBreakDownProps {
 }
 
 const ReservationSubBreakDown = ({ roomDetails }: ReservationSubBreakDownProps) => {
+  const { state } = useLocation();
   const [searchParams] = useSearchParams();
 
   // 예약 페이지에서는 searchParams에서 값을 가져옴
@@ -19,7 +20,7 @@ const ReservationSubBreakDown = ({ roomDetails }: ReservationSubBreakDownProps) 
   const endDate = String(searchParams.get('endDate'));
 
   // 예약 완료 페이지에서는 roomDetails에서 값을 가져옴
-  const roomLocationCompletePage = roomDetails?.location;
+  const roomLocationCompletePage = state?.accommodationLocation;
   const roomPriceCompletePage = roomDetails?.price;
 
   // 실제로 표시할 값

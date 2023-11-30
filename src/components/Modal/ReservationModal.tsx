@@ -43,12 +43,17 @@ const ReservationModal = ({ isOpen, onClose, onConfirm, roomId }: ReservationMod
       };
 
       const response = await postReservation(roomId, reservationPostProps);
-      console.log(response.data);
+      const accommodationLocation = response.data.data.location;
 
       onConfirm();
 
       navigate(
         `/reservation-complete/${roomId}?startDate=${startDate}&endDate=${endDate}&numberOfPerson=${numberOfPerson}`,
+        {
+          state: {
+            accommodationLocation,
+          },
+        },
       );
     } catch (error) {
       console.error(error);

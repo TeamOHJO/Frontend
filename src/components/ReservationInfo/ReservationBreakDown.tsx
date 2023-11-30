@@ -22,6 +22,7 @@ const ReservationBreakDown = ({ roomDetails }: ReservationBreakDownProps) => {
   const roomImageCompletePage = roomDetails?.roomImages?.[0];
   const roomCategoryCompletePage = roomDetails?.category;
   const roomStarCompletePage = roomDetails?.stars;
+  console.log(roomStarCompletePage);
 
   // 실제로 표시할 값
   const roomName = roomNameCompletePage || roomNameReservationPage || 'Default Name';
