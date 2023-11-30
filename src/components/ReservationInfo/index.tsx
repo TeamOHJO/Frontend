@@ -1,15 +1,23 @@
 import ReservationPageTitle from './ReservationPageTitle';
 import ReservationSubtitle from './ReservationSubtitle';
 import ReservationInfoCard from './ReservationInfoCard';
+import { MyPageReservationData } from '../../@types/interface';
 
-const ReservationInfo = () => {
+interface ReservationInfoProps {
+  roomDetails?: MyPageReservationData | null;
+}
+
+const ReservationInfo = ({ roomDetails }: ReservationInfoProps) => {
   return (
     <>
       <ReservationPageTitle />
       <ReservationSubtitle />
-      <ReservationInfoCard />
+      <ReservationInfoCard roomDetails={roomDetails} />
     </>
   );
+};
+ReservationInfo.defaultProps = {
+  roomDetails: null,
 };
 
 export default ReservationInfo;

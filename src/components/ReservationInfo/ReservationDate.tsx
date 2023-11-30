@@ -1,6 +1,11 @@
 import { Box, Text } from '@chakra-ui/react';
+import { useSearchParams } from 'react-router-dom';
 
 const ReservationDate = () => {
+  const [searchParams] = useSearchParams();
+  const startDate = searchParams.get('startDate');
+  const endDate = searchParams.get('endDate');
+
   return (
     <Box width="100%" display="flex" flexDir="row">
       <Box width="50%" p="8">
@@ -8,7 +13,7 @@ const ReservationDate = () => {
           숙박 시작일
         </Text>
         <Text fontSize="lg" fontWeight="bold" color="basic">
-          2023.11.20(월)
+          {startDate}
         </Text>
       </Box>
       <Box width="50%" p="8">
@@ -16,7 +21,7 @@ const ReservationDate = () => {
           숙박 종료일
         </Text>
         <Text fontSize="lg" fontWeight="bold" color="basic">
-          2023.11.21(화)
+          {endDate}
         </Text>
       </Box>
     </Box>

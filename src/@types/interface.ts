@@ -96,6 +96,7 @@ export interface MyPageReservationData {
   startTime: number;
   endTime: number;
   deletedAt: number;
+  roomImages: string[];
 }
 
 export interface ImagesModalProps {
@@ -186,12 +187,6 @@ export interface BasketData {
   canReserve: boolean;
   numberOfPerson: number;
   location: string;
-}
-
-export interface ReservationInfo {
-  startDate: string;
-  endDate: string;
-  numberOfPerson: number;
 }
 
 export interface Review {

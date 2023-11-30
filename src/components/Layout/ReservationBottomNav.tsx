@@ -1,13 +1,18 @@
 import styled from '@emotion/styled';
 import { theme } from '../../styles/theme';
+import BookingBtn from '../BookingBtn';
 
-function ReservationBottomNav() {
+interface ReservationBottomNavProps {
+  roomId: number;
+}
+
+const ReservationBottomNav = ({ roomId }: ReservationBottomNavProps) => {
   return (
     <StyledReservationBottomNavWrapper>
-      <span>·총액 ￦1230000</span>
+      <BookingBtn roomId={roomId} />
     </StyledReservationBottomNavWrapper>
   );
-}
+};
 
 export default ReservationBottomNav;
 
@@ -27,6 +32,6 @@ const StyledReservationBottomNavWrapper = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   z-index: 2;
 `;
