@@ -2,19 +2,14 @@ import { Box, Image, Text } from '@chakra-ui/react';
 import { useSearchParams } from 'react-router-dom';
 import { theme } from '../../styles/theme';
 import LocationIcon from '../../assets/location-outline.svg';
-import {
-  calculateDaysDifference,
-  formatNumberWithCommas,
-} from '../../utils/utils';
-import { ReservationData } from '../../@types/interface';
+import { calculateDaysDifference, formatNumberWithCommas } from '../../utils/utils';
+import { MyPageReservationData } from '../../@types/interface';
 
 interface ReservationSubBreakDownProps {
-  roomDetails?: ReservationData | null;
+  roomDetails?: MyPageReservationData | null;
 }
 
-const ReservationSubBreakDown = ({
-  roomDetails,
-}: ReservationSubBreakDownProps) => {
+const ReservationSubBreakDown = ({ roomDetails }: ReservationSubBreakDownProps) => {
   const [searchParams] = useSearchParams();
 
   // 예약 페이지에서는 searchParams에서 값을 가져옴
@@ -38,13 +33,7 @@ const ReservationSubBreakDown = ({
   const formattedAllPrice = formatNumberWithCommas(allPrice);
 
   return (
-    <Box
-      display="flex"
-      flexDir="row"
-      pl="8"
-      pr="8"
-      justifyContent="space-between"
-    >
+    <Box display="flex" flexDir="row" pl="8" pr="8" justifyContent="space-between">
       <Box display="flex" flexDir="column" gap="2">
         <Text fontFamily={theme.fonts.body4} color={theme.colors.gray400}>
           체크인: 15:00 이후, 체크아웃: 10:00 이전

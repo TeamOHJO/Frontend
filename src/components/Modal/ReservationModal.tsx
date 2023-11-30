@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { postReservation } from '../../api';
-import { ReservationData } from '../../api/type';
+import { ReservationPostData } from '../../api/type';
 
 interface ReservationModalProps {
   isOpen: boolean;
@@ -19,12 +19,7 @@ interface ReservationModalProps {
   roomId: number;
 }
 
-const ReservationModal = ({
-  isOpen,
-  onClose,
-  onConfirm,
-  roomId,
-}: ReservationModalProps) => {
+const ReservationModal = ({ isOpen, onClose, onConfirm, roomId }: ReservationModalProps) => {
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -35,7 +30,7 @@ const ReservationModal = ({
 
   const handleConfirm = async () => {
     try {
-      const reservationPostProps: ReservationData = {
+      const reservationPostProps: ReservationPostData = {
         startDate: startDate as string,
         endDate: endDate as string,
         numberOfPerson: numberOfPerson ? parseInt(numberOfPerson, 10) : 1,
