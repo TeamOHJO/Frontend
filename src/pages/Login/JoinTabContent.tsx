@@ -47,9 +47,15 @@ const JoinTabContent = () => {
     };
     try {
       const res = await postJoin(joinData);
-      const { data } = res;
-      if (data) {
-        window.location.reload();
+      const { code } = res;
+      if (code) {
+        if (code === 201) {
+          window.location.reload();
+        }
+        if (code === 200) {
+          alert('기존의 계정이 복구되었습니다');
+          window.location.reload();
+        }
       }
     } catch (error) {
       if (isAxiosError(error)) {
@@ -87,21 +93,13 @@ const JoinTabContent = () => {
     newErrors[key] = error;
     newIsError[key] = !!error;
 
-    setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    setIsError((prevIsError) => ({ ...prevIsError, ...newIsError }));
+    setErrors(prevErrors => ({ ...prevErrors, ...newErrors }));
+    setIsError(prevIsError => ({ ...prevIsError, ...newIsError }));
   };
   return (
     <StyledForm onSubmit={handleJoinSubmit}>
-      <JoinInput
-        isError={isError}
-        errors={errors}
-        errorSetFunc={errorSetFunc}
-      />
-      <JoinTabButton
-        errors={errors}
-        formData={formData}
-        errorSetFunc={errorSetFunc}
-      />
+      <JoinInput isError={isError} errors={errors} errorSetFunc={errorSetFunc} />
+      <JoinTabButton errors={errors} formData={formData} errorSetFunc={errorSetFunc} />
     </StyledForm>
   );
 };
