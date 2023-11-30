@@ -20,7 +20,7 @@ export interface Email {
   email: string;
 }
 
-export interface ReservationData {
+export interface ReservationPostData {
   startDate: string;
   endDate: string;
   numberOfPerson: number;

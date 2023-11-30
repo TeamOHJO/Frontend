@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { JoinData, LoginData, Email, ReservationData } from './type';
+import { JoinData, LoginData, Email, ReservationPostData } from './type';
 import { getCookie } from '../utils/utils';
 
 axios.defaults.withCredentials = true;
@@ -84,14 +84,13 @@ export const getReservation = async (roomsId: number) => {
 // 예약페이지 POST 요청 보내기!
 export const postReservation = async (
   roomsId: number,
-  reservationInfo: ReservationData,
+  reservationInfo: ReservationPostData,
 ) => {
   try {
     const res = await clientToken.post(
       `/reservation/rooms/${roomsId}`,
       reservationInfo,
     );
-    console.log(res);
     return res;
   } catch (error) {
     console.error(error);
