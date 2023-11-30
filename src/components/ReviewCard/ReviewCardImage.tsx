@@ -85,12 +85,7 @@ const ReviewCardImage = ({ reviewData }: { reviewData: Review }) => {
 
   return (
     <div key={reviewData.reviewId}>
-      <Box
-        display="flex"
-        flexDir="column"
-        justifyContent="center"
-        alignContent="center"
-      >
+      <Box display="flex" flexDir="column" justifyContent="center" alignContent="center">
         {/* {reviewData.images && reviewData.images.length > 0 && ( */}
         {imagesLoaded && images.length > 0 && (
           <>

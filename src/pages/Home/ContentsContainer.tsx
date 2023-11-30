@@ -4,11 +4,7 @@ import { useRecoilState } from 'recoil';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@chakra-ui/react';
 import { v4 as uuid } from 'uuid';
-import {
-  searchFilteredState,
-  searchAttempt,
-  accommodationList,
-} from '../../states/atom';
+import { searchFilteredState, searchAttempt, accommodationList } from '../../states/atom';
 import { getAccommodationList } from '../../api';
 import HomeCard from './HomeCard';
 import { changeCategoryFormat } from '../../utils/utils';
@@ -20,9 +16,9 @@ const ContentsContainer = () => {
   const [searchFilter, setSearchFilter] = useRecoilState(searchFilteredState);
   const [searchingAttempt, setSearchingAttempt] = useRecoilState(searchAttempt);
   const [page, setPage] = useState(0);
+  const [showGetMoreBtn, setShowGetMoreBtn] = useState(true);
 
-  const { category, isDomestic, startDate, endDate, numberOfPeople } =
-    searchFilter;
+  const { category, isDomestic, startDate, endDate, numberOfPeople } = searchFilter;
 
   const fetchData = async () => {
     try {
@@ -36,6 +32,9 @@ const ContentsContainer = () => {
 
       const { data } = res;
       setList(data);
+      if (!data.length) {
+        setShowGetMoreBtn(false);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -52,6 +51,7 @@ const ContentsContainer = () => {
   useEffect(() => {
     if (page === 0) {
       fetchData();
+      setShowGetMoreBtn(true);
     }
   }, [searchingAttempt, page]);
 
@@ -66,7 +66,12 @@ const ContentsContainer = () => {
       });
 
       const { data } = res;
-      setList((prevList: any[]) => [...prevList, ...data]);
+
+      if (data.length) {
+        setList((prevList: any[]) => [...prevList, ...data]);
+      } else {
+        setShowGetMoreBtn(false);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -101,14 +106,18 @@ const ContentsContainer = () => {
         );
       })}
       <StyledButtonWrapper>
-        <Button
-          colorScheme="blue"
-          onClick={() => {
-            onClickMoreBtn();
-          }}
-        >
-          더보기
-        </Button>
+        {showGetMoreBtn ? (
+          <Button
+            variant="blue"
+            onClick={() => {
+              onClickMoreBtn();
+            }}
+          >
+            더보기
+          </Button>
+        ) : (
+          <>찾으시는 숙소가 더이상 없습니다.</>
+        )}
       </StyledButtonWrapper>
     </StyledContainer>
   );
@@ -130,4 +139,5 @@ const StyledButtonWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   width: 100%;
+  margin: 5rem;
 `;

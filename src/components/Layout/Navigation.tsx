@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
-import {
-  ShoppingCartOutlined,
-  HomeOutlined,
-  HeartOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { ShoppingCartOutlined, HomeOutlined, HeartOutlined, UserOutlined } from '@ant-design/icons';
 import { theme } from '../../styles/theme';
 import TopBtn from '../TopBtn';
 import { getCookie, removeCookies } from '../../utils/utils';
+import { postLogout } from '../../api';
 
 function Navigation() {
   const [isUser, setIsUser] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
   const { pathname } = location;
-  const pagesArr = ['/basket', '/wishlist', '/mypage'];
+  const mainPagePath = ['호텔·리조트', '한옥', '펜션·풀빌라', '모텔', '게스트하우스'];
+  const { id } = useParams();
+
+  const logoutFunc = async () => {
+    await postLogout();
+    removeCookies();
+    navigate('/login');
+  };
 
   useEffect(() => {
     const token = getCookie('token');
@@ -43,21 +46,32 @@ function Navigation() {
             <ShoppingCartOutlined
               style={{
                 fontSize: '20px',
-                color: `${
-                  pathname === '/basket' ? 'black' : theme.colors.gray400
-                }`,
+                color: `${pathname.includes('/basket') ? 'black' : theme.colors.gray400}`,
               }}
             />
             장바구니
+          </StyledItem>
+          <StyledItem
+            onClick={() => {
+              navigate('/wishlist');
+            }}
+          >
+            <HeartOutlined
+              style={{
+                fontSize: '20px',
+                color: `${pathname.includes('/wishlist') ? 'black' : theme.colors.gray400}`,
+              }}
+            />
+            위시 리스트
           </StyledItem>
           <StyledItem>
             <HomeOutlined
               style={{
                 fontSize: '20px',
                 color: `${
-                  pagesArr.find((item: string) => item === pathname)
-                    ? theme.colors.gray400
-                    : 'black'
+                  mainPagePath.includes(id as string) || pathname === '/'
+                    ? 'black'
+                    : theme.colors.gray400
                 }`,
               }}
               onClick={() => {
@@ -68,33 +82,21 @@ function Navigation() {
           </StyledItem>
           <StyledItem
             onClick={() => {
-              navigate('/wishlist');
-            }}
-          >
-            <HeartOutlined
-              style={{
-                fontSize: '20px',
-                color: `${
-                  pathname === '/wishlist' ? 'black' : theme.colors.gray400
-                }`,
-              }}
-            />
-            위시 리스트
-          </StyledItem>
-          <StyledItem
-            onClick={() => {
               navigate('/mypage');
             }}
           >
             <UserOutlined
               style={{
                 fontSize: '20px',
-                color: `${
-                  pathname === '/mypage' ? 'black' : theme.colors.gray400
-                }`,
+                color: `${pathname.includes('/mypage') ? 'black' : theme.colors.gray400}`,
+                // color: `${pathname.slice(0, 7) === '/mypage' ? 'black' : theme.colors.gray400}`,
               }}
             />
             마이페이지
+          </StyledItem>
+          <StyledItem onClick={logoutFunc}>
+            <span className="material-symbols-outlined">logout</span>
+            로그아웃
           </StyledItem>
         </StyledUserState>
       ) : (
@@ -109,9 +111,9 @@ function Navigation() {
               style={{
                 fontSize: '20px',
                 color: `${
-                  pagesArr.find((item: string) => item === pathname)
-                    ? theme.colors.gray400
-                    : 'black'
+                  mainPagePath.includes(id as string) || pathname === '/'
+                    ? 'black'
+                    : theme.colors.gray400
                 }`,
               }}
             />
@@ -144,7 +146,7 @@ const StyledContainer = styled.div`
   min-width: 375px;
   height: 58px;
   background-color: ${theme.colors.white};
-  z-index: 20;
+  z-index: 100;
   box-shadow: ${theme.shadows.shadowTop.shadow};
 
   @media screen and (max-width: 768px) {

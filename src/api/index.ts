@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { JoinData, LoginData, Email, ReservationPostData } from './type';
 import { getCookie } from '../utils/utils';
+import { AddReviewData, ReservationInfo } from '../@types/interface';
 
 axios.defaults.withCredentials = true;
 // const token = getCookie('token');
@@ -64,14 +65,27 @@ export const testToken = async () => {
   return res;
 };
 
-// 장바구니 API
+// 장바구니 가져오기
 export const getBasket = async () => {
   const res = await clientToken.get('/basket');
   return res;
 };
 
+// 장바구니 삭제
 export const DeleteBasketItem = async (basketId: number) => {
   const res = await clientToken.delete(`/basket/${basketId}`);
+  return res;
+};
+
+// 마이페이지 > 예약 취소 요청 API
+export const CancelReservation = async (reservationId: number) => {
+  const res = await clientToken.delete(`/reservation/${reservationId}`);
+  return res;
+};
+
+// 마이페이지 > 리뷰 작성
+export const SubmitReview = async (reservationId: number, reviewData: AddReviewData) => {
+  const res = await clientToken.post(`/reservations/${reservationId}`, reviewData);
   return res;
 };
 
@@ -81,7 +95,6 @@ export const getReservation = async (roomsId: number) => {
   return res;
 };
 
-// 예약페이지 POST 요청 보내기!
 export const postReservation = async (
   roomsId: number,
   reservationInfo: ReservationPostData,
@@ -126,13 +139,7 @@ interface SearchFilterProps {
 /* eslint-disable */
 export const getAccommodationList = async (
   page: number,
-  {
-    category,
-    isDomestic,
-    startDate,
-    endDate,
-    numberOfPeople,
-  }: SearchFilterProps,
+  { category, isDomestic, startDate, endDate, numberOfPeople }: SearchFilterProps,
 ) => {
   const newToken = getCookie('token');
   if (newToken) {
@@ -156,4 +163,68 @@ export const getAccommodationList = async (
     );
     return res.data;
   }
+};
+
+// 위시리스트 목록 불러오기
+export const getWishlist = async () => {
+  const res = await clientToken.get('/wishlist');
+  return res;
+};
+
+// 좋아요 생성 & 해제
+export const clickLiked = async (accommodationId: number) => {
+  const res = await clientToken.post(`/accommodation/${accommodationId}/likes`);
+  return res;
+};
+
+export const getMyInfo = async () => {
+  const newToken = getCookie('token');
+
+  const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/user/mypage`, {
+    headers: {
+      'content-type': import.meta.env.VITE_CONTENT_TYPE,
+      Authorization: `Bearer ${newToken}`,
+    },
+  });
+  return res.data;
+};
+
+export const changeInfo = async (userName: string, phoneNum: string) => {
+  const newToken = getCookie('token');
+
+  const res = await axios.put(
+    `${import.meta.env.VITE_SERVER_URL}/user`,
+    {
+      username: userName,
+      phonenumber: phoneNum,
+    },
+    {
+      headers: {
+        'content-type': import.meta.env.VITE_CONTENT_TYPE,
+        Authorization: `Bearer ${newToken}`,
+      },
+    },
+  );
+
+  return res.data;
+};
+
+export const changePw = async (oldPw: string, newPw: string) => {
+  const newToken = getCookie('token');
+
+  const res = await axios.put(
+    `${import.meta.env.VITE_SERVER_URL}/user/password`,
+    {
+      oldPassword: oldPw,
+      newPassword: newPw,
+    },
+    {
+      headers: {
+        'content-type': import.meta.env.VITE_CONTENT_TYPE,
+        Authorization: `Bearer ${newToken}`,
+      },
+    },
+  );
+
+  return res.data;
 };

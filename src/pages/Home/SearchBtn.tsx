@@ -26,7 +26,7 @@ const StyledContainer = styled.button`
   min-width: 300px;
   height: 50px;
   padding: 0rem 2rem 0rem 2rem;
-  border: 2px solid ${theme.colors.gray100};
+  border: 2px solid ${theme.colors.gray200};
   border-radius: 24px;
   box-shadow: ${theme.shadows.shadow1.shadow};
 
@@ -36,5 +36,5 @@ const StyledContainer = styled.button`
 `;
 
 const StyledTextContainer = styled.div`
-  color: ${theme.colors.gray400};
+  color: ${theme.colors.gray500};
 `;

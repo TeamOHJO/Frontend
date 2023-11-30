@@ -8,6 +8,7 @@ import RoomSelectedInfo from './RoomSelectedInfo';
 import RoomInfo from './RoomInfo';
 import RoomBottomNavi from './RoomBottomNavi';
 import { RoomDetail } from '../../@types/interface';
+import LoadingCircle from '../../components/Loading';
 
 function Room() {
   const [roomDetailData, setRoomDetailData] = useState<RoomDetail>();
@@ -73,7 +74,7 @@ function Room() {
       />
     </StyledRoomContainer>
   ) : (
-    <>스켈레톤</>
+    <LoadingCircle />
   );
 }
 

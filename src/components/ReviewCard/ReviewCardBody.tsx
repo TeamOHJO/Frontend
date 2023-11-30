@@ -64,12 +64,7 @@ const ReviewCardBody = ({ reviewData }: { reviewData: Review }) => {
           </Text>
           {isButtonVisible && (
             <Box mt=".5rem" textAlign="center">
-              <Button
-                size="sm"
-                color="gray.500"
-                onClick={handleToggleExpand}
-                variant="gray"
-              >
+              <Button size="sm" color="gray.500" onClick={handleToggleExpand} variant="gray">
                 {isExpandedText ? '리뷰 감추기' : '리뷰 상세 내용 더보기'}
               </Button>
             </Box>
