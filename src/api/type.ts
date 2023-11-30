@@ -19,3 +19,9 @@ export interface ErrorData {
 export interface Email {
   email: string;
 }
+
+export interface ReservationPostData {
+  startDate: string;
+  endDate: string;
+  numberOfPerson: number;
+}

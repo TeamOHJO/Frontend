@@ -1,7 +1,10 @@
 import { Box, Checkbox, Text } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
+import { useCheckboxContext } from '../../context/checkboxContext';
 
 const ReservationAgreeTitle = () => {
+  const { isChecked, setIsChecked } = useCheckboxContext();
+
   return (
     <Box ml="2rem">
       <Box display="flex" flexDir="row">
@@ -17,6 +20,8 @@ const ReservationAgreeTitle = () => {
         colorScheme="blue"
         size="lg"
         mt="1rem"
+        isChecked={isChecked}
+        onChange={() => setIsChecked(!isChecked)}
       >
         <Text>[필수] 만 14세 이상 이용 동의 </Text>
       </Checkbox>

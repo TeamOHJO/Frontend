@@ -182,12 +182,6 @@ export interface BasketData {
   location: string;
 }
 
-export interface ReservationInfo {
-  startDate: string;
-  endDate: string;
-  numberOfPerson: number;
-}
-
 export interface Review {
   reviewId: number;
   star: number;

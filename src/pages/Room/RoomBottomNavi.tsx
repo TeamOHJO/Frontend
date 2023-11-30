@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Text, Button, useDisclosure } from '@chakra-ui/react';
+import { Text, Button, useDisclosure, Badge } from '@chakra-ui/react';
 import { UpOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -98,17 +98,20 @@ function RoomBottomNavi({
         <StyledRoomBottomNaviLeft>
           {discountPercentage > 0 ? (
             <>
-              <Text as="s" size="sm" color="blackAlpha.600">
+              <Text as="s" size="xs" color="blackAlpha.600">
                 ￦{(price * countDay()).toLocaleString()}
                 원/{countDay()}박
               </Text>
-              <Text as="p" size="sm">
+              <Text as="p" size="md" fontWeight="bold">
                 ￦ {changePriceDiscountFormat(price, discountPercentage, countDay())}
                 원/{countDay()}박
+                <Badge variant="red" style={{ marginLeft: '0.5rem' }}>
+                  {discountPercentage}% 할인
+                </Badge>
               </Text>
             </>
           ) : (
-            <Text as="p" size="sm">
+            <Text as="p" size="md" fontWeight="bold">
               ￦ {changePriceDiscountFormat(price, discountPercentage, countDay())}
               원/{countDay()}박
             </Text>

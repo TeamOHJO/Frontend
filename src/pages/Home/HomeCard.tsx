@@ -1,50 +1,38 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { StarFilled, HeartFilled, HeartOutlined } from '@ant-design/icons';
+import { StarFilled } from '@ant-design/icons';
 import { Text } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import { HomeCardProps } from '../../@types/interface';
-import SwiperComponent from '../../components/Swiper/SwiperComponent';
+import HomeSwiper from './HomeSwiper';
+import { changeCategoryReverseFormat, changeStarFormat, cutStringLength } from '../../utils/utils';
+import HomeHeart from './HomeHeart';
 
 const HomeCard = ({ id, name, images, category, score, price, isLiked }: HomeCardProps) => {
-  const [onClickisLiked, setOnclickIsLiked] = useState(isLiked);
   const navigate = useNavigate();
-  const addWishList = () => {
-    setOnclickIsLiked(true);
-  };
-
-  const cancelAddWishList = () => {
-    setOnclickIsLiked(false);
-  };
 
   return (
     <StyledCard>
       <StyledImgWrapper>
-        {onClickisLiked ? (
-          <StyledHeartFilled onClick={cancelAddWishList} />
-        ) : (
-          <StyledHeartOutlined onClick={addWishList} />
-        )}
-        <SwiperComponent images={images} borderRadius="8px" />
+        <HomeHeart liked={isLiked} size="20px" id={id} />
+        <HomeSwiper images={images} borderRadius="8px" id={id} />
       </StyledImgWrapper>
       <StyledInfoContainer
         onClick={() => {
-          // window.open(`http://localhost:5173/accommodation/${id}`, '_blank');
           navigate(`/accommodation/${id}`);
         }}
       >
         <StyledCardHeader>
-          <Text as="p" size="lg">
-            {name}
+          <Text as="p" size="md" style={{ fontWeight: '500' }}>
+            {cutStringLength(name)}
           </Text>
           <StyledScoreWrapper>
-            <StarFilled style={{ color: theme.colors.blue400, fontSize: '1rem' }} />
-            <StyledScoreDigit>{score}</StyledScoreDigit>
+            <StarFilled style={{ color: theme.colors.blue400, fontSize: '12px' }} />
+            <StyledScoreDigit>{changeStarFormat(score)}</StyledScoreDigit>
           </StyledScoreWrapper>
         </StyledCardHeader>
-        <StyledCategoryWrapper>{category}</StyledCategoryWrapper>
-        <StyledPriceWrapper>{`₩ ${price}원/박`}</StyledPriceWrapper>
+        <StyledCategoryWrapper>{changeCategoryReverseFormat(category)}</StyledCategoryWrapper>
+        <StyledPriceWrapper>{`₩ ${price.toLocaleString()}원/박`}</StyledPriceWrapper>
       </StyledInfoContainer>
     </StyledCard>
   );
@@ -55,12 +43,16 @@ export default HomeCard;
 const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0.5rem;
   margin: 1rem;
   width: 45%;
 
   background-color: ${theme.colors.white};
   border-radius: 8px;
 
+  &:hover {
+    background-color: ${theme.colors.gray100};
+  }
   @media screen and (max-width: 700px) {
     width: 90%;
   }
@@ -77,7 +69,7 @@ const StyledImgWrapper = styled.div`
 const StyledInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2rem 1rem 0rem 1rem;
+  padding: 0.5rem;
   cursor: pointer;
 `;
 
@@ -90,6 +82,7 @@ const StyledCardHeader = styled.div`
 
 const StyledScoreWrapper = styled.div`
   min-width: 50px;
+  font-size: 12px;
 `;
 
 const StyledScoreDigit = styled.span`
@@ -97,27 +90,10 @@ const StyledScoreDigit = styled.span`
 `;
 
 const StyledCategoryWrapper = styled.div`
-  color: ${theme.colors.gray400};
+  margin-top: 3px;
+  color: ${theme.colors.gray500};
 `;
 
 const StyledPriceWrapper = styled.div`
-  padding-top: 1rem;
-`;
-
-const StyledHeartFilled = styled(HeartFilled)`
-  position: absolute;
-  font-size: 20px;
-  top: 10px;
-  right: 10px;
-  z-index: 50;
-  color: red;
-`;
-
-const StyledHeartOutlined = styled(HeartOutlined)`
-  position: absolute;
-  font-size: 20px;
-  top: 10px;
-  right: 10px;
-  z-index: 50;
-  color: red;
+  padding: 0.5rem 0;
 `;
