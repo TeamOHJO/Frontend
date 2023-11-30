@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Card, CardBody, Image, Box, Badge, Heading, Text, Button } from '@chakra-ui/react';
+import { Card, CardBody, Image, Box, Badge, Text, Button } from '@chakra-ui/react';
 import { StarFilled } from '@ant-design/icons';
 import { theme } from '../../../styles/theme';
 import { MyPageReservationData } from '../../../@types/interface';

@@ -25,6 +25,7 @@ const StyledContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  min-height: 100vh;
 `;
 
 const StyledInnerContainer = styled.div`
