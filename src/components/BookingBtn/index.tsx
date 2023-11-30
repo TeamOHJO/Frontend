@@ -24,11 +24,7 @@ const BookingBtn = ({ roomId }: { roomId: number }) => {
   const isButtonDisabled = isPaymentCompleted || !isChecked || isModalOpen;
   return (
     <>
-      <Button
-        variant="blue"
-        onClick={handleButtonClick}
-        isDisabled={isButtonDisabled}
-      >
+      <Button variant="blue" onClick={handleButtonClick} isDisabled={isButtonDisabled}>
         결제하기
       </Button>
       <ReservationModal

@@ -89,6 +89,9 @@ export interface MyPageReservationData {
   image: string;
   startDate: string;
   endDate: string;
+  name: string;
+  stars: number;
+  nights: number;
   deletedAt?: string;
 }
 
@@ -106,7 +109,7 @@ export interface ReservationInfoData {
   name: string;
   price: number;
   nights: number;
-  stars: number;
+  averageRating: number;
   startTime: number;
   endTime: number;
   deletedAt: number;

@@ -1,9 +1,6 @@
 import { Box, Divider, Text } from '@chakra-ui/react';
 import { useSearchParams } from 'react-router-dom';
-import {
-  calculateDaysDifference,
-  calculateDiscountedPrice,
-} from '../../utils/utils';
+import { calculateDaysDifference, calculateDiscountedPrice } from '../../utils/utils';
 
 const ReservationProdPrice = () => {
   const [searchParams] = useSearchParams();
@@ -11,11 +8,12 @@ const ReservationProdPrice = () => {
   const endDate = String(searchParams.get('endDate'));
   const price = Number(searchParams.get('price'));
   const discountPercentage = Number(searchParams.get('discountPercentage'));
-  const totalPrice = calculateDiscountedPrice(price, discountPercentage);
-  const discountedPrice = totalPrice - price;
 
-  const dayNights: number = calculateDaysDifference(startDate, endDate);
-  const productPrice = price * dayNights;
+  // 박수 계산
+  const nights = calculateDaysDifference(startDate, endDate);
+  const totalPrice = calculateDiscountedPrice(price, discountPercentage);
+  const productPrice = price * nights;
+  const discountedPrice = productPrice - totalPrice;
 
   return (
     <Box ml="2rem" display="flex" flexDir="column" width="80%" m="0 auto">
