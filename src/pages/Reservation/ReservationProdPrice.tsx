@@ -6,24 +6,16 @@ import {
 } from '../../utils/utils';
 
 const ReservationProdPrice = () => {
-  const calculateTotalPrice = (
-    productPrice: number,
-    discountAmount: number,
-  ) => {
-    return productPrice - discountAmount;
-  };
-
   const [searchParams] = useSearchParams();
   const startDate = String(searchParams.get('startDate'));
   const endDate = String(searchParams.get('endDate'));
   const price = Number(searchParams.get('price'));
   const discountPercentage = Number(searchParams.get('discountPercentage'));
-  const discountedPrice = calculateDiscountedPrice(price, discountPercentage);
+  const totalPrice = calculateDiscountedPrice(price, discountPercentage);
+  const discountedPrice = totalPrice - price;
 
   const dayNights: number = calculateDaysDifference(startDate, endDate);
   const productPrice = price * dayNights;
-
-  const totalPrice = calculateTotalPrice(productPrice, discountedPrice);
 
   return (
     <Box ml="2rem" display="flex" flexDir="column" width="80%" m="0 auto">
