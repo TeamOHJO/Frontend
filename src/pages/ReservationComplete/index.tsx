@@ -1,13 +1,34 @@
 import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
 import UnFooterNav from '../../components/Layout/UnFooterNav';
 import ReservationInfo from '../../components/ReservationInfo';
 import ReservationCompleteText from './ReservationCompleteText';
+import { getRoomDetails } from '../../api';
+import { ReservationData } from '../../@types/interface';
 
 const ReservationComplete = () => {
+  const pathSegments = window.location.pathname.split('/');
+  const roomIdString = pathSegments[pathSegments.length - 1];
+  const roomId = parseInt(roomIdString, 10);
+
+  const [roomDetails, setRoomDetails] = useState<ReservationData | null>(null);
+
+  useEffect(() => {
+    const fetchRoomDetails = async () => {
+      try {
+        const details = await getRoomDetails(roomId);
+        setRoomDetails(details.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchRoomDetails();
+  }, [roomId]);
+
   return (
     <StyledLayout>
       <UnFooterNav />
-      <ReservationInfo />
+      <ReservationInfo roomDetails={roomDetails} />
       <ReservationCompleteText />
     </StyledLayout>
   );

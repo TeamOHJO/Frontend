@@ -2,8 +2,13 @@ import { Card, SimpleGrid } from '@chakra-ui/react';
 import ReservationDate from './ReservationDate';
 import ReservationBreakDown from './ReservationBreakDown';
 import ReservationSubBreakDown from './ReservationSubBreakDown';
+import { ReservationData } from '../../@types/interface';
 
-const ReservationInfoCard = () => {
+interface ReservationInfoCardProps {
+  roomDetails?: ReservationData | null;
+}
+
+const ReservationInfoCard = ({ roomDetails }: ReservationInfoCardProps) => {
   return (
     <SimpleGrid
       mt="1rem"
@@ -15,11 +20,14 @@ const ReservationInfoCard = () => {
     >
       <Card variant="elevated" pb="2rem">
         <ReservationDate />
-        <ReservationBreakDown />
-        <ReservationSubBreakDown />
+        <ReservationBreakDown roomDetails={roomDetails} />
+        <ReservationSubBreakDown roomDetails={roomDetails} />
       </Card>
     </SimpleGrid>
   );
+};
+ReservationInfoCard.defaultProps = {
+  roomDetails: null,
 };
 
 export default ReservationInfoCard;
