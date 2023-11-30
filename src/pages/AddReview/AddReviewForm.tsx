@@ -59,7 +59,6 @@ function AddReviewForm() {
           ...reviewData,
           images: [imageURL],
         });
-        // console.log(response);
 
         if (response.data.code === 201) {
           console.log('등록 완료!');
@@ -77,7 +76,6 @@ function AddReviewForm() {
     } else if (reviewText !== '' && !imageFile) {
       try {
         const response = await SubmitReview(reservationId, reviewData);
-        // console.log(response);
 
         if (response.data.code === 201) {
           console.log('등록 완료!');

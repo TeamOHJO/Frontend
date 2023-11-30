@@ -85,7 +85,10 @@ export const CancelReservation = async (reservationId: number) => {
 
 // 마이페이지 > 리뷰 작성
 export const SubmitReview = async (reservationId: number, reviewData: AddReviewData) => {
-  const res = await clientToken.post(`/reservations/${reservationId}`, reviewData);
+  const res = await clientToken.post(
+    `/review/reservations/${reservationId}`,
+    JSON.stringify(reviewData),
+  );
   return res;
 };
 
