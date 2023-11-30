@@ -183,8 +183,6 @@ const HomeStyledItem = styled.div`
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
 
-  border: 1px solid red;
-
   display: flex;
   flex-direction: column;
   align-items: center;
