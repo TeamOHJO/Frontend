@@ -92,6 +92,27 @@ export interface MyPageReservationData {
   deletedAt?: string;
 }
 
+export interface ReservationInfoData {
+  reservationId: number;
+  startDate: string;
+  endDate: string;
+  numberOfPerson: number;
+  category: string;
+  location: string;
+  discountPercentage: number;
+  discountPrice: number;
+  accommodationName: string;
+  image: string;
+  name: string;
+  price: number;
+  nights: number;
+  stars: number;
+  startTime: number;
+  endTime: number;
+  deletedAt: number;
+  roomImages: string[];
+}
+
 export interface ImagesModalProps {
   isOpen: boolean;
   onClose: () => void;
