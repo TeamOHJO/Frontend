@@ -89,6 +89,9 @@ export interface MyPageReservationData {
   image: string;
   startDate: string;
   endDate: string;
+  name: string;
+  stars: number;
+  nights: number;
   deletedAt?: string;
 }
 
