@@ -24,9 +24,11 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
     try {
       await CancelReservation(id);
       console.log(id, '취소 완료');
+      // toast popup
     } catch (err) {
       console.log(err);
       console.log(id, '취소 실패');
+      // toast popup
     }
   };
 
@@ -71,7 +73,7 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
                 {changeStarFormat(item.star)}
               </Text>
             </StyledStar>
-            {item.deletedAt === null && TODAY < new Date(item.startDate) && (
+            {!item.deletedAt && TODAY < new Date(item.startDate) && (
               <Button
                 variant="gray"
                 size="sm"
@@ -80,7 +82,7 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
                 예약 취소
               </Button>
             )}
-            {item.deletedAt === null && new Date(item.endDate) < TODAY && (
+            {!item.deletedAt && new Date(item.endDate) < TODAY && (
               <Button
                 variant="gray"
                 size="sm"
