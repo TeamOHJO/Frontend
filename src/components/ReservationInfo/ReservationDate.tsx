@@ -5,6 +5,7 @@ const ReservationDate = () => {
   const [searchParams] = useSearchParams();
   const startDate = searchParams.get('startDate');
   const endDate = searchParams.get('endDate');
+
   return (
     <Box width="100%" display="flex" flexDir="row">
       <Box width="50%" p="8">
