@@ -8,24 +8,53 @@ import {
   ModalCloseButton,
   Button,
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { postReservation } from '../../api';
+import { ReservationData } from '../../api/type';
 
 interface ReservationModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
+  roomId: number;
 }
 
 const ReservationModal = ({
   isOpen,
   onClose,
   onConfirm,
+  roomId,
 }: ReservationModalProps) => {
   const navigate = useNavigate();
-  const handleConfirm = () => {
-    onConfirm();
-    navigate('/reservation-complete');
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const startDate = searchParams.get('startDate');
+  const endDate = searchParams.get('endDate');
+  const numberOfPerson = searchParams.get('numberOfPerson');
+
+  const handleConfirm = async () => {
+    try {
+      const reservationPostProps: ReservationData = {
+        startDate: startDate as string,
+        endDate: endDate as string,
+        numberOfPerson: numberOfPerson ? parseInt(numberOfPerson, 10) : 1,
+      };
+
+      const response = await postReservation(roomId, reservationPostProps);
+      console.log(response.data);
+
+      onConfirm();
+
+      navigate(
+        `/reservation-complete/${roomId}?startDate=${startDate}&endDate=${endDate}&numberOfPerson=${numberOfPerson}`,
+      );
+      // navigate(`/reservation-complete/${roomId}`);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
@@ -45,5 +74,4 @@ const ReservationModal = ({
     </Modal>
   );
 };
-
 export default ReservationModal;
