@@ -9,7 +9,7 @@ import { handleBadgeColor } from '../../../utils/handleBadgeColor';
 import { CancelReservation } from '../../../api';
 import { changeCategoryReverseFormat, changeStarFormat, countDay } from '../../../utils/utils';
 import DefaultModal from '../../../components/Modal/DefaultModal';
-import { myPageReservationDataState } from '../../../states/atom';
+import { myPageCancelledState, myPageReservationDataState } from '../../../states/atom';
 
 interface MyPageReservationCardProps {
   item: MyPageReservationData;
@@ -17,6 +17,7 @@ interface MyPageReservationCardProps {
 
 function MyPageReservationCard({ item }: MyPageReservationCardProps) {
   const [reservationData, setReservationData] = useRecoilState(myPageReservationDataState);
+  const [cancelledList, setCancelledList] = useRecoilState(myPageCancelledState);
   const navigate = useNavigate();
   const TODAY = new Date();
   const nights = countDay(item.startDate, item.endDate);
@@ -27,19 +28,6 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
   const isNotCancelable =
     !isCancelable && item.deletedAt === null && TODAY < new Date(item.endDate);
   const canWriteReview = !isCancelable && TODAY >= new Date(item.endDate);
-
-  // const [showAlert, setShowAlert] = useState({
-  //   active: false,
-  //   message: '',
-  // });
-
-  // const toastFunc = (text: string) => {
-  //   const toastData = {
-  //     active: true,
-  //     message: text,
-  //   };
-  //   setShowAlert(toastData);
-  // };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const modalData = {
@@ -58,12 +46,11 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
           (product: MyPageReservationData) => product.reservationId !== item.reservationId,
         ),
       );
+      // cancelledList.push(item);
       console.log(item.reservationId, '취소 완료');
-      // toastFunc('예약 취소가 성공했습니다.');
     } catch (err) {
       console.log(err);
       console.log(item.reservationId, '취소 실패');
-      // toastFunc('예약 취소가 실패했습니다.');
     }
   };
 

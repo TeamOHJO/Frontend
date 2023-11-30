@@ -119,3 +119,8 @@ export const myPageReservationDataState = atom<MyPageReservationData[]>({
   key: 'myPageReservationDataState',
   default: [],
 });
+
+export const myPageCancelledState = atom<MyPageReservationData[]>({
+  key: 'myPageCancelledState',
+  default: [],
+});

@@ -3,11 +3,11 @@ import { useRecoilState } from 'recoil';
 import { MyPageReservationData } from '../../../@types/interface';
 import MyPageReservationTabs from './MyPageReservationTabs';
 import { getMyPageCancelledList, getMyPageReservationList } from '../../../api';
-import { myPageReservationDataState } from '../../../states/atom';
+import { myPageCancelledState, myPageReservationDataState } from '../../../states/atom';
 
 function MyPageReservation() {
   const [reservationData, setReservationData] = useRecoilState(myPageReservationDataState);
-  const [cancelledList, setCancelledList] = useState<MyPageReservationData[]>([]);
+  const [cancelledList, setCancelledList] = useRecoilState(myPageCancelledState);
   const [upcomingList, setUpcomingList] = useState<MyPageReservationData[]>([]);
   const [completedList, setCompletedList] = useState<MyPageReservationData[]>([]);
   const TODAY = new Date();
@@ -46,7 +46,7 @@ function MyPageReservation() {
 
   useEffect(() => {
     fetchCancelledData();
-  }, []);
+  }, [reservationData]);
 
   useEffect(() => {
     // 이용 예정
@@ -62,10 +62,6 @@ function MyPageReservation() {
       reservationData.filter((item: MyPageReservationData) => TODAY >= new Date(item.endDate)),
     );
   }, [reservationData, setReservationData]);
-
-  console.log(reservationData);
-  console.log(upcomingList);
-  console.log(completedList);
 
   return (
     <MyPageReservationTabs
