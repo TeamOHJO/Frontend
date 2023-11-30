@@ -4,7 +4,7 @@ import { StarFilled } from '@ant-design/icons';
 import { Text } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import { HomeCardProps } from '../../@types/interface';
-import SwiperComponent from '../../components/Swiper/SwiperComponent';
+import HomeSwiper from './HomeSwiper';
 import { changeCategoryReverseFormat, changeStarFormat, cutStringLength } from '../../utils/utils';
 import HomeHeart from './HomeHeart';
 
@@ -15,11 +15,10 @@ const HomeCard = ({ id, name, images, category, score, price, isLiked }: HomeCar
     <StyledCard>
       <StyledImgWrapper>
         <HomeHeart liked={isLiked} size="20px" id={id} />
-        <SwiperComponent images={images} borderRadius="8px" />
+        <HomeSwiper images={images} borderRadius="8px" id={id} />
       </StyledImgWrapper>
       <StyledInfoContainer
         onClick={() => {
-          // window.open(`http://localhost:5173/accommodation/${id}`, '_blank');
           navigate(`/accommodation/${id}`);
         }}
       >
@@ -44,6 +43,7 @@ export default HomeCard;
 const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0.5rem;
   margin: 1rem;
   width: 45%;
 
@@ -69,7 +69,7 @@ const StyledImgWrapper = styled.div`
 const StyledInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2rem 1rem 0rem 1rem;
+  padding: 0.5rem;
   cursor: pointer;
 `;
 
@@ -95,5 +95,5 @@ const StyledCategoryWrapper = styled.div`
 `;
 
 const StyledPriceWrapper = styled.div`
-  padding: 14px 0px 14px 0px;
+  padding: 0.5rem 0;
 `;

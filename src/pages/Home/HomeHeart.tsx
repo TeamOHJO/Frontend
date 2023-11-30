@@ -77,7 +77,11 @@ function HomeHeart({ liked, size, id }: HeartProps) {
   `;
 
   return (
-    <StyledHeart>
+    <StyledHeart
+      onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        event.stopPropagation();
+      }}
+    >
       {isHeart ? (
         <StyledHeartFilled onClick={() => handleIsHeart()} />
       ) : (
