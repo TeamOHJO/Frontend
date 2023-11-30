@@ -14,7 +14,6 @@ import { getBasket } from '../../api';
 import ToastPopup from '../../components/Modal/ToastPopup';
 
 function Basket() {
-  const TODAY = new Date();
   const [basketData, setBasketData] = useRecoilState(basketDataState);
   const setAvailableList = useSetRecoilState(basketAvailableListState);
   const setUnavailableList = useSetRecoilState(basketUnavailableListState);
