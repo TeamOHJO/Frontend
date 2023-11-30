@@ -56,23 +56,25 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
           style={{ cursor: 'pointer' }}
         />
         <StyledCardContent>
-          <StyledCardBodyLeft>
+          <Box display="flex" justifyContent="space-between" alignItems="center">
             <Box textAlign="left">
               <Badge variant={badgeColor}>{badgeText}</Badge>
             </Box>
-            <StyledTitle onClick={moveToDetails}>{item.accommodationName}</StyledTitle>
-            <Text size="sm">{item.roomName}</Text>
-            <Text as="p" size="xs" color="blackAlpha.600">
-              {item.startDate} - {item.endDate} ({nights}박)
-            </Text>
-          </StyledCardBodyLeft>
-          <StyledCardBodyRight>
             <StyledStar>
               <StarFilled style={{ color: theme.colors.blue400, fontSize: '1rem' }} />
               <Text as="span" size="xs">
                 {changeStarFormat(item.star)}
               </Text>
             </StyledStar>
+          </Box>
+          <StyledTitle onClick={moveToDetails}>{item.accommodationName}</StyledTitle>
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <StyledCardBodyLeft>
+              <StyledText size="sm">{item.roomName}</StyledText>
+              <Text as="p" size="xs" color="blackAlpha.600">
+                {item.startDate} - {item.endDate} ({nights}박)
+              </Text>
+            </StyledCardBodyLeft>
             {!item.deletedAt && TODAY < new Date(item.startDate) && (
               <Button
                 variant="gray"
@@ -96,7 +98,7 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
                 취소됨
               </Text>
             )}
-          </StyledCardBodyRight>
+          </Box>
         </StyledCardContent>
       </CardBody>
     </Card>
@@ -106,17 +108,12 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
 export default MyPageReservationCard;
 
 const StyledCardBodyLeft = styled(Box)`
+  max-width: calc(100% - 72px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 3px;
-`;
-const StyledCardBodyRight = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
+  gap: 2px;
 `;
 
 const StyledStar = styled(Box)`
@@ -127,9 +124,10 @@ const StyledStar = styled(Box)`
 
 const StyledCardContent = styled(Box)`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   margin-top: 1rem;
+  gap: 3px;
 `;
 
 const StyledTitle = styled.h1`
@@ -146,4 +144,14 @@ const StyledTitle = styled.h1`
   :hover {
     cursor: pointer;
   }
+`;
+
+const StyledText = styled(Text)`
+  width: 100%;
+  text-align: left;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
 `;
