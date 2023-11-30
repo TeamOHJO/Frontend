@@ -2,14 +2,35 @@ import { Badge, Box, Heading, Image, Text } from '@chakra-ui/react';
 import { StarFilled } from '@ant-design/icons';
 import { useSearchParams } from 'react-router-dom';
 import { theme } from '../../styles/theme';
+import { ReservationData } from '../../@types/interface';
 
-const ReservationBreakDown = () => {
+interface ReservationBreakDownProps {
+  roomDetails?: ReservationData | null;
+}
+
+const ReservationBreakDown = ({ roomDetails }: ReservationBreakDownProps) => {
   const [searchParams] = useSearchParams();
-  const roomName = searchParams.get('name');
-  const category = searchParams.get('category');
   const numberOfPerson = searchParams.get('numberOfPerson');
-  const star = searchParams.get('star');
-  const image = String(searchParams.get('image'));
+  // 예약 페이지에서는 searchParams에서 값을 가져옴
+  const roomNameReservationPage = searchParams.get('name');
+  const roomImageReservationPage = String(searchParams.get('image'));
+  const roomCategoryReservationPage = searchParams.get('category');
+  const roomstarReservationPage = searchParams.get('star');
+
+  // 예약 완료 페이지에서는 roomDetails에서 값을 가져옴
+  const roomNameCompletePage = roomDetails?.name;
+  const roomImageCompletePage = roomDetails?.roomImages?.[0];
+  const roomCategoryCompletePage = roomDetails?.category;
+  const roomStarCompletePage = roomDetails?.stars;
+
+  // 실제로 표시할 값
+  const roomName =
+    roomNameCompletePage || roomNameReservationPage || 'Default Name';
+  const roomImage =
+    roomImageCompletePage || roomImageReservationPage || 'Default Image URL';
+  const category =
+    roomCategoryReservationPage || roomCategoryCompletePage || '기본 카테고리';
+  const star = roomstarReservationPage || roomStarCompletePage || '0.0';
 
   return (
     <Box display="flex" flexDir="row" pl="8" pr="8" pb="8" height="100%">
@@ -19,7 +40,7 @@ const ReservationBreakDown = () => {
           height="12rem"
           objectFit="cover"
           borderRadius={8}
-          src={image}
+          src={roomImage}
           alt="Reservation List"
         />
       </Box>
@@ -49,6 +70,9 @@ const ReservationBreakDown = () => {
       </Box>
     </Box>
   );
+};
+ReservationBreakDown.defaultProps = {
+  roomDetails: null,
 };
 
 export default ReservationBreakDown;

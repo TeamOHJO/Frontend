@@ -6,13 +6,32 @@ import {
   calculateDaysDifference,
   formatNumberWithCommas,
 } from '../../utils/utils';
+import { ReservationData } from '../../@types/interface';
 
-const ReservationSubBreakDown = () => {
+interface ReservationSubBreakDownProps {
+  roomDetails?: ReservationData | null;
+}
+
+const ReservationSubBreakDown = ({
+  roomDetails,
+}: ReservationSubBreakDownProps) => {
   const [searchParams] = useSearchParams();
-  const location = searchParams.get('location');
+
+  // 예약 페이지에서는 searchParams에서 값을 가져옴
+  const locationReservationPage = searchParams.get('location');
+  const priceReservationPage = Number(searchParams.get('price'));
   const startDate = String(searchParams.get('startDate'));
   const endDate = String(searchParams.get('endDate'));
-  const price = Number(searchParams.get('price'));
+
+  // 예약 완료 페이지에서는 roomDetails에서 값을 가져옴
+  const roomLocationCompletePage = roomDetails?.location;
+  const roomPriceCompletePage = roomDetails?.price;
+
+  // 실제로 표시할 값
+  const location =
+    locationReservationPage || roomLocationCompletePage || '어디든지';
+
+  const price = priceReservationPage || roomPriceCompletePage || 0;
 
   const dayNights: number = calculateDaysDifference(startDate, endDate);
   const allPrice = price * dayNights;
@@ -48,6 +67,10 @@ const ReservationSubBreakDown = () => {
       </Box>
     </Box>
   );
+};
+
+ReservationSubBreakDown.defaultProps = {
+  roomDetails: null,
 };
 
 export default ReservationSubBreakDown;
