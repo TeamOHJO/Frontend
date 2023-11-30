@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Skeleton } from '@chakra-ui/react';
 import { v4 as uuid } from 'uuid';
 import MyPageSubtitle from '../MyPageSubtitle';
 import { getCookie } from '../../../utils/utils';
 import ReviewCard from './ReviewCard';
+import MyReviewToastPopup from './MyReviewToastPopup';
 
 interface ReviewState {
   star: number;
@@ -14,6 +14,7 @@ interface ReviewState {
   startDate: string;
   endDate: string;
   reviewContent: string;
+  reviewId: number;
 }
 
 interface MyReviewsState {
@@ -25,6 +26,18 @@ interface MyReviewsState {
 function MyPageReview() {
   const [myReviews, setMyReviews] = useState<MyReviewsState>();
   const accessToken = getCookie('token');
+  const [showAlert, setShowAlert] = useState({
+    active: false,
+    message: '',
+  });
+
+  const openFunction = () => {
+    const toastData = {
+      active: true,
+      message: '리뷰가 성공적으로 삭제되었습니다.',
+    };
+    setShowAlert(toastData);
+  };
 
   const fetchData = async () => {
     try {
@@ -45,15 +58,19 @@ function MyPageReview() {
     fetchData();
   }, []);
 
-  const skel = [1, 2, 3, 4, 5];
-
   return (
     <div>
       <MyPageSubtitle subtitle="내 리뷰" />
-      {}
-      {myReviews
-        ? myReviews.data.map((review: ReviewState) => <ReviewCard review={review} key={uuid()} />)
-        : skel.map(() => <Skeleton height="220px" style={{ margin: '10px' }} />)}
+      {myReviews &&
+        myReviews.data.map((review: ReviewState) => (
+          <ReviewCard
+            review={review}
+            fetchData={fetchData}
+            key={uuid()}
+            openFunction={openFunction}
+          />
+        ))}
+      <MyReviewToastPopup status={showAlert} setFunc={setShowAlert} />
     </div>
   );
 }

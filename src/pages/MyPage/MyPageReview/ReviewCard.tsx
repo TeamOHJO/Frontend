@@ -3,6 +3,7 @@ import { StarFilled } from '@ant-design/icons';
 import { Heading, Text, Button, useDisclosure } from '@chakra-ui/react';
 import { theme } from '../../../styles/theme';
 import DefaultModal from '../../../components/Modal/DefaultModal';
+import { getCookie } from '../../../utils/utils';
 
 interface ReviewProps {
   review: {
@@ -13,18 +14,39 @@ interface ReviewProps {
     startDate: string;
     endDate: string;
     reviewContent: string;
+    reviewId: number;
   };
+  fetchData: () => Promise<void>;
+  openFunction: () => void;
 }
 
-function ReviewItem({ review }: ReviewProps) {
+function ReviewItem({ review, fetchData, openFunction }: ReviewProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const accessToken = getCookie('token');
+
+  const deleteReview = async () => {
+    try {
+      await fetch(`https://yanoljaschool.site:8080/review/${review.reviewId}`, {
+        method: 'DELETE',
+        headers: {
+          'content-type': import.meta.env.VITE_CONTENT_TYPE,
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      await fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const modalData = {
     heading: '리뷰 삭제',
     text: '리뷰를 삭제하시겠습니까?',
   };
   const modalFunc = () => {
-    console.log('모달 승인 시 실행될 함수 입니다.');
+    deleteReview();
+    openFunction();
   };
+
   return (
     <StyledReviewItemWrapper>
       <StyledReviewItemTop>
