@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Heading } from '@chakra-ui/react';
 import SearchBtn from './SearchBtn';
 import MenuBar from './MenuBar';
 import { theme } from '../../styles/theme';
@@ -6,13 +7,30 @@ import { theme } from '../../styles/theme';
 function HomeHeader() {
   return (
     <StyledContainer>
-      <SearchBtn />
+      <StyledSearchContainer>
+        <StyledHeading as="h3" size="lg">
+          OHNOLZA
+        </StyledHeading>
+        <SearchBtn />
+      </StyledSearchContainer>
       <MenuBar />
     </StyledContainer>
   );
 }
 
 export default HomeHeader;
+
+const StyledSearchContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const StyledHeading = styled(Heading)`
+  margin-left: 1rem;
+  cursor: pointer;
+`;
 
 const StyledContainer = styled.div`
   display: flex;

@@ -22,10 +22,11 @@ const StyledContainer = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 70%;
-  min-width: 300px;
+  width: 80%;
+  min-width: 250px;
   height: 50px;
   padding: 0rem 2rem 0rem 2rem;
+  margin: 0 1rem;
   border: 2px solid ${theme.colors.gray200};
   border-radius: 24px;
   box-shadow: ${theme.shadows.shadow1.shadow};

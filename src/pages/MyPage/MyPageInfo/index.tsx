@@ -8,6 +8,7 @@ import PasswordSection from './PasswordSection';
 import { getMyInfo } from '../../../api';
 import { userInformation } from '../../../states/atom';
 import { getCookie } from '../../../utils/utils';
+import ResignSection from './ResignSection';
 
 function MyPageInfo() {
   const [userInfo, setUserInfo] = useRecoilState(userInformation);
@@ -37,19 +38,6 @@ function MyPageInfo() {
   }, []);
 
   const { email, userName, phoneNum } = userInfo;
-  // const navigate = useNavigate();
-  // const { onOpen, isOpen, onClose } = useDisclosure();
-
-  // const modalData = {
-  //   heading: '회원 탈퇴',
-  //   text: '회원을 탈퇴하시겠습니까?',
-  // };
-
-  // const modalFunc = () => {
-  //   console.log('회원탈퇴 api 전송');
-  //   alert('탈퇴되셨습니다');
-  //   navigate('/');
-  // };
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -62,7 +50,6 @@ function MyPageInfo() {
   return (
     <StyledContainer>
       <MyPageSubtitle subtitle="내 정보 관리" />
-
       <StyledInnerContainer>
         <StyledInfoWrapper>
           <StyledInfoLabel>이메일</StyledInfoLabel>
@@ -71,22 +58,8 @@ function MyPageInfo() {
         <InfoInput name="userName" list="이름" item={userName} onChangeInput={onChangeInput} />
         <InfoInput name="phoneNum" list="전화번호" item={phoneNum} onChangeInput={onChangeInput} />
         <PasswordSection />
+        <ResignSection />
       </StyledInnerContainer>
-      {/* <MyPageSubtitle subtitle="회원 탈퇴" />
-      <StyledResignBtn
-        variant="blue"
-        size="md"
-        rightIcon={<RightOutlined />}
-        onClick={onOpen}
-      >
-        회원탈퇴
-      </StyledResignBtn>
-      <DefaultModal
-        isOpen={isOpen}
-        onClose={onClose}
-        modalFunc={modalFunc}
-        modalData={modalData}
-      /> */}
     </StyledContainer>
   );
 }
@@ -129,9 +102,3 @@ const StyledInfoDetail = styled.span`
   flex: 4;
   color: ${theme.colors.gray400};
 `;
-
-// const StyledResignBtn = styled(Button)`
-//   display: flex;
-//   align-items: center;
-//   margin-top: 7rem;
-// `;
