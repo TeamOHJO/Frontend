@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useLocation } from 'react-router-dom';
 import UnFooterNav from '../../components/Layout/UnFooterNav';
 import ReservationAgreeCard from './ReservationAgreeCard';
 import ReservationPaymentCard from './ReservationPaymentCard';
@@ -7,6 +8,10 @@ import ReservationBottomNav from '../../components/Layout/ReservationBottomNav';
 import { CheckboxProvider } from '../../context/checkboxContext';
 
 const Reservation = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const roomId = searchParams.get('roomId');
+  const parsedRoomId = roomId ? parseInt(roomId, 10) : 1;
   return (
     <CheckboxProvider>
       <StyledLayout>
@@ -14,7 +19,7 @@ const Reservation = () => {
         <ReservationInfo />
         <ReservationAgreeCard />
         <ReservationPaymentCard />
-        <ReservationBottomNav />
+        <ReservationBottomNav roomId={parsedRoomId} />
       </StyledLayout>
     </CheckboxProvider>
   );

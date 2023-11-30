@@ -2,10 +2,14 @@ import styled from '@emotion/styled';
 import { theme } from '../../styles/theme';
 import BookingBtn from '../BookingBtn';
 
-const ReservationBottomNav = () => {
+interface ReservationBottomNavProps {
+  roomId: number;
+}
+
+const ReservationBottomNav = ({ roomId }: ReservationBottomNavProps) => {
   return (
     <StyledReservationBottomNavWrapper>
-      <BookingBtn />
+      <BookingBtn roomId={roomId} />
     </StyledReservationBottomNavWrapper>
   );
 };
