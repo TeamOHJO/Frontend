@@ -16,6 +16,7 @@ function HomeHeart({ liked, size, id }: HeartProps) {
   const [isHeart, setIsHeart] = useState<boolean>(liked);
   const [activeHeart, setActiveHeart] = useState(false);
   const accessToken = getCookie('token');
+  const [showPopUp, setShowPopUp] = useState(false);
 
   function handleIsHeart() {
     if (accessToken) {
@@ -31,6 +32,7 @@ function HomeHeart({ liked, size, id }: HeartProps) {
   });
 
   const openFunction = () => {
+    setShowPopUp(true);
     const toastData = {
       active: true,
       message: '로그인 후 진행하실 수 있습니다.',
@@ -94,7 +96,13 @@ function HomeHeart({ liked, size, id }: HeartProps) {
           }}
         />
       )}
-      <HomeHeartToastPopup status={showAlert} setFunc={setShowAlert} />
+      {showPopUp ? (
+        <HomeHeartToastPopup
+          status={showAlert}
+          setFunc={setShowAlert}
+          setShowPopUp={setShowPopUp}
+        />
+      ) : null}
     </StyledHeart>
   );
 }
