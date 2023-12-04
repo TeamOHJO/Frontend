@@ -4,10 +4,16 @@ import { useRecoilState } from 'recoil';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@chakra-ui/react';
 import { v4 as uuid } from 'uuid';
-import { searchFilteredState, searchAttempt, accommodationList } from '../../states/atom';
+import {
+  searchFilteredState,
+  searchAttempt,
+  accommodationList,
+  searchPages,
+} from '../../states/atom';
 import { getAccommodationList } from '../../api';
 import HomeCard from './HomeCard';
 import { changeCategoryFormat } from '../../utils/utils';
+import UseThrottle from '../../hooks/useThrottle';
 
 const ContentsContainer = () => {
   const [list, setList] = useRecoilState(accommodationList);
@@ -15,8 +21,9 @@ const ContentsContainer = () => {
   const navigate = useNavigate();
   const [searchFilter, setSearchFilter] = useRecoilState(searchFilteredState);
   const [searchingAttempt, setSearchingAttempt] = useRecoilState(searchAttempt);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useRecoilState(searchPages);
   const [showGetMoreBtn, setShowGetMoreBtn] = useState(true);
+  const handleThrottle = UseThrottle();
 
   const { category, isDomestic, startDate, endDate, numberOfPeople } = searchFilter;
 
@@ -50,8 +57,11 @@ const ContentsContainer = () => {
 
   useEffect(() => {
     if (page === 0) {
-      fetchData();
       setShowGetMoreBtn(true);
+      fetchData();
+    }
+    if (page !== 0) {
+      getMoreData();
     }
   }, [searchingAttempt, page]);
 
@@ -83,12 +93,6 @@ const ContentsContainer = () => {
     setPage(page + 1);
   };
 
-  useEffect(() => {
-    if (page !== 0) {
-      getMoreData();
-    }
-  }, [page]);
-
   return (
     <StyledContainer>
       {list.map((e: any) => {
@@ -110,7 +114,7 @@ const ContentsContainer = () => {
           <Button
             variant="blue"
             onClick={() => {
-              onClickMoreBtn();
+              handleThrottle(onClickMoreBtn);
             }}
             style={{ zIndex: '10' }}
           >
