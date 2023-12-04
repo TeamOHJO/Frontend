@@ -9,7 +9,7 @@ import JoinTabButton from './JoinTabButton';
 import { postJoin } from '../../api';
 import { ErrorData } from '../../api/type';
 import { toastPopupState } from '../../states/atom';
-import UseThrottle from '../../hooks/useThrottle';
+import useThrottle from '../../hooks/useThrottle';
 
 const JoinTabContent = () => {
   const [formData, setFormData] = useState({
@@ -37,7 +37,7 @@ const JoinTabContent = () => {
     verify: '',
   });
   const setShowAlert = useSetRecoilState(toastPopupState);
-  const handleThrottle = UseThrottle();
+  const handleThrottle = useThrottle();
 
   const handleJoinSubmit = async (e: FormEvent) => {
     e.preventDefault();

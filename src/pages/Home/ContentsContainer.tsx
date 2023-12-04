@@ -13,7 +13,7 @@ import {
 import { getAccommodationList } from '../../api';
 import HomeCard from './HomeCard';
 import { changeCategoryFormat } from '../../utils/utils';
-import UseThrottle from '../../hooks/useThrottle';
+import useThrottle from '../../hooks/useThrottle';
 
 const ContentsContainer = () => {
   const [list, setList] = useRecoilState(accommodationList);
@@ -23,7 +23,7 @@ const ContentsContainer = () => {
   const [searchingAttempt, setSearchingAttempt] = useRecoilState(searchAttempt);
   const [page, setPage] = useRecoilState(searchPages);
   const [showGetMoreBtn, setShowGetMoreBtn] = useState(true);
-  const handleThrottle = UseThrottle();
+  const handleThrottle = useThrottle();
 
   const { category, isDomestic, startDate, endDate, numberOfPeople } = searchFilter;
 

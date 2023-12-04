@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const UseThrottle = () => {
+const useThrottle = () => {
   const [throttle, setThrottle] = useState(false);
 
   const handleThrottle = (onClickBtn: (() => void) | (() => Promise<void>)) => {
@@ -17,4 +17,4 @@ const UseThrottle = () => {
   return handleThrottle;
 };
 
-export default UseThrottle;
+export default useThrottle;

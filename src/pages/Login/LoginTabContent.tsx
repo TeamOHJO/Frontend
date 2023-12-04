@@ -10,10 +10,10 @@ import { setCookies, validateField } from '../../utils/utils';
 import { postLogin } from '../../api';
 import { ErrorData } from '../../api/type';
 import { toastPopupState } from '../../states/atom';
-import UseThrottle from '../../hooks/useThrottle';
+import useThrottle from '../../hooks/useThrottle';
 
 const LoginTabContent = () => {
-  const handleThrottle = UseThrottle();
+  const handleThrottle = useThrottle();
   const [formData, setFormData] = useState({
     email: '',
     password: '',

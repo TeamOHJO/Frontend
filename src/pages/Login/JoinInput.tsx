@@ -14,7 +14,7 @@ import { useSetRecoilState } from 'recoil';
 import { LoginTabInputProps } from '../../@types/interface';
 import { getVerify, postEmail } from '../../api';
 import { toastPopupState } from '../../states/atom';
-import UseThrottle from '../../hooks/useThrottle';
+import useThrottle from '../../hooks/useThrottle';
 
 const JoinInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
   const [show, setShow] = useState(false);
@@ -32,7 +32,7 @@ const JoinInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
     }
     return false;
   };
-  const handleThrottle = UseThrottle();
+  const handleThrottle = useThrottle();
 
   const sendVerify = async () => {
     setOpenVerify(true);
