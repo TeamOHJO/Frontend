@@ -1,10 +1,15 @@
 import { useEffect, FunctionComponent } from 'react';
 import { Alert, AlertIcon, CloseButton, AlertDescription, Fade } from '@chakra-ui/react';
-import { ToastPopupProps } from '../../@types/interface';
+import { HomeHeartToastPopupProps } from '../../@types/interface';
 
-const HomeHeartToastPopup: FunctionComponent<ToastPopupProps> = ({ status, setFunc }) => {
+const HomeHeartToastPopup: FunctionComponent<HomeHeartToastPopupProps> = ({
+  status,
+  setFunc,
+  setShowPopUp,
+}) => {
   const onClose = () => {
     setFunc({ active: false, message: status.message });
+    setShowPopUp(false);
   };
 
   useEffect(() => {
@@ -12,6 +17,7 @@ const HomeHeartToastPopup: FunctionComponent<ToastPopupProps> = ({ status, setFu
     if (status.active) {
       const timer = setTimeout(() => {
         setFunc({ active: false, message: status.message });
+        setShowPopUp(false);
       }, 5000);
       return () => {
         clearTimeout(timer);
@@ -22,7 +28,12 @@ const HomeHeartToastPopup: FunctionComponent<ToastPopupProps> = ({ status, setFu
   }, [status.active]);
 
   return (
-    <Fade in={status.active}>
+    <Fade
+      in={status.active}
+      onMouseOver={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        event.stopPropagation();
+      }}
+    >
       <Alert
         borderRadius={4}
         height="64px"

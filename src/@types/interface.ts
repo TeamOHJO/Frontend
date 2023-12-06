@@ -234,3 +234,9 @@ export interface AddReviewData {
   images?: string[];
   star: number;
 }
+
+export interface HomeHeartToastPopupProps {
+  status: AlertData;
+  setFunc: Dispatch<SetStateAction<AlertData>>;
+  setShowPopUp: Dispatch<SetStateAction<boolean>>;
+}
