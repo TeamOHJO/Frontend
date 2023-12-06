@@ -49,8 +49,8 @@ export const postEmail = async (email: Email) => {
   return res.data;
 };
 
-export const getVerify = async (verify: string) => {
-  const res = await client.get(`/user/verify/${verify}`);
+export const getVerify = async (verify: string, email: string) => {
+  const res = await client.get(`/user/verify/${verify}?email=${email}`);
   return res.data;
 };
 
