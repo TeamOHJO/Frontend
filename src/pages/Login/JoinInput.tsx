@@ -55,11 +55,14 @@ const JoinInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
   };
 
   const checkVerify = async () => {
+    const email = {
+      email: userEmail,
+    };
     handleThrottle(async () => {
       try {
-        const res = await getVerify(verify.verify);
-        const { success } = res;
-        if (success === true) {
+        const res = await getVerify(verify.verify, email.email);
+        const { code } = res;
+        if (code === 200) {
           setShowAlert({
             active: true,
             message: '이메일 인증에 성공했습니다.',
