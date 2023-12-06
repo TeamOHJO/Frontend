@@ -11,8 +11,8 @@ import {
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useRecoilState } from 'recoil';
-import { searchFilteredState, searchAttempt } from '../../../states/atom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { searchFilteredState, searchAttempt, searchPages } from '../../../states/atom';
 import { getTomorrow, changeDateFormat } from '../../../utils/utils';
 import Calendar from './Calendar';
 import VisitorSetter from './VisitorSetter';
@@ -30,6 +30,7 @@ function SearchModal({ isOpen, onClose }: ModalProps) {
   const [searchingAttempt, setSearchingAttempt] = useRecoilState(searchAttempt);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(getTomorrow());
+  const setPage = useSetRecoilState(searchPages);
 
   const onChangeDate = (dates: any) => {
     const [start, end] = dates;
@@ -71,6 +72,7 @@ function SearchModal({ isOpen, onClose }: ModalProps) {
     checkValidEndDate();
     setSearchingAttempt(searchingAttempt + 1);
     onClose();
+    setPage(0);
   };
 
   return (

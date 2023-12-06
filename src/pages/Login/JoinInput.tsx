@@ -14,6 +14,7 @@ import { useSetRecoilState } from 'recoil';
 import { LoginTabInputProps } from '../../@types/interface';
 import { getVerify, postEmail } from '../../api';
 import { toastPopupState } from '../../states/atom';
+import useThrottle from '../../hooks/useThrottle';
 
 const JoinInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
   const [show, setShow] = useState(false);
@@ -31,45 +32,50 @@ const JoinInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
     }
     return false;
   };
+  const handleThrottle = useThrottle();
 
   const sendVerify = async () => {
     setOpenVerify(true);
     const email = {
       email: userEmail,
     };
-    try {
-      const res = await postEmail(email);
-      if (res === 'success') {
-        setShowAlert({
-          active: true,
-          message: '이메일로 인증번호를 전송했습니다.',
-        });
+    handleThrottle(async () => {
+      try {
+        const res = await postEmail(email);
+        if (res === 'success') {
+          setShowAlert({
+            active: true,
+            message: '이메일로 인증번호를 전송했습니다.',
+          });
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    });
   };
 
   const checkVerify = async () => {
-    try {
-      const res = await getVerify(verify.verify);
-      const { success } = res;
-      if (success === true) {
-        setShowAlert({
-          active: true,
-          message: '이메일 인증에 성공했습니다.',
-        });
-        setOpenVerify(false);
-        errorSetFunc({ value: true, key: 'verify' });
-      } else {
-        setShowAlert({
-          active: true,
-          message: '이메일 인증번호가 다릅니다. 다시 시도해 주세요.',
-        });
+    handleThrottle(async () => {
+      try {
+        const res = await getVerify(verify.verify);
+        const { success } = res;
+        if (success === true) {
+          setShowAlert({
+            active: true,
+            message: '이메일 인증에 성공했습니다.',
+          });
+          setOpenVerify(false);
+          errorSetFunc({ value: true, key: 'verify' });
+        } else {
+          setShowAlert({
+            active: true,
+            message: '이메일 인증번호가 다릅니다. 다시 시도해 주세요.',
+          });
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    });
   };
 
   return (
@@ -94,7 +100,7 @@ const JoinInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
             }}
             color="basic"
             backgroundColor={openVerify ? 'gray.200' : 'white'}
-            onChange={(e) => {
+            onChange={e => {
               const { value } = e.target;
               errorSetFunc({ value, key: 'email' });
               setUserEmail(e.target.value);
@@ -121,18 +127,11 @@ const JoinInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
             {!openVerify ? '인증요청' : '재전송'}
           </Button>
         </Flex>
-        {isError.email && (
-          <FormErrorMessage textAlign="left">{errors.email}</FormErrorMessage>
-        )}
+        {isError.email && <FormErrorMessage textAlign="left">{errors.email}</FormErrorMessage>}
       </FormControl>
 
       {openVerify && (
-        <FormControl
-          isRequired
-          width="70%"
-          marginBottom="40px"
-          minWidth="260px"
-        >
+        <FormControl isRequired width="70%" marginBottom="40px" minWidth="260px">
           <Flex justifyContent="space-between">
             <Input
               type="text"
@@ -144,7 +143,7 @@ const JoinInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
                 color: 'gray.400',
               }}
               color="basic"
-              onChange={(e) => setVerify({ isVerify: true, verify: e.target.value })}
+              onChange={e => setVerify({ isVerify: true, verify: e.target.value })}
               fontSize="sm"
             />
 
@@ -187,16 +186,14 @@ const JoinInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
               color: 'gray.400',
             }}
             color="basic"
-            onChange={(e) => {
+            onChange={e => {
               const { value } = e.target;
               errorSetFunc({ value, key: 'name' });
             }}
             fontSize="sm"
           />
         </Flex>
-        {isError.name && (
-          <FormErrorMessage textAlign="left">{errors.name}</FormErrorMessage>
-        )}
+        {isError.name && <FormErrorMessage textAlign="left">{errors.name}</FormErrorMessage>}
       </FormControl>
 
       <FormControl
@@ -216,7 +213,7 @@ const JoinInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
               color: 'gray.400',
             }}
             color="basic"
-            onChange={(e) => {
+            onChange={e => {
               const { value } = e.target;
               errorSetFunc({ value, key: 'password' });
             }}
@@ -248,9 +245,7 @@ const JoinInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
           </InputRightElement>
         </InputGroup>
         {isError.password && (
-          <FormErrorMessage textAlign="left">
-            {errors.password}
-          </FormErrorMessage>
+          <FormErrorMessage textAlign="left">{errors.password}</FormErrorMessage>
         )}
       </FormControl>
 
@@ -271,7 +266,7 @@ const JoinInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
               color: 'gray.400',
             }}
             color="basic"
-            onChange={(e) => {
+            onChange={e => {
               const { value } = e.target;
               errorSetFunc({ value, key: 'passwordConfirm' });
             }}
@@ -281,9 +276,7 @@ const JoinInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
             <IconButton
               minWidth="45px"
               height="30px"
-              aria-label={
-                showConfirm ? '비밀번호 확인 보기' : '비밀번호 확인 가리기'
-              }
+              aria-label={showConfirm ? '비밀번호 확인 보기' : '비밀번호 확인 가리기'}
               onClick={() => setShowConfirm(!showConfirm)}
             >
               {showConfirm ? (
@@ -305,9 +298,7 @@ const JoinInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
           </InputRightElement>
         </InputGroup>
         {isError.passwordConfirm && (
-          <FormErrorMessage textAlign="left">
-            {errors.passwordConfirm}
-          </FormErrorMessage>
+          <FormErrorMessage textAlign="left">{errors.passwordConfirm}</FormErrorMessage>
         )}
       </FormControl>
 
@@ -328,16 +319,14 @@ const JoinInput = ({ isError, errors, errorSetFunc }: LoginTabInputProps) => {
               color: 'gray.400',
             }}
             color="basic"
-            onChange={(e) => {
+            onChange={e => {
               const { value } = e.target;
               errorSetFunc({ value, key: 'phone' });
             }}
             fontSize="sm"
           />
         </Flex>
-        {isError.phone && (
-          <FormErrorMessage textAlign="left">{errors.phone}</FormErrorMessage>
-        )}
+        {isError.phone && <FormErrorMessage textAlign="left">{errors.phone}</FormErrorMessage>}
       </FormControl>
     </>
   );

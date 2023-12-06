@@ -9,6 +9,7 @@ import JoinTabButton from './JoinTabButton';
 import { postJoin } from '../../api';
 import { ErrorData } from '../../api/type';
 import { toastPopupState } from '../../states/atom';
+import useThrottle from '../../hooks/useThrottle';
 
 const JoinTabContent = () => {
   const [formData, setFormData] = useState({
@@ -36,6 +37,7 @@ const JoinTabContent = () => {
     verify: '',
   });
   const setShowAlert = useSetRecoilState(toastPopupState);
+  const handleThrottle = useThrottle();
 
   const handleJoinSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -45,42 +47,44 @@ const JoinTabContent = () => {
       password: formData.password,
       phonenumber: formData.phone,
     };
-    try {
-      const res = await postJoin(joinData);
-      const { code } = res;
-      if (code) {
-        if (code === 201) {
-          window.location.reload();
+    handleThrottle(async () => {
+      try {
+        const res = await postJoin(joinData);
+        const { code } = res;
+        if (code) {
+          if (code === 201) {
+            window.location.reload();
+          }
+          if (code === 200) {
+            alert('기존의 계정이 복구되었습니다');
+            window.location.reload();
+          }
         }
-        if (code === 200) {
-          alert('기존의 계정이 복구되었습니다');
-          window.location.reload();
+      } catch (error) {
+        if (isAxiosError(error)) {
+          const axiosError = error as AxiosError;
+          const data = axiosError.response?.data as ErrorData;
+          if (data.code === 412) {
+            setShowAlert({
+              active: true,
+              message: '유효하지 않은 이메일 형식입니다.',
+            });
+          } else if (data.code === 400) {
+            setShowAlert({
+              active: true,
+              message: '이미 가입된 회원입니다.',
+            });
+          } else if (data.code === 411) {
+            setShowAlert({
+              active: true,
+              message: '유효하지 않은 휴대폰 번호 형식입니다.',
+            });
+          }
+        } else {
+          console.log('Axios 에러가 아닌 다른 에러가 발생했습니다:', error);
         }
       }
-    } catch (error) {
-      if (isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        const data = axiosError.response?.data as ErrorData;
-        if (data.code === 412) {
-          setShowAlert({
-            active: true,
-            message: '유효하지 않은 이메일 형식입니다.',
-          });
-        } else if (data.code === 400) {
-          setShowAlert({
-            active: true,
-            message: '이미 가입된 회원입니다.',
-          });
-        } else if (data.code === 411) {
-          setShowAlert({
-            active: true,
-            message: '유효하지 않은 휴대폰 번호 형식입니다.',
-          });
-        }
-      } else {
-        console.log('Axios 에러가 아닌 다른 에러가 발생했습니다:', error);
-      }
-    }
+    });
   };
 
   const errorSetFunc = ({ value, key }: LoginSetProps) => {
