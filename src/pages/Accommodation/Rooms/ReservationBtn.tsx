@@ -2,13 +2,13 @@ import { useDisclosure, Button } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { useState } from 'react';
-import DefaultModal from '../../components/Modal/DefaultModal';
+import DefaultModal from '../../../components/Modal/DefaultModal';
 import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
   accommodationSelectVisitorsState,
-} from '../../states/atom';
-import { changeDateFormat, getCookie } from '../../utils/utils';
+} from '../../../states/atom';
+import { changeDateFormat, getCookie } from '../../../utils/utils';
 import ReservationBtnToastPopup from './ReservationBtnToastPopup';
 
 interface ReservationBtnProps {

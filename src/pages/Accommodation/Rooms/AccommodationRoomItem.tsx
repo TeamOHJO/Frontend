@@ -3,15 +3,19 @@ import { StarFilled } from '@ant-design/icons';
 import { Heading, Text, Badge } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { theme } from '../../styles/theme';
+import { theme } from '../../../styles/theme';
 import AccommodationRoomImages from './AccommodationRoomImages';
 import AccommodationRoomItemCart from './AccommodationRoomItemCart';
 import ReservationBtn from './ReservationBtn';
 import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
-} from '../../states/atom';
-import { changeDateFormat, changePriceDiscountFormat, changeStarFormat } from '../../utils/utils';
+} from '../../../states/atom';
+import {
+  changeDateFormat,
+  changePriceDiscountFormat,
+  changeStarFormat,
+} from '../../../utils/utils';
 
 interface AccommodationRoom {
   roomId: number;

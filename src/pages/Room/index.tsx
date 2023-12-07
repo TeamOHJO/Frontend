@@ -5,8 +5,8 @@ import RoomNavi from './RoomNavi';
 import RoomMainImg from './RoomMainImg';
 import RoomTitle from './RoomTitle';
 import RoomSelectedInfo from './RoomSelectedInfo';
-import RoomInfo from './RoomInfo';
-import RoomBottomNavi from './RoomBottomNavi';
+import RoomInfo from './Info/RoomInfo';
+import RoomBottomNavi from './BottomNavi/RoomBottomNavi';
 import { RoomDetail } from '../../@types/interface';
 import LoadingCircle from '../../components/Loading';
 

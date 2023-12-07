@@ -6,9 +6,9 @@ import AccommodationNavi from './AccommodationNavi';
 import AccommodationMainImages from './AccommodationMainImg';
 import AccommodationTitle from './AccommodationTitle';
 import AccommodationSelect from './AccommodationSelect';
-import AccommodationRooms from './AccommodationRooms';
-import AccommodationReview from './AccommodationReview';
-import AccommodationInfo from './AccommodationInfo';
+import AccommodationRooms from './Rooms/AccommodationRooms';
+import AccommodationReview from './Review/AccommodationReview';
+import AccommodationInfo from './Info/AccommodationInfo';
 import { AccommodationDetail } from '../../@types/interface';
 import {
   accommodationSelectStartDateState,

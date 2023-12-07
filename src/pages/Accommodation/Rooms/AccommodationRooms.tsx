@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { v4 as uuid } from 'uuid';
-import { theme } from '../../styles/theme';
+import { theme } from '../../../styles/theme';
 import AccommodationRoomItem from './AccommodationRoomItem';
 
 interface AccommodationRoom {

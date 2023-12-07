@@ -1,6 +1,6 @@
 import { useEffect, FunctionComponent } from 'react';
 import { Alert, AlertIcon, CloseButton, AlertDescription, Fade } from '@chakra-ui/react';
-import { ToastPopupProps } from '../../@types/interface';
+import { ToastPopupProps } from '../../../@types/interface';
 
 const ReservationBtnToastPopup: FunctionComponent<ToastPopupProps> = ({ status, setFunc }) => {
   const onClose = () => {

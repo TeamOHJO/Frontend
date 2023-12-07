@@ -1,15 +1,15 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { theme } from '../../styles/theme';
-import AccommodationToastPopup from './AccommodationToastPopup';
-import { getCookie, changeDateFormat } from '../../utils/utils';
+import { theme } from '../../../styles/theme';
+import AccommodationToastPopup from '../AccommodationToastPopup';
+import { getCookie, changeDateFormat } from '../../../utils/utils';
 import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
   accommodationSelectVisitorsState,
   basketCountState,
-} from '../../states/atom';
+} from '../../../states/atom';
 
 function AccommodationRoomItemCart({ roomId, soldOut }: { roomId: number; soldOut: boolean }) {
   const [cartHover, setCartHover] = useState(false);
