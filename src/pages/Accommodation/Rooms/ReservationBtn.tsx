@@ -13,7 +13,7 @@ import ReservationBtnToastPopup from './ReservationBtnToastPopup';
 
 interface ReservationBtnProps {
   soldOut: boolean;
-  roomId: number;
+  roomId: string;
   image: string;
   category: string;
   name: string;

@@ -4,7 +4,7 @@ import { theme } from '../../../styles/theme';
 import AccommodationRoomItem from './AccommodationRoomItem';
 
 interface AccommodationRoom {
-  roomId: number;
+  roomId: string;
   name: string;
   price: number;
   discountPercentage: number;

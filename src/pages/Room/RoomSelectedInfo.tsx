@@ -11,6 +11,7 @@ import {
   accommodationSelectVisitorsState,
   basketCountState,
 } from '../../states/atom';
+import { createBasket } from '../../api/accommodation';
 
 interface RoomSelectedInfoProps {
   roomId: string | undefined;
@@ -40,43 +41,35 @@ function RoomSelectedInfo({
   const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
 
   const [accommodationSelectVisitors] = useRecoilState<number>(accommodationSelectVisitorsState);
-  const accessToken = getCookie('token');
 
-  const createBasket = async () => {
-    await fetch(`https://yanoljaschool.site:8080/basket/rooms/${roomId}`, {
-      method: 'POST',
-      body: JSON.stringify({
+  const handleCreateBasket = async () => {
+    try {
+      await createBasket(roomId, {
         startDate: changeDateFormat(accommodationSelectStartDate),
         endDate: changeDateFormat(accommodationSelectEndDate),
         numberOfPerson: accommodationSelectVisitors,
-      }),
-      headers: {
-        'content-type': import.meta.env.VITE_CONTENT_TYPE,
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }).then((res: any) => {
-      if (res.ok) {
-        const toastData = {
-          active: true,
-          message: '성공적으로 장바구니에 담겼습니다.',
-        };
-        setShowAlert(toastData);
-        setBasketCount(basketCount + 1);
-      } else if (res.status === 400) {
+      });
+      const toastData = {
+        active: true,
+        message: '성공적으로 장바구니에 담겼습니다.',
+      };
+      setShowAlert(toastData);
+      setBasketCount(basketCount + 1);
+    } catch (error: any) {
+      if (error.response.data.code === 400) {
         const toastData = {
           active: true,
           message: '이미 장바구니에 담겨있습니다.',
         };
         setShowAlert(toastData);
-      } else if (res.status === 401) {
+      } else if (error.response.data.code === 401) {
         const toastData = {
           active: true,
           message: '로그인 후 진행하실 수 있습니다.',
         };
         setShowAlert(toastData);
       }
-    });
-    // const res = response.json();
+    }
   };
 
   const handleCartMouseEnter = () => {
@@ -148,7 +141,7 @@ function RoomSelectedInfo({
           onMouseLeave={handleCartMouseLeave}
           onClick={(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
             event.stopPropagation();
-            createBasket();
+            handleCreateBasket();
           }}
         >
           add_shopping_cart

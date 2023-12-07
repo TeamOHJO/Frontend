@@ -17,6 +17,7 @@ import {
 } from '../../states/atom';
 import { getCookie, changeDateFormat } from '../../utils/utils';
 import LoadingCircle from '../../components/Loading';
+import { getAccommodationDetail, getAccommodationDetailToken } from '../../api/accommodation';
 
 function Accommodation() {
   const [accommodationDetailData, setAccommodationDetailData] = useState<AccommodationDetail>();
@@ -30,43 +31,26 @@ function Accommodation() {
   const [accommodationSelectVisitors] = useRecoilState<number>(accommodationSelectVisitorsState);
 
   const accessToken = getCookie('token');
-  const navigate = useNavigate();
 
   const fetchData = async () => {
     if (accessToken) {
-      const response = await fetch(
-        `https://yanoljaschool.site:8080/accommodation/detail/${
-          params.id
-        }?maxCapacity=${accommodationSelectVisitors}&startDate=${changeDateFormat(
-          new Date(accommodationSelectStartDate),
-        )}&endDate=${changeDateFormat(new Date(accommodationSelectEndDate))}`,
-        {
-          method: 'GET',
-          headers: {
-            'content-type': import.meta.env.VITE_CONTENT_TYPE,
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      ).then((res: any) => {
-        if (!res.ok) navigate('/');
-        return res.json();
-      });
-      setAccommodationDetailData(await response);
+      setAccommodationDetailData(
+        await getAccommodationDetailToken(
+          params.id,
+          accommodationSelectVisitors,
+          changeDateFormat(new Date(accommodationSelectStartDate)),
+          changeDateFormat(new Date(accommodationSelectEndDate)),
+        ),
+      );
     } else {
-      const response = await fetch(
-        `https://yanoljaschool.site:8080/accommodation/detail/${
-          params.id
-        }?maxCapacity=${accommodationSelectVisitors}&startDate=${changeDateFormat(
-          new Date(accommodationSelectStartDate),
-        )}&endDate=${changeDateFormat(new Date(accommodationSelectEndDate))}`,
-        {
-          method: 'GET',
-        },
-      ).then((res: any) => {
-        if (!res.ok) navigate('/');
-        return res.json();
-      });
-      setAccommodationDetailData(await response);
+      setAccommodationDetailData(
+        await getAccommodationDetail(
+          params.id,
+          accommodationSelectVisitors,
+          changeDateFormat(new Date(accommodationSelectStartDate)),
+          changeDateFormat(new Date(accommodationSelectEndDate)),
+        ),
+      );
     }
   };
 

@@ -18,7 +18,7 @@ import {
 } from '../../../utils/utils';
 
 interface AccommodationRoom {
-  roomId: number;
+  roomId: string;
   name: string;
   price: number;
   discountPercentage: number;

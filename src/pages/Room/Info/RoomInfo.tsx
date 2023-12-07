@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import RoomInfoText from '../RoomInfoText';
-import RoomInfoTag from '../RoomInfoTag';
+import RoomInfoText from './RoomInfoText';
+import RoomInfoTag from './RoomInfoTag';
 
 interface RoomInfoProps {
   checkinExplanation: string;
