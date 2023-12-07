@@ -6,14 +6,14 @@ import { AddReviewData } from '../@types/interface';
 axios.defaults.withCredentials = true;
 // const token = getCookie('token');
 
-const client = axios.create({
+export const client = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     'content-type': import.meta.env.VITE_CONTENT_TYPE,
   },
 });
 
-const clientToken = axios.create({
+export const clientToken = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     'content-type': import.meta.env.VITE_CONTENT_TYPE,
@@ -62,18 +62,6 @@ export const postLogout = async () => {
 
 export const testToken = async () => {
   const res = await clientToken.get('/user/test');
-  return res;
-};
-
-// 장바구니 가져오기
-export const getBasket = async () => {
-  const res = await clientToken.get('/basket');
-  return res;
-};
-
-// 장바구니 삭제
-export const DeleteBasketItem = async (basketId: number) => {
-  const res = await clientToken.delete(`/basket/${basketId}`);
   return res;
 };
 
