@@ -1,18 +1,13 @@
 import styled from '@emotion/styled';
 import { PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import { Text, Input } from '@chakra-ui/react';
+import { useRecoilState } from 'recoil';
+import { searchFilteredState } from '../../../states/atom';
 
-interface VisitorProps {
-  visitors: number;
-  setVisitors: React.Dispatch<React.SetStateAction<number>>;
-  onChangeVisitor: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+function VisitorSetter() {
+  const [searchFilter, setSearchFilter] = useRecoilState(searchFilteredState);
 
-function VisitorSetter({
-  visitors,
-  setVisitors,
-  onChangeVisitor,
-}: VisitorProps) {
+  const { numberOfPeople } = searchFilter;
   return (
     <StyledContainer>
       <StyledLabel as="p" size="lg">
@@ -26,23 +21,24 @@ function VisitorSetter({
           htmlSize={4}
           width="auto"
           disabled
-          value={visitors}
-          onChange={onChangeVisitor}
+          value={numberOfPeople}
           marginRight="15px"
           textAlign="center"
         />
         <MinusCircleOutlined
           style={{ marginRight: '10px' }}
           onClick={() => {
-            if (visitors > 1) {
-              setVisitors(visitors - 1);
+            if (numberOfPeople > 2) {
+              const newFilter = { ...searchFilter, numberOfPeople: numberOfPeople - 1 };
+              setSearchFilter(newFilter);
             }
           }}
         />
         <PlusCircleOutlined
           onClick={() => {
-            if (visitors < 12) {
-              setVisitors(visitors + 1);
+            if (numberOfPeople < 12) {
+              const newFilter = { ...searchFilter, numberOfPeople: numberOfPeople + 1 };
+              setSearchFilter(newFilter);
             }
           }}
         />

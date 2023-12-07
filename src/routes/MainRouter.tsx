@@ -44,6 +44,7 @@ function MainRouter() {
       ...searchFilter,
       startDate: changeDateFormat(new Date()),
       endDate: changeDateFormat(getTomorrow()),
+      numberOfPeople: 2,
     };
     setSearchFilter(newFilter);
   }, []);
