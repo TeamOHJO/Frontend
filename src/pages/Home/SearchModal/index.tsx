@@ -25,7 +25,6 @@ interface ModalProps {
 
 function SearchModal({ isOpen, onClose }: ModalProps) {
   const [isDomestic, setIsDomestic] = useState(true);
-  const [visitors, setVisitors] = useState(2);
   const [searchFilter, setSearchFilter] = useRecoilState(searchFilteredState);
   const [searchingAttempt, setSearchingAttempt] = useRecoilState(searchAttempt);
   const [startDate, setStartDate] = useState(new Date());
@@ -43,13 +42,6 @@ function SearchModal({ isOpen, onClose }: ModalProps) {
       startDate: startTime,
       endDate: endTime,
     };
-    setSearchFilter(newFilter);
-  };
-
-  const onChangeVisitor = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const result = Number(e.target.value);
-    setVisitors(result);
-    const newFilter = { ...searchFilter, numberOfPeople: result, page: 0 };
     setSearchFilter(newFilter);
   };
 
@@ -84,11 +76,7 @@ function SearchModal({ isOpen, onClose }: ModalProps) {
         <ModalBody>
           <RegionSetter isDomestic={isDomestic} setIsDomestic={setIsDomestic} />
           <Calendar startDate={startDate} endDate={endDate} onChangeDate={onChangeDate} />
-          <VisitorSetter
-            visitors={visitors}
-            setVisitors={setVisitors}
-            onChangeVisitor={onChangeVisitor}
-          />
+          <VisitorSetter />
         </ModalBody>
         <StyledFooter>
           <StyledButton colorScheme="gray" mr={3} onClick={onClose}>
