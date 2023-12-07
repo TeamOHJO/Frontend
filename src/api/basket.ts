@@ -7,7 +7,7 @@ export const getBasket = async () => {
 };
 
 // 장바구니 삭제
-export const DeleteBasketItem = async (basketId: number) => {
+export const deleteBasketItem = async (basketId: number) => {
   const res = await clientToken.delete(`/basket/${basketId}`);
   return res;
 };
