@@ -5,9 +5,9 @@ import { Textarea, Heading, Button } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import StarRating from '../../components/StarRating';
 import AddReviewImages from './AddReviewImages';
-import { SubmitReview } from '../../api';
 import ToastPopup from '../../components/Modal/ToastPopup';
 import { addImage } from '../../utils/firebase';
+import { submitReview } from '../../api/mypage';
 
 function AddReviewForm() {
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ function AddReviewForm() {
     } else if (reviewText !== '' && imageFile) {
       const imageURL = (await addImage(imageFile)) as string;
       try {
-        const response = await SubmitReview(reservationId, {
+        const response = await submitReview(reservationId, {
           ...reviewData,
           images: [imageURL],
         });
@@ -77,7 +77,7 @@ function AddReviewForm() {
       }
     } else if (reviewText !== '' && !imageFile) {
       try {
-        const response = await SubmitReview(reservationId, reviewData);
+        const response = await submitReview(reservationId, reviewData);
 
         if (response.data.code === 201) {
           console.log('등록 완료!');

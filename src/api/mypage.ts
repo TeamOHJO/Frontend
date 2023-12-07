@@ -2,7 +2,7 @@ import { AddReviewData } from '../@types/interface';
 import { clientToken } from './index';
 
 // 마이페이지 > 예약 취소 요청 API
-export const cancelReservation = async (reservationId: number) => {
+export const postCancelReservation = async (reservationId: number) => {
   const res = await clientToken.delete(`/reservation/${reservationId}`);
   return res;
 };
