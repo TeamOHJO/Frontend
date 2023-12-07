@@ -1,10 +1,8 @@
 import axios from 'axios';
 import { JoinData, LoginData, Email, ReservationPostData } from './type';
 import { getCookie } from '../utils/utils';
-import { AddReviewData } from '../@types/interface';
 
 axios.defaults.withCredentials = true;
-// const token = getCookie('token');
 
 export const client = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
@@ -62,33 +60,6 @@ export const postLogout = async () => {
 
 export const testToken = async () => {
   const res = await clientToken.get('/user/test');
-  return res;
-};
-
-// 마이페이지 > 예약 취소 요청 API
-export const CancelReservation = async (reservationId: number) => {
-  const res = await clientToken.delete(`/reservation/${reservationId}`);
-  return res;
-};
-
-// 마이페이지 > 예약 내역 가져오기
-export const getMyPageReservationList = async () => {
-  const res = await clientToken.get('/reservation');
-  return res;
-};
-
-// 마이페이지 > 예약 취소 내역 가져오기
-export const getMyPageCancelledList = async () => {
-  const res = await clientToken.get('/reservation/canceled');
-  return res;
-};
-
-// 마이페이지 > 리뷰 작성
-export const SubmitReview = async (reservationId: number, reviewData: AddReviewData) => {
-  const res = await clientToken.post(
-    `/review/reservations/${reservationId}`,
-    JSON.stringify(reviewData),
-  );
   return res;
 };
 
