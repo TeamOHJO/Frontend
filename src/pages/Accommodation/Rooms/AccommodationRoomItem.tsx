@@ -29,6 +29,12 @@ interface AccommodationRoom {
   averageRating: number;
   category: string;
   location: string;
+  setShowAlert: React.Dispatch<
+    React.SetStateAction<{
+      active: boolean;
+      message: string;
+    }>
+  >;
 }
 
 function AccommodationRoomItem({
@@ -43,6 +49,7 @@ function AccommodationRoomItem({
   averageRating,
   category,
   location,
+  setShowAlert,
 }: AccommodationRoom) {
   const navigate = useNavigate();
   const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
@@ -109,7 +116,11 @@ function AccommodationRoomItem({
             )}
           </div>
           <StyledAccommodationRoomTitleBoxItem>
-            <AccommodationRoomItemCart roomId={roomId} soldOut={soldOut} />
+            <AccommodationRoomItemCart
+              roomId={roomId}
+              soldOut={soldOut}
+              setShowAlert={setShowAlert}
+            />
             <ReservationBtn
               soldOut={soldOut}
               roomId={roomId}
@@ -120,6 +131,7 @@ function AccommodationRoomItem({
               location={location}
               price={price}
               discountPercentage={discountPercentage}
+              setShowAlert={setShowAlert}
             />
           </StyledAccommodationRoomTitleBoxItem>
         </StyledAccommodationRoomTitleBox>

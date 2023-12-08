@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { theme } from '../../../styles/theme';
-import AccommodationToastPopup from '../AccommodationToastPopup';
 import { changeDateFormat } from '../../../utils/utils';
 import {
   accommodationSelectStartDateState,
@@ -12,15 +11,23 @@ import {
 } from '../../../states/atom';
 import { createBasket } from '../../../api/accommodation';
 
-function AccommodationRoomItemCart({ roomId, soldOut }: { roomId: string; soldOut: boolean }) {
+function AccommodationRoomItemCart({
+  roomId,
+  soldOut,
+  setShowAlert,
+}: {
+  roomId: string;
+  soldOut: boolean;
+  setShowAlert: React.Dispatch<
+    React.SetStateAction<{
+      active: boolean;
+      message: string;
+    }>
+  >;
+}) {
   const [cartHover, setCartHover] = useState(false);
   const [basketCount, setBasketCount] = useRecoilState<number>(basketCountState);
 
-  // 장바구니 팝업
-  const [showAlert, setShowAlert] = useState({
-    active: false,
-    message: '',
-  });
   const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
 
   const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
@@ -66,33 +73,30 @@ function AccommodationRoomItemCart({ roomId, soldOut }: { roomId: string; soldOu
   };
 
   return (
-    <>
-      <StyledAccommodationRoomItemCart
-        className="material-symbols-outlined"
-        onMouseEnter={() => {
-          if (!soldOut) handleCartMouseEnter();
-        }}
-        onMouseLeave={() => {
-          if (!soldOut) handleCartMouseLeave();
-        }}
-        onClick={(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-          event.stopPropagation();
+    <StyledAccommodationRoomItemCart
+      className="material-symbols-outlined"
+      onMouseEnter={() => {
+        if (!soldOut) handleCartMouseEnter();
+      }}
+      onMouseLeave={() => {
+        if (!soldOut) handleCartMouseLeave();
+      }}
+      onClick={(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+        event.stopPropagation();
 
-          if (!soldOut) {
-            handleCreateBasket();
-          }
-        }}
-        style={cartHover ? { color: theme.colors.basic } : {}}
-      >
-        add_shopping_cart
-        {cartHover ? (
-          <StyledTooltip style={{ fontFamily: 'Noto Sans KR' }}>장바구니 담기</StyledTooltip>
-        ) : (
-          ''
-        )}
-      </StyledAccommodationRoomItemCart>
-      <AccommodationToastPopup status={showAlert} setFunc={setShowAlert} />
-    </>
+        if (!soldOut) {
+          handleCreateBasket();
+        }
+      }}
+      style={cartHover ? { color: theme.colors.basic } : {}}
+    >
+      add_shopping_cart
+      {cartHover ? (
+        <StyledTooltip style={{ fontFamily: 'Noto Sans KR' }}>장바구니 담기</StyledTooltip>
+      ) : (
+        ''
+      )}
+    </StyledAccommodationRoomItemCart>
   );
 }
 

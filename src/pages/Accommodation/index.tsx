@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import AccommodationNavi from './AccommodationNavi';
 import AccommodationMainImages from './AccommodationMainImg';
@@ -18,9 +18,15 @@ import {
 import { getCookie, changeDateFormat } from '../../utils/utils';
 import LoadingCircle from '../../components/Loading';
 import { getAccommodationDetail, getAccommodationDetailToken } from '../../api/accommodation';
+import AccommodationToastPopup from './AccommodationToastPopup';
 
 function Accommodation() {
   const [accommodationDetailData, setAccommodationDetailData] = useState<AccommodationDetail>();
+  // 장바구니 팝업
+  const [showAlert, setShowAlert] = useState({
+    active: false,
+    message: '',
+  });
 
   const params = useParams();
 
@@ -77,6 +83,7 @@ function Accommodation() {
         rooms={accommodationDetailData?.data.roomDetails}
         category={accommodationDetailData?.data.category}
         location={accommodationDetailData?.data.location}
+        setShowAlert={setShowAlert}
       />
       <AccommodationReview />
       <AccommodationInfo
@@ -87,6 +94,7 @@ function Accommodation() {
         serviceInfo={accommodationDetailData?.data.serviceInfo}
         location={accommodationDetailData?.data.location}
       />
+      <AccommodationToastPopup status={showAlert} setFunc={setShowAlert} />
     </StyledAccommodationWrapper>
   ) : (
     <LoadingCircle />

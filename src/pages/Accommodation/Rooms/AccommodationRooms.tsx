@@ -20,9 +20,15 @@ interface AccommodationRoomsProps {
   rooms: AccommodationRoom[];
   category: string;
   location: string;
+  setShowAlert: React.Dispatch<
+    React.SetStateAction<{
+      active: boolean;
+      message: string;
+    }>
+  >;
 }
 
-function AccommodationRooms({ rooms, category, location }: AccommodationRoomsProps) {
+function AccommodationRooms({ rooms, category, location, setShowAlert }: AccommodationRoomsProps) {
   return (
     <StyledAccommodationRoomsWrapper>
       {rooms.map((room: AccommodationRoom) => (
@@ -38,6 +44,7 @@ function AccommodationRooms({ rooms, category, location }: AccommodationRoomsPro
           averageRating={room.averageRating}
           category={category}
           location={location}
+          setShowAlert={setShowAlert}
           key={uuid()}
         />
       ))}
