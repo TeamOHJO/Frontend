@@ -29,8 +29,8 @@ function MenuBar() {
   };
 
   const selectCategory = (item: string) => {
-    navigate(`/${item}`);
-    const newCat = changeCategoryFormat(item) as string;
+    const newCat = changeCategoryFormat(item);
+    navigate(`/${newCat}`);
 
     const newSearchFilter = { ...searchFilter, category: newCat };
     setSearchFilter(newSearchFilter);
@@ -39,7 +39,6 @@ function MenuBar() {
   return (
     <StyledContainer ref={containerRef}>
       <Button
-        className="호텔·리조트"
         onClick={() => {
           selectCategory('호텔·리조트');
         }}
@@ -48,13 +47,12 @@ function MenuBar() {
         width="100px"
         size="s"
         shadow={theme.shadows.shadow1.shadow}
-        variant={id === undefined || id === '호텔·리조트' ? 'blue' : 'gray'}
+        variant={id === undefined || id === changeCategoryFormat('호텔·리조트') ? 'blue' : 'gray'}
       >
         호텔·리조트
       </Button>
       {Category.map((item: string | any) => (
         <Button
-          className={item}
           onClick={() => {
             selectCategory(item);
           }}
@@ -64,7 +62,7 @@ function MenuBar() {
           width="100px"
           size="s"
           shadow={theme.shadows.shadow1.shadow}
-          variant={id === item ? 'blue' : 'gray'}
+          variant={id === changeCategoryFormat(item) ? 'blue' : 'gray'}
         >
           {item}
         </Button>

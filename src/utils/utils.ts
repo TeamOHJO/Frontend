@@ -78,15 +78,22 @@ export const changeDateFormat = (date: Date) => {
 };
 
 export const changeCategoryFormat = (category: string | undefined) => {
-  if (category === undefined) return 'HOTEL';
-  if (category === '호텔·리조트') return 'HOTEL';
-  if (category === '한옥') return 'HANOK';
-  if (category === '펜션·풀빌라') return 'PENSION';
-  if (category === '모텔') return 'MOTEL';
-  if (category === '게스트하우스') return 'GUESTHOUSE';
-
-  // 아무것도 없을때
-  return category;
+  switch (category) {
+    case undefined:
+      return 'HOTEL';
+    case '호텔·리조트':
+      return 'HOTEL';
+    case '한옥':
+      return 'HANOK';
+    case '펜션·풀빌라':
+      return 'PENSION';
+    case '모텔':
+      return 'MOTEL';
+    case '게스트하우스':
+      return 'GUESTHOUSE';
+    default:
+      return category;
+  }
 };
 
 export const changeCategoryReverseFormat = (category: string) => {

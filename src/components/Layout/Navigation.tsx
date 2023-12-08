@@ -12,7 +12,7 @@ function Navigation() {
   const location = useLocation();
   const navigate = useNavigate();
   const { pathname } = location;
-  const mainPagePath = ['호텔·리조트', '한옥', '펜션·풀빌라', '모텔', '게스트하우스'];
+  const mainPagePath = ['HOTEL', 'HANOK', 'PENSION', 'MOTEL', 'GUESTHOUSE'];
   const { id } = useParams();
 
   const logoutFunc = async () => {
@@ -89,7 +89,6 @@ function Navigation() {
               style={{
                 fontSize: '20px',
                 color: `${pathname.includes('/mypage') ? 'black' : theme.colors.gray400}`,
-                // color: `${pathname.slice(0, 7) === '/mypage' ? 'black' : theme.colors.gray400}`,
               }}
             />
             마이페이지
