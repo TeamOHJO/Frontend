@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { AxiosError } from 'axios';
 import { useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@chakra-ui/react';
 import { FormData, LoginSetProps } from '../../@types/interface';
 import LoginTabButton from './LoginTabButton';
 import LoginInput from './LoginInput';
@@ -74,10 +75,19 @@ const LoginTabContent = () => {
     setIsError((prevIsError: any) => ({ ...prevIsError, ...newIsError }));
   };
 
+  const handleSocialLogin = () => {
+    const clientKey = ''; // 임시
+    const redirectUrl = 'http://localhost:5173/social-loading'; // 임시
+
+    window.location.href = `https://yanoljaschool.site:8080/oauth2/authorization/google?
+    client_id=${clientKey}&redirect_uri=${redirectUrl}&response_type=code&scope=email profile`;
+  };
+
   return (
     <StyledForm onSubmit={handleLoginSubmit}>
       <LoginInput isError={isError} errors={errors} errorSetFunc={errorSetFunc} />
       <LoginTabButton errors={errors} formData={formData} errorSetFunc={errorSetFunc} />
+      <Button onClick={handleSocialLogin}>구글 소셜로그인</Button>
     </StyledForm>
   );
 };
