@@ -4,8 +4,8 @@ import { AlertData, BasketData, MyPageReservationData, WishlistData } from '../@
 import { getTomorrow, changeDateFormat } from '../utils/utils';
 
 const { persistAtom } = recoilPersist({
-  key: 'localStorage',
-  storage: localStorage,
+  key: 'sessionStorage',
+  storage: sessionStorage,
 });
 
 export const toastPopupState = atom<AlertData>({
