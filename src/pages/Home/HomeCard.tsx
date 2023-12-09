@@ -14,7 +14,7 @@ const HomeCard = ({ id, name, images, category, score, price, isLiked }: HomeCar
   return (
     <StyledCard>
       <StyledImgWrapper>
-        <HomeHeart liked={isLiked} size="20px" id={id} />
+        <HomeHeart liked={isLiked} size="20px" id={String(id)} />
         <HomeSwiper images={images} borderRadius="8px" id={id} />
       </StyledImgWrapper>
       <StyledInfoContainer

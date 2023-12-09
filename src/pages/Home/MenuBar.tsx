@@ -51,7 +51,7 @@ function MenuBar() {
       >
         호텔·리조트
       </Button>
-      {Category.map((item: string | any) => (
+      {Category.map((item: string) => (
         <Button
           onClick={() => {
             selectCategory(item);
