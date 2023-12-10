@@ -12,6 +12,7 @@ import { postLogin } from '../../api';
 import { ErrorData } from '../../api/type';
 import { toastPopupState } from '../../states/atom';
 import useThrottle from '../../hooks/useThrottle';
+import SocialLoginContainer from './SocialLoginContainer';
 
 const LoginTabContent = () => {
   const handleThrottle = useThrottle();
@@ -75,19 +76,11 @@ const LoginTabContent = () => {
     setIsError((prevIsError: any) => ({ ...prevIsError, ...newIsError }));
   };
 
-  const handleSocialLogin = () => {
-    const clientKey = ''; // 임시
-    const redirectUrl = 'http://localhost:5173/social-loading'; // 임시
-
-    window.location.href = `https://yanoljaschool.site:8080/oauth2/authorization/google?
-    client_id=${clientKey}&redirect_uri=${redirectUrl}&response_type=code&scope=email profile`;
-  };
-
   return (
     <StyledForm onSubmit={handleLoginSubmit}>
       <LoginInput isError={isError} errors={errors} errorSetFunc={errorSetFunc} />
       <LoginTabButton errors={errors} formData={formData} errorSetFunc={errorSetFunc} />
-      <Button onClick={handleSocialLogin}>구글 소셜로그인</Button>
+      <SocialLoginContainer />
     </StyledForm>
   );
 };
