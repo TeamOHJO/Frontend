@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { AxiosError } from 'axios';
 import { useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@chakra-ui/react';
 import { FormData, LoginSetProps } from '../../@types/interface';
 import LoginTabButton from './LoginTabButton';
 import LoginInput from './LoginInput';
