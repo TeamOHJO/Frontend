@@ -65,12 +65,9 @@ function AddReviewForm() {
           console.log('등록 완료!');
           successFunction();
           navigate('/mypage');
-        } else if (response.data.message === '해당 작업을 수행 할 권한이 존재하지 않습니다.') {
-          console.log('해당 작업을 수행 할 권한이 존재하지 않습니다.');
-          failFunction('해당 작업을 수행 할 권한이 존재하지 않습니다.');
-        } else if (response.data.message === '존재하지 않는 reservationId입니다.') {
-          console.log('존재하지 않는 reservationId입니다.');
-          failFunction('해당하는 예약이 없습니다.');
+        } else {
+          console.log(response.data.message);
+          failFunction(response.data.message);
         }
       } catch (error) {
         console.log(error);
@@ -83,12 +80,9 @@ function AddReviewForm() {
           console.log('등록 완료!');
           successFunction();
           navigate('/mypage');
-        } else if (response.data.message === '해당 작업을 수행 할 권한이 존재하지 않습니다.') {
-          console.log('해당 작업을 수행 할 권한이 존재하지 않습니다.');
-          failFunction('해당 작업을 수행 할 권한이 존재하지 않습니다.');
-        } else if (response.data.message === '존재하지 않는 reservationId입니다.') {
-          console.log('존재하지 않는 reservationId입니다.');
-          failFunction('해당하는 예약이 없습니다.');
+        } else {
+          console.log(response.data.message);
+          failFunction(response.data.message);
         }
       } catch (err) {
         console.error(err);
