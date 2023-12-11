@@ -69,12 +69,12 @@ export interface ValidationLogin {
   formData: FormData;
 }
 export interface HomeCardProps {
-  id: any;
-  name: any;
-  images: any;
-  category: any;
-  score: any;
-  price: any;
+  id: number;
+  name: string;
+  images: string[];
+  category: string;
+  score: number;
+  price: number;
   isLiked: boolean;
 }
 

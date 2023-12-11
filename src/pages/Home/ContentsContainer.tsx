@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Button } from '@chakra-ui/react';
 import { v4 as uuid } from 'uuid';
 import {
@@ -12,13 +12,11 @@ import {
 } from '../../states/atom';
 import { getAccommodationList } from '../../api';
 import HomeCard from './HomeCard';
-import { changeCategoryFormat } from '../../utils/utils';
 import useThrottle from '../../hooks/useThrottle';
 
 const ContentsContainer = () => {
   const [list, setList] = useRecoilState(accommodationList);
   const { id } = useParams();
-  const navigate = useNavigate();
   const [searchFilter, setSearchFilter] = useRecoilState(searchFilteredState);
   const [searchingAttempt, setSearchingAttempt] = useRecoilState(searchAttempt);
   const [page, setPage] = useRecoilState(searchPages);
@@ -38,8 +36,13 @@ const ContentsContainer = () => {
       });
 
       const { data } = res;
-      setList(data);
-      if (!data.length) {
+      if (data.length) {
+        if (page === 0) {
+          setList(data);
+        } else {
+          setList((prevList: any[]) => [...prevList, ...data]);
+        }
+      } else {
         setShowGetMoreBtn(false);
       }
     } catch (error) {
@@ -49,47 +52,22 @@ const ContentsContainer = () => {
 
   useEffect(() => {
     setPage(0);
-    const newCat = changeCategoryFormat(id);
+    const newCat = id || 'HOTEL';
     const newSearchFilter = { ...searchFilter, category: newCat };
     setSearchFilter(newSearchFilter);
     setSearchingAttempt(searchingAttempt + 1);
-  }, [navigate]);
+  }, [id]);
 
   useEffect(() => {
-    if (page === 0) {
-      setShowGetMoreBtn(true);
+    if (searchingAttempt >= 1) {
+      if (page === 0) {
+        setShowGetMoreBtn(true);
+      }
       fetchData();
-    }
-    if (page !== 0) {
-      getMoreData();
     }
   }, [searchingAttempt, page]);
 
-  const getMoreData = async () => {
-    try {
-      const res = await getAccommodationList(page, {
-        category,
-        isDomestic,
-        startDate,
-        endDate,
-        numberOfPeople,
-      });
-
-      const { data } = res;
-
-      if (data.length) {
-        setList((prevList: any[]) => [...prevList, ...data]);
-      } else {
-        setShowGetMoreBtn(false);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const onClickMoreBtn = () => {
-    const newFilter = { ...searchFilter };
-    setSearchFilter(newFilter);
     setPage(page + 1);
   };
 
