@@ -1,4 +1,4 @@
-import { AddReviewData } from '../@types/interface';
+import { AddReviewData, MyPageReservationData } from '../@types/interface';
 import { clientToken } from './index';
 
 // 마이페이지 > 예약 취소 요청 API
@@ -11,7 +11,7 @@ export const postCancelReservation = async (reservationId: number) => {
 export const getMyPageReservationList = async () => {
   try {
     const response = await clientToken.get('/reservation');
-    return response.data.data;
+    return response.data.data as MyPageReservationData[];
   } catch (error) {
     console.error(error);
     throw error;
@@ -22,7 +22,7 @@ export const getMyPageReservationList = async () => {
 export const getMyPageCancelledList = async () => {
   try {
     const response = await clientToken.get('/reservation/canceled');
-    return response.data.data;
+    return response.data.data as MyPageReservationData[];
   } catch (error) {
     console.error(error);
     throw error;
