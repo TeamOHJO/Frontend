@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { theme } from '../styles/theme';
 import { getCookie } from '../utils/utils';
 import HeartToastPopup from './HeartToastPopup';
+import { createHeart } from '../api/accommodation';
 
 interface HeartProps {
   liked: boolean;
@@ -40,17 +41,7 @@ function Heart({ liked, size }: HeartProps) {
   };
 
   const fetchData = async () => {
-    const response = await fetch(
-      `https://yanoljaschool.site:8080/accommodation/${params.id}/likes`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
-    const res = await response.json();
-    setIsHeart(res.data.liked);
+    setIsHeart(await createHeart(params.id));
   };
 
   const Bounce = keyframes`

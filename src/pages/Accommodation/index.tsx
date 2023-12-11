@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import AccommodationNavi from './AccommodationNavi';
 import AccommodationMainImages from './AccommodationMainImg';
 import AccommodationTitle from './AccommodationTitle';
 import AccommodationSelect from './AccommodationSelect';
-import AccommodationRooms from './AccommodationRooms';
-import AccommodationReview from './AccommodationReview';
-import AccommodationInfo from './AccommodationInfo';
+import AccommodationRooms from './Rooms/AccommodationRooms';
+import AccommodationReview from './Review/AccommodationReview';
+import AccommodationInfo from './Info/AccommodationInfo';
 import { AccommodationDetail } from '../../@types/interface';
 import {
   accommodationSelectStartDateState,
@@ -17,56 +17,44 @@ import {
 } from '../../states/atom';
 import { getCookie, changeDateFormat } from '../../utils/utils';
 import LoadingCircle from '../../components/Loading';
+import { getAccommodationDetail, getAccommodationDetailToken } from '../../api/accommodation';
+import AccommodationToastPopup from './AccommodationToastPopup';
 
 function Accommodation() {
   const [accommodationDetailData, setAccommodationDetailData] = useState<AccommodationDetail>();
+  // 장바구니 팝업
+  const [showAlert, setShowAlert] = useState({
+    active: false,
+    message: '',
+  });
 
   const params = useParams();
 
   const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
-
   const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
-
   const [accommodationSelectVisitors] = useRecoilState<number>(accommodationSelectVisitorsState);
 
   const accessToken = getCookie('token');
-  const navigate = useNavigate();
 
   const fetchData = async () => {
     if (accessToken) {
-      const response = await fetch(
-        `https://yanoljaschool.site:8080/accommodation/detail/${
-          params.id
-        }?maxCapacity=${accommodationSelectVisitors}&startDate=${changeDateFormat(
-          new Date(accommodationSelectStartDate),
-        )}&endDate=${changeDateFormat(new Date(accommodationSelectEndDate))}`,
-        {
-          method: 'GET',
-          headers: {
-            'content-type': import.meta.env.VITE_CONTENT_TYPE,
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      ).then((res: any) => {
-        if (!res.ok) navigate('/');
-        return res.json();
-      });
-      setAccommodationDetailData(await response);
+      setAccommodationDetailData(
+        await getAccommodationDetailToken(
+          params.id,
+          accommodationSelectVisitors,
+          changeDateFormat(new Date(accommodationSelectStartDate)),
+          changeDateFormat(new Date(accommodationSelectEndDate)),
+        ),
+      );
     } else {
-      const response = await fetch(
-        `https://yanoljaschool.site:8080/accommodation/detail/${
-          params.id
-        }?maxCapacity=${accommodationSelectVisitors}&startDate=${changeDateFormat(
-          new Date(accommodationSelectStartDate),
-        )}&endDate=${changeDateFormat(new Date(accommodationSelectEndDate))}`,
-        {
-          method: 'GET',
-        },
-      ).then((res: any) => {
-        if (!res.ok) navigate('/');
-        return res.json();
-      });
-      setAccommodationDetailData(await response);
+      setAccommodationDetailData(
+        await getAccommodationDetail(
+          params.id,
+          accommodationSelectVisitors,
+          changeDateFormat(new Date(accommodationSelectStartDate)),
+          changeDateFormat(new Date(accommodationSelectEndDate)),
+        ),
+      );
     }
   };
 
@@ -93,6 +81,7 @@ function Accommodation() {
         rooms={accommodationDetailData?.data.roomDetails}
         category={accommodationDetailData?.data.category}
         location={accommodationDetailData?.data.location}
+        setShowAlert={setShowAlert}
       />
       <AccommodationReview />
       <AccommodationInfo
@@ -103,6 +92,7 @@ function Accommodation() {
         serviceInfo={accommodationDetailData?.data.serviceInfo}
         location={accommodationDetailData?.data.location}
       />
+      <AccommodationToastPopup status={showAlert} setFunc={setShowAlert} />
     </StyledAccommodationWrapper>
   ) : (
     <LoadingCircle />

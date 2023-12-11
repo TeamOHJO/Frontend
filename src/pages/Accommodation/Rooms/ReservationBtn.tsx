@@ -1,19 +1,17 @@
 import { useDisclosure, Button } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { useState } from 'react';
-import DefaultModal from '../../components/Modal/DefaultModal';
+import DefaultModal from '../../../components/Modal/DefaultModal';
 import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
   accommodationSelectVisitorsState,
-} from '../../states/atom';
-import { changeDateFormat, getCookie } from '../../utils/utils';
-import ReservationBtnToastPopup from './ReservationBtnToastPopup';
+} from '../../../states/atom';
+import { changeDateFormat, getCookie } from '../../../utils/utils';
 
 interface ReservationBtnProps {
   soldOut: boolean;
-  roomId: number;
+  roomId: string;
   image: string;
   category: string;
   name: string;
@@ -21,6 +19,12 @@ interface ReservationBtnProps {
   location: string;
   price: number;
   discountPercentage: number;
+  setShowAlert: React.Dispatch<
+    React.SetStateAction<{
+      active: boolean;
+      message: string;
+    }>
+  >;
 }
 
 function ReservationBtn({
@@ -33,15 +37,13 @@ function ReservationBtn({
   location,
   price,
   discountPercentage,
+  setShowAlert,
 }: ReservationBtnProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
   const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
   const [accommodationSelectVisitors] = useRecoilState<number>(accommodationSelectVisitorsState);
-  const [showAlert, setShowAlert] = useState({
-    active: false,
-    message: '',
-  });
+
   const navigate = useNavigate();
   const accessToken = getCookie('token');
 
@@ -94,7 +96,6 @@ function ReservationBtn({
       >
         {soldOut ? '예약마감' : '예약하기'}
       </Button>
-      <ReservationBtnToastPopup status={showAlert} setFunc={setShowAlert} />
     </>
   );
 }

@@ -19,9 +19,7 @@ function AccommodationInfoTag({ serviceInfo }: AccommodationInfoTagProps) {
         {serviceInfo &&
           serviceInfo.map((data: string) => (
             <StyledAccommodationinfoTagItem key={uuid()}>
-              <CheckOutlined
-                style={{ fontSize: '12px', marginRight: '0.5rem' }}
-              />
+              <CheckOutlined style={{ fontSize: '12px', marginRight: '0.5rem' }} />
               <Text as="p" size="xs" color="basic">
                 {data}
               </Text>

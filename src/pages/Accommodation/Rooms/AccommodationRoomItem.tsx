@@ -3,18 +3,22 @@ import { StarFilled } from '@ant-design/icons';
 import { Heading, Text, Badge } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { theme } from '../../styles/theme';
+import { theme } from '../../../styles/theme';
 import AccommodationRoomImages from './AccommodationRoomImages';
 import AccommodationRoomItemCart from './AccommodationRoomItemCart';
 import ReservationBtn from './ReservationBtn';
 import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
-} from '../../states/atom';
-import { changeDateFormat, changePriceDiscountFormat, changeStarFormat } from '../../utils/utils';
+} from '../../../states/atom';
+import {
+  changeDateFormat,
+  changePriceDiscountFormat,
+  changeStarFormat,
+} from '../../../utils/utils';
 
 interface AccommodationRoom {
-  roomId: number;
+  roomId: string;
   name: string;
   price: number;
   discountPercentage: number;
@@ -25,6 +29,12 @@ interface AccommodationRoom {
   averageRating: number;
   category: string;
   location: string;
+  setShowAlert: React.Dispatch<
+    React.SetStateAction<{
+      active: boolean;
+      message: string;
+    }>
+  >;
 }
 
 function AccommodationRoomItem({
@@ -39,6 +49,7 @@ function AccommodationRoomItem({
   averageRating,
   category,
   location,
+  setShowAlert,
 }: AccommodationRoom) {
   const navigate = useNavigate();
   const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
@@ -105,7 +116,11 @@ function AccommodationRoomItem({
             )}
           </div>
           <StyledAccommodationRoomTitleBoxItem>
-            <AccommodationRoomItemCart roomId={roomId} soldOut={soldOut} />
+            <AccommodationRoomItemCart
+              roomId={roomId}
+              soldOut={soldOut}
+              setShowAlert={setShowAlert}
+            />
             <ReservationBtn
               soldOut={soldOut}
               roomId={roomId}
@@ -116,6 +131,7 @@ function AccommodationRoomItem({
               location={location}
               price={price}
               discountPercentage={discountPercentage}
+              setShowAlert={setShowAlert}
             />
           </StyledAccommodationRoomTitleBoxItem>
         </StyledAccommodationRoomTitleBox>

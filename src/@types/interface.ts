@@ -158,7 +158,7 @@ export interface AccommodationDetail {
       createdAt: string;
     }[];
     roomDetails: {
-      roomId: number;
+      roomId: string;
       name: string;
       price: number;
       discountPercentage: number;

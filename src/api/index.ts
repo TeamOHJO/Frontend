@@ -6,14 +6,14 @@ import { AddReviewData } from '../@types/interface';
 axios.defaults.withCredentials = true;
 // const token = getCookie('token');
 
-const client = axios.create({
+export const client = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     'content-type': import.meta.env.VITE_CONTENT_TYPE,
   },
 });
 
-const clientToken = axios.create({
+export const clientToken = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     'content-type': import.meta.env.VITE_CONTENT_TYPE,
