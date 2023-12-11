@@ -15,15 +15,14 @@ function MyPageReservation() {
   // 예약 목록 조회
   const fetchReservationData = async () => {
     const response = await getMyPageReservationList();
-    const { data } = response.data;
 
     // Sort the data by startDate
-    data.sort(
+    response.sort(
       (a: MyPageReservationData, b: MyPageReservationData) =>
         new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
     );
 
-    setReservationData(data);
+    setReservationData(response);
   };
 
   // 예약 취소 목록 조회
