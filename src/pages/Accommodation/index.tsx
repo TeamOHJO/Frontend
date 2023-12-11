@@ -31,9 +31,7 @@ function Accommodation() {
   const params = useParams();
 
   const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
-
   const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
-
   const [accommodationSelectVisitors] = useRecoilState<number>(accommodationSelectVisitorsState);
 
   const accessToken = getCookie('token');

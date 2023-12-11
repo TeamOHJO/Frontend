@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { theme } from '../../styles/theme';
 import RoomToastPopup from './RoomToastPopup';
-import { getCookie, changeDateFormat, changePriceDiscountFormat } from '../../utils/utils';
+import { changeDateFormat, changePriceDiscountFormat } from '../../utils/utils';
 import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
