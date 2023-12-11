@@ -6,8 +6,8 @@ import { Box, Center, Heading, Grid } from '@chakra-ui/react';
 import WishListCard from './WishListCard';
 import { wishlistDataState } from '../../states/atom';
 import { WishlistData } from '../../@types/interface';
-import { getWishlist } from '../../api';
 import WishListNoLiked from './WishListNoLiked';
+import { getWishlist } from '../../api/wishlist';
 
 function WishList() {
   const [wishlistData, setWishlistData] = useRecoilState(wishlistDataState);

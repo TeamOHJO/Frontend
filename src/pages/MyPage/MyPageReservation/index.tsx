@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { MyPageReservationData } from '../../../@types/interface';
 import MyPageReservationTabs from './MyPageReservationTabs';
-import { getMyPageCancelledList, getMyPageReservationList } from '../../../api';
 import { myPageCancelledState, myPageReservationDataState } from '../../../states/atom';
+import { getMyPageCancelledList, getMyPageReservationList } from '../../../api/mypage';
 
 function MyPageReservation() {
   const [reservationData, setReservationData] = useRecoilState(myPageReservationDataState);
