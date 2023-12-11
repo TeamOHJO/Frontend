@@ -28,15 +28,14 @@ function MyPageReservation() {
   // 예약 취소 목록 조회
   const fetchCancelledData = async () => {
     const response = await getMyPageCancelledList();
-    const { data } = response.data;
 
     // Sort the data by startDate
-    data.sort(
+    response.sort(
       (a: MyPageReservationData, b: MyPageReservationData) =>
         new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
     );
 
-    setCancelledList(data);
+    setCancelledList(response);
   };
 
   useEffect(() => {

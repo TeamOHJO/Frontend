@@ -20,8 +20,13 @@ export const getMyPageReservationList = async () => {
 
 // 마이페이지 > 예약 취소 내역 가져오기
 export const getMyPageCancelledList = async () => {
-  const res = await clientToken.get('/reservation/canceled');
-  return res;
+  try {
+    const response = await clientToken.get('/reservation/canceled');
+    return response.data.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 // 마이페이지 > 리뷰 작성
