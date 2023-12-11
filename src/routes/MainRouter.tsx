@@ -20,6 +20,7 @@ import WriteReview from '../pages/AddReview';
 import LoadingRouter from './LoadingRouter';
 import { searchFilteredState } from '../states/atom';
 import { changeDateFormat, getTomorrow } from '../utils/utils';
+import SocialLoginLoading from '../pages/Login/SocialLoginLoading';
 
 function Dashboard() {
   return (
@@ -63,6 +64,7 @@ function MainRouter() {
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/mypage/review/write/:id" element={<WriteReview />} />
             <Route path="/loading" element={<LoadingRouter />} />
+            <Route path="/social-loading" element={<SocialLoginLoading />} />
           </Route>
           <Route path="/accommodation/:id" element={<Accommodation />} />
           <Route path="/room/:id" element={<Room />} />
