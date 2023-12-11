@@ -6,14 +6,14 @@ import { AddReviewData } from '../@types/interface';
 axios.defaults.withCredentials = true;
 // const token = getCookie('token');
 
-const client = axios.create({
+export const client = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     'content-type': import.meta.env.VITE_CONTENT_TYPE,
   },
 });
 
-const clientToken = axios.create({
+export const clientToken = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     'content-type': import.meta.env.VITE_CONTENT_TYPE,
@@ -137,42 +137,7 @@ export const getReview = async (accommodationId: string) => {
   return res.data;
 };
 
-interface SearchFilterProps {
-  category: string;
-  isDomestic: boolean;
-  startDate: string;
-  endDate: string;
-  numberOfPeople: number;
-}
-
 /* eslint-disable */
-export const getAccommodationList = async (
-  page: number,
-  { category, isDomestic, startDate, endDate, numberOfPeople }: SearchFilterProps,
-) => {
-  const newToken = getCookie('token');
-  if (newToken) {
-    const res = await axios.get(
-      `${
-        import.meta.env.VITE_SERVER_URL
-      }/accommodation?category=${category}&isDomestic=${isDomestic}&page=${page}&startDate=${startDate}&endDate=${endDate}&numberOfPeople=${numberOfPeople}`,
-      {
-        headers: {
-          'content-type': import.meta.env.VITE_CONTENT_TYPE,
-          Authorization: `Bearer ${newToken}`,
-        },
-      },
-    );
-
-    return res.data;
-  }
-  if (!newToken) {
-    const res = await client.get(
-      `/accommodation?category=${category}&isDomestic=${isDomestic}&page=${page}&startDate=${startDate}&endDate=${endDate}&numberOfPeople=${numberOfPeople}`,
-    );
-    return res.data;
-  }
-};
 
 // 위시리스트 목록 불러오기
 export const getWishlist = async () => {
