@@ -10,8 +10,8 @@ import {
 } from '../../states/atom';
 import { BasketData } from '../../@types/interface';
 import BasketNoProducts from './BasketNoProducts';
-import { getBasket } from '../../api';
 import ToastPopup from '../../components/Modal/ToastPopup';
+import { getBasket } from '../../api/basket';
 
 function Basket() {
   const [basketData, setBasketData] = useRecoilState(basketDataState);

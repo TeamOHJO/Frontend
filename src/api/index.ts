@@ -1,10 +1,8 @@
 import axios from 'axios';
 import { ReservationPostData } from './type';
 import { getCookie } from '../utils/utils';
-import { AddReviewData } from '../@types/interface';
 
 axios.defaults.withCredentials = true;
-// const token = getCookie('token');
 
 export const client = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
@@ -34,45 +32,6 @@ clientToken.interceptors.request.use(
   error => Promise.reject(error),
 );
 
-// 장바구니 가져오기
-export const getBasket = async () => {
-  const res = await clientToken.get('/basket');
-  return res;
-};
-
-// 장바구니 삭제
-export const DeleteBasketItem = async (basketId: number) => {
-  const res = await clientToken.delete(`/basket/${basketId}`);
-  return res;
-};
-
-// 마이페이지 > 예약 취소 요청 API
-export const CancelReservation = async (reservationId: number) => {
-  const res = await clientToken.delete(`/reservation/${reservationId}`);
-  return res;
-};
-
-// 마이페이지 > 예약 내역 가져오기
-export const getMyPageReservationList = async () => {
-  const res = await clientToken.get('/reservation');
-  return res;
-};
-
-// 마이페이지 > 예약 취소 내역 가져오기
-export const getMyPageCancelledList = async () => {
-  const res = await clientToken.get('/reservation/canceled');
-  return res;
-};
-
-// 마이페이지 > 리뷰 작성
-export const SubmitReview = async (reservationId: number, reviewData: AddReviewData) => {
-  const res = await clientToken.post(
-    `/review/reservations/${reservationId}`,
-    JSON.stringify(reviewData),
-  );
-  return res;
-};
-
 // 예약내역 GET 해오기 !!
 export const getReservation = async (roomsId: number) => {
   const res = await clientToken.get(`/reservation/details/rooms/${roomsId}`);
@@ -83,17 +42,6 @@ export const postReservation = async (roomsId: number, reservationInfo: Reservat
   try {
     const res = await clientToken.post(`/reservation/rooms/${roomsId}`, reservationInfo);
     return res;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
-
-// room ID를 통해 객실 상세 정보 가져오기 API!
-export const getRoomDetails = async (roomId: number) => {
-  try {
-    const response = await client.get(`/accommodation/detail/room/${roomId}`);
-    return response.data;
   } catch (error) {
     console.error(error);
     throw error;

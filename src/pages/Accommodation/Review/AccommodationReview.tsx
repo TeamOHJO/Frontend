@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import { useState, useEffect } from 'react';
 import AccommodationReviewItem from './AccommodationReviewItem';
+import { getReviews } from '../../../api/accommodation';
 
 interface AccommodationReviewObject {
   reviewId: number;
@@ -28,13 +29,7 @@ function AccommodationReview() {
   const params = useParams();
 
   const fetchData = async () => {
-    const response = await fetch(
-      `https://yanoljaschool.site:8080/review/accommodation/${params.id}`,
-      {
-        method: 'GET',
-      },
-    );
-    setReviews(await response.json());
+    setReviews(await getReviews(params.id));
   };
 
   useEffect(() => {

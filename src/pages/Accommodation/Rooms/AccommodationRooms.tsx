@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { v4 as uuid } from 'uuid';
-import { theme } from '../../styles/theme';
+import { theme } from '../../../styles/theme';
 import AccommodationRoomItem from './AccommodationRoomItem';
 
 interface AccommodationRoom {
-  roomId: number;
+  roomId: string;
   name: string;
   price: number;
   discountPercentage: number;
@@ -20,9 +20,15 @@ interface AccommodationRoomsProps {
   rooms: AccommodationRoom[];
   category: string;
   location: string;
+  setShowAlert: React.Dispatch<
+    React.SetStateAction<{
+      active: boolean;
+      message: string;
+    }>
+  >;
 }
 
-function AccommodationRooms({ rooms, category, location }: AccommodationRoomsProps) {
+function AccommodationRooms({ rooms, category, location, setShowAlert }: AccommodationRoomsProps) {
   return (
     <StyledAccommodationRoomsWrapper>
       {rooms.map((room: AccommodationRoom) => (
@@ -38,6 +44,7 @@ function AccommodationRooms({ rooms, category, location }: AccommodationRoomsPro
           averageRating={room.averageRating}
           category={category}
           location={location}
+          setShowAlert={setShowAlert}
           key={uuid()}
         />
       ))}

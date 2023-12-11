@@ -10,6 +10,7 @@ import { postJoin } from '../../api/login';
 import { ErrorData } from '../../api/type';
 import { toastPopupState } from '../../states/atom';
 import useThrottle from '../../hooks/useThrottle';
+import SocialLoginContainer from './SocialLoginContainer';
 
 const JoinTabContent = () => {
   const [formData, setFormData] = useState({
@@ -104,6 +105,7 @@ const JoinTabContent = () => {
     <StyledForm onSubmit={handleJoinSubmit}>
       <JoinInput isError={isError} errors={errors} errorSetFunc={errorSetFunc} />
       <JoinTabButton errors={errors} formData={formData} errorSetFunc={errorSetFunc} />
+      <SocialLoginContainer />
     </StyledForm>
   );
 };

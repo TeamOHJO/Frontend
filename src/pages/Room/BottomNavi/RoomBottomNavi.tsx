@@ -4,14 +4,14 @@ import { UpOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { useState } from 'react';
-import { theme } from '../../styles/theme';
-import DefaultModal from '../../components/Modal/DefaultModal';
-import { changeDateFormat, getCookie, changePriceDiscountFormat } from '../../utils/utils';
+import { theme } from '../../../styles/theme';
+import DefaultModal from '../../../components/Modal/DefaultModal';
+import { changeDateFormat, getCookie, changePriceDiscountFormat } from '../../../utils/utils';
 import {
   accommodationSelectStartDateState,
   accommodationSelectEndDateState,
   accommodationSelectVisitorsState,
-} from '../../states/atom';
+} from '../../../states/atom';
 import RoomReservationBtnToastPopup from './RoomReservationBtnToastPopup';
 
 interface RoomBottomNaviProps {

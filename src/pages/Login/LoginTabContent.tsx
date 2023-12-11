@@ -11,6 +11,7 @@ import { postLogin } from '../../api/login';
 import { ErrorData } from '../../api/type';
 import { toastPopupState } from '../../states/atom';
 import useThrottle from '../../hooks/useThrottle';
+import SocialLoginContainer from './SocialLoginContainer';
 
 const LoginTabContent = () => {
   const handleThrottle = useThrottle();
@@ -78,6 +79,7 @@ const LoginTabContent = () => {
     <StyledForm onSubmit={handleLoginSubmit}>
       <LoginInput isError={isError} errors={errors} errorSetFunc={errorSetFunc} />
       <LoginTabButton errors={errors} formData={formData} errorSetFunc={errorSetFunc} />
+      <SocialLoginContainer />
     </StyledForm>
   );
 };

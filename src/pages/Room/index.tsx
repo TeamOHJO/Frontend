@@ -5,24 +5,18 @@ import RoomNavi from './RoomNavi';
 import RoomMainImg from './RoomMainImg';
 import RoomTitle from './RoomTitle';
 import RoomSelectedInfo from './RoomSelectedInfo';
-import RoomInfo from './RoomInfo';
-import RoomBottomNavi from './RoomBottomNavi';
+import RoomInfo from './Info/RoomInfo';
+import RoomBottomNavi from './BottomNavi/RoomBottomNavi';
 import { RoomDetail } from '../../@types/interface';
 import LoadingCircle from '../../components/Loading';
+import { getRoomDetail } from '../../api/room';
 
 function Room() {
   const [roomDetailData, setRoomDetailData] = useState<RoomDetail>();
   const params = useParams();
 
   const fetchData = async () => {
-    const response = await fetch(
-      `https://yanoljaschool.site:8080/accommodation/detail/room/${params.id}`,
-      {
-        method: 'GET',
-      },
-    );
-    const res = await response.json();
-    setRoomDetailData(res.data);
+    setRoomDetailData(await getRoomDetail(params.id));
   };
 
   useEffect(() => {

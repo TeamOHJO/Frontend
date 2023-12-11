@@ -5,8 +5,8 @@ import { Card, Image, Text, Box, CardBody, Badge, CardFooter } from '@chakra-ui/
 import { StarFilled, CloseOutlined } from '@ant-design/icons';
 import { BasketData } from '../../@types/interface';
 import { basketDataState } from '../../states/atom';
-import { DeleteBasketItem } from '../../api';
 import { changeCategoryReverseFormat, changeStarFormat, countDay } from '../../utils/utils';
+import { deleteBasketItem } from '../../api/basket';
 
 interface ToastData {
   active: boolean;
@@ -40,7 +40,7 @@ function BasketDisabledCard({ item, setShowAlert }: BasketCardProps) {
   };
 
   const deleteSingleItem = async (id: number) => {
-    await DeleteBasketItem(id);
+    await deleteBasketItem(id);
     setBasketData(basketData.filter((product: BasketData) => product.basketId !== id));
     toastFunc('숙소를 삭제하였습니다.');
   };

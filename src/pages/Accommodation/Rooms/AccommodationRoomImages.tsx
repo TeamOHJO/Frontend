@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { useDisclosure } from '@chakra-ui/react';
-import OnOpenSwiper from './Swiper/OnOpenSwiper';
-import ImageModal from './ImageModal';
-import { theme } from '../../styles/theme';
+import OnOpenSwiper from '../Swiper/OnOpenSwiper';
+import ImageModal from '../ImageModal';
+import { theme } from '../../../styles/theme';
 
 function AccommodationRoomImages({ images }: any) {
   const { isOpen, onOpen, onClose } = useDisclosure();

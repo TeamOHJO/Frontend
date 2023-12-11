@@ -3,7 +3,7 @@ import { Button, useDisclosure } from '@chakra-ui/react';
 import AccommodationInfoText from './AccommodationInfoText';
 import AccommodationInfoMap from './AccommodationInfoMap';
 import AccommodationInfoTag from './AccommodationInfoTag';
-import ExplanationModal from './ExplanationModal';
+import ExplanationModal from '../ExplanationModal';
 
 interface AccommodationInfoProps {
   explanation: string;

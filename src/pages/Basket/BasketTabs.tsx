@@ -22,7 +22,7 @@ import {
 } from '../../states/atom';
 import DefaultModal from '../../components/Modal/DefaultModal';
 import BasketNoProducts from './BasketNoProducts';
-import { DeleteBasketItem } from '../../api';
+import { deleteBasketItem } from '../../api/basket';
 
 interface ToastData {
   active: boolean;
@@ -50,7 +50,7 @@ function BasketTabs({ setShowAlert }: BasketTabsProps) {
 
   // 예약 불가능 숙소 모두 삭제
   const deleteAllUnavailable = () => {
-    unavailableIds.forEach((id: number) => DeleteBasketItem(id));
+    unavailableIds.forEach((id: number) => deleteBasketItem(id));
     setBasketData(
       basketData.filter((product: BasketData) => !unavailableIds.includes(product.basketId)),
     );
@@ -59,7 +59,7 @@ function BasketTabs({ setShowAlert }: BasketTabsProps) {
 
   // 예약 가능 숙소 모두 삭제
   const deleteAllAvailable = () => {
-    availableIds.forEach((id: number) => DeleteBasketItem(id));
+    availableIds.forEach((id: number) => deleteBasketItem(id));
     setBasketData(
       basketData.filter((product: BasketData) => !availableIds.includes(product.basketId)),
     );

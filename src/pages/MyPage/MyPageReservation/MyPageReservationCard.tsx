@@ -6,10 +6,10 @@ import { StarFilled } from '@ant-design/icons';
 import { theme } from '../../../styles/theme';
 import { MyPageReservationData } from '../../../@types/interface';
 import { handleBadgeColor } from '../../../utils/handleBadgeColor';
-import { CancelReservation } from '../../../api';
 import { changeCategoryReverseFormat, changeStarFormat, countDay } from '../../../utils/utils';
 import DefaultModal from '../../../components/Modal/DefaultModal';
 import { myPageReservationDataState } from '../../../states/atom';
+import { postCancelReservation } from '../../../api/mypage';
 
 interface MyPageReservationCardProps {
   item: MyPageReservationData;
@@ -39,7 +39,7 @@ function MyPageReservationCard({ item }: MyPageReservationCardProps) {
 
   const cancelReservation = async () => {
     try {
-      await CancelReservation(item.reservationId);
+      await postCancelReservation(item.reservationId);
       setReservationData(
         reservationData.filter(
           (product: MyPageReservationData) => product.reservationId !== item.reservationId,
