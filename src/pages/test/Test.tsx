@@ -3,7 +3,7 @@ import { Button, Heading, Text, useDisclosure, Badge } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import ToastPopup from '../../components/Modal/ToastPopup';
 import DefaultModal from '../../components/Modal/DefaultModal';
-import { postLogout } from '../../api';
+import { postLogout } from '../../api/login';
 import { removeCookies } from '../../utils/utils';
 
 const Test = () => {
@@ -165,12 +165,7 @@ const Test = () => {
       <Button variant="blue" size="sm" width="60px" onClick={onOpen}>
         모달
       </Button>
-      <DefaultModal
-        isOpen={isOpen}
-        onClose={onClose}
-        modalFunc={modalFunc}
-        modalData={modalData}
-      />
+      <DefaultModal isOpen={isOpen} onClose={onClose} modalFunc={modalFunc} modalData={modalData} />
       <Button variant="blue" size="sm" width="60px" onClick={logoutFunc}>
         로그아웃
       </Button>

@@ -7,7 +7,7 @@ import { FormData, LoginSetProps } from '../../@types/interface';
 import LoginTabButton from './LoginTabButton';
 import LoginInput from './LoginInput';
 import { setCookies, validateField } from '../../utils/utils';
-import { postLogin } from '../../api';
+import { postLogin } from '../../api/login';
 import { ErrorData } from '../../api/type';
 import { toastPopupState } from '../../states/atom';
 import useThrottle from '../../hooks/useThrottle';

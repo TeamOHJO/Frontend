@@ -6,7 +6,7 @@ import { validateField } from '../../utils/utils';
 import { FormData, LoginSetProps } from '../../@types/interface';
 import JoinInput from './JoinInput';
 import JoinTabButton from './JoinTabButton';
-import { postJoin } from '../../api';
+import { postJoin } from '../../api/login';
 import { ErrorData } from '../../api/type';
 import { toastPopupState } from '../../states/atom';
 import useThrottle from '../../hooks/useThrottle';
