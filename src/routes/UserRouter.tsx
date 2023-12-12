@@ -17,15 +17,11 @@ function UserRouter({ children }: UserRouterProps) {
     const email = getCookie('userEmail');
 
     if (!token || !name || !email) {
-      setTimeout(() => {
-        removeCookies();
-        setIsLoading(false);
-      }, 1000);
+      removeCookies();
+      setIsLoading(false);
     } else {
-      setTimeout(() => {
-        setIsLoggedIn(true);
-        setIsLoading(false);
-      }, 1000);
+      setIsLoggedIn(true);
+      setIsLoading(false);
     }
   }, []);
 
