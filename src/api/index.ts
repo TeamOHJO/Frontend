@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { JoinData, LoginData, Email, ReservationPostData } from './type';
+import { ReservationPostData } from './type';
 import { getCookie } from '../utils/utils';
 
 axios.defaults.withCredentials = true;
@@ -32,37 +32,6 @@ clientToken.interceptors.request.use(
   error => Promise.reject(error),
 );
 
-export const postLogin = async (loginData: LoginData) => {
-  const res = await client.post('/login', loginData);
-  return res.data;
-};
-
-export const postJoin = async (joinData: JoinData) => {
-  const res = await client.post('/user/signup', joinData);
-  return res.data;
-};
-
-export const postEmail = async (email: Email) => {
-  const res = await client.post('/user/email/confirmation', email);
-  return res.data;
-};
-
-export const getVerify = async (verify: string, email: string) => {
-  const res = await client.get(`/user/verify/${verify}?email=${email}`);
-  return res.data;
-};
-
-// 토큰 쓰는 API 형식
-export const postLogout = async () => {
-  const res = await clientToken.post('/logout');
-  return res.data;
-};
-
-export const testToken = async () => {
-  const res = await clientToken.get('/user/test');
-  return res;
-};
-
 // 예약내역 GET 해오기 !!
 export const getReservation = async (roomsId: number) => {
   const res = await clientToken.get(`/reservation/details/rooms/${roomsId}`);
@@ -79,7 +48,6 @@ export const postReservation = async (roomsId: number, reservationInfo: Reservat
   }
 };
 
-// room ID를 통해 객실 상세 정보 가져오기 API!
 export const getRoomDetails = async (roomId: number) => {
   try {
     const response = await client.get(`/accommodation/detail/room/${roomId}`);
@@ -96,110 +64,14 @@ export const getReview = async (accommodationId: string) => {
   return res.data;
 };
 
-interface SearchFilterProps {
-  category: string;
-  isDomestic: boolean;
-  startDate: string;
-  endDate: string;
-  numberOfPeople: number;
-}
-
-/* eslint-disable */
-export const getAccommodationList = async (
-  page: number,
-  { category, isDomestic, startDate, endDate, numberOfPeople }: SearchFilterProps,
-) => {
-  const newToken = getCookie('token');
-  if (newToken) {
-    const res = await axios.get(
-      `${
-        import.meta.env.VITE_SERVER_URL
-      }/accommodation?category=${category}&isDomestic=${isDomestic}&page=${page}&startDate=${startDate}&endDate=${endDate}&numberOfPeople=${numberOfPeople}`,
-      {
-        headers: {
-          'content-type': import.meta.env.VITE_CONTENT_TYPE,
-          Authorization: `Bearer ${newToken}`,
-        },
-      },
-    );
-
-    return res.data;
-  }
-  if (!newToken) {
-    const res = await client.get(
-      `/accommodation?category=${category}&isDomestic=${isDomestic}&page=${page}&startDate=${startDate}&endDate=${endDate}&numberOfPeople=${numberOfPeople}`,
-    );
-    return res.data;
-  }
+// 위시리스트 목록 불러오기
+export const getWishlist = async () => {
+  const res = await clientToken.get('/wishlist');
+  return res;
 };
 
 // 좋아요 생성 & 해제
 export const clickLiked = async (accommodationId: number) => {
   const res = await clientToken.post(`/accommodation/${accommodationId}/likes`);
   return res;
-};
-
-export const getMyInfo = async () => {
-  const newToken = getCookie('token');
-
-  const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/user/mypage`, {
-    headers: {
-      'content-type': import.meta.env.VITE_CONTENT_TYPE,
-      Authorization: `Bearer ${newToken}`,
-    },
-  });
-  return res.data;
-};
-
-export const changeInfo = async (userName: string, phoneNum: string) => {
-  const newToken = getCookie('token');
-
-  const res = await axios.put(
-    `${import.meta.env.VITE_SERVER_URL}/user`,
-    {
-      username: userName,
-      phonenumber: phoneNum,
-    },
-    {
-      headers: {
-        'content-type': import.meta.env.VITE_CONTENT_TYPE,
-        Authorization: `Bearer ${newToken}`,
-      },
-    },
-  );
-
-  return res.data;
-};
-
-export const changePw = async (oldPw: string, newPw: string) => {
-  const newToken = getCookie('token');
-
-  const res = await axios.put(
-    `${import.meta.env.VITE_SERVER_URL}/user/password`,
-    {
-      oldPassword: oldPw,
-      newPassword: newPw,
-    },
-    {
-      headers: {
-        'content-type': import.meta.env.VITE_CONTENT_TYPE,
-        Authorization: `Bearer ${newToken}`,
-      },
-    },
-  );
-
-  return res.data;
-};
-
-export const resignUser = async () => {
-  const newToken = getCookie('token');
-
-  const res = await axios.delete('https://yanoljaschool.site:8080/user', {
-    headers: {
-      'content-type': import.meta.env.VITE_CONTENT_TYPE,
-      Authorization: `Bearer ${newToken}`,
-    },
-  });
-
-  return res.data;
 };

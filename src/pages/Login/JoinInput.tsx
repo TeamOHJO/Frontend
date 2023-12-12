@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { useSetRecoilState } from 'recoil';
 import { LoginTabInputProps } from '../../@types/interface';
-import { getVerify, postEmail } from '../../api';
+import { getVerify, postEmail } from '../../api/login';
 import { toastPopupState } from '../../states/atom';
 import useThrottle from '../../hooks/useThrottle';
 

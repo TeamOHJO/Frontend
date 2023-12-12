@@ -5,7 +5,7 @@ import { theme } from '../../../styles/theme';
 import MyPageSubtitle from '../MyPageSubtitle';
 import InfoInput from './InfoInput';
 import PasswordSection from './PasswordSection';
-import { getMyInfo } from '../../../api';
+import { getMyInfo } from '../../../api/mypage';
 import { userInformation } from '../../../states/atom';
 import { getCookie } from '../../../utils/utils';
 import ResignSection from './ResignSection';

@@ -4,7 +4,7 @@ import { Input, Button } from '@chakra-ui/react';
 import { useRecoilValue } from 'recoil';
 import { AxiosError } from 'axios';
 import { userInformation } from '../../../states/atom';
-import { changeInfo } from '../../../api';
+import { changeInfo } from '../../../api/mypage';
 import { ErrorData } from '../../../api/type';
 
 interface InfoInputProps {
@@ -37,12 +37,7 @@ function InfoInput({ name, list, item, onChangeInput }: InfoInputProps) {
   return (
     <StyledInfoWrapper>
       <StyledInfoLabel>{list}</StyledInfoLabel>
-      <StyledInfoInput
-        name={name}
-        disabled={!onClicked}
-        value={item}
-        onChange={onChangeInput}
-      />
+      <StyledInfoInput name={name} disabled={!onClicked} value={item} onChange={onChangeInput} />
       {!onClicked ? (
         <StyledEditBtn
           variant="blue"
