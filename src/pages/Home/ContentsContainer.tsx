@@ -43,6 +43,9 @@ const ContentsContainer = () => {
           setList((prevList: any[]) => [...prevList, ...data]);
         }
       } else {
+        if (page === 0) {
+          setList(data);
+        }
         setShowGetMoreBtn(false);
       }
     } catch (error) {

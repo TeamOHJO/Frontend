@@ -19,8 +19,8 @@ import ReservationComplete from '../pages/ReservationComplete';
 import WriteReview from '../pages/AddReview';
 import LoadingRouter from './LoadingRouter';
 import { searchFilteredState } from '../states/atom';
-import { changeDateFormat, getTomorrow } from '../utils/utils';
 import SocialLoginLoading from '../pages/Login/SocialLoginLoading';
+import UserRouter from './UserRouter';
 
 function Dashboard() {
   return (
@@ -41,11 +41,12 @@ function MainRouter() {
   }, [pathname]);
 
   useEffect(() => {
+    const category = sessionStorage.getItem('accommodationCategory')
+      ? (sessionStorage.getItem('accommodationCategory') as string)
+      : 'HOTEL';
     const newFilter = {
       ...searchFilter,
-      startDate: changeDateFormat(new Date()),
-      endDate: changeDateFormat(getTomorrow()),
-      numberOfPeople: 2,
+      category,
     };
     setSearchFilter(newFilter);
   }, []);
@@ -59,18 +60,60 @@ function MainRouter() {
             <Route path="/:id" element={<Home />} />
             <Route path="/test" element={<Test />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/wishlist" element={<WishList />} />
-            <Route path="/basket" element={<Basket />} />
-            <Route path="/mypage" element={<MyPage />} />
-            <Route path="/mypage/review/write/:id" element={<WriteReview />} />
+            <Route
+              path="/wishlist"
+              element={(
+                <UserRouter>
+                  <WishList />
+                </UserRouter>
+              )}
+            />
+            <Route
+              path="/basket"
+              element={(
+                <UserRouter>
+                  <Basket />
+                </UserRouter>
+              )}
+            />
+            <Route
+              path="/mypage"
+              element={(
+                <UserRouter>
+                  <MyPage />
+                </UserRouter>
+              )}
+            />
+            <Route
+              path="/mypage/review/write/:id"
+              element={(
+                <UserRouter>
+                  <WriteReview />
+                </UserRouter>
+              )}
+            />
             <Route path="/loading" element={<LoadingRouter />} />
             <Route path="/social-loading" element={<SocialLoginLoading />} />
           </Route>
           <Route path="/accommodation/:id" element={<Accommodation />} />
           <Route path="/room/:id" element={<Room />} />
           <Route path="/review/:id" element={<CustomerReview />} />
-          <Route path="/reservation/:id" element={<Reservation />} />
-          <Route path="/reservation-complete/:id" element={<ReservationComplete />} />
+          <Route
+            path="/reservation/:id"
+            element={(
+              <UserRouter>
+                <Reservation />
+              </UserRouter>
+            )}
+          />
+          <Route
+            path="/reservation-complete/:id"
+            element={(
+              <UserRouter>
+                <ReservationComplete />
+              </UserRouter>
+            )}
+          />
         </Routes>
       </StyledInnerContainer>
     </StyledContainer>
