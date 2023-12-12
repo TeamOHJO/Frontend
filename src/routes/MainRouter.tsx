@@ -41,11 +41,12 @@ function MainRouter() {
   }, [pathname]);
 
   useEffect(() => {
+    const category = sessionStorage.getItem('accommodationCategory')
+      ? (sessionStorage.getItem('accommodationCategory') as string)
+      : 'HOTEL';
     const newFilter = {
       ...searchFilter,
-      startDate: changeDateFormat(new Date()),
-      endDate: changeDateFormat(getTomorrow()),
-      numberOfPeople: 2,
+      category,
     };
     setSearchFilter(newFilter);
   }, []);

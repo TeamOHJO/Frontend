@@ -1,12 +1,6 @@
 import { atom, selector } from 'recoil';
-import { recoilPersist } from 'recoil-persist';
 import { AlertData, BasketData, MyPageReservationData, WishlistData } from '../@types/interface';
 import { getTomorrow, changeDateFormat } from '../utils/utils';
-
-const { persistAtom } = recoilPersist({
-  key: 'sessionStorage',
-  storage: sessionStorage,
-});
 
 export const toastPopupState = atom<AlertData>({
   key: 'toastPopupState',
@@ -45,7 +39,6 @@ export const searchFilteredState = atom({
     endDate: changeDateFormat(getTomorrow()),
     numberOfPeople: 2,
   },
-  effects_UNSTABLE: [persistAtom],
 });
 
 export const searchPages = atom({

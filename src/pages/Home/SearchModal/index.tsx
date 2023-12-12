@@ -62,9 +62,9 @@ function SearchModal({ isOpen, onClose }: ModalProps) {
 
   const search = () => {
     checkValidEndDate();
+    setPage(0);
     setSearchingAttempt(searchingAttempt + 1);
     onClose();
-    setPage(0);
   };
 
   return (
