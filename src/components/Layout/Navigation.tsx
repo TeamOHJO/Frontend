@@ -5,7 +5,7 @@ import { ShoppingCartOutlined, HomeOutlined, HeartOutlined, UserOutlined } from 
 import { theme } from '../../styles/theme';
 import TopBtn from '../TopBtn';
 import { getCookie, removeCookies } from '../../utils/utils';
-import { postLogout } from '../../api';
+import { postLogout } from '../../api/login';
 
 function Navigation() {
   const [isUser, setIsUser] = useState(true);

@@ -15,7 +15,7 @@ function WishList() {
   const fetchWishlistData = async () => {
     try {
       const response = await getWishlist();
-      setWishlistData(response.data.data);
+      setWishlistData(response);
     } catch (err) {
       console.log(err);
     }
