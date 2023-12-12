@@ -5,7 +5,7 @@ import { Button } from '@chakra-ui/react';
 import { ErrorData } from '../../../api/type';
 import MyPageSubtitle from '../MyPageSubtitle';
 import PasswordInput from './PassWordInput';
-import { changePw } from '../../../api';
+import { changePw } from '../../../api/mypage';
 
 const PasswordSection = () => {
   const [errorMsg, setErrorMsg] = useState('');

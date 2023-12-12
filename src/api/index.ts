@@ -48,13 +48,21 @@ export const postReservation = async (roomsId: number, reservationInfo: Reservat
   }
 };
 
+export const getRoomDetails = async (roomId: number) => {
+  try {
+    const response = await client.get(`/accommodation/detail/room/${roomId}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 // 리뷰 조회 GET 해오기!!
 export const getReview = async (accommodationId: string) => {
   const res = await client.get(`/review/accommodation/${accommodationId}`);
   return res.data;
 };
-
-/* eslint-disable */
 
 // 위시리스트 목록 불러오기
 export const getWishlist = async () => {
@@ -66,69 +74,4 @@ export const getWishlist = async () => {
 export const clickLiked = async (accommodationId: number) => {
   const res = await clientToken.post(`/accommodation/${accommodationId}/likes`);
   return res;
-};
-
-export const getMyInfo = async () => {
-  const newToken = getCookie('token');
-
-  const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/user/mypage`, {
-    headers: {
-      'content-type': import.meta.env.VITE_CONTENT_TYPE,
-      Authorization: `Bearer ${newToken}`,
-    },
-  });
-  return res.data;
-};
-
-export const changeInfo = async (userName: string, phoneNum: string) => {
-  const newToken = getCookie('token');
-
-  const res = await axios.put(
-    `${import.meta.env.VITE_SERVER_URL}/user`,
-    {
-      username: userName,
-      phonenumber: phoneNum,
-    },
-    {
-      headers: {
-        'content-type': import.meta.env.VITE_CONTENT_TYPE,
-        Authorization: `Bearer ${newToken}`,
-      },
-    },
-  );
-
-  return res.data;
-};
-
-export const changePw = async (oldPw: string, newPw: string) => {
-  const newToken = getCookie('token');
-
-  const res = await axios.put(
-    `${import.meta.env.VITE_SERVER_URL}/user/password`,
-    {
-      oldPassword: oldPw,
-      newPassword: newPw,
-    },
-    {
-      headers: {
-        'content-type': import.meta.env.VITE_CONTENT_TYPE,
-        Authorization: `Bearer ${newToken}`,
-      },
-    },
-  );
-
-  return res.data;
-};
-
-export const resignUser = async () => {
-  const newToken = getCookie('token');
-
-  const res = await axios.delete('https://yanoljaschool.site:8080/user', {
-    headers: {
-      'content-type': import.meta.env.VITE_CONTENT_TYPE,
-      Authorization: `Bearer ${newToken}`,
-    },
-  });
-
-  return res.data;
 };
