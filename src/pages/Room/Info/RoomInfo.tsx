@@ -3,15 +3,20 @@ import RoomInfoText from './RoomInfoText';
 import RoomInfoTag from './RoomInfoTag';
 
 interface RoomInfoProps {
-  checkinExplanation: string;
-  serviceInfo: string[];
+  isLoaded: boolean;
+  checkinExplanation: string | undefined;
+  serviceInfo: string[] | undefined;
 }
 
-function RoomInfo({ checkinExplanation, serviceInfo }: RoomInfoProps) {
+function RoomInfo({
+  isLoaded,
+  checkinExplanation = '',
+  serviceInfo = ['', '', '', '', '', '', '', '', '', ''],
+}: RoomInfoProps) {
   return (
     <StyledRoomInfoWrapper>
-      <RoomInfoText title="체크인 안내" content={checkinExplanation} />
-      <RoomInfoTag serviceInfo={serviceInfo} />
+      <RoomInfoText title="체크인 안내" content={checkinExplanation} isLoaded={isLoaded} />
+      <RoomInfoTag serviceInfo={serviceInfo} isLoaded={isLoaded} />
     </StyledRoomInfoWrapper>
   );
 }

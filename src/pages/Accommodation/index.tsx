@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import { Skeleton } from '@chakra-ui/react';
 import AccommodationNavi from './AccommodationNavi';
 import AccommodationMainImages from './AccommodationMainImg';
 import AccommodationTitle from './AccommodationTitle';
@@ -16,12 +17,15 @@ import {
   accommodationSelectVisitorsState,
 } from '../../states/atom';
 import { getCookie, changeDateFormat } from '../../utils/utils';
-import LoadingCircle from '../../components/Loading';
+// import LoadingCircle from '../../components/Loading';
 import { getAccommodationDetail, getAccommodationDetailToken } from '../../api/accommodation';
 import AccommodationToastPopup from './AccommodationToastPopup';
+// import Error from '../../components/Error';
 
 function Accommodation() {
   const [accommodationDetailData, setAccommodationDetailData] = useState<AccommodationDetail>();
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
   // 장바구니 팝업
   const [showAlert, setShowAlert] = useState({
     active: false,
@@ -56,35 +60,48 @@ function Accommodation() {
         ),
       );
     }
+    setTimeout(() => {
+      setIsLoaded(true);
+    }, 500);
   };
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     fetchData();
   }, []);
 
-  return accommodationDetailData ? (
+  return (
     <StyledAccommodationWrapper>
       <AccommodationNavi />
       <AccommodationMainImages
+        isLoaded={isLoaded}
         images={accommodationDetailData?.data.accommodationImages}
         liked={accommodationDetailData?.data.liked}
         tag={accommodationDetailData?.data.tag}
       />
       <AccommodationTitle
+        isLoaded={isLoaded}
         name={accommodationDetailData?.data.name}
         category={accommodationDetailData?.data.category}
         location={accommodationDetailData?.data.location}
         averageRating={accommodationDetailData?.data.averageRating}
       />
-      <AccommodationSelect fetchData={fetchData} />
-      <AccommodationRooms
-        rooms={accommodationDetailData?.data.roomDetails}
-        category={accommodationDetailData?.data.category}
-        location={accommodationDetailData?.data.location}
-        setShowAlert={setShowAlert}
-      />
-      <AccommodationReview />
+      <AccommodationSelect isLoaded={isLoaded} fetchData={fetchData} />
+      {accommodationDetailData && isLoaded ? (
+        <AccommodationRooms
+          rooms={accommodationDetailData?.data.roomDetails}
+          category={accommodationDetailData?.data.category}
+          location={accommodationDetailData?.data.location}
+          setShowAlert={setShowAlert}
+        />
+      ) : (
+        <StyledRoomsWrapperSkeleton>
+          <Skeleton width="100%" height="400px" borderRadius="10px" marginBottom="3rem" />
+          <Skeleton width="100%" height="400px" borderRadius="10px" marginBottom="3rem" />
+          <Skeleton width="100%" height="400px" borderRadius="10px" marginBottom="3rem" />
+        </StyledRoomsWrapperSkeleton>
+      )}
+      <AccommodationReview isLoaded={isLoaded} />
       <AccommodationInfo
+        isLoaded={isLoaded}
         explanation={accommodationDetailData?.data.explanation}
         cancelInfo={accommodationDetailData?.data.cancelInfo}
         useGuide={accommodationDetailData?.data.useGuide}
@@ -94,8 +111,6 @@ function Accommodation() {
       />
       <AccommodationToastPopup status={showAlert} setFunc={setShowAlert} />
     </StyledAccommodationWrapper>
-  ) : (
-    <LoadingCircle />
   );
 }
 
@@ -105,4 +120,8 @@ const StyledAccommodationWrapper = styled.div`
   width: 100%;
   padding-top: 60px;
   position: relative;
+`;
+
+const StyledRoomsWrapperSkeleton = styled.div`
+  padding: 1rem;
 `;

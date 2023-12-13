@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Heading, Text, Badge } from '@chakra-ui/react';
+import { Heading, Text, Badge, Skeleton, SkeletonText, SkeletonCircle } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { theme } from '../../styles/theme';
@@ -14,14 +14,16 @@ import {
 import { createBasket } from '../../api/accommodation';
 
 interface RoomSelectedInfoProps {
+  isLoaded: boolean;
   roomId: string | undefined;
-  price: number;
+  price: number | undefined;
   startDate: string | null;
   endDate: string | null;
-  discountPercentage: number;
+  discountPercentage: number | undefined;
 }
 
 function RoomSelectedInfo({
+  isLoaded,
   roomId,
   price,
   startDate,
@@ -91,49 +93,62 @@ function RoomSelectedInfo({
     <StyledRoomSelectedInfoWrapper>
       <StyledRoomSelectedInfoBox>
         <StyledRoomSelectedInfoItem>
-          <Heading as="h3" size="lg">
-            숙박 기간
-          </Heading>
+          <Skeleton isLoaded={isLoaded}>
+            <Heading as="h3" size="lg">
+              숙박 기간
+            </Heading>
+          </Skeleton>
           {startDate && endDate && (
+            <Skeleton isLoaded={isLoaded}>
+              <Text as="p" size="md" color="gray.84">
+                {startDate.split('-')[0]}년 {startDate.split('-')[1]}월 {startDate.split('-')[2]}일
+                ~ {endDate.split('-')[1]}월 {endDate.split('-')[2]}일
+              </Text>
+            </Skeleton>
+          )}
+        </StyledRoomSelectedInfoItem>
+        <StyledRoomSelectedInfoItem>
+          <Skeleton isLoaded={isLoaded}>
+            <Heading as="h3" size="lg">
+              체크인/체크아웃 시간
+            </Heading>
+          </Skeleton>
+          <Skeleton isLoaded={isLoaded}>
             <Text as="p" size="md" color="gray.84">
-              {startDate.split('-')[0]}년 {startDate.split('-')[1]}월 {startDate.split('-')[2]}일 ~{' '}
-              {endDate.split('-')[1]}월 {endDate.split('-')[2]}일
+              PM 15:00 이후/ AM 10:00 이전
             </Text>
-          )}
+          </Skeleton>
         </StyledRoomSelectedInfoItem>
         <StyledRoomSelectedInfoItem>
-          <Heading as="h3" size="lg">
-            체크인/체크아웃 시간
-          </Heading>
-          <Text as="p" size="md" color="gray.84">
-            PM 15:00 이후/ AM 10:00 이전
-          </Text>
-        </StyledRoomSelectedInfoItem>
-        <StyledRoomSelectedInfoItem>
-          <Heading as="h3" size="lg">
-            가격
-          </Heading>
-
-          {discountPercentage > 0 ? (
-            <>
-              <Text as="s" size="sm" color="blackAlpha.600">
-                ￦{(price * countDay()).toLocaleString()}
-                원/{countDay()}박
-              </Text>
-              <Text as="p" size="sm">
-                ￦{changePriceDiscountFormat(price, discountPercentage, countDay())}
-                원/{countDay()}박
-                <Badge fontSize="0.8rem" style={{ marginLeft: '0.5rem' }}>
-                  {discountPercentage}% 할인
-                </Badge>
-              </Text>
-            </>
-          ) : (
-            <Text as="p" size="sm">
-              ￦{changePriceDiscountFormat(price, discountPercentage, countDay())}
-              원/{countDay()}박
-            </Text>
-          )}
+          <Skeleton isLoaded={isLoaded}>
+            <Heading as="h3" size="lg">
+              가격
+            </Heading>
+          </Skeleton>
+          <Skeleton isLoaded={isLoaded}>
+            {discountPercentage &&
+              price &&
+              (discountPercentage > 0 ? (
+                <>
+                  <Text as="s" size="sm" color="blackAlpha.600">
+                    ￦{(price * countDay()).toLocaleString()}
+                    원/{countDay()}박
+                  </Text>
+                  <Text as="p" size="sm">
+                    ￦{changePriceDiscountFormat(price, discountPercentage, countDay())}
+                    원/{countDay()}박
+                    <Badge fontSize="0.8rem" style={{ marginLeft: '0.5rem' }}>
+                      {discountPercentage}% 할인
+                    </Badge>
+                  </Text>
+                </>
+              ) : (
+                <Text as="p" size="sm">
+                  ￦{changePriceDiscountFormat(price, discountPercentage, countDay())}
+                  원/{countDay()}박
+                </Text>
+              ))}
+          </Skeleton>
         </StyledRoomSelectedInfoItem>
         <StyledRoomSelectedCart
           className="material-symbols-outlined"
@@ -188,6 +203,13 @@ const StyledRoomSelectedCart = styled.span`
   &:hover {
     color: ${theme.colors.basic};
   }
+`;
+
+const StyledSkeletonCircle = styled(SkeletonCircle)`
+  margin-right: 1rem;
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
 `;
 
 const StyledTooltip = styled.span`

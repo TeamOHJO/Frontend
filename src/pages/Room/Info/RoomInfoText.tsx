@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
-import { Heading, Button, Text } from '@chakra-ui/react';
+import { Heading, Button, Text, SkeletonText, Skeleton } from '@chakra-ui/react';
 import { useState, useEffect, useRef } from 'react';
 
 interface InfoProps {
+  isLoaded: boolean;
   title: string;
   content: string;
 }
 
-function RoomInfoText({ title, content }: InfoProps) {
+function RoomInfoText({ isLoaded, title, content }: InfoProps) {
   const [isExpandedText, setIsExpandedText] = useState<boolean>(false);
   const [isButtonVisible, setIsButtonVisible] = useState<boolean>(true);
   const textRef = useRef(null);
@@ -46,28 +47,31 @@ function RoomInfoText({ title, content }: InfoProps) {
   return (
     <StyledRoomInfoTextWrapper>
       <StyledRoomInfoTextTitle>
-        <Heading as="h4" size="lg">
-          {title}
-        </Heading>
+        <Skeleton isLoaded={isLoaded} width="200px">
+          <Heading as="h4" size="lg">
+            {title}
+          </Heading>
+        </Skeleton>
       </StyledRoomInfoTextTitle>
-
-      <Text
-        ref={textRef}
-        mt=".5rem"
-        pr="4"
-        noOfLines={isExpandedText ? undefined : 4}
-        fontSize="sm"
-        fontWeight="medium"
-        onLoad={handleTextLoad}
-        style={{
-          maxHeight: isExpandedText ? 'none' : '85px',
-          overflow: 'hidden',
-          marginBottom: '1rem',
-          padding: '0 1rem',
-        }}
-      >
-        {content}
-      </Text>
+      <SkeletonText isLoaded={isLoaded} noOfLines={3} spacing="3" skeletonHeight="2">
+        <Text
+          ref={textRef}
+          mt=".5rem"
+          pr="4"
+          noOfLines={isExpandedText ? undefined : 4}
+          fontSize="sm"
+          fontWeight="medium"
+          onLoad={handleTextLoad}
+          style={{
+            maxHeight: isExpandedText ? 'none' : '85px',
+            overflow: 'hidden',
+            marginBottom: '1rem',
+            padding: '0 1rem',
+          }}
+        >
+          {content}
+        </Text>
+      </SkeletonText>
       {isButtonVisible && (
         <StyledRoomInfoTextBtn>
           <Button

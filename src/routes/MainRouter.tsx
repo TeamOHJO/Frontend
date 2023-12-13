@@ -21,6 +21,7 @@ import LoadingRouter from './LoadingRouter';
 import { searchFilteredState } from '../states/atom';
 import { changeDateFormat, getTomorrow } from '../utils/utils';
 import SocialLoginLoading from '../pages/Login/SocialLoginLoading';
+import Error from '../components/Error';
 
 function Dashboard() {
   return (
@@ -71,6 +72,7 @@ function MainRouter() {
           <Route path="/review/:id" element={<CustomerReview />} />
           <Route path="/reservation/:id" element={<Reservation />} />
           <Route path="/reservation-complete/:id" element={<ReservationComplete />} />
+          <Route path="*" element={<Error />} />
         </Routes>
       </StyledInnerContainer>
     </StyledContainer>

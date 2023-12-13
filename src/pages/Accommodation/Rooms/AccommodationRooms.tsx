@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { v4 as uuid } from 'uuid';
+import { Skeleton } from '@chakra-ui/react';
 import { theme } from '../../../styles/theme';
 import AccommodationRoomItem from './AccommodationRoomItem';
 
@@ -45,7 +45,7 @@ function AccommodationRooms({ rooms, category, location, setShowAlert }: Accommo
           category={category}
           location={location}
           setShowAlert={setShowAlert}
-          key={uuid()}
+          key={room.roomId}
         />
       ))}
     </StyledAccommodationRoomsWrapper>

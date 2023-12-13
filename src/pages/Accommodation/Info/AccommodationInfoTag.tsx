@@ -1,29 +1,34 @@
 import styled from '@emotion/styled';
-import { Heading, Text } from '@chakra-ui/react';
+import { Heading, Text, Skeleton } from '@chakra-ui/react';
 import { CheckOutlined } from '@ant-design/icons';
 import { v4 as uuid } from 'uuid';
 
 interface AccommodationInfoTagProps {
+  isLoaded: boolean;
   serviceInfo: string[];
 }
 
-function AccommodationInfoTag({ serviceInfo }: AccommodationInfoTagProps) {
+function AccommodationInfoTag({ isLoaded, serviceInfo }: AccommodationInfoTagProps) {
   return (
     <StyledAccommodationInfoTagWrapper>
       <StyledAccommodationInfoTagTitle>
-        <Heading as="h4" size="lg">
-          시설 및 서비스
-        </Heading>
+        <Skeleton isLoaded={isLoaded} width="150px" height="25px">
+          <Heading as="h4" size="lg">
+            시설 및 서비스
+          </Heading>
+        </Skeleton>
       </StyledAccommodationInfoTagTitle>
       <StlyedAccommodationInfoTagBox>
         {serviceInfo &&
           serviceInfo.map((data: string) => (
-            <StyledAccommodationinfoTagItem key={uuid()}>
-              <CheckOutlined style={{ fontSize: '12px', marginRight: '0.5rem' }} />
-              <Text as="p" size="xs" color="basic">
-                {data}
-              </Text>
-            </StyledAccommodationinfoTagItem>
+            <Skeleton isLoaded={isLoaded} mb="10px">
+              <StyledAccommodationinfoTagItem key={uuid()}>
+                <CheckOutlined style={{ fontSize: '12px', marginRight: '0.5rem' }} />
+                <Text as="p" size="xs" color="basic">
+                  {data}
+                </Text>
+              </StyledAccommodationinfoTagItem>
+            </Skeleton>
           ))}
       </StlyedAccommodationInfoTagBox>
     </StyledAccommodationInfoTagWrapper>

@@ -1,41 +1,55 @@
 import styled from '@emotion/styled';
 import { StarFilled } from '@ant-design/icons';
-import { Badge, Heading, Text } from '@chakra-ui/react';
+import { Badge, Heading, Text, Skeleton, SkeletonText } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import { handleBadgeColor } from '../../utils/handleBadgeColor';
 import { changeCategoryReverseFormat, changeStarFormat } from '../../utils/utils';
 
 interface AccommodationTitleProps {
-  name: string;
-  category: string;
-  location: string;
-  averageRating: number;
+  name: string | undefined;
+  category: string | undefined;
+  location: string | undefined;
+  averageRating: number | undefined;
+  isLoaded: boolean | undefined;
 }
 
-function AccommodationTitle({ name, category, location, averageRating }: AccommodationTitleProps) {
+function AccommodationTitle({
+  name,
+  category,
+  location,
+  averageRating,
+  isLoaded,
+}: AccommodationTitleProps) {
   return (
     <StyledAccommodationTitleWrapper>
       <StyledAccommodationBadgeStarWrapper>
         <StyledAccommodationBadge>
-          <Badge
-            variant={handleBadgeColor(changeCategoryReverseFormat(category))}
-            fontSize="0.8rem"
-          >
-            {changeCategoryReverseFormat(category)}
-          </Badge>
+          <Skeleton isLoaded={isLoaded} width="72px">
+            <Badge
+              variant={category && handleBadgeColor(changeCategoryReverseFormat(category))}
+              fontSize="0.8rem"
+            >
+              {category && changeCategoryReverseFormat(category)}
+            </Badge>
+          </Skeleton>
         </StyledAccommodationBadge>
         <StyledAccommodationStar>
-          <StarFilled style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }} />
-          <StyledStarDigit>{changeStarFormat(averageRating)}</StyledStarDigit>
+          <Skeleton isLoaded={isLoaded} width="50px">
+            <StarFilled style={{ color: `${theme.colors.blue400}`, fontSize: '0.8rem' }} />
+            <StyledStarDigit>{averageRating && changeStarFormat(averageRating)}</StyledStarDigit>
+          </Skeleton>
         </StyledAccommodationStar>
       </StyledAccommodationBadgeStarWrapper>
+
       <StyledAccommodationTitleName>
-        <Heading as="h2" size="lg">
-          {name}
-        </Heading>
-        <Text as="p" size="sm" color="gray.84">
-          {location}
-        </Text>
+        <SkeletonText isLoaded={isLoaded} noOfLines={2} spacing="2">
+          <Heading as="h2" size="lg">
+            {name}
+          </Heading>
+          <Text as="p" size="sm" color="gray.84">
+            {location}
+          </Text>
+        </SkeletonText>
       </StyledAccommodationTitleName>
     </StyledAccommodationTitleWrapper>
   );

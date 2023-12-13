@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Heading, useDisclosure } from '@chakra-ui/react';
+import { Heading, useDisclosure, Skeleton } from '@chakra-ui/react';
 import { CalendarOutlined } from '@ant-design/icons';
 import { useRecoilState } from 'recoil';
 import SelectModal from './SelectModal';
@@ -10,10 +10,11 @@ import {
 } from '../../states/atom';
 
 interface AccommodationSelectProps {
+  isLoaded: boolean;
   fetchData: () => void;
 }
 
-function AccommodationSelect({ fetchData }: AccommodationSelectProps) {
+function AccommodationSelect({ isLoaded, fetchData }: AccommodationSelectProps) {
   const [accommodationSelectStartDate] = useRecoilState<Date>(accommodationSelectStartDateState);
 
   const [accommodationSelectEndDate] = useRecoilState<Date>(accommodationSelectEndDateState);
@@ -26,25 +27,29 @@ function AccommodationSelect({ fetchData }: AccommodationSelectProps) {
   return (
     <StyledAccommodationSelectWrapper onClick={onOpen}>
       <StyledAccommodationSelectTitle>
-        <Heading as="h4" size="lg">
-          객실 선택
-        </Heading>
+        <Skeleton isLoaded={isLoaded} width="100px" height="25px">
+          <Heading as="h4" size="lg">
+            객실 선택
+          </Heading>
+        </Skeleton>
       </StyledAccommodationSelectTitle>
       <StyledAccommodationSelectBox>
         <StyledAccommodationSelectBoxLeft>
-          <StyledAccommodationSelectBoxLeftSpan>
-            {accommodationSelectStartDate && accommodationSelectStartDate.getMonth() + 1}.
-            {accommodationSelectStartDate && accommodationSelectStartDate.getDate()}(
-            {accommodationSelectStartDate && Day[accommodationSelectStartDate.getDay()]}
-            )~
-            {accommodationSelectEndDate && accommodationSelectEndDate.getMonth() + 1}.
-            {accommodationSelectEndDate && accommodationSelectEndDate.getDate()}(
-            {accommodationSelectEndDate && Day[accommodationSelectEndDate.getDay()]}) 날짜
-          </StyledAccommodationSelectBoxLeftSpan>
-          <CalendarOutlined style={{ fontSize: '20px' }} />
+          <Skeleton isLoaded={isLoaded}>
+            <StyledAccommodationSelectBoxLeftSpan>
+              {accommodationSelectStartDate && accommodationSelectStartDate.getMonth() + 1}.
+              {accommodationSelectStartDate && accommodationSelectStartDate.getDate()}(
+              {accommodationSelectStartDate && Day[accommodationSelectStartDate.getDay()]}
+              )~
+              {accommodationSelectEndDate && accommodationSelectEndDate.getMonth() + 1}.
+              {accommodationSelectEndDate && accommodationSelectEndDate.getDate()}(
+              {accommodationSelectEndDate && Day[accommodationSelectEndDate.getDay()]}) 날짜
+            </StyledAccommodationSelectBoxLeftSpan>
+            <CalendarOutlined style={{ fontSize: '20px' }} />
+          </Skeleton>
         </StyledAccommodationSelectBoxLeft>
         <StyledAccommodationSelectBoxRight>
-          {accommodationSelectVisitors}명
+          <Skeleton isLoaded={isLoaded}>{accommodationSelectVisitors}명</Skeleton>
         </StyledAccommodationSelectBoxRight>
       </StyledAccommodationSelectBox>
       <SelectModal isOpen={isOpen} onClose={onClose} fetchData={fetchData} />
