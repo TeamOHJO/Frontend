@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Heading, Text, Badge, Skeleton, SkeletonCircle } from '@chakra-ui/react';
+import { Heading, Text, Badge, Skeleton } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { theme } from '../../styles/theme';
