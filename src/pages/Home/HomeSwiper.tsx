@@ -66,17 +66,19 @@ export default function HomeSwiper({ images, borderRadius, id }: SwiperProps) {
       modules={[Pagination, Navigation]}
       className="mySwiper"
     >
-      {images.map((image: string) => (
-        <SwiperSlide key={uuid()}>
-          <StyledImg
-            src={image}
-            alt="#"
-            onClick={() => {
-              navigate(`/accommodation/${id}`);
-            }}
-          />
-        </SwiperSlide>
-      ))}
+      {images.map((image: string, index: number) =>
+        (index < 3 ? (
+          <SwiperSlide key={uuid()}>
+            <StyledImg
+              src={image}
+              alt="#"
+              loading={index ? 'lazy' : 'eager'}
+              onClick={() => {
+                navigate(`/accommodation/${id}`);
+              }}
+            />
+          </SwiperSlide>
+        ) : null))}
     </StyledSwiperWrapper>
   );
 }
