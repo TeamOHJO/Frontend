@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { Skeleton } from '@chakra-ui/react';
@@ -62,7 +62,7 @@ function Accommodation() {
     }
     setTimeout(() => {
       setIsLoaded(true);
-    }, 500);
+    }, 5000);
   };
   useLayoutEffect(() => {
     fetchData();

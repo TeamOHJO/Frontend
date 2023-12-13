@@ -8,7 +8,6 @@ import RoomSelectedInfo from './RoomSelectedInfo';
 import RoomInfo from './Info/RoomInfo';
 import RoomBottomNavi from './BottomNavi/RoomBottomNavi';
 import { RoomDetail } from '../../@types/interface';
-import LoadingCircle from '../../components/Loading';
 import { getRoomDetail } from '../../api/room';
 
 function Room() {

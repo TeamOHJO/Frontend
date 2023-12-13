@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Heading, Text, Badge, Skeleton, SkeletonText, SkeletonCircle } from '@chakra-ui/react';
+import { Heading, Text, Badge, Skeleton, SkeletonCircle } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { theme } from '../../styles/theme';
@@ -203,13 +203,6 @@ const StyledRoomSelectedCart = styled.span`
   &:hover {
     color: ${theme.colors.basic};
   }
-`;
-
-const StyledSkeletonCircle = styled(SkeletonCircle)`
-  margin-right: 1rem;
-  position: absolute;
-  bottom: 2rem;
-  right: 2rem;
 `;
 
 const StyledTooltip = styled.span`

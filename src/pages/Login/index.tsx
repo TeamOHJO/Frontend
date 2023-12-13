@@ -1,21 +1,27 @@
-import {
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-  Center,
-  Text,
-} from '@chakra-ui/react';
+import { Tabs, TabList, Tab, TabPanels, TabPanel, Center, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import JoinTabContent from './JoinTabContent';
 import LoginTabContent from './LoginTabContent';
 import ToastPopup from '../../components/Modal/ToastPopup';
 import { toastPopupState } from '../../states/atom';
+import { getCookie } from '../../utils/utils';
 
 const Login = () => {
   const [showAlert, setShowAlert] = useRecoilState(toastPopupState);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = getCookie('token');
+    const name = getCookie('userName');
+    const email = getCookie('userEmail');
+
+    if (token && name && email) {
+      navigate('/');
+    }
+  }, []);
 
   return (
     <StyledLoginWrap>

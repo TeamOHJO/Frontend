@@ -10,7 +10,7 @@ import {
   accommodationList,
   searchPages,
 } from '../../states/atom';
-import { getAccommodationList } from '../../api';
+import { getAccommodationList } from '../../api/home';
 import HomeCard from './HomeCard';
 import useThrottle from '../../hooks/useThrottle';
 
@@ -43,6 +43,9 @@ const ContentsContainer = () => {
           setList((prevList: any[]) => [...prevList, ...data]);
         }
       } else {
+        if (page === 0) {
+          setList(data);
+        }
         setShowGetMoreBtn(false);
       }
     } catch (error) {

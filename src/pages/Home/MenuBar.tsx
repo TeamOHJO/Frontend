@@ -32,6 +32,7 @@ function MenuBar() {
     const newCat = changeCategoryFormat(item);
     navigate(`/${newCat}`);
 
+    sessionStorage.setItem('accommodationCategory', newCat);
     const newSearchFilter = { ...searchFilter, category: newCat };
     setSearchFilter(newSearchFilter);
   };

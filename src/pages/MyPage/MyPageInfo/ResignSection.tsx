@@ -4,7 +4,7 @@ import { Button, useDisclosure } from '@chakra-ui/react';
 import { RightOutlined } from '@ant-design/icons';
 import DefaultModal from '../../../components/Modal/DefaultModal';
 import MyPageSubtitle from '../MyPageSubtitle';
-import { resignUser } from '../../../api';
+import { resignUser } from '../../../api/mypage';
 import { removeCookies } from '../../../utils/utils';
 
 const ResignSection = () => {

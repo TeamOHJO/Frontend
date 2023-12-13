@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { Skeleton } from '@chakra-ui/react';
 import { theme } from '../../../styles/theme';
 import AccommodationRoomItem from './AccommodationRoomItem';
 

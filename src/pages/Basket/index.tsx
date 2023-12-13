@@ -26,15 +26,14 @@ function Basket() {
   const fetchData = async () => {
     try {
       const response = await getBasket();
-      const { data } = response.data;
 
       // Sort the data by startDate
-      data.sort(
+      response.sort(
         (a: BasketData, b: BasketData) =>
           new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
       );
 
-      setBasketData(data);
+      setBasketData(response);
     } catch (err) {
       console.log(err);
     }
