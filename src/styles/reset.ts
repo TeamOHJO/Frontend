@@ -38,6 +38,7 @@ const reset = css`
     box-sizing: border-box;
   }
   body {
+    overflow-anchor: none;
     line-height: 1.5;
     font-family: 'Noto Sans KR', sans-serif;
   }
