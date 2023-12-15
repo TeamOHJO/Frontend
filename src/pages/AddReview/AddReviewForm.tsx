@@ -61,13 +61,13 @@ function AddReviewForm() {
           images: [imageURL],
         });
 
-        if (response.data.code === 201) {
-          console.log('등록 완료!');
+        if (response.code === 201) {
           successFunction();
-          navigate('/mypage');
+          setTimeout(() => {
+            navigate('/mypage');
+          }, 700);
         } else {
-          console.log(response.data.message);
-          failFunction(response.data.message);
+          failFunction(response.message);
         }
       } catch (error) {
         console.log(error);
@@ -75,17 +75,16 @@ function AddReviewForm() {
     } else if (reviewText !== '' && !imageFile) {
       try {
         const response = await submitReview(reservationId, reviewData);
-
-        if (response.data.code === 201) {
-          console.log('등록 완료!');
+        if (response.code === 201) {
           successFunction();
-          navigate('/mypage');
+          setTimeout(() => {
+            navigate('/mypage');
+          }, 700);
         } else {
-          console.log(response.data.message);
-          failFunction(response.data.message);
+          failFunction(response.message);
         }
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
       }
     }
   };
