@@ -4,7 +4,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
-import { v4 as uuid } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 
 interface SwiperProps {
@@ -68,7 +67,7 @@ export default function HomeSwiper({ images, borderRadius, id }: SwiperProps) {
     >
       {images.map((image: string, index: number) =>
         (index < 3 ? (
-          <SwiperSlide key={uuid()}>
+          <SwiperSlide key={image}>
             <StyledImg
               src={image}
               alt="#"
