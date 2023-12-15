@@ -62,7 +62,7 @@ function Accommodation() {
     }
     setTimeout(() => {
       setIsLoaded(true);
-    }, 5000);
+    }, 500);
   };
   useLayoutEffect(() => {
     fetchData();

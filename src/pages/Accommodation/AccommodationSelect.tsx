@@ -49,7 +49,9 @@ function AccommodationSelect({ isLoaded, fetchData }: AccommodationSelectProps) 
           </Skeleton>
         </StyledAccommodationSelectBoxLeft>
         <StyledAccommodationSelectBoxRight>
-          <Skeleton isLoaded={isLoaded}>{accommodationSelectVisitors}명</Skeleton>
+          <Skeleton isLoaded={isLoaded} width="50px">
+            {accommodationSelectVisitors}명
+          </Skeleton>
         </StyledAccommodationSelectBoxRight>
       </StyledAccommodationSelectBox>
       <SelectModal isOpen={isOpen} onClose={onClose} fetchData={fetchData} />
