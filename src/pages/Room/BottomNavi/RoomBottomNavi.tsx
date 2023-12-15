@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Text, Button, useDisclosure, Badge } from '@chakra-ui/react';
+import { Text, Button, useDisclosure, Badge, Skeleton } from '@chakra-ui/react';
 import { UpOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -15,20 +15,22 @@ import {
 import RoomReservationBtnToastPopup from './RoomReservationBtnToastPopup';
 
 interface RoomBottomNaviProps {
-  price: number;
+  isLoaded: boolean;
+  price: number | undefined;
   startDate: string | null;
   endDate: string | null;
-  soldOut: boolean;
+  soldOut: boolean | undefined;
   category: string | null;
   location: string | null;
-  image: string;
-  name: string;
-  discountPercentage: number;
+  image: string | undefined;
+  name: string | undefined;
+  discountPercentage: number | undefined;
   roomId: string | undefined;
-  star: number;
+  star: number | undefined;
 }
 
 function RoomBottomNavi({
+  isLoaded,
   price,
   startDate,
   endDate,
@@ -96,26 +98,31 @@ function RoomBottomNavi({
     <>
       <StyledRoomBottomNaviWrapper>
         <StyledRoomBottomNaviLeft>
-          {discountPercentage > 0 ? (
-            <>
-              <Text as="s" size="xs" color="blackAlpha.600">
-                ￦{(price * countDay()).toLocaleString()}
-                원/{countDay()}박
-              </Text>
+          <Skeleton isLoaded={isLoaded}>
+            {discountPercentage && price && discountPercentage > 0 ? (
+              <>
+                <Text as="s" size="xs" color="blackAlpha.600">
+                  ￦{(price * countDay()).toLocaleString()}
+                  원/{countDay()}박
+                </Text>
+                <Text as="p" size="md" fontWeight="bold">
+                  ￦ {changePriceDiscountFormat(price, discountPercentage, countDay())}
+                  원/{countDay()}박
+                  <Badge variant="red" style={{ marginLeft: '0.5rem' }}>
+                    {discountPercentage}% 할인
+                  </Badge>
+                </Text>
+              </>
+            ) : (
               <Text as="p" size="md" fontWeight="bold">
-                ￦ {changePriceDiscountFormat(price, discountPercentage, countDay())}
+                ￦{' '}
+                {price &&
+                  discountPercentage &&
+                  changePriceDiscountFormat(price, discountPercentage, countDay())}
                 원/{countDay()}박
-                <Badge variant="red" style={{ marginLeft: '0.5rem' }}>
-                  {discountPercentage}% 할인
-                </Badge>
               </Text>
-            </>
-          ) : (
-            <Text as="p" size="md" fontWeight="bold">
-              ￦ {changePriceDiscountFormat(price, discountPercentage, countDay())}
-              원/{countDay()}박
-            </Text>
-          )}
+            )}
+          </Skeleton>
         </StyledRoomBottomNaviLeft>
         <StyledRoomBottomNaviRight>
           <DefaultModal
@@ -124,22 +131,24 @@ function RoomBottomNavi({
             modalFunc={modalFunc}
             modalData={modalData}
           />
-          <Button
-            variant={soldOut ? 'gray' : 'blue'}
-            size="lg"
-            style={{ width: '100px', height: '40px' }}
-            isDisabled={soldOut}
-            onClick={(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-              event.stopPropagation();
-              if (accessToken) {
-                onOpen();
-              } else {
-                openFunction();
-              }
-            }}
-          >
-            {soldOut ? '예약마감' : '예약하기'}
-          </Button>
+          <Skeleton isLoaded={isLoaded}>
+            <Button
+              variant={soldOut ? 'gray' : 'blue'}
+              size="lg"
+              style={{ width: '100px', height: '40px' }}
+              isDisabled={soldOut}
+              onClick={(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+                event.stopPropagation();
+                if (accessToken) {
+                  onOpen();
+                } else {
+                  openFunction();
+                }
+              }}
+            >
+              {soldOut ? '예약마감' : '예약하기'}
+            </Button>
+          </Skeleton>
         </StyledRoomBottomNaviRight>
         <StyledTopBtn onClick={ScrollToTop}>
           <UpOutlined />

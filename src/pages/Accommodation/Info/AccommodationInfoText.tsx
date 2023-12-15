@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
-import { Heading, Button, Text } from '@chakra-ui/react';
+import { Heading, Button, Text, SkeletonText, Skeleton } from '@chakra-ui/react';
 import { useState, useEffect, useRef } from 'react';
 
 interface InfoProps {
+  isLoaded: boolean;
   title: string;
   content: string;
 }
 
-function AccommodationInfoText({ title, content }: InfoProps) {
+function AccommodationInfoText({ isLoaded, title, content }: InfoProps) {
   const [isExpandedText, setIsExpandedText] = useState<boolean>(false);
   const [isButtonVisible, setIsButtonVisible] = useState<boolean>(true);
   const textRef = useRef(null);
@@ -46,42 +47,45 @@ function AccommodationInfoText({ title, content }: InfoProps) {
   return (
     <StyledAccommodationInfoTextWrapper>
       <StyledAccommodationInfoTextTitle>
-        <Heading as="h4" size="lg">
-          {title}
-        </Heading>
+        <Skeleton isLoaded={isLoaded} width="100px" height="25px">
+          <Heading as="h4" size="lg">
+            {title}
+          </Heading>
+        </Skeleton>
       </StyledAccommodationInfoTextTitle>
-
-      <Text
-        ref={textRef}
-        mt=".5rem"
-        pr="4"
-        noOfLines={isExpandedText ? undefined : 4}
-        fontSize="sm"
-        fontWeight="medium"
-        onLoad={handleTextLoad}
-        style={{
-          maxHeight: isExpandedText ? 'none' : '85px',
-          overflow: 'hidden',
-          marginBottom: '1rem',
-          padding: '0 1rem',
-          whiteSpace: 'pre-line',
-        }}
-      >
-        {content}
-      </Text>
-      {isButtonVisible && (
-        <StyledAccommodationInfoTextBtn>
-          <Button
-            onClick={handleToggleExpand}
-            size="sm"
-            color="gray.500"
-            variant="gray"
-            style={{ width: '150px', height: '30px' }}
-          >
-            {isExpandedText ? '감추기' : '전체보기'}
-          </Button>
-        </StyledAccommodationInfoTextBtn>
-      )}
+      <SkeletonText isLoaded={isLoaded} noOfLines={4} spacing="4" skeletonHeight="2">
+        <Text
+          ref={textRef}
+          mt=".5rem"
+          pr="4"
+          noOfLines={isExpandedText ? undefined : 4}
+          fontSize="sm"
+          fontWeight="medium"
+          onLoad={handleTextLoad}
+          style={{
+            maxHeight: isExpandedText ? 'none' : '85px',
+            overflow: 'hidden',
+            marginBottom: '1rem',
+            padding: '0 1rem',
+            whiteSpace: 'pre-line',
+          }}
+        >
+          {content}
+        </Text>
+        {isButtonVisible && (
+          <StyledAccommodationInfoTextBtn>
+            <Button
+              onClick={handleToggleExpand}
+              size="sm"
+              color="gray.500"
+              variant="gray"
+              style={{ width: '150px', height: '30px' }}
+            >
+              {isExpandedText ? '감추기' : '전체보기'}
+            </Button>
+          </StyledAccommodationInfoTextBtn>
+        )}
+      </SkeletonText>
     </StyledAccommodationInfoTextWrapper>
   );
 }

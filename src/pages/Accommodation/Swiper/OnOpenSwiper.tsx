@@ -7,22 +7,12 @@ import { Pagination, Navigation } from 'swiper/modules';
 import { v4 as uuid } from 'uuid';
 
 interface SwiperProps {
-  images: string[];
+  images: string[] | undefined;
   borderRadius: string;
   onOpen: () => void;
 }
 
-export default function OnOpenSwiper({
-  images,
-  borderRadius,
-  onOpen,
-}: SwiperProps) {
-  // const SwiperSlideStyle = {
-  //   width: '100%',
-  //   height: '100%',
-  //   borderRadius: `${borderRadius}`,
-  // };
-
+export default function OnOpenSwiper({ images, borderRadius, onOpen }: SwiperProps) {
   const StyledSwiperWrapper = styled(Swiper)`
     width: 100%;
     height: 100%;

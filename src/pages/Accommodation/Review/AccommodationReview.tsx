@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Heading, Button } from '@chakra-ui/react';
+import { Heading, Button, Skeleton } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import { useState, useEffect } from 'react';
@@ -23,7 +23,11 @@ interface ReviewsResponse {
   data: AccommodationReviewObject[];
 }
 
-function AccommodationReview() {
+interface ReviewProps {
+  isLoaded: boolean;
+}
+
+function AccommodationReview({ isLoaded }: ReviewProps) {
   const [reviews, setReviews] = useState<ReviewsResponse>();
   const navigate = useNavigate();
   const params = useParams();
@@ -39,41 +43,47 @@ function AccommodationReview() {
   return reviews ? (
     <StyledAccommodationReviewWrapper>
       <StyledAccommodationReviewTitle>
-        <Heading as="h4" size="lg">
-          후기
-        </Heading>
+        <Skeleton isLoaded={isLoaded} width="100px" height="25px">
+          <Heading as="h4" size="lg">
+            후기
+          </Heading>
+        </Skeleton>
       </StyledAccommodationReviewTitle>
       <StyledAccommodationReviewItemsContainer>
-        <StyledAccommodationReviewItemsWrapper>
-          {reviews &&
-            (reviews.data.length > 0 ? (
-              reviews.data
-                .slice(0, 5)
-                .map((review: AccommodationReviewObject) => (
-                  <AccommodationReviewItem review={review} key={uuid()} />
-                ))
-            ) : (
-              <StyledNotReview>후기가 없습니다.</StyledNotReview>
-            ))}
-        </StyledAccommodationReviewItemsWrapper>
+        <Skeleton isLoaded={isLoaded}>
+          <StyledAccommodationReviewItemsWrapper>
+            {reviews &&
+              (reviews.data.length > 0 ? (
+                reviews.data
+                  .slice(0, 5)
+                  .map((review: AccommodationReviewObject) => (
+                    <AccommodationReviewItem review={review} key={uuid()} />
+                  ))
+              ) : (
+                <StyledNotReview>후기가 없습니다.</StyledNotReview>
+              ))}
+          </StyledAccommodationReviewItemsWrapper>
+        </Skeleton>
       </StyledAccommodationReviewItemsContainer>
       {reviews.data.length ? (
         <StyledAccommodationReviewMoreBtnWrapper>
-          <Button
-            variant="blue"
-            size="lg"
-            style={{ width: '260px', height: '40px' }}
-            onClick={() => navigate(`/review/${params.id}`)}
-          >
-            후기 전체보기
-          </Button>
+          <Skeleton isLoaded={isLoaded} height="50px">
+            <Button
+              variant="blue"
+              size="lg"
+              style={{ width: '260px', height: '40px' }}
+              onClick={() => navigate(`/review/${params.id}`)}
+            >
+              후기 전체보기
+            </Button>
+          </Skeleton>
         </StyledAccommodationReviewMoreBtnWrapper>
       ) : (
         ''
       )}
     </StyledAccommodationReviewWrapper>
   ) : (
-    <>스켈레톤</>
+    <Skeleton />
   );
 }
 

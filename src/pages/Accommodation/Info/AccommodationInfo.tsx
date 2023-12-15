@@ -1,47 +1,51 @@
 import styled from '@emotion/styled';
-import { Button, useDisclosure } from '@chakra-ui/react';
+import { Button, useDisclosure, Skeleton } from '@chakra-ui/react';
 import AccommodationInfoText from './AccommodationInfoText';
 import AccommodationInfoMap from './AccommodationInfoMap';
 import AccommodationInfoTag from './AccommodationInfoTag';
 import ExplanationModal from '../ExplanationModal';
 
 interface AccommodationInfoProps {
-  explanation: string;
-  cancelInfo: string;
-  useGuide: string;
-  reservationNotice: string;
-  serviceInfo: string[];
-  location: string;
+  isLoaded: boolean;
+  explanation: string | undefined;
+  cancelInfo: string | undefined;
+  useGuide: string | undefined;
+  reservationNotice: string | undefined;
+  serviceInfo: string[] | undefined;
+  location: string | undefined;
 }
 
 function AccommodationInfo({
-  explanation,
-  cancelInfo,
-  useGuide,
-  reservationNotice,
-  serviceInfo,
-  location,
+  isLoaded,
+  explanation = '',
+  cancelInfo = '',
+  useGuide = '',
+  reservationNotice = '',
+  serviceInfo = ['', '', '', '', '', '', '', '', '', ''],
+  location = '',
 }: AccommodationInfoProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <StyledAccommodationInfoWrapper>
-      <AccommodationInfoText title="숙소 설명" content={explanation} />
-      <AccommodationInfoText title="취소 안내" content={cancelInfo} />
-      <AccommodationInfoText title="사용 안내" content={useGuide} />
-      <AccommodationInfoText title="예약 안내" content={reservationNotice} />
+      <AccommodationInfoText title="숙소 설명" isLoaded={isLoaded} content={explanation} />
+      <AccommodationInfoText title="취소 안내" isLoaded={isLoaded} content={cancelInfo} />
+      <AccommodationInfoText title="사용 안내" isLoaded={isLoaded} content={useGuide} />
+      <AccommodationInfoText title="예약 안내" isLoaded={isLoaded} content={reservationNotice} />
       <StyledAccommodationInfoMoreBtnWrapper>
-        <Button
-          variant="blue"
-          size="lg"
-          style={{ width: '260px', height: '40px' }}
-          onClick={onOpen}
-        >
-          설명 한 눈에 보기
-        </Button>
+        <Skeleton isLoaded={isLoaded}>
+          <Button
+            variant="blue"
+            size="lg"
+            style={{ width: '260px', height: '40px' }}
+            onClick={onOpen}
+          >
+            설명 한 눈에 보기
+          </Button>
+        </Skeleton>
       </StyledAccommodationInfoMoreBtnWrapper>
-      <AccommodationInfoMap location={location} />
-      <AccommodationInfoTag serviceInfo={serviceInfo} />
+      <AccommodationInfoMap isLoaded={isLoaded} location={location} />
+      <AccommodationInfoTag isLoaded={isLoaded} serviceInfo={serviceInfo} />
       <ExplanationModal
         isOpen={isOpen}
         onClose={onClose}
