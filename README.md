@@ -6,13 +6,17 @@
 
 ## 목차
 
-<a href="#getting-started">프로젝트 시작</a>  
-<a href="#Introduction">프로젝트 소개</a>  
-<a href="#function">주요 기능</a>  
-<a href="#stack">기술 스택</a>  
-<a href="#contributors">컨트리뷰터</a>  
-<a href="#error">에러해결/추가기능</a>  
-<a href="#review">회고</a>
+### 1. <a href="#getting-started">시작하기</a>
+
+### 2. <a href="#Introduction">프로젝트 소개</a>
+
+### 3. <a href="#function">주요 기능</a>
+
+### 4. <a href="#contributors">컨트리뷰터</a>
+
+### 5. <a href="#error">에러해결/추가기능</a>
+
+### 6. <a href="#review">회고</a>
 
 <br>
 
@@ -165,7 +169,7 @@ npm run dev
 | <img src="https://avatars.githubusercontent.com/u/83493231?v=4" width="150px" /> | <img src="https://avatars.githubusercontent.com/u/38286505?v=4" width="150px" /> | <img src="https://avatars.githubusercontent.com/u/57976371?v=4" width="150px" /> |       <img src="https://avatars.githubusercontent.com/u/139190686?v=4" width="150px" />       | <img src="https://avatars.githubusercontent.com/u/139193612?v=4" width="150px" /> |
 | :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------: |
 |                   FE: [김특희](https://github.com/turkey-kim)                    |                   FE: [최재훈](https://github.com/zoeyourlife)                   |                   FE: [진정민](https://github.com/JeongMin83)                    |                         FE: [김다빈](https://github.com/dabin-Hailey)                         |                    FE: [신하연](https://github.com/gkdus2217)                     |
-|             메인페이지 <br> 숙소 검색 연동 <br> 내 정보 관리 페이지              |                        UX/UI 디자인<br> 예약/결제 페이지                         |         숙소/객실 상세 페이지<br> 내 리뷰 관리 페이지<br> 지도 API 연동          | 위시리스트 페이지<br> 장바구니 페이지 <br> 파이어베이스 연동 <br> 내 리뷰 작성 및 이미지 처리 |                     로그인/회원가입 페이지<br> 토큰 관리 구현                     |
+|             메인페이지 <br> 숙소 검색 연동 <br> 내 정보 관리 페이지              |                        UX/UI 디자인<br> 예약/결제 페이지                         |         숙소/객실 상세 페이지<br> 내 리뷰 관리 페이지<br> 지도 API 연동          | 위시리스트 페이지<br> 장바구니 페이지 <br> 파이어베이스 연동 <br> 내 리뷰 작성 및 이미지 처리 |                       로그인/회원가입 페이지<br> 토큰 관리                        |
 
 <br/>
 
