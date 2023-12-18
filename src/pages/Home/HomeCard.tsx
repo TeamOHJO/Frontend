@@ -1,12 +1,15 @@
+import React, { Suspense } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import { StarFilled } from '@ant-design/icons';
 import { Text } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import { HomeCardProps } from '../../@types/interface';
-import HomeSwiper from './HomeSwiper';
 import { changeCategoryReverseFormat, changeStarFormat, cutStringLength } from '../../utils/utils';
 import HomeHeart from './HomeHeart';
+import Skeleton from '../../components/Loading/Skeleton';
+
+const Swiper = React.lazy(() => import('./HomeSwiper'));
 
 const HomeCard = ({ id, name, images, category, score, price, isLiked }: HomeCardProps) => {
   const navigate = useNavigate();
@@ -15,7 +18,9 @@ const HomeCard = ({ id, name, images, category, score, price, isLiked }: HomeCar
     <StyledCard>
       <StyledImgWrapper>
         <HomeHeart liked={isLiked} size="20px" id={String(id)} />
-        <HomeSwiper images={images} borderRadius="8px" id={id} />
+        <Suspense fallback={<Skeleton />}>
+          <Swiper images={images} borderRadius="8px" id={id} />
+        </Suspense>
       </StyledImgWrapper>
       <StyledInfoContainer
         onClick={() => {
