@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
 import { useParams } from 'react-router-dom';
-import { Button } from '@chakra-ui/react';
 import { v4 as uuid } from 'uuid';
 import {
   searchFilteredState,
@@ -12,7 +11,7 @@ import {
 } from '../../states/atom';
 import { getAccommodationList } from '../../api/home';
 import HomeCard from './HomeCard';
-import useThrottle from '../../hooks/useThrottle';
+import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 
 const ContentsContainer = () => {
   const [list, setList] = useRecoilState(accommodationList);
@@ -20,8 +19,8 @@ const ContentsContainer = () => {
   const [searchFilter, setSearchFilter] = useRecoilState(searchFilteredState);
   const [searchingAttempt, setSearchingAttempt] = useRecoilState(searchAttempt);
   const [page, setPage] = useRecoilState(searchPages);
-  const [showGetMoreBtn, setShowGetMoreBtn] = useState(true);
-  const handleThrottle = useThrottle();
+  const [canLoadMore, setCanLoadMore] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const { category, isDomestic, startDate, endDate, numberOfPeople } = searchFilter;
 
@@ -46,12 +45,21 @@ const ContentsContainer = () => {
         if (page === 0) {
           setList(data);
         }
-        setShowGetMoreBtn(false);
+        setCanLoadMore(false);
       }
     } catch (error) {
       console.error(error);
     }
   };
+
+  const getMoreList = () => {
+    setLoading(true);
+    setPage(prevPage => prevPage + 1);
+    setLoading(false);
+  };
+
+  // 무한스크롤 훅 사용
+  const loadingTrigger = useInfiniteScroll(getMoreList, loading, canLoadMore);
 
   useEffect(() => {
     setPage(0);
@@ -64,15 +72,11 @@ const ContentsContainer = () => {
   useEffect(() => {
     if (searchingAttempt >= 1) {
       if (page === 0) {
-        setShowGetMoreBtn(true);
+        setCanLoadMore(true);
       }
       fetchData();
     }
   }, [searchingAttempt, page]);
-
-  const onClickMoreBtn = () => {
-    setPage(page + 1);
-  };
 
   return (
     <StyledContainer>
@@ -90,21 +94,10 @@ const ContentsContainer = () => {
           />
         );
       })}
-      <StyledButtonWrapper>
-        {showGetMoreBtn ? (
-          <Button
-            variant="blue"
-            onClick={() => {
-              handleThrottle(onClickMoreBtn);
-            }}
-            style={{ zIndex: '10' }}
-          >
-            더보기
-          </Button>
-        ) : (
-          <>찾으시는 숙소가 더이상 없습니다.</>
-        )}
-      </StyledButtonWrapper>
+      {list.length ? null : <StyledWrapper />}
+      <StyledLoadTriggerSection ref={loadingTrigger}>
+        {canLoadMore ? null : <>찾으시는 숙소가 더이상 없습니다.</>}
+      </StyledLoadTriggerSection>
     </StyledContainer>
   );
 };
@@ -121,10 +114,15 @@ const StyledContainer = styled.div`
   padding-left: 10px;
 `;
 
-const StyledButtonWrapper = styled.div`
+const StyledWrapper = styled.div`
+  width: 100%;
+  height: 1500px;
+`;
+
+const StyledLoadTriggerSection = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   width: 100%;
-  margin: 5rem;
+  margin: 8rem;
 `;
