@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 const useInfiniteScroll = (callback: () => void, loading: boolean, canLoadMore: boolean) => {
-  const targetRef = useRef<any>(null);
+  const targetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -14,7 +14,7 @@ const useInfiniteScroll = (callback: () => void, loading: boolean, canLoadMore: 
       { threshold: 1 },
     );
 
-    if (!loading) {
+    if (!loading && targetRef.current) {
       observer.observe(targetRef.current);
     }
     return () => observer && observer.disconnect();
