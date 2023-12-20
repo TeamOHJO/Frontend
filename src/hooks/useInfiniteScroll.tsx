@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-const useInfiniteScroll = (callback: () => void, loading: boolean, loadMore: boolean) => {
+const useInfiniteScroll = (callback: () => void, loading: boolean, canLoadMore: boolean) => {
   const targetRef = useRef<any>(null);
 
   useEffect(() => {
@@ -8,7 +8,7 @@ const useInfiniteScroll = (callback: () => void, loading: boolean, loadMore: boo
       entries => {
         if (entries[0].isIntersecting) {
           // eslint-disable-next-line
-          loadMore ? callback() : null;
+          canLoadMore ? callback() : null;
         }
       },
       { threshold: 1 },
@@ -18,7 +18,7 @@ const useInfiniteScroll = (callback: () => void, loading: boolean, loadMore: boo
       observer.observe(targetRef.current);
     }
     return () => observer && observer.disconnect();
-  }, [loading, loadMore]);
+  }, [loading, canLoadMore]);
 
   return targetRef;
 };
